@@ -1,0 +1,3692 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Compare Affiliate Product\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-10 06:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: admin/settings.php:8
+msgid "Compare Settings"
+msgstr ""
+
+#: admin/settings.php:13
+msgid "general"
+msgstr ""
+
+#. 'boulanger',
+#: admin/settings.php:16
+msgid "help"
+msgstr ""
+
+#: admin/settings.php:26
+msgid "Settings"
+msgstr ""
+
+#: admin/settings.php:79
+msgid "ConnectID"
+msgstr ""
+
+#: admin/settings.php:80
+msgid "SecretID"
+msgstr ""
+
+#: admin/settings.php:82
+msgid "API Key"
+msgstr ""
+
+#: admin/settings.php:83
+msgid "Awin partner Code"
+msgstr ""
+
+#: admin/settings.php:84
+msgid "Awin partner logo"
+msgstr ""
+
+#: admin/settings.php:85
+msgid "Awin Customer Code"
+msgstr ""
+
+#: admin/settings.php:87
+msgid "Reload data"
+msgstr ""
+
+#: admin/settings.php:89
+msgid "Currency Unit"
+msgstr ""
+
+#: admin/settings.php:90
+msgid "Languages"
+msgstr ""
+
+#: admin/settings.php:91
+msgid "Delete All Datas when delete this plugin"
+msgstr ""
+
+#: admin/settings.php:194
+msgid "Afghan Afghani"
+msgstr ""
+
+#: admin/settings.php:195
+msgid "Afghan Afghani (1927–2002)"
+msgstr ""
+
+#: admin/settings.php:196
+msgid "Albanian Lek"
+msgstr ""
+
+#: admin/settings.php:197
+msgid "Albanian Lek (1946–1965)"
+msgstr ""
+
+#: admin/settings.php:198
+msgid "Algerian Dinar"
+msgstr ""
+
+#: admin/settings.php:199
+msgid "Andorran Peseta"
+msgstr ""
+
+#: admin/settings.php:200
+msgid "Angolan Kwanza"
+msgstr ""
+
+#: admin/settings.php:201
+msgid "Angolan Kwanza (1977–1991)"
+msgstr ""
+
+#: admin/settings.php:202
+msgid "Angolan New Kwanza (1990–2000)"
+msgstr ""
+
+#: admin/settings.php:203
+msgid "Angolan Readjusted Kwanza (1995–1999)"
+msgstr ""
+
+#: admin/settings.php:204
+msgid "Argentine Austral"
+msgstr ""
+
+#: admin/settings.php:205
+msgid "Argentine Peso"
+msgstr ""
+
+#: admin/settings.php:206
+msgid "Argentine Peso (1881–1970)"
+msgstr ""
+
+#: admin/settings.php:207
+msgid "Argentine Peso (1983–1985)"
+msgstr ""
+
+#: admin/settings.php:208
+msgid "Argentine Peso Ley (1970–1983)"
+msgstr ""
+
+#: admin/settings.php:209
+msgid "Armenian Dram"
+msgstr ""
+
+#: admin/settings.php:210
+msgid "Aruban Florin"
+msgstr ""
+
+#: admin/settings.php:211
+msgid "Australian Dollar"
+msgstr ""
+
+#: admin/settings.php:212
+msgid "Austrian Schilling"
+msgstr ""
+
+#: admin/settings.php:213
+msgid "Azerbaijani Manat"
+msgstr ""
+
+#: admin/settings.php:214
+msgid "Azerbaijani Manat (1993–2006)"
+msgstr ""
+
+#: admin/settings.php:215
+msgid "Bahamian Dollar"
+msgstr ""
+
+#: admin/settings.php:216
+msgid "Bahraini Dinar"
+msgstr ""
+
+#: admin/settings.php:217
+msgid "Bangladeshi Taka"
+msgstr ""
+
+#: admin/settings.php:218
+msgid "Barbadian Dollar"
+msgstr ""
+
+#: admin/settings.php:219
+msgid "Belarusian Ruble"
+msgstr ""
+
+#: admin/settings.php:220
+msgid "Belarusian Ruble (1994–1999)"
+msgstr ""
+
+#: admin/settings.php:221
+msgid "Belarusian Ruble (2000–2016)"
+msgstr ""
+
+#: admin/settings.php:222
+msgid "Belgian Franc"
+msgstr ""
+
+#: admin/settings.php:223
+msgid "Belgian Franc (convertible)"
+msgstr ""
+
+#: admin/settings.php:224
+msgid "Belgian Franc (financial)"
+msgstr ""
+
+#: admin/settings.php:225
+msgid "Belize Dollar"
+msgstr ""
+
+#: admin/settings.php:226
+msgid "Bermudan Dollar"
+msgstr ""
+
+#: admin/settings.php:227
+msgid "Bhutanese Ngultrum"
+msgstr ""
+
+#: admin/settings.php:228
+msgid "Bolivian Boliviano"
+msgstr ""
+
+#: admin/settings.php:229
+msgid "Bolivian Boliviano (1863–1963)"
+msgstr ""
+
+#: admin/settings.php:230
+msgid "Bolivian Mvdol"
+msgstr ""
+
+#: admin/settings.php:231
+msgid "Bolivian Peso"
+msgstr ""
+
+#: admin/settings.php:232
+msgid "Bosnia-Herzegovina Convertible Mark"
+msgstr ""
+
+#: admin/settings.php:233
+msgid "Bosnia-Herzegovina Dinar (1992–1994)"
+msgstr ""
+
+#: admin/settings.php:234
+msgid "Bosnia-Herzegovina New Dinar (1994–1997)"
+msgstr ""
+
+#: admin/settings.php:235
+msgid "Botswanan Pula"
+msgstr ""
+
+#: admin/settings.php:236
+msgid "Brazilian Cruzado (1986–1989)"
+msgstr ""
+
+#: admin/settings.php:237
+msgid "Brazilian Cruzeiro (1942–1967)"
+msgstr ""
+
+#: admin/settings.php:238
+msgid "Brazilian Cruzeiro (1990–1993)"
+msgstr ""
+
+#: admin/settings.php:239
+msgid "Brazilian Cruzeiro (1993–1994)"
+msgstr ""
+
+#: admin/settings.php:240
+msgid "Brazilian New Cruzado (1989–1990)"
+msgstr ""
+
+#: admin/settings.php:241
+msgid "Brazilian New Cruzeiro (1967–1986)"
+msgstr ""
+
+#: admin/settings.php:242
+msgid "Brazilian Real"
+msgstr ""
+
+#: admin/settings.php:243
+msgid "British Pound"
+msgstr ""
+
+#: admin/settings.php:244
+msgid "Brunei Dollar"
+msgstr ""
+
+#: admin/settings.php:245
+msgid "Bulgarian Hard Lev"
+msgstr ""
+
+#: admin/settings.php:246
+msgid "Bulgarian Lev"
+msgstr ""
+
+#: admin/settings.php:247
+msgid "Bulgarian Lev (1879–1952)"
+msgstr ""
+
+#: admin/settings.php:248
+msgid "Bulgarian Socialist Lev"
+msgstr ""
+
+#: admin/settings.php:249
+msgid "Burmese Kyat"
+msgstr ""
+
+#: admin/settings.php:250
+msgid "Burundian Franc"
+msgstr ""
+
+#: admin/settings.php:251
+msgid "CFP Franc"
+msgstr ""
+
+#: admin/settings.php:252
+msgid "Cambodian Riel"
+msgstr ""
+
+#: admin/settings.php:253
+msgid "Canadian Dollar"
+msgstr ""
+
+#: admin/settings.php:254
+msgid "Cape Verdean Escudo"
+msgstr ""
+
+#: admin/settings.php:255
+msgid "Cayman Islands Dollar"
+msgstr ""
+
+#: admin/settings.php:256
+msgid "Central African CFA Franc"
+msgstr ""
+
+#: admin/settings.php:257
+msgid "Chilean Escudo"
+msgstr ""
+
+#: admin/settings.php:258
+msgid "Chilean Peso"
+msgstr ""
+
+#: admin/settings.php:259
+msgid "Chilean Unit of Account (UF)"
+msgstr ""
+
+#: admin/settings.php:260
+msgid "Chinese People’s Bank Dollar"
+msgstr ""
+
+#: admin/settings.php:261
+msgid "Chinese Yuan"
+msgstr ""
+
+#: admin/settings.php:262
+msgid "Colombian Peso"
+msgstr ""
+
+#: admin/settings.php:263
+msgid "Colombian Real Value Unit"
+msgstr ""
+
+#: admin/settings.php:264
+msgid "Comorian Franc"
+msgstr ""
+
+#: admin/settings.php:265
+msgid "Congolese Franc"
+msgstr ""
+
+#: admin/settings.php:266
+msgid "Costa Rican Colón"
+msgstr ""
+
+#: admin/settings.php:267
+msgid "Croatian Dinar"
+msgstr ""
+
+#: admin/settings.php:268
+msgid "Croatian Kuna"
+msgstr ""
+
+#: admin/settings.php:269
+msgid "Cuban Convertible Peso"
+msgstr ""
+
+#: admin/settings.php:270
+msgid "Cuban Peso"
+msgstr ""
+
+#: admin/settings.php:271
+msgid "Cypriot Pound"
+msgstr ""
+
+#: admin/settings.php:272
+msgid "Czech Koruna"
+msgstr ""
+
+#: admin/settings.php:273
+msgid "Czechoslovak Hard Koruna"
+msgstr ""
+
+#: admin/settings.php:274
+msgid "Danish Krone"
+msgstr ""
+
+#: admin/settings.php:275
+msgid "Djiboutian Franc"
+msgstr ""
+
+#: admin/settings.php:276
+msgid "Dominican Peso"
+msgstr ""
+
+#: admin/settings.php:277
+msgid "Dutch Guilder"
+msgstr ""
+
+#: admin/settings.php:278
+msgid "East Caribbean Dollar"
+msgstr ""
+
+#: admin/settings.php:279
+msgid "East German Mark"
+msgstr ""
+
+#: admin/settings.php:280
+msgid "Ecuadorian Sucre"
+msgstr ""
+
+#: admin/settings.php:281
+msgid "Ecuadorian Unit of Constant Value"
+msgstr ""
+
+#: admin/settings.php:282
+msgid "Egyptian Pound"
+msgstr ""
+
+#: admin/settings.php:283
+msgid "Equatorial Guinean Ekwele"
+msgstr ""
+
+#: admin/settings.php:284
+msgid "Eritrean Nakfa"
+msgstr ""
+
+#: admin/settings.php:285
+msgid "Estonian Kroon"
+msgstr ""
+
+#: admin/settings.php:286
+msgid "Ethiopian Birr"
+msgstr ""
+
+#: admin/settings.php:287
+msgid "Euro"
+msgstr ""
+
+#: admin/settings.php:288
+msgid "European Currency Unit"
+msgstr ""
+
+#: admin/settings.php:289
+msgid "Falkland Islands Pound"
+msgstr ""
+
+#: admin/settings.php:290
+msgid "Fijian Dollar"
+msgstr ""
+
+#: admin/settings.php:291
+msgid "Finnish Markka"
+msgstr ""
+
+#: admin/settings.php:292
+msgid "French Franc"
+msgstr ""
+
+#: admin/settings.php:293
+msgid "French Gold Franc"
+msgstr ""
+
+#: admin/settings.php:294
+msgid "French UIC-Franc"
+msgstr ""
+
+#: admin/settings.php:295
+msgid "Gambian Dalasi"
+msgstr ""
+
+#: admin/settings.php:296
+msgid "Georgian Kupon Larit"
+msgstr ""
+
+#: admin/settings.php:297
+msgid "Georgian Lari"
+msgstr ""
+
+#: admin/settings.php:298
+msgid "German Mark"
+msgstr ""
+
+#: admin/settings.php:299
+msgid "Ghanaian Cedi"
+msgstr ""
+
+#: admin/settings.php:300
+msgid "Ghanaian Cedi (1979–2007)"
+msgstr ""
+
+#: admin/settings.php:301
+msgid "Gibraltar Pound"
+msgstr ""
+
+#: admin/settings.php:302
+msgid "Greek Drachma"
+msgstr ""
+
+#: admin/settings.php:303
+msgid "Guatemalan Quetzal"
+msgstr ""
+
+#: admin/settings.php:304
+msgid "Guinea-Bissau Peso"
+msgstr ""
+
+#: admin/settings.php:305
+msgid "Guinean Franc"
+msgstr ""
+
+#: admin/settings.php:306
+msgid "Guinean Syli"
+msgstr ""
+
+#: admin/settings.php:307
+msgid "Guyanaese Dollar"
+msgstr ""
+
+#: admin/settings.php:308
+msgid "Haitian Gourde"
+msgstr ""
+
+#: admin/settings.php:309
+msgid "Honduran Lempira"
+msgstr ""
+
+#: admin/settings.php:310
+msgid "Hong Kong Dollar"
+msgstr ""
+
+#: admin/settings.php:311
+msgid "Hungarian Forint"
+msgstr ""
+
+#: admin/settings.php:312
+msgid "Icelandic Króna"
+msgstr ""
+
+#: admin/settings.php:313
+msgid "Icelandic Króna (1918–1981)"
+msgstr ""
+
+#: admin/settings.php:314
+msgid "Indian Rupee"
+msgstr ""
+
+#: admin/settings.php:315
+msgid "Indonesian Rupiah"
+msgstr ""
+
+#: admin/settings.php:316
+msgid "Iranian Rial"
+msgstr ""
+
+#: admin/settings.php:317
+msgid "Iraqi Dinar"
+msgstr ""
+
+#: admin/settings.php:318
+msgid "Irish Pound"
+msgstr ""
+
+#: admin/settings.php:319
+msgid "Israeli New Shekel"
+msgstr ""
+
+#: admin/settings.php:320
+msgid "Israeli Pound"
+msgstr ""
+
+#: admin/settings.php:321
+msgid "Israeli Shekel (1980–1985)"
+msgstr ""
+
+#: admin/settings.php:322
+msgid "Italian Lira"
+msgstr ""
+
+#: admin/settings.php:323
+msgid "Jamaican Dollar"
+msgstr ""
+
+#: admin/settings.php:324
+msgid "Japanese Yen"
+msgstr ""
+
+#: admin/settings.php:325
+msgid "Jordanian Dinar"
+msgstr ""
+
+#: admin/settings.php:326
+msgid "Kazakhstani Tenge"
+msgstr ""
+
+#: admin/settings.php:327
+msgid "Kenyan Shilling"
+msgstr ""
+
+#: admin/settings.php:328
+msgid "Kuwaiti Dinar"
+msgstr ""
+
+#: admin/settings.php:329
+msgid "Kyrgystani Som"
+msgstr ""
+
+#: admin/settings.php:330
+msgid "Laotian Kip"
+msgstr ""
+
+#: admin/settings.php:331
+msgid "Latvian Lats"
+msgstr ""
+
+#: admin/settings.php:332
+msgid "Latvian Ruble"
+msgstr ""
+
+#: admin/settings.php:333
+msgid "Lebanese Pound"
+msgstr ""
+
+#: admin/settings.php:334
+msgid "Lesotho Loti"
+msgstr ""
+
+#: admin/settings.php:335
+msgid "Liberian Dollar"
+msgstr ""
+
+#: admin/settings.php:336
+msgid "Libyan Dinar"
+msgstr ""
+
+#: admin/settings.php:337
+msgid "Lithuanian Litas"
+msgstr ""
+
+#: admin/settings.php:338
+msgid "Lithuanian Talonas"
+msgstr ""
+
+#: admin/settings.php:339
+msgid "Luxembourg Financial Franc"
+msgstr ""
+
+#: admin/settings.php:340
+msgid "Luxembourgian Convertible Franc"
+msgstr ""
+
+#: admin/settings.php:341
+msgid "Luxembourgian Franc"
+msgstr ""
+
+#: admin/settings.php:342
+msgid "Macanese Pataca"
+msgstr ""
+
+#: admin/settings.php:343
+msgid "Macedonian Denar"
+msgstr ""
+
+#: admin/settings.php:344
+msgid "Macedonian Denar (1992–1993)"
+msgstr ""
+
+#: admin/settings.php:345
+msgid "Malagasy Ariary"
+msgstr ""
+
+#: admin/settings.php:346
+msgid "Malagasy Franc"
+msgstr ""
+
+#: admin/settings.php:347
+msgid "Malawian Kwacha"
+msgstr ""
+
+#: admin/settings.php:348
+msgid "Malaysian Ringgit"
+msgstr ""
+
+#: admin/settings.php:349
+msgid "Maldivian Rufiyaa"
+msgstr ""
+
+#: admin/settings.php:350
+msgid "Maldivian Rupee (1947–1981)"
+msgstr ""
+
+#: admin/settings.php:351
+msgid "Malian Franc"
+msgstr ""
+
+#: admin/settings.php:352
+msgid "Maltese Lira"
+msgstr ""
+
+#: admin/settings.php:353
+msgid "Maltese Pound"
+msgstr ""
+
+#: admin/settings.php:354
+msgid "Mauritanian Ouguiya"
+msgstr ""
+
+#: admin/settings.php:355
+msgid "Mauritian Rupee"
+msgstr ""
+
+#: admin/settings.php:356
+msgid "Mexican Investment Unit"
+msgstr ""
+
+#: admin/settings.php:357
+msgid "Mexican Peso"
+msgstr ""
+
+#: admin/settings.php:358
+msgid "Mexican Silver Peso (1861–1992)"
+msgstr ""
+
+#: admin/settings.php:359
+msgid "Moldovan Cupon"
+msgstr ""
+
+#: admin/settings.php:360
+msgid "Moldovan Leu"
+msgstr ""
+
+#: admin/settings.php:361
+msgid "Monegasque Franc"
+msgstr ""
+
+#: admin/settings.php:362
+msgid "Mongolian Tugrik"
+msgstr ""
+
+#: admin/settings.php:363
+msgid "Moroccan Dirham"
+msgstr ""
+
+#: admin/settings.php:364
+msgid "Moroccan Franc"
+msgstr ""
+
+#: admin/settings.php:365
+msgid "Mozambican Escudo"
+msgstr ""
+
+#: admin/settings.php:366
+msgid "Mozambican Metical"
+msgstr ""
+
+#: admin/settings.php:367
+msgid "Mozambican Metical (1980–2006)"
+msgstr ""
+
+#: admin/settings.php:368
+msgid "Myanmar Kyat"
+msgstr ""
+
+#: admin/settings.php:369
+msgid "Namibian Dollar"
+msgstr ""
+
+#: admin/settings.php:370
+msgid "Nepalese Rupee"
+msgstr ""
+
+#: admin/settings.php:371
+msgid "Netherlands Antillean Guilder"
+msgstr ""
+
+#: admin/settings.php:372
+msgid "New Taiwan Dollar"
+msgstr ""
+
+#: admin/settings.php:373
+msgid "New Zealand Dollar"
+msgstr ""
+
+#: admin/settings.php:374
+msgid "Nicaraguan Córdoba"
+msgstr ""
+
+#: admin/settings.php:375
+msgid "Nicaraguan Córdoba (1988–1991)"
+msgstr ""
+
+#: admin/settings.php:376
+msgid "Nigerian Naira"
+msgstr ""
+
+#: admin/settings.php:377
+msgid "North Korean Won"
+msgstr ""
+
+#: admin/settings.php:378
+msgid "Norwegian Krone"
+msgstr ""
+
+#: admin/settings.php:379
+msgid "Omani Rial"
+msgstr ""
+
+#: admin/settings.php:380
+msgid "Pakistani Rupee"
+msgstr ""
+
+#: admin/settings.php:381
+msgid "Panamanian Balboa"
+msgstr ""
+
+#: admin/settings.php:382
+msgid "Papua New Guinean Kina"
+msgstr ""
+
+#: admin/settings.php:383
+msgid "Paraguayan Guarani"
+msgstr ""
+
+#: admin/settings.php:384
+msgid "Peruvian Inti"
+msgstr ""
+
+#: admin/settings.php:385
+msgid "Peruvian Sol"
+msgstr ""
+
+#: admin/settings.php:386
+msgid "Peruvian Sol (1863–1965)"
+msgstr ""
+
+#: admin/settings.php:387
+msgid "Philippine Peso"
+msgstr ""
+
+#: admin/settings.php:388
+msgid "Polish Zloty"
+msgstr ""
+
+#: admin/settings.php:389
+msgid "Polish Zloty (1950–1995)"
+msgstr ""
+
+#: admin/settings.php:390
+msgid "Portuguese Escudo"
+msgstr ""
+
+#: admin/settings.php:391
+msgid "Portuguese Guinea Escudo"
+msgstr ""
+
+#: admin/settings.php:392
+msgid "Qatari Rial"
+msgstr ""
+
+#: admin/settings.php:393
+msgid "RINET Funds"
+msgstr ""
+
+#: admin/settings.php:394
+msgid "Rhodesian Dollar"
+msgstr ""
+
+#: admin/settings.php:395
+msgid "Romanian Leu"
+msgstr ""
+
+#: admin/settings.php:396
+msgid "Romanian Leu (1952–2006)"
+msgstr ""
+
+#: admin/settings.php:397
+msgid "Russian Ruble"
+msgstr ""
+
+#: admin/settings.php:398
+msgid "Russian Ruble (1991–1998)"
+msgstr ""
+
+#: admin/settings.php:399
+msgid "Rwandan Franc"
+msgstr ""
+
+#: admin/settings.php:400
+msgid "Salvadoran Colón"
+msgstr ""
+
+#: admin/settings.php:401
+msgid "Samoan Tala"
+msgstr ""
+
+#: admin/settings.php:402
+msgid "Saudi Riyal"
+msgstr ""
+
+#: admin/settings.php:403
+msgid "Serbian Dinar"
+msgstr ""
+
+#: admin/settings.php:404
+msgid "Serbian Dinar (2002–2006)"
+msgstr ""
+
+#: admin/settings.php:405
+msgid "Seychellois Rupee"
+msgstr ""
+
+#: admin/settings.php:406
+msgid "Sierra Leonean Leone"
+msgstr ""
+
+#: admin/settings.php:407
+msgid "Singapore Dollar"
+msgstr ""
+
+#: admin/settings.php:408
+msgid "Slovak Koruna"
+msgstr ""
+
+#: admin/settings.php:409
+msgid "Slovenian Tolar"
+msgstr ""
+
+#: admin/settings.php:410
+msgid "Solomon Islands Dollar"
+msgstr ""
+
+#: admin/settings.php:411
+msgid "Somali Shilling"
+msgstr ""
+
+#: admin/settings.php:412
+msgid "South African Rand"
+msgstr ""
+
+#: admin/settings.php:413
+msgid "South African Rand (financial)"
+msgstr ""
+
+#: admin/settings.php:414
+msgid "South Korean Hwan (1953–1962)"
+msgstr ""
+
+#: admin/settings.php:415
+msgid "South Korean Won"
+msgstr ""
+
+#: admin/settings.php:416
+msgid "South Korean Won (1945–1953)"
+msgstr ""
+
+#: admin/settings.php:417
+msgid "South Sudanese Pound"
+msgstr ""
+
+#: admin/settings.php:418
+msgid "Soviet Rouble"
+msgstr ""
+
+#: admin/settings.php:419
+msgid "Spanish Peseta"
+msgstr ""
+
+#: admin/settings.php:420
+msgid "Spanish Peseta (A account)"
+msgstr ""
+
+#: admin/settings.php:421
+msgid "Spanish Peseta (convertible account)"
+msgstr ""
+
+#: admin/settings.php:422
+msgid "Sri Lankan Rupee"
+msgstr ""
+
+#: admin/settings.php:423
+msgid "St. Helena Pound"
+msgstr ""
+
+#: admin/settings.php:424
+msgid "Sudanese Dinar (1992–2007)"
+msgstr ""
+
+#: admin/settings.php:425
+msgid "Sudanese Pound"
+msgstr ""
+
+#: admin/settings.php:426
+msgid "Sudanese Pound (1957–1998)"
+msgstr ""
+
+#: admin/settings.php:427
+msgid "Surinamese Dollar"
+msgstr ""
+
+#: admin/settings.php:428
+msgid "Surinamese Guilder"
+msgstr ""
+
+#: admin/settings.php:429
+msgid "Swazi Lilangeni"
+msgstr ""
+
+#: admin/settings.php:430
+msgid "Swedish Krona"
+msgstr ""
+
+#: admin/settings.php:431
+msgid "Swiss Franc"
+msgstr ""
+
+#: admin/settings.php:432
+msgid "Syrian Pound"
+msgstr ""
+
+#: admin/settings.php:433
+msgid "São Tomé & Príncipe Dobra"
+msgstr ""
+
+#: admin/settings.php:434
+msgid "Tajikistani Ruble"
+msgstr ""
+
+#: admin/settings.php:435
+msgid "Tajikistani Somoni"
+msgstr ""
+
+#: admin/settings.php:436
+msgid "Tanzanian Shilling"
+msgstr ""
+
+#: admin/settings.php:437
+msgid "Thai Baht"
+msgstr ""
+
+#: admin/settings.php:438
+msgid "Timorese Escudo"
+msgstr ""
+
+#: admin/settings.php:439
+msgid "Tongan Paʻanga"
+msgstr ""
+
+#: admin/settings.php:440
+msgid "Trinidad & Tobago Dollar"
+msgstr ""
+
+#: admin/settings.php:441
+msgid "Tunisian Dinar"
+msgstr ""
+
+#: admin/settings.php:442
+msgid "Turkish Lira"
+msgstr ""
+
+#: admin/settings.php:443
+msgid "Turkish Lira (1922–2005)"
+msgstr ""
+
+#: admin/settings.php:444
+msgid "Turkmenistani Manat"
+msgstr ""
+
+#: admin/settings.php:445
+msgid "Turkmenistani Manat (1993–2009)"
+msgstr ""
+
+#: admin/settings.php:446
+msgid "US Dollar"
+msgstr ""
+
+#: admin/settings.php:447
+msgid "US Dollar (Next day)"
+msgstr ""
+
+#: admin/settings.php:448
+msgid "US Dollar (Same day)"
+msgstr ""
+
+#: admin/settings.php:449
+msgid "Ugandan Shilling"
+msgstr ""
+
+#: admin/settings.php:450
+msgid "Ugandan Shilling (1966–1987)"
+msgstr ""
+
+#: admin/settings.php:451
+msgid "Ukrainian Hryvnia"
+msgstr ""
+
+#: admin/settings.php:452
+msgid "Ukrainian Karbovanets"
+msgstr ""
+
+#: admin/settings.php:453
+msgid "United Arab Emirates Dirham"
+msgstr ""
+
+#: admin/settings.php:454
+msgid "Uruguayan Peso"
+msgstr ""
+
+#: admin/settings.php:455
+msgid "Uruguayan Peso (1975–1993)"
+msgstr ""
+
+#: admin/settings.php:456
+msgid "Uruguayan Peso (Indexed Units)"
+msgstr ""
+
+#: admin/settings.php:457
+msgid "Uzbekistani Som"
+msgstr ""
+
+#: admin/settings.php:458
+msgid "Vanuatu Vatu"
+msgstr ""
+
+#: admin/settings.php:459
+msgid "Venezuelan Bolívar"
+msgstr ""
+
+#: admin/settings.php:460
+msgid "Venezuelan Bolívar (1871–2008)"
+msgstr ""
+
+#: admin/settings.php:461
+msgid "Vietnamese Dong"
+msgstr ""
+
+#: admin/settings.php:462
+msgid "Vietnamese Dong (1978–1985)"
+msgstr ""
+
+#: admin/settings.php:463
+msgid "WIR Euro"
+msgstr ""
+
+#: admin/settings.php:464
+msgid "WIR Franc"
+msgstr ""
+
+#: admin/settings.php:465
+msgid "West African CFA Franc"
+msgstr ""
+
+#: admin/settings.php:466
+msgid "Yemeni Dinar"
+msgstr ""
+
+#: admin/settings.php:467
+msgid "Yemeni Rial"
+msgstr ""
+
+#: admin/settings.php:468
+msgid "Yugoslavian Convertible Dinar (1990–1992)"
+msgstr ""
+
+#: admin/settings.php:469
+msgid "Yugoslavian Hard Dinar (1966–1990)"
+msgstr ""
+
+#: admin/settings.php:470
+msgid "Yugoslavian New Dinar (1994–2002)"
+msgstr ""
+
+#: admin/settings.php:471
+msgid "Yugoslavian Reformed Dinar (1992–1993)"
+msgstr ""
+
+#: admin/settings.php:472
+msgid "Zairean New Zaire (1993–1998)"
+msgstr ""
+
+#: admin/settings.php:473
+msgid "Zairean Zaire (1971–1993)"
+msgstr ""
+
+#: admin/settings.php:474
+msgid "Zambian Kwacha"
+msgstr ""
+
+#: admin/settings.php:475
+msgid "Zambian Kwacha (1968–2012)"
+msgstr ""
+
+#: admin/settings.php:476
+msgid "Zimbabwean Dollar (1980–2008)"
+msgstr ""
+
+#: admin/settings.php:477
+msgid "Zimbabwean Dollar (2008)"
+msgstr ""
+
+#: admin/settings.php:478
+msgid "Zimbabwean Dollar (2009)"
+msgstr ""
+
+#: admin/settings.php:483
+msgid "Choose your currency"
+msgstr ""
+
+#: admin/settings.php:516
+msgid "Abkhazian"
+msgstr ""
+
+#: admin/settings.php:517
+msgid "Achinese"
+msgstr ""
+
+#: admin/settings.php:518
+msgid "Acoli"
+msgstr ""
+
+#: admin/settings.php:519
+msgid "Adangme"
+msgstr ""
+
+#: admin/settings.php:520
+msgid "Adyghe"
+msgstr ""
+
+#: admin/settings.php:521
+msgid "Afar"
+msgstr ""
+
+#: admin/settings.php:522
+msgid "Afrihili"
+msgstr ""
+
+#: admin/settings.php:523
+msgid "Afrikaans"
+msgstr ""
+
+#: admin/settings.php:524
+msgid "Aghem"
+msgstr ""
+
+#: admin/settings.php:525
+msgid "Ainu"
+msgstr ""
+
+#: admin/settings.php:526
+msgid "Akan"
+msgstr ""
+
+#: admin/settings.php:527
+msgid "Akkadian"
+msgstr ""
+
+#: admin/settings.php:528
+msgid "Akoose"
+msgstr ""
+
+#: admin/settings.php:529
+msgid "Alabama"
+msgstr ""
+
+#: admin/settings.php:530
+msgid "Albanian"
+msgstr ""
+
+#: admin/settings.php:531
+msgid "Aleut"
+msgstr ""
+
+#: admin/settings.php:532
+msgid "Algerian Arabic"
+msgstr ""
+
+#: admin/settings.php:533
+msgid "American English"
+msgstr ""
+
+#: admin/settings.php:534
+msgid "American Sign Language"
+msgstr ""
+
+#: admin/settings.php:535
+msgid "Amharic"
+msgstr ""
+
+#: admin/settings.php:536
+msgid "Ancient Egyptian"
+msgstr ""
+
+#: admin/settings.php:537
+msgid "Ancient Greek"
+msgstr ""
+
+#: admin/settings.php:538
+msgid "Angika"
+msgstr ""
+
+#: admin/settings.php:539
+msgid "Ao Naga"
+msgstr ""
+
+#: admin/settings.php:540
+msgid "Arabic"
+msgstr ""
+
+#: admin/settings.php:541
+msgid "Aragonese"
+msgstr ""
+
+#: admin/settings.php:542
+msgid "Aramaic"
+msgstr ""
+
+#: admin/settings.php:543
+msgid "Araona"
+msgstr ""
+
+#: admin/settings.php:544
+msgid "Arapaho"
+msgstr ""
+
+#: admin/settings.php:545
+msgid "Arawak"
+msgstr ""
+
+#: admin/settings.php:546
+msgid "Armenian"
+msgstr ""
+
+#: admin/settings.php:547
+msgid "Aromanian"
+msgstr ""
+
+#: admin/settings.php:548
+msgid "Arpitan"
+msgstr ""
+
+#: admin/settings.php:549
+msgid "Assamese"
+msgstr ""
+
+#: admin/settings.php:550
+msgid "Asturian"
+msgstr ""
+
+#: admin/settings.php:551
+msgid "Asu"
+msgstr ""
+
+#: admin/settings.php:552
+msgid "Atsam"
+msgstr ""
+
+#: admin/settings.php:553
+msgid "Australian English"
+msgstr ""
+
+#: admin/settings.php:554
+msgid "Austrian German"
+msgstr ""
+
+#: admin/settings.php:555
+msgid "Avaric"
+msgstr ""
+
+#: admin/settings.php:556
+msgid "Avestan"
+msgstr ""
+
+#: admin/settings.php:557
+msgid "Awadhi"
+msgstr ""
+
+#: admin/settings.php:558
+msgid "Aymara"
+msgstr ""
+
+#: admin/settings.php:559
+msgid "Azerbaijani"
+msgstr ""
+
+#: admin/settings.php:560
+msgid "Badaga"
+msgstr ""
+
+#: admin/settings.php:561
+msgid "Bafia"
+msgstr ""
+
+#: admin/settings.php:562
+msgid "Bafut"
+msgstr ""
+
+#: admin/settings.php:563
+msgid "Bakhtiari"
+msgstr ""
+
+#: admin/settings.php:564
+msgid "Balinese"
+msgstr ""
+
+#: admin/settings.php:565
+msgid "Baluchi"
+msgstr ""
+
+#: admin/settings.php:566
+msgid "Bambara"
+msgstr ""
+
+#: admin/settings.php:567
+msgid "Bamun"
+msgstr ""
+
+#: admin/settings.php:568
+msgid "Banjar"
+msgstr ""
+
+#: admin/settings.php:569
+msgid "Basaa"
+msgstr ""
+
+#: admin/settings.php:570
+msgid "Bashkir"
+msgstr ""
+
+#: admin/settings.php:571
+msgid "Basque"
+msgstr ""
+
+#: admin/settings.php:572
+msgid "Batak Toba"
+msgstr ""
+
+#: admin/settings.php:573
+msgid "Bavarian"
+msgstr ""
+
+#: admin/settings.php:574
+msgid "Beja"
+msgstr ""
+
+#: admin/settings.php:575
+msgid "Belarusian"
+msgstr ""
+
+#: admin/settings.php:576
+msgid "Bemba"
+msgstr ""
+
+#: admin/settings.php:577
+msgid "Bena"
+msgstr ""
+
+#: admin/settings.php:578
+msgid "Bengali"
+msgstr ""
+
+#: admin/settings.php:579
+msgid "Betawi"
+msgstr ""
+
+#: admin/settings.php:580
+msgid "Bhojpuri"
+msgstr ""
+
+#: admin/settings.php:581
+msgid "Bikol"
+msgstr ""
+
+#: admin/settings.php:582
+msgid "Bini"
+msgstr ""
+
+#: admin/settings.php:583
+msgid "Bishnupriya"
+msgstr ""
+
+#: admin/settings.php:584
+msgid "Bislama"
+msgstr ""
+
+#: admin/settings.php:585
+msgid "Blin"
+msgstr ""
+
+#: admin/settings.php:586
+msgid "Blissymbols"
+msgstr ""
+
+#: admin/settings.php:587
+msgid "Bodo"
+msgstr ""
+
+#: admin/settings.php:588
+msgid "Bosnian"
+msgstr ""
+
+#: admin/settings.php:589
+msgid "Brahui"
+msgstr ""
+
+#: admin/settings.php:590
+msgid "Braj"
+msgstr ""
+
+#: admin/settings.php:591
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: admin/settings.php:592
+msgid "Breton"
+msgstr ""
+
+#: admin/settings.php:593
+msgid "British English"
+msgstr ""
+
+#: admin/settings.php:594
+msgid "Buginese"
+msgstr ""
+
+#: admin/settings.php:595
+msgid "Bulgarian"
+msgstr ""
+
+#: admin/settings.php:596
+msgid "Bulu"
+msgstr ""
+
+#: admin/settings.php:597
+msgid "Buriat"
+msgstr ""
+
+#: admin/settings.php:598
+msgid "Burmese"
+msgstr ""
+
+#: admin/settings.php:599
+msgid "Caddo"
+msgstr ""
+
+#: admin/settings.php:600
+msgid "Cajun French"
+msgstr ""
+
+#: admin/settings.php:601
+msgid "Canadian English"
+msgstr ""
+
+#: admin/settings.php:602
+msgid "Canadian French"
+msgstr ""
+
+#: admin/settings.php:603
+msgid "Cantonese"
+msgstr ""
+
+#: admin/settings.php:604
+msgid "Capiznon"
+msgstr ""
+
+#: admin/settings.php:605
+msgid "Carib"
+msgstr ""
+
+#: admin/settings.php:606
+msgid "Catalan"
+msgstr ""
+
+#: admin/settings.php:607
+msgid "Cayuga"
+msgstr ""
+
+#: admin/settings.php:608
+msgid "Cebuano"
+msgstr ""
+
+#: admin/settings.php:609
+msgid "Central Atlas Tamazight"
+msgstr ""
+
+#: admin/settings.php:610
+msgid "Central Dusun"
+msgstr ""
+
+#: admin/settings.php:611
+msgid "Central Kurdish"
+msgstr ""
+
+#: admin/settings.php:612
+msgid "Central Yupik"
+msgstr ""
+
+#: admin/settings.php:613
+msgid "Chadian Arabic"
+msgstr ""
+
+#: admin/settings.php:614
+msgid "Chagatai"
+msgstr ""
+
+#: admin/settings.php:615
+msgid "Chamorro"
+msgstr ""
+
+#: admin/settings.php:616
+msgid "Chechen"
+msgstr ""
+
+#: admin/settings.php:617
+msgid "Cherokee"
+msgstr ""
+
+#: admin/settings.php:618
+msgid "Cheyenne"
+msgstr ""
+
+#: admin/settings.php:619
+msgid "Chibcha"
+msgstr ""
+
+#: admin/settings.php:620
+msgid "Chiga"
+msgstr ""
+
+#: admin/settings.php:621
+msgid "Chimborazo Highland Quichua"
+msgstr ""
+
+#: admin/settings.php:622
+msgid "Chinese"
+msgstr ""
+
+#: admin/settings.php:623
+msgid "Chinook Jargon"
+msgstr ""
+
+#: admin/settings.php:624
+msgid "Chipewyan"
+msgstr ""
+
+#: admin/settings.php:625
+msgid "Choctaw"
+msgstr ""
+
+#: admin/settings.php:626
+msgid "Church Slavic"
+msgstr ""
+
+#: admin/settings.php:627
+msgid "Chuukese"
+msgstr ""
+
+#: admin/settings.php:628
+msgid "Chuvash"
+msgstr ""
+
+#: admin/settings.php:629
+msgid "Classical Newari"
+msgstr ""
+
+#: admin/settings.php:630
+msgid "Classical Syriac"
+msgstr ""
+
+#: admin/settings.php:631
+msgid "Colognian"
+msgstr ""
+
+#: admin/settings.php:632
+msgid "Comorian"
+msgstr ""
+
+#: admin/settings.php:633
+msgid "Congo Swahili"
+msgstr ""
+
+#: admin/settings.php:634
+msgid "Coptic"
+msgstr ""
+
+#: admin/settings.php:635
+msgid "Cornish"
+msgstr ""
+
+#: admin/settings.php:636
+msgid "Corsican"
+msgstr ""
+
+#: admin/settings.php:637
+msgid "Cree"
+msgstr ""
+
+#: admin/settings.php:638
+msgid "Creek"
+msgstr ""
+
+#: admin/settings.php:639
+msgid "Crimean Turkish"
+msgstr ""
+
+#: admin/settings.php:640
+msgid "Croatian"
+msgstr ""
+
+#: admin/settings.php:641
+msgid "Czech"
+msgstr ""
+
+#: admin/settings.php:642
+msgid "Dakota"
+msgstr ""
+
+#: admin/settings.php:643
+msgid "Danish"
+msgstr ""
+
+#: admin/settings.php:644
+msgid "Dargwa"
+msgstr ""
+
+#: admin/settings.php:645
+msgid "Dazaga"
+msgstr ""
+
+#: admin/settings.php:646
+msgid "Delaware"
+msgstr ""
+
+#: admin/settings.php:647
+msgid "Dinka"
+msgstr ""
+
+#: admin/settings.php:648
+msgid "Divehi"
+msgstr ""
+
+#: admin/settings.php:649
+msgid "Dogri"
+msgstr ""
+
+#: admin/settings.php:650
+msgid "Dogrib"
+msgstr ""
+
+#: admin/settings.php:651
+msgid "Duala"
+msgstr ""
+
+#: admin/settings.php:652
+msgid "Dutch"
+msgstr ""
+
+#: admin/settings.php:653
+msgid "Dyula"
+msgstr ""
+
+#: admin/settings.php:654
+msgid "Dzongkha"
+msgstr ""
+
+#: admin/settings.php:655
+msgid "Eastern Frisian"
+msgstr ""
+
+#: admin/settings.php:656
+msgid "Efik"
+msgstr ""
+
+#: admin/settings.php:657
+msgid "Egyptian Arabic"
+msgstr ""
+
+#: admin/settings.php:658
+msgid "Ekajuk"
+msgstr ""
+
+#: admin/settings.php:659
+msgid "Elamite"
+msgstr ""
+
+#: admin/settings.php:660
+msgid "Embu"
+msgstr ""
+
+#: admin/settings.php:661
+msgid "Emilian"
+msgstr ""
+
+#: admin/settings.php:662
+msgid "English"
+msgstr ""
+
+#: admin/settings.php:663
+msgid "Erzya"
+msgstr ""
+
+#: admin/settings.php:664
+msgid "Esperanto"
+msgstr ""
+
+#: admin/settings.php:665
+msgid "Estonian"
+msgstr ""
+
+#: admin/settings.php:666
+msgid "European Portuguese"
+msgstr ""
+
+#: admin/settings.php:667
+msgid "European Spanish"
+msgstr ""
+
+#: admin/settings.php:668
+msgid "Ewe"
+msgstr ""
+
+#: admin/settings.php:669
+msgid "Ewondo"
+msgstr ""
+
+#: admin/settings.php:670
+msgid "Extremaduran"
+msgstr ""
+
+#: admin/settings.php:671
+msgid "Fang"
+msgstr ""
+
+#: admin/settings.php:672
+msgid "Fanti"
+msgstr ""
+
+#: admin/settings.php:673
+msgid "Faroese"
+msgstr ""
+
+#: admin/settings.php:674
+msgid "Fiji Hindi"
+msgstr ""
+
+#: admin/settings.php:675
+msgid "Fijian"
+msgstr ""
+
+#: admin/settings.php:676
+msgid "Filipino"
+msgstr ""
+
+#: admin/settings.php:677
+msgid "Finnish"
+msgstr ""
+
+#: admin/settings.php:678
+msgid "Flemish"
+msgstr ""
+
+#: admin/settings.php:679
+msgid "Fon"
+msgstr ""
+
+#: admin/settings.php:680
+msgid "Frafra"
+msgstr ""
+
+#: admin/settings.php:681
+msgid "French"
+msgstr ""
+
+#: admin/settings.php:682
+msgid "Friulian"
+msgstr ""
+
+#: admin/settings.php:683
+msgid "Fulah"
+msgstr ""
+
+#: admin/settings.php:684
+msgid "Ga"
+msgstr ""
+
+#: admin/settings.php:685
+msgid "Gagauz"
+msgstr ""
+
+#: admin/settings.php:686
+msgid "Galician"
+msgstr ""
+
+#: admin/settings.php:687
+msgid "Gan Chinese"
+msgstr ""
+
+#: admin/settings.php:688
+msgid "Ganda"
+msgstr ""
+
+#: admin/settings.php:689
+msgid "Gayo"
+msgstr ""
+
+#: admin/settings.php:690
+msgid "Gbaya"
+msgstr ""
+
+#: admin/settings.php:691
+msgid "Geez"
+msgstr ""
+
+#: admin/settings.php:692
+msgid "Georgian"
+msgstr ""
+
+#: admin/settings.php:693
+msgid "German"
+msgstr ""
+
+#: admin/settings.php:694
+msgid "Gheg Albanian"
+msgstr ""
+
+#: admin/settings.php:695
+msgid "Ghomala"
+msgstr ""
+
+#: admin/settings.php:696
+msgid "Gilaki"
+msgstr ""
+
+#: admin/settings.php:697
+msgid "Gilbertese"
+msgstr ""
+
+#: admin/settings.php:698
+msgid "Goan Konkani"
+msgstr ""
+
+#: admin/settings.php:699
+msgid "Gondi"
+msgstr ""
+
+#: admin/settings.php:700
+msgid "Gorontalo"
+msgstr ""
+
+#: admin/settings.php:701
+msgid "Gothic"
+msgstr ""
+
+#: admin/settings.php:702
+msgid "Grebo"
+msgstr ""
+
+#: admin/settings.php:703
+msgid "Greek"
+msgstr ""
+
+#: admin/settings.php:704
+msgid "Guarani"
+msgstr ""
+
+#: admin/settings.php:705
+msgid "Gujarati"
+msgstr ""
+
+#: admin/settings.php:706
+msgid "Gusii"
+msgstr ""
+
+#: admin/settings.php:707
+msgid "Gwichʼin"
+msgstr ""
+
+#: admin/settings.php:708
+msgid "Haida"
+msgstr ""
+
+#: admin/settings.php:709
+msgid "Haitian"
+msgstr ""
+
+#: admin/settings.php:710
+msgid "Hakka Chinese"
+msgstr ""
+
+#: admin/settings.php:711
+msgid "Hausa"
+msgstr ""
+
+#: admin/settings.php:712
+msgid "Hawaiian"
+msgstr ""
+
+#: admin/settings.php:713
+msgid "Hebrew"
+msgstr ""
+
+#: admin/settings.php:714
+msgid "Herero"
+msgstr ""
+
+#: admin/settings.php:715
+msgid "Hiligaynon"
+msgstr ""
+
+#: admin/settings.php:716
+msgid "Hindi"
+msgstr ""
+
+#: admin/settings.php:717
+msgid "Hiri Motu"
+msgstr ""
+
+#: admin/settings.php:718
+msgid "Hittite"
+msgstr ""
+
+#: admin/settings.php:719
+msgid "Hmong"
+msgstr ""
+
+#: admin/settings.php:720
+msgid "Hungarian"
+msgstr ""
+
+#: admin/settings.php:721
+msgid "Hupa"
+msgstr ""
+
+#: admin/settings.php:722
+msgid "Iban"
+msgstr ""
+
+#: admin/settings.php:723
+msgid "Ibibio"
+msgstr ""
+
+#: admin/settings.php:724
+msgid "Icelandic"
+msgstr ""
+
+#: admin/settings.php:725
+msgid "Ido"
+msgstr ""
+
+#: admin/settings.php:726
+msgid "Igbo"
+msgstr ""
+
+#: admin/settings.php:727
+msgid "Iloko"
+msgstr ""
+
+#: admin/settings.php:728
+msgid "Inari Sami"
+msgstr ""
+
+#: admin/settings.php:729
+msgid "Indonesian"
+msgstr ""
+
+#: admin/settings.php:730
+msgid "Ingrian"
+msgstr ""
+
+#: admin/settings.php:731
+msgid "Ingush"
+msgstr ""
+
+#: admin/settings.php:732
+msgid "Interlingua"
+msgstr ""
+
+#: admin/settings.php:733
+msgid "Interlingue"
+msgstr ""
+
+#: admin/settings.php:734
+msgid "Inuktitut"
+msgstr ""
+
+#: admin/settings.php:735
+msgid "Inupiaq"
+msgstr ""
+
+#: admin/settings.php:736
+msgid "Irish"
+msgstr ""
+
+#: admin/settings.php:737
+msgid "Italian"
+msgstr ""
+
+#: admin/settings.php:738
+msgid "Jamaican Creole English"
+msgstr ""
+
+#: admin/settings.php:739
+msgid "Japanese"
+msgstr ""
+
+#: admin/settings.php:740
+msgid "Javanese"
+msgstr ""
+
+#: admin/settings.php:741
+msgid "Jju"
+msgstr ""
+
+#: admin/settings.php:742
+msgid "Jola-Fonyi"
+msgstr ""
+
+#: admin/settings.php:743
+msgid "Judeo-Arabic"
+msgstr ""
+
+#: admin/settings.php:744
+msgid "Judeo-Persian"
+msgstr ""
+
+#: admin/settings.php:745
+msgid "Jutish"
+msgstr ""
+
+#: admin/settings.php:746
+msgid "Kabardian"
+msgstr ""
+
+#: admin/settings.php:747
+msgid "Kabuverdianu"
+msgstr ""
+
+#: admin/settings.php:748
+msgid "Kabyle"
+msgstr ""
+
+#: admin/settings.php:749
+msgid "Kachin"
+msgstr ""
+
+#: admin/settings.php:750
+msgid "Kaingang"
+msgstr ""
+
+#: admin/settings.php:751
+msgid "Kako"
+msgstr ""
+
+#: admin/settings.php:752
+msgid "Kalaallisut"
+msgstr ""
+
+#: admin/settings.php:753
+msgid "Kalenjin"
+msgstr ""
+
+#: admin/settings.php:754
+msgid "Kalmyk"
+msgstr ""
+
+#: admin/settings.php:755
+msgid "Kamba"
+msgstr ""
+
+#: admin/settings.php:756
+msgid "Kanembu"
+msgstr ""
+
+#: admin/settings.php:757
+msgid "Kannada"
+msgstr ""
+
+#: admin/settings.php:758
+msgid "Kanuri"
+msgstr ""
+
+#: admin/settings.php:759
+msgid "Kara-Kalpak"
+msgstr ""
+
+#: admin/settings.php:760
+msgid "Karachay-Balkar"
+msgstr ""
+
+#: admin/settings.php:761
+msgid "Karelian"
+msgstr ""
+
+#: admin/settings.php:762
+msgid "Kashmiri"
+msgstr ""
+
+#: admin/settings.php:763
+msgid "Kashubian"
+msgstr ""
+
+#: admin/settings.php:764
+msgid "Kawi"
+msgstr ""
+
+#: admin/settings.php:765
+msgid "Kazakh"
+msgstr ""
+
+#: admin/settings.php:766
+msgid "Kenyang"
+msgstr ""
+
+#: admin/settings.php:767
+msgid "Khasi"
+msgstr ""
+
+#: admin/settings.php:768
+msgid "Khmer"
+msgstr ""
+
+#: admin/settings.php:769
+msgid "Khotanese"
+msgstr ""
+
+#: admin/settings.php:770
+msgid "Khowar"
+msgstr ""
+
+#: admin/settings.php:771
+msgid "Kikuyu"
+msgstr ""
+
+#: admin/settings.php:772
+msgid "Kimbundu"
+msgstr ""
+
+#: admin/settings.php:773
+msgid "Kinaray-a"
+msgstr ""
+
+#: admin/settings.php:774
+msgid "Kinyarwanda"
+msgstr ""
+
+#: admin/settings.php:775
+msgid "Kirmanjki"
+msgstr ""
+
+#: admin/settings.php:776
+msgid "Klingon"
+msgstr ""
+
+#: admin/settings.php:777
+msgid "Kom"
+msgstr ""
+
+#: admin/settings.php:778
+msgid "Komi"
+msgstr ""
+
+#: admin/settings.php:779
+msgid "Komi-Permyak"
+msgstr ""
+
+#: admin/settings.php:780
+msgid "Kongo"
+msgstr ""
+
+#: admin/settings.php:781
+msgid "Konkani"
+msgstr ""
+
+#: admin/settings.php:782
+msgid "Korean"
+msgstr ""
+
+#: admin/settings.php:783
+msgid "Koro"
+msgstr ""
+
+#: admin/settings.php:784
+msgid "Kosraean"
+msgstr ""
+
+#: admin/settings.php:785
+msgid "Kotava"
+msgstr ""
+
+#: admin/settings.php:786
+msgid "Koyra Chiini"
+msgstr ""
+
+#: admin/settings.php:787
+msgid "Koyraboro Senni"
+msgstr ""
+
+#: admin/settings.php:788
+msgid "Kpelle"
+msgstr ""
+
+#: admin/settings.php:789
+msgid "Krio"
+msgstr ""
+
+#: admin/settings.php:790
+msgid "Kuanyama"
+msgstr ""
+
+#: admin/settings.php:791
+msgid "Kumyk"
+msgstr ""
+
+#: admin/settings.php:792
+msgid "Kurdish"
+msgstr ""
+
+#: admin/settings.php:793
+msgid "Kurukh"
+msgstr ""
+
+#: admin/settings.php:794
+msgid "Kutenai"
+msgstr ""
+
+#: admin/settings.php:795
+msgid "Kwasio"
+msgstr ""
+
+#: admin/settings.php:796
+msgid "Kyrgyz"
+msgstr ""
+
+#: admin/settings.php:797
+msgid "Kʼicheʼ"
+msgstr ""
+
+#: admin/settings.php:798
+msgid "Ladino"
+msgstr ""
+
+#: admin/settings.php:799
+msgid "Lahnda"
+msgstr ""
+
+#: admin/settings.php:800
+msgid "Lakota"
+msgstr ""
+
+#: admin/settings.php:801
+msgid "Lamba"
+msgstr ""
+
+#: admin/settings.php:802
+msgid "Langi"
+msgstr ""
+
+#: admin/settings.php:803
+msgid "Lao"
+msgstr ""
+
+#: admin/settings.php:804
+msgid "Latgalian"
+msgstr ""
+
+#: admin/settings.php:805
+msgid "Latin"
+msgstr ""
+
+#: admin/settings.php:806
+msgid "Latin American Spanish"
+msgstr ""
+
+#: admin/settings.php:807
+msgid "Latvian"
+msgstr ""
+
+#: admin/settings.php:808
+msgid "Laz"
+msgstr ""
+
+#: admin/settings.php:809
+msgid "Lezghian"
+msgstr ""
+
+#: admin/settings.php:810
+msgid "Ligurian"
+msgstr ""
+
+#: admin/settings.php:811
+msgid "Limburgish"
+msgstr ""
+
+#: admin/settings.php:812
+msgid "Lingala"
+msgstr ""
+
+#: admin/settings.php:813
+msgid "Lingua Franca Nova"
+msgstr ""
+
+#: admin/settings.php:814
+msgid "Literary Chinese"
+msgstr ""
+
+#: admin/settings.php:815
+msgid "Lithuanian"
+msgstr ""
+
+#: admin/settings.php:816
+msgid "Livonian"
+msgstr ""
+
+#: admin/settings.php:817
+msgid "Lojban"
+msgstr ""
+
+#: admin/settings.php:818
+msgid "Lombard"
+msgstr ""
+
+#: admin/settings.php:819
+msgid "Low German"
+msgstr ""
+
+#: admin/settings.php:820
+msgid "Lower Silesian"
+msgstr ""
+
+#: admin/settings.php:821
+msgid "Lower Sorbian"
+msgstr ""
+
+#: admin/settings.php:822
+msgid "Lozi"
+msgstr ""
+
+#: admin/settings.php:823
+msgid "Luba-Katanga"
+msgstr ""
+
+#: admin/settings.php:824
+msgid "Luba-Lulua"
+msgstr ""
+
+#: admin/settings.php:825
+msgid "Luiseno"
+msgstr ""
+
+#: admin/settings.php:826
+msgid "Lule Sami"
+msgstr ""
+
+#: admin/settings.php:827
+msgid "Lunda"
+msgstr ""
+
+#: admin/settings.php:828
+msgid "Luo"
+msgstr ""
+
+#: admin/settings.php:829
+msgid "Luxembourgish"
+msgstr ""
+
+#: admin/settings.php:830
+msgid "Luyia"
+msgstr ""
+
+#: admin/settings.php:831
+msgid "Maba"
+msgstr ""
+
+#: admin/settings.php:832
+msgid "Macedonian"
+msgstr ""
+
+#: admin/settings.php:833
+msgid "Machame"
+msgstr ""
+
+#: admin/settings.php:834
+msgid "Madurese"
+msgstr ""
+
+#: admin/settings.php:835
+msgid "Mafa"
+msgstr ""
+
+#: admin/settings.php:836
+msgid "Magahi"
+msgstr ""
+
+#: admin/settings.php:837
+msgid "Main-Franconian"
+msgstr ""
+
+#: admin/settings.php:838
+msgid "Maithili"
+msgstr ""
+
+#: admin/settings.php:839
+msgid "Makasar"
+msgstr ""
+
+#: admin/settings.php:840
+msgid "Makhuwa-Meetto"
+msgstr ""
+
+#: admin/settings.php:841
+msgid "Makonde"
+msgstr ""
+
+#: admin/settings.php:842
+msgid "Malagasy"
+msgstr ""
+
+#: admin/settings.php:843
+msgid "Malay"
+msgstr ""
+
+#: admin/settings.php:844
+msgid "Malayalam"
+msgstr ""
+
+#: admin/settings.php:845
+msgid "Maltese"
+msgstr ""
+
+#: admin/settings.php:846
+msgid "Manchu"
+msgstr ""
+
+#: admin/settings.php:847
+msgid "Mandar"
+msgstr ""
+
+#: admin/settings.php:848
+msgid "Mandingo"
+msgstr ""
+
+#: admin/settings.php:849
+msgid "Manipuri"
+msgstr ""
+
+#: admin/settings.php:850
+msgid "Manx"
+msgstr ""
+
+#: admin/settings.php:851
+msgid "Maori"
+msgstr ""
+
+#: admin/settings.php:852
+msgid "Mapuche"
+msgstr ""
+
+#: admin/settings.php:853
+msgid "Marathi"
+msgstr ""
+
+#: admin/settings.php:854
+msgid "Mari"
+msgstr ""
+
+#: admin/settings.php:855
+msgid "Marshallese"
+msgstr ""
+
+#: admin/settings.php:856
+msgid "Marwari"
+msgstr ""
+
+#: admin/settings.php:857
+msgid "Masai"
+msgstr ""
+
+#: admin/settings.php:858
+msgid "Mazanderani"
+msgstr ""
+
+#: admin/settings.php:859
+msgid "Medumba"
+msgstr ""
+
+#: admin/settings.php:860
+msgid "Mende"
+msgstr ""
+
+#: admin/settings.php:861
+msgid "Mentawai"
+msgstr ""
+
+#: admin/settings.php:862
+msgid "Meru"
+msgstr ""
+
+#: admin/settings.php:863
+msgid "Metaʼ"
+msgstr ""
+
+#: admin/settings.php:864
+msgid "Mexican Spanish"
+msgstr ""
+
+#: admin/settings.php:865
+msgid "Micmac"
+msgstr ""
+
+#: admin/settings.php:866
+msgid "Middle Dutch"
+msgstr ""
+
+#: admin/settings.php:867
+msgid "Middle English"
+msgstr ""
+
+#: admin/settings.php:868
+msgid "Middle French"
+msgstr ""
+
+#: admin/settings.php:869
+msgid "Middle High German"
+msgstr ""
+
+#: admin/settings.php:870
+msgid "Middle Irish"
+msgstr ""
+
+#: admin/settings.php:871
+msgid "Min Nan Chinese"
+msgstr ""
+
+#: admin/settings.php:872
+msgid "Minangkabau"
+msgstr ""
+
+#: admin/settings.php:873
+msgid "Mingrelian"
+msgstr ""
+
+#: admin/settings.php:874
+msgid "Mirandese"
+msgstr ""
+
+#: admin/settings.php:875
+msgid "Mizo"
+msgstr ""
+
+#: admin/settings.php:876
+msgid "Modern Standard Arabic"
+msgstr ""
+
+#: admin/settings.php:877
+msgid "Mohawk"
+msgstr ""
+
+#: admin/settings.php:878
+msgid "Moksha"
+msgstr ""
+
+#: admin/settings.php:879
+msgid "Moldavian"
+msgstr ""
+
+#: admin/settings.php:880
+msgid "Mongo"
+msgstr ""
+
+#: admin/settings.php:881
+msgid "Mongolian"
+msgstr ""
+
+#: admin/settings.php:882
+msgid "Morisyen"
+msgstr ""
+
+#: admin/settings.php:883
+msgid "Moroccan Arabic"
+msgstr ""
+
+#: admin/settings.php:884
+msgid "Mossi"
+msgstr ""
+
+#: admin/settings.php:885
+msgid "Multiple Languages"
+msgstr ""
+
+#: admin/settings.php:886
+msgid "Mundang"
+msgstr ""
+
+#: admin/settings.php:887
+msgid "Muslim Tat"
+msgstr ""
+
+#: admin/settings.php:888
+msgid "Myene"
+msgstr ""
+
+#: admin/settings.php:889
+msgid "Nama"
+msgstr ""
+
+#: admin/settings.php:890
+msgid "Nauru"
+msgstr ""
+
+#: admin/settings.php:891
+msgid "Navajo"
+msgstr ""
+
+#: admin/settings.php:892
+msgid "Ndonga"
+msgstr ""
+
+#: admin/settings.php:893
+msgid "Neapolitan"
+msgstr ""
+
+#: admin/settings.php:894
+msgid "Nepali"
+msgstr ""
+
+#: admin/settings.php:895
+msgid "Newari"
+msgstr ""
+
+#: admin/settings.php:896
+msgid "Ngambay"
+msgstr ""
+
+#: admin/settings.php:897
+msgid "Ngiemboon"
+msgstr ""
+
+#: admin/settings.php:898
+msgid "Ngomba"
+msgstr ""
+
+#: admin/settings.php:899
+msgid "Nheengatu"
+msgstr ""
+
+#: admin/settings.php:900
+msgid "Nias"
+msgstr ""
+
+#: admin/settings.php:901
+msgid "Niuean"
+msgstr ""
+
+#: admin/settings.php:902
+msgid "No linguistic content"
+msgstr ""
+
+#: admin/settings.php:903
+msgid "Nogai"
+msgstr ""
+
+#: admin/settings.php:904
+msgid "North Ndebele"
+msgstr ""
+
+#: admin/settings.php:905
+msgid "Northern Frisian"
+msgstr ""
+
+#: admin/settings.php:906
+msgid "Northern Sami"
+msgstr ""
+
+#: admin/settings.php:907
+msgid "Northern Sotho"
+msgstr ""
+
+#: admin/settings.php:908
+msgid "Norwegian"
+msgstr ""
+
+#: admin/settings.php:909
+msgid "Norwegian Bokmål"
+msgstr ""
+
+#: admin/settings.php:910
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: admin/settings.php:911
+msgid "Novial"
+msgstr ""
+
+#: admin/settings.php:912
+msgid "Nuer"
+msgstr ""
+
+#: admin/settings.php:913
+msgid "Nyamwezi"
+msgstr ""
+
+#: admin/settings.php:914
+msgid "Nyanja"
+msgstr ""
+
+#: admin/settings.php:915
+msgid "Nyankole"
+msgstr ""
+
+#: admin/settings.php:916
+msgid "Nyasa Tonga"
+msgstr ""
+
+#: admin/settings.php:917
+msgid "Nyoro"
+msgstr ""
+
+#: admin/settings.php:918
+msgid "Nzima"
+msgstr ""
+
+#: admin/settings.php:919
+msgid "NʼKo"
+msgstr ""
+
+#: admin/settings.php:920
+msgid "Occitan"
+msgstr ""
+
+#: admin/settings.php:921
+msgid "Ojibwa"
+msgstr ""
+
+#: admin/settings.php:922
+msgid "Old English"
+msgstr ""
+
+#: admin/settings.php:923
+msgid "Old French"
+msgstr ""
+
+#: admin/settings.php:924
+msgid "Old High German"
+msgstr ""
+
+#: admin/settings.php:925
+msgid "Old Irish"
+msgstr ""
+
+#: admin/settings.php:926
+msgid "Old Norse"
+msgstr ""
+
+#: admin/settings.php:927
+msgid "Old Persian"
+msgstr ""
+
+#: admin/settings.php:928
+msgid "Old Provençal"
+msgstr ""
+
+#: admin/settings.php:929
+msgid "Oriya"
+msgstr ""
+
+#: admin/settings.php:930
+msgid "Oromo"
+msgstr ""
+
+#: admin/settings.php:931
+msgid "Osage"
+msgstr ""
+
+#: admin/settings.php:932
+msgid "Ossetic"
+msgstr ""
+
+#: admin/settings.php:933
+msgid "Ottoman Turkish"
+msgstr ""
+
+#: admin/settings.php:934
+msgid "Pahlavi"
+msgstr ""
+
+#: admin/settings.php:935
+msgid "Palatine German"
+msgstr ""
+
+#: admin/settings.php:936
+msgid "Palauan"
+msgstr ""
+
+#: admin/settings.php:937
+msgid "Pali"
+msgstr ""
+
+#: admin/settings.php:938
+msgid "Pampanga"
+msgstr ""
+
+#: admin/settings.php:939
+msgid "Pangasinan"
+msgstr ""
+
+#: admin/settings.php:940
+msgid "Papiamento"
+msgstr ""
+
+#: admin/settings.php:941
+msgid "Pashto"
+msgstr ""
+
+#: admin/settings.php:942
+msgid "Pennsylvania German"
+msgstr ""
+
+#: admin/settings.php:943
+msgid "Persian"
+msgstr ""
+
+#: admin/settings.php:944
+msgid "Phoenician"
+msgstr ""
+
+#: admin/settings.php:945
+msgid "Picard"
+msgstr ""
+
+#: admin/settings.php:946
+msgid "Piedmontese"
+msgstr ""
+
+#: admin/settings.php:947
+msgid "Plautdietsch"
+msgstr ""
+
+#: admin/settings.php:948
+msgid "Pohnpeian"
+msgstr ""
+
+#: admin/settings.php:949
+msgid "Polish"
+msgstr ""
+
+#: admin/settings.php:950
+msgid "Pontic"
+msgstr ""
+
+#: admin/settings.php:951
+msgid "Portuguese"
+msgstr ""
+
+#: admin/settings.php:952
+msgid "Prussian"
+msgstr ""
+
+#: admin/settings.php:953
+msgid "Punjabi"
+msgstr ""
+
+#: admin/settings.php:954
+msgid "Quechua"
+msgstr ""
+
+#: admin/settings.php:955
+msgid "Rajasthani"
+msgstr ""
+
+#: admin/settings.php:956
+msgid "Rapanui"
+msgstr ""
+
+#: admin/settings.php:957
+msgid "Rarotongan"
+msgstr ""
+
+#: admin/settings.php:958
+msgid "Riffian"
+msgstr ""
+
+#: admin/settings.php:959
+msgid "Romagnol"
+msgstr ""
+
+#: admin/settings.php:960
+msgid "Romanian"
+msgstr ""
+
+#: admin/settings.php:961
+msgid "Romansh"
+msgstr ""
+
+#: admin/settings.php:962
+msgid "Romany"
+msgstr ""
+
+#: admin/settings.php:963
+msgid "Rombo"
+msgstr ""
+
+#: admin/settings.php:964
+msgid "Root"
+msgstr ""
+
+#: admin/settings.php:965
+msgid "Rotuman"
+msgstr ""
+
+#: admin/settings.php:966
+msgid "Roviana"
+msgstr ""
+
+#: admin/settings.php:967
+msgid "Rundi"
+msgstr ""
+
+#: admin/settings.php:968
+msgid "Russian"
+msgstr ""
+
+#: admin/settings.php:969
+msgid "Rusyn"
+msgstr ""
+
+#: admin/settings.php:970
+msgid "Rwa"
+msgstr ""
+
+#: admin/settings.php:971
+msgid "Saho"
+msgstr ""
+
+#: admin/settings.php:972
+msgid "Sakha"
+msgstr ""
+
+#: admin/settings.php:973
+msgid "Samaritan Aramaic"
+msgstr ""
+
+#: admin/settings.php:974
+msgid "Samburu"
+msgstr ""
+
+#: admin/settings.php:975
+msgid "Samoan"
+msgstr ""
+
+#: admin/settings.php:976
+msgid "Samogitian"
+msgstr ""
+
+#: admin/settings.php:977
+msgid "Sandawe"
+msgstr ""
+
+#: admin/settings.php:978
+msgid "Sango"
+msgstr ""
+
+#: admin/settings.php:979
+msgid "Sangu"
+msgstr ""
+
+#: admin/settings.php:980
+msgid "Sanskrit"
+msgstr ""
+
+#: admin/settings.php:981
+msgid "Santali"
+msgstr ""
+
+#: admin/settings.php:982
+msgid "Sardinian"
+msgstr ""
+
+#: admin/settings.php:983
+msgid "Sasak"
+msgstr ""
+
+#: admin/settings.php:984
+msgid "Sassarese Sardinian"
+msgstr ""
+
+#: admin/settings.php:985
+msgid "Saterland Frisian"
+msgstr ""
+
+#: admin/settings.php:986
+msgid "Saurashtra"
+msgstr ""
+
+#: admin/settings.php:987
+msgid "Scots"
+msgstr ""
+
+#: admin/settings.php:988
+msgid "Scottish Gaelic"
+msgstr ""
+
+#: admin/settings.php:989
+msgid "Selayar"
+msgstr ""
+
+#: admin/settings.php:990
+msgid "Selkup"
+msgstr ""
+
+#: admin/settings.php:991
+msgid "Sena"
+msgstr ""
+
+#: admin/settings.php:992
+msgid "Seneca"
+msgstr ""
+
+#: admin/settings.php:993
+msgid "Serbian"
+msgstr ""
+
+#: admin/settings.php:994
+msgid "Serbo-Croatian"
+msgstr ""
+
+#: admin/settings.php:995
+msgid "Serer"
+msgstr ""
+
+#: admin/settings.php:996
+msgid "Seri"
+msgstr ""
+
+#: admin/settings.php:997
+msgid "Shambala"
+msgstr ""
+
+#: admin/settings.php:998
+msgid "Shan"
+msgstr ""
+
+#: admin/settings.php:999
+msgid "Shona"
+msgstr ""
+
+#: admin/settings.php:1000
+msgid "Sichuan Yi"
+msgstr ""
+
+#: admin/settings.php:1001
+msgid "Sicilian"
+msgstr ""
+
+#: admin/settings.php:1002
+msgid "Sidamo"
+msgstr ""
+
+#: admin/settings.php:1003
+msgid "Siksika"
+msgstr ""
+
+#: admin/settings.php:1004
+msgid "Silesian"
+msgstr ""
+
+#: admin/settings.php:1005
+msgid "Simplified Chinese"
+msgstr ""
+
+#: admin/settings.php:1006
+msgid "Sindhi"
+msgstr ""
+
+#: admin/settings.php:1007
+msgid "Sinhala"
+msgstr ""
+
+#: admin/settings.php:1008
+msgid "Skolt Sami"
+msgstr ""
+
+#: admin/settings.php:1009
+msgid "Slave"
+msgstr ""
+
+#: admin/settings.php:1010
+msgid "Slovak"
+msgstr ""
+
+#: admin/settings.php:1011
+msgid "Slovenian"
+msgstr ""
+
+#: admin/settings.php:1012
+msgid "Soga"
+msgstr ""
+
+#: admin/settings.php:1013
+msgid "Sogdien"
+msgstr ""
+
+#: admin/settings.php:1014
+msgid "Somali"
+msgstr ""
+
+#: admin/settings.php:1015
+msgid "Soninke"
+msgstr ""
+
+#: admin/settings.php:1016
+msgid "South Azerbaijani"
+msgstr ""
+
+#: admin/settings.php:1017
+msgid "South Ndebele"
+msgstr ""
+
+#: admin/settings.php:1018
+msgid "Southern Altai"
+msgstr ""
+
+#: admin/settings.php:1019
+msgid "Southern Sami"
+msgstr ""
+
+#: admin/settings.php:1020
+msgid "Southern Sotho"
+msgstr ""
+
+#: admin/settings.php:1021
+msgid "Spanish"
+msgstr ""
+
+#: admin/settings.php:1022
+msgid "Sranan Tongo"
+msgstr ""
+
+#: admin/settings.php:1023
+msgid "Standard Moroccan Tamazight"
+msgstr ""
+
+#: admin/settings.php:1024
+msgid "Sukuma"
+msgstr ""
+
+#: admin/settings.php:1025
+msgid "Sumerian"
+msgstr ""
+
+#: admin/settings.php:1026
+msgid "Sundanese"
+msgstr ""
+
+#: admin/settings.php:1027
+msgid "Susu"
+msgstr ""
+
+#: admin/settings.php:1028
+msgid "Swahili"
+msgstr ""
+
+#: admin/settings.php:1029
+msgid "Swati"
+msgstr ""
+
+#: admin/settings.php:1030
+msgid "Swedish"
+msgstr ""
+
+#: admin/settings.php:1031
+msgid "Swiss French"
+msgstr ""
+
+#: admin/settings.php:1032
+msgid "Swiss German"
+msgstr ""
+
+#: admin/settings.php:1033
+msgid "Swiss High German"
+msgstr ""
+
+#: admin/settings.php:1034
+msgid "Syriac"
+msgstr ""
+
+#: admin/settings.php:1035
+msgid "Tachelhit"
+msgstr ""
+
+#: admin/settings.php:1036
+msgid "Tagalog"
+msgstr ""
+
+#: admin/settings.php:1037
+msgid "Tahitian"
+msgstr ""
+
+#: admin/settings.php:1038
+msgid "Taita"
+msgstr ""
+
+#: admin/settings.php:1039
+msgid "Tajik"
+msgstr ""
+
+#: admin/settings.php:1040
+msgid "Talysh"
+msgstr ""
+
+#: admin/settings.php:1041
+msgid "Tamashek"
+msgstr ""
+
+#: admin/settings.php:1042
+msgid "Tamil"
+msgstr ""
+
+#: admin/settings.php:1043
+msgid "Taroko"
+msgstr ""
+
+#: admin/settings.php:1044
+msgid "Tasawaq"
+msgstr ""
+
+#: admin/settings.php:1045
+msgid "Tatar"
+msgstr ""
+
+#: admin/settings.php:1046
+msgid "Telugu"
+msgstr ""
+
+#: admin/settings.php:1047
+msgid "Tereno"
+msgstr ""
+
+#: admin/settings.php:1048
+msgid "Teso"
+msgstr ""
+
+#: admin/settings.php:1049
+msgid "Tetum"
+msgstr ""
+
+#: admin/settings.php:1050
+msgid "Thai"
+msgstr ""
+
+#: admin/settings.php:1051
+msgid "Tibetan"
+msgstr ""
+
+#: admin/settings.php:1052
+msgid "Tigre"
+msgstr ""
+
+#: admin/settings.php:1053
+msgid "Tigrinya"
+msgstr ""
+
+#: admin/settings.php:1054
+msgid "Timne"
+msgstr ""
+
+#: admin/settings.php:1055
+msgid "Tiv"
+msgstr ""
+
+#: admin/settings.php:1056
+msgid "Tlingit"
+msgstr ""
+
+#: admin/settings.php:1057
+msgid "Tok Pisin"
+msgstr ""
+
+#: admin/settings.php:1058
+msgid "Tokelau"
+msgstr ""
+
+#: admin/settings.php:1059
+msgid "Tongan"
+msgstr ""
+
+#: admin/settings.php:1060
+msgid "Tornedalen Finnish"
+msgstr ""
+
+#: admin/settings.php:1061
+msgid "Traditional Chinese"
+msgstr ""
+
+#: admin/settings.php:1062
+msgid "Tsakhur"
+msgstr ""
+
+#: admin/settings.php:1063
+msgid "Tsakonian"
+msgstr ""
+
+#: admin/settings.php:1064
+msgid "Tsimshian"
+msgstr ""
+
+#: admin/settings.php:1065
+msgid "Tsonga"
+msgstr ""
+
+#: admin/settings.php:1066
+msgid "Tswana"
+msgstr ""
+
+#: admin/settings.php:1067
+msgid "Tulu"
+msgstr ""
+
+#: admin/settings.php:1068
+msgid "Tumbuka"
+msgstr ""
+
+#: admin/settings.php:1069
+msgid "Tunisian Arabic"
+msgstr ""
+
+#: admin/settings.php:1070
+msgid "Turkish"
+msgstr ""
+
+#: admin/settings.php:1071
+msgid "Turkmen"
+msgstr ""
+
+#: admin/settings.php:1072
+msgid "Turoyo"
+msgstr ""
+
+#: admin/settings.php:1073
+msgid "Tuvalu"
+msgstr ""
+
+#: admin/settings.php:1074
+msgid "Tuvinian"
+msgstr ""
+
+#: admin/settings.php:1075
+msgid "Twi"
+msgstr ""
+
+#: admin/settings.php:1076
+msgid "Tyap"
+msgstr ""
+
+#: admin/settings.php:1077
+msgid "Udmurt"
+msgstr ""
+
+#: admin/settings.php:1078
+msgid "Ugaritic"
+msgstr ""
+
+#: admin/settings.php:1079
+msgid "Ukrainian"
+msgstr ""
+
+#: admin/settings.php:1080
+msgid "Umbundu"
+msgstr ""
+
+#: admin/settings.php:1081
+msgid "Unknown Language"
+msgstr ""
+
+#: admin/settings.php:1082
+msgid "Upper Sorbian"
+msgstr ""
+
+#: admin/settings.php:1083
+msgid "Urdu"
+msgstr ""
+
+#: admin/settings.php:1084
+msgid "Uyghur"
+msgstr ""
+
+#: admin/settings.php:1085
+msgid "Uzbek"
+msgstr ""
+
+#: admin/settings.php:1086
+msgid "Vai"
+msgstr ""
+
+#: admin/settings.php:1087
+msgid "Venda"
+msgstr ""
+
+#: admin/settings.php:1088
+msgid "Venetian"
+msgstr ""
+
+#: admin/settings.php:1089
+msgid "Veps"
+msgstr ""
+
+#: admin/settings.php:1090
+msgid "Vietnamese"
+msgstr ""
+
+#: admin/settings.php:1091
+msgid "Volapük"
+msgstr ""
+
+#: admin/settings.php:1092
+msgid "Võro"
+msgstr ""
+
+#: admin/settings.php:1093
+msgid "Votic"
+msgstr ""
+
+#: admin/settings.php:1094
+msgid "Vunjo"
+msgstr ""
+
+#: admin/settings.php:1095
+msgid "Walloon"
+msgstr ""
+
+#: admin/settings.php:1096
+msgid "Walser"
+msgstr ""
+
+#: admin/settings.php:1097
+msgid "Waray"
+msgstr ""
+
+#: admin/settings.php:1098
+msgid "Warlpiri"
+msgstr ""
+
+#: admin/settings.php:1099
+msgid "Washo"
+msgstr ""
+
+#: admin/settings.php:1100
+msgid "Wayuu"
+msgstr ""
+
+#: admin/settings.php:1101
+msgid "Welsh"
+msgstr ""
+
+#: admin/settings.php:1102
+msgid "West Flemish"
+msgstr ""
+
+#: admin/settings.php:1103
+msgid "Western Frisian"
+msgstr ""
+
+#: admin/settings.php:1104
+msgid "Western Mari"
+msgstr ""
+
+#: admin/settings.php:1105
+msgid "Wolaytta"
+msgstr ""
+
+#: admin/settings.php:1106
+msgid "Wolof"
+msgstr ""
+
+#: admin/settings.php:1107
+msgid "Wu Chinese"
+msgstr ""
+
+#: admin/settings.php:1108
+msgid "Xhosa"
+msgstr ""
+
+#: admin/settings.php:1109
+msgid "Xiang Chinese"
+msgstr ""
+
+#: admin/settings.php:1110
+msgid "Yangben"
+msgstr ""
+
+#: admin/settings.php:1111
+msgid "Yao"
+msgstr ""
+
+#: admin/settings.php:1112
+msgid "Yapese"
+msgstr ""
+
+#: admin/settings.php:1113
+msgid "Yemba"
+msgstr ""
+
+#: admin/settings.php:1114
+msgid "Yiddish"
+msgstr ""
+
+#: admin/settings.php:1115
+msgid "Yoruba"
+msgstr ""
+
+#: admin/settings.php:1116
+msgid "Zapotec"
+msgstr ""
+
+#: admin/settings.php:1117
+msgid "Zarma"
+msgstr ""
+
+#: admin/settings.php:1118
+msgid "Zaza"
+msgstr ""
+
+#: admin/settings.php:1119
+msgid "Zeelandic"
+msgstr ""
+
+#: admin/settings.php:1120
+msgid "Zenaga"
+msgstr ""
+
+#: admin/settings.php:1121
+msgid "Zhuang"
+msgstr ""
+
+#: admin/settings.php:1122
+msgid "Zoroastrian Dari"
+msgstr ""
+
+#: admin/settings.php:1123
+msgid "Zulu"
+msgstr ""
+
+#: admin/settings.php:1124
+msgid "Zuni"
+msgstr ""
+
+#: admin/settings.php:1130
+msgid "Choose your language"
+msgstr ""
+
+#: shortcode/class-compare-basic-shortcode.php:42
+msgid "Where to find this product ?"
+msgstr ""
+
+#: shortcode/class-compare-basic-shortcode.php:63
+msgid " on "
+msgstr ""
+
+#: aawp/table.php:31
+msgid "See on Amazon"
+msgstr ""
+
+#: aawp/table.php:32
+msgid "See on other partners"
+msgstr ""
+
+#. Name of the plugin
+msgid "Compare Affiliate Product"
+msgstr ""
+
+#. Description of the plugin
+msgid "Display Easily products from your affiliate program (Awin)"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://www.thivinfo.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Sébastien SERRE"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://thivinfo.com"
+msgstr ""

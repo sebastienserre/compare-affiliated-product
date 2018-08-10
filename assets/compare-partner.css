@@ -1,0 +1,56 @@
+/**
+AAWP Styles
+ */
+.compare-partners{
+    clear: both;
+}
+
+.compare_partner_logo{
+    width: 50px;
+    margin-right: 5px;
+}
+
+.compare-partners {
+    margin-bottom: 20px;
+}
+
+p.compare-price {
+    margin-bottom: 10px;
+}
+
+/**
+Horizontal ShortCode
+ */
+
+.main-row {
+    display: flex;
+}
+
+.compare_basic_sc_left,
+.compare_basic_right{
+    width: 50%;
+}
+
+.price-box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.compare_basic_sc_partner_price {
+    text-align: center;
+}
+
+h4.compare_sc_title {
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 767px) {
+    .main-row {
+        display: block;
+    }
+
+    .compare_basic_sc_left,
+    .compare_basic_right{
+        width: auto;
+    }
+}
