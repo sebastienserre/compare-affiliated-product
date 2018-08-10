@@ -19,8 +19,6 @@ function compare_settings_page() {
 		$active_tab = $_GET['tab'];
 
 	} else {
-
-		//$active_tab = implode( '', array_slice( $tabs, 0, 1 ) );
 		$active_tab = 'general';
 	}
 	?>
@@ -73,10 +71,12 @@ function compare_register_settings() {
 	add_settings_section( 'compare-zanox', '', '', 'compare-zanox' );
 	add_settings_section( 'compare-awin', '', '', 'compare-awin' );
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
+	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
 
 	register_setting( 'zanox', 'zanox' );
 	register_setting( 'awin', 'awin' );
 	register_setting( 'general', 'general' );
+	register_setting( 'compare-help', 'help' );
 
 	add_settings_field( 'compare-zanox-connect', __( 'ConnectID', 'compare' ), 'compare_zanox_connectID', 'compare-zanox', 'compare-zanox' );
 	add_settings_field( 'compare-zanox-secret', __( 'SecretID', 'compare' ), 'compare_zanox_secretID', 'compare-zanox', 'compare-zanox' );
@@ -1139,5 +1139,14 @@ $general  = get_option( 'general' );
 
 	?>
 </select>
+<?php
+}
+
+function compare_help() {
+	$support_link = 'https://www.thivinfo.com/soumettre-un-ticket/';
+	$support = sprintf( wp_kses( __('If you meet a bug, you can leave me a ticket on <a href="%s" target="_blank">Thivinfo.com</a>', 'compare'),array(  'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( $support_link ) );
+	?>
+	<h3><?php _e('Welcome on the support center', 'compare'); ?></h3>
+	<p><?php echo $support; ?></p>
 <?php
 }
