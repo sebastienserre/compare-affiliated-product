@@ -124,3 +124,48 @@ function compare_create_cron() {
 		wp_schedule_event( time(), 'daily', 'compare_daily_event' );
 	}
 }
+
+// Create a helper function for easy SDK access.
+function cap_fs() {
+	global $cap_fs;
+
+	if ( ! isset( $cap_fs ) ) {
+		// Include Freemius SDK.
+		require_once dirname(__FILE__) . '/freemius/start.php';
+
+		$cap_fs = fs_dynamic_init( array(
+			'id'                  => '2422',
+			'slug'                => 'compare-affiliated-products',
+			'type'                => 'plugin',
+			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
+			'is_premium'          => true,
+			'is_premium_only'     => true,
+			// If your plugin is a serviceware, set this option to false.
+			'has_premium_version' => true,
+			'has_addons'          => false,
+			'has_paid_plans'      => true,
+			'is_org_compliant'    => false,
+			'trial'               => array(
+				'days'               => 30,
+				'is_require_payment' => false,
+			),
+			'menu'                => array(
+				'slug'           => 'compare-settings',
+				'support'        => false,
+				'parent'         => array(
+					'slug' => 'options-general.php',
+				),
+			),
+			// Set the SDK to work in a sandbox mode (for development & testing).
+			// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+			'secret_key'          => 'sk_&S7jJvcB]OCZBp>^Hf.~XVL;0eccs',
+		) );
+	}
+
+	return $cap_fs;
+}
+
+// Init Freemius.
+cap_fs();
+// Signal that SDK was initiated.
+do_action( 'cap_fs_loaded' );
