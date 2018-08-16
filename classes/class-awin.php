@@ -22,9 +22,10 @@ class Awin {
 	 * @return array $dir new wp upload dir
 	 */
 	public function compare_upload_dir( $dir ) {
-		$mkdir = wp_mkdir_p( $dir . '/xml' );
+var_dump( $dir );
+		$mkdir = wp_mkdir_p( $dir['path'] . '/xml' );
 		if ( ! $mkdir ) {
-			wp_mkdir_p( $dir . '/xml' );
+			wp_mkdir_p( $dir['path'] . '/xml' );
 		}
 		$dir =
 			array(
@@ -34,7 +35,6 @@ class Awin {
 			) + $dir;
 
 		return $dir;
-
 	}
 
 	/**
