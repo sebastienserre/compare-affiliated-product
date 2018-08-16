@@ -54,3 +54,12 @@ h4.compare_sc_title {
         width: auto;
     }
 }
+
+/**
+Freemius
+ */
+#packages ul>li article.featured{
+    width: 50% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
