@@ -31,6 +31,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
 }
 
 add_action( 'plugins_loaded', 'compare_load_textdomain' );
@@ -64,7 +65,7 @@ function compare_plugin_template_path( $template_stack, $template_names ) {
 
 add_action( 'wp_enqueue_scripts', 'compare_load_style' );
 function compare_load_style() {
-	wp_enqueue_style( 'compare_partner', COMPARE_PLUGIN_URL . '/assets/compare-partner.css', '', COMPARE_VERSION );
+	wp_enqueue_style( 'compare_partner', COMPARE_PLUGIN_URL . '/assets/css/compare-partner.css', '', COMPARE_VERSION );
 }
 
 add_action( 'wp_enqueue_scripts', 'compare_load_scripts' );
@@ -77,6 +78,7 @@ function compare_load_scripts() {
 	 */
 	$customer_id = get_option( 'awin' );
 	wp_enqueue_script( 'convert-a-link', 'https://www.dwin2.com/pub.' . $customer_id['customer_id'] . '.min.js', array(), '1.0.0', true );
+	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }
 
 register_activation_hook( __FILE__, 'compare_activation' );

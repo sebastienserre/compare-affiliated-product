@@ -63,3 +63,11 @@ Freemius
     margin-left: auto !important;
     margin-right: auto !important;
 }
+
+/**
+Cloak Link
+ */
+.atc:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

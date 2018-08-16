@@ -22,7 +22,6 @@ class Awin {
 	 * @return array $dir new wp upload dir
 	 */
 	public function compare_upload_dir( $dir ) {
-var_dump( $dir );
 		$mkdir = wp_mkdir_p( $dir['path'] . '/xml' );
 		if ( ! $mkdir ) {
 			wp_mkdir_p( $dir['path'] . '/xml' );
@@ -131,7 +130,7 @@ var_dump( $dir );
 	}
 
 	public function compare_get_data( $eanlist ) {
-		if ( !is_array( $eanlist ) ){
+		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
 		global $wpdb;
@@ -198,7 +197,7 @@ var_dump( $dir );
 
 				$prod = array(
 					'price'        => strval( $element->price->buynow ),
-					'title'         => $element->text->name ? strval( $element->text->name ) : '',
+					'title'        => $element->text->name ? strval( $element->text->name ) : '',
 					'description'  => strval( $element->text->desc ),
 					'img'          => strval( $element->uri->mImage ),
 					'url'          => strval( $element->uri->awTrack ),
@@ -217,10 +216,7 @@ var_dump( $dir );
 	}
 
 	public function compare_display_html( $eanlist ) {
-		$prods = $this->compare_get_data( $eanlist );
-		$currency         = get_option( 'general' );
-		$currency   =   $currency['currency'];
-		$currency         = apply_filters( 'compare_currency_unit', $currency );
+		$prods            = $this->compare_get_data( $eanlist );
 		$partner_logo_url = get_option( 'awin' );
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 		ob_start();
@@ -229,7 +225,6 @@ var_dump( $dir );
 			<?php
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
-				//var_dump( $p );
 				switch ( $p['partner_name'] ) {
 					case 'Cdiscount':
 						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
@@ -243,12 +238,8 @@ var_dump( $dir );
 					default:
 						$logo = $partner;
 				}
-				?>
-				<p class="compare-price">
-					<a class="compare-link"
-					   href="<?php echo $p['url'] ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency ?></a>
-				</p>
-				<?php
+				$link = new Cloak_Link();
+				$link->compare_create_link( $p, $logo );
 			}
 			?>
 		</div>
