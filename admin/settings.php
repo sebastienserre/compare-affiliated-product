@@ -7,7 +7,6 @@ add_action( 'admin_menu', 'compare_settings' );
 function compare_settings() {
 	add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
 }
-
 function compare_settings_page() {
 	$tabs = array(
 		'general' =>__('general', 'compare'),
@@ -65,6 +64,7 @@ function compare_settings_page() {
 	</div>
 	<?php
 }
+
 
 add_action( 'admin_init', 'compare_register_settings' );
 function compare_register_settings() {
