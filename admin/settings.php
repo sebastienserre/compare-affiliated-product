@@ -84,6 +84,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-api', __( 'API Key', 'compare' ), 'compare_awin_key', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-partner', __( 'Awin partner Code', 'compare' ), 'compare_awin_partner', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-partner_logo', __( 'Awin partner logo', 'compare' ), 'compare_awin_partner_logo', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-partner_url', __( 'Awin Trademark code', 'compare' ), 'compare_awin_partner_url', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed-reset', __('Reload data','compare'), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
@@ -122,13 +123,18 @@ function compare_awin_feed() {
 	$partners = explode( ',', $partners );
 	$general = get_option( 'general' );
 	$lang = $general['languages'];
+	$trademark = $feed['trademark_code'];
 
 	foreach ( $partners as $partner ) {
-		$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/63565,63241,63245,65403,63579,63559,64567,63315,63353,55949,66429,63369,63745,66569,63393,63435,63479,60351,67471,60541,63511,63515/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
+		$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark[$partner] .'/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
 		?>
-		<div>
+		<div hidden>
+			<img width="40px" src="<?php echo $feed['partner_logo'][ $partner ]; ?>">
+			<?php
+			echo $partner;
+			?>
 		<textarea name="awin[datafeed][<?php echo $partner ?>]" rows="4"
-		          cols="150" hidden><?php echo esc_attr( $url ); ?></textarea>
+		          cols="150" ><?php echo esc_attr( $url ); ?></textarea>
 		</div>
 		<?php
 	}
@@ -173,11 +179,28 @@ function compare_awin_partner_logo() {
 	foreach ( $partners as $partner ){
 			$value = 'value="' . $awin['partner_logo'][ $partner ].'"';
 		?>
-		<div>
+		<div class="compare-partners-datafeed">
 		<?php
 		echo $partner;
 		?>
-		<input type="text" name="awin[partner_logo][<?php echo $partner; ?>]" <?php echo $value; ?>>
+		<input type="text" name="awin[partner_logo][<?php echo $partner; ?>]" <?php echo $value; ?>><img width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
+		</div>
+		<?php
+	}
+}
+
+function compare_awin_partner_url() {
+	$awin = get_option('awin');
+	$partners = explode( ',', $awin['partner'] );
+
+	foreach ( $partners as $partner ){
+		$value = 'value="' . $awin['trademark_code'][ $partner ].'"';
+		?>
+		<div class="compare-partners-datafeed">
+			<?php
+			echo $partner;
+			?>
+			<input type="text" name="awin[trademark_code][<?php echo $partner; ?>]" <?php echo $value; ?>><img width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
 		</div>
 		<?php
 	}

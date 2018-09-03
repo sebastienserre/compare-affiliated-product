@@ -45,6 +45,7 @@ class Awin {
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = $awin['datafeed'];
+		var_dump( $awin );
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
