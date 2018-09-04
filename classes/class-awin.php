@@ -13,6 +13,7 @@ class Awin {
 	 */
 	public function __construct() {
 		add_action( 'compare_daily_event', array( $this, 'compare_schedule_awin' ) );
+	//	add_action( 'admin_init', array( $this, 'compare_schedule_awin' ) );
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
 	}
 
@@ -45,7 +46,7 @@ class Awin {
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = $awin['datafeed'];
-		var_dump( $awin );
+
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
@@ -57,7 +58,6 @@ class Awin {
 		set_time_limit( 600 );
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
-
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
 				$file = array(
