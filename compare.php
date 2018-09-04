@@ -1,6 +1,6 @@
 <?php
 /*
-	Plugin Name: Compare Affiliate Product
+	Plugin Name: Compare Affiliated Products
 	Plugin URI: https://www.thivinfo.com
 	Description: Display Easily products from your affiliate program (Awin)
 	Author: Sébastien SERRE
@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.0.0
+	Version: 1.0.1
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.0.0' );
+define( 'COMPARE_VERSION', '1.0.1' );
 define( 'COMPARE_PLUGIN_NAME', 'compare' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
