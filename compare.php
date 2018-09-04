@@ -24,6 +24,13 @@ define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
 
+/**
+ * Increase memory to allow large files download / treatment
+ */
+if ( ! defined( 'WP_MEMORY_LIMIT' ) ){
+	define('WP_MEMORY_LIMIT', '512M');
+}
+
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
