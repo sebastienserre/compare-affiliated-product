@@ -54,11 +54,18 @@ add_filter( 'aawp_template_stack', 'compare_plugin_template_path', 50, 2 );
  * @return array
  */
 function compare_plugin_template_path( $template_stack, $template_names ) {
+
+	if ( file_exists( get_stylesheet_directory() . '/aawp' ) ){
+		return $template_stack;
+	}
+
 	$template_stack = array(
 		plugin_dir_path( __FILE__ ) . 'aawp/',
 		plugin_dir_path( __FILE__ ) . 'aawp/products',
 		plugin_dir_path( __FILE__ ) . 'aawp/parts',
 	);
+
+
 
 	return $template_stack;
 }
