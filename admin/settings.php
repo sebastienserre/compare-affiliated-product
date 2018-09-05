@@ -1181,5 +1181,7 @@ function compare_help() {
 	?>
 	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
 	<p><?php echo $support; ?></p>
+	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/awin.html'; ?>"><?php _e('How to configure Awin', 'compare'); ?></a> </p>
+	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/shortcodes.html'; ?>"><?php _e('How to use the shortcodes', 'compare'); ?></a> </p>
 	<?php
 }
