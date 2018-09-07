@@ -54,6 +54,7 @@ class Awin {
 		}
 
 		set_time_limit( 600 );
+		error_log( 'Start Download Feed' );
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
 			if ( ! is_wp_error( $temp_file ) ) {
@@ -77,6 +78,7 @@ class Awin {
 
 			}
 		}
+		error_log( 'Stop Download Feed' );
 		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 		$this->compare_register_prod();
 	}
