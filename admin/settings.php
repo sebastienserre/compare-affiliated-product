@@ -126,10 +126,9 @@ function compare_awin_feed() {
 	$trademark = $feed['trademark_code'];
 
 	foreach ( $partners as $partner ) {
-		$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark[ $partner ] . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
+		$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
 		?>
 		<div hidden>
-			<img width="40px" src="<?php echo $feed['partner_logo'][ $partner ]; ?>">
 			<?php
 			echo $partner;
 			?>
@@ -192,25 +191,24 @@ function compare_awin_partner_logo() {
 
 function compare_awin_partner_url() {
 	$awin     = get_option( 'awin' );
-	$partners = explode( ',', $awin['partner'] );
 
-	foreach ( $partners as $partner ) {
-		$value = 'value="' . $awin['trademark_code'][ $partner ] . '"';
+		$value = 'value="' . $awin['trademark_code'] . '"';
 		?>
 		<div class="compare-partners-datafeed">
 			<?php
 			echo $partner;
 			?>
-			<input type="text" name="awin[trademark_code][<?php echo $partner; ?>]" <?php echo $value; ?>><img
-					width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
+			<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 		</div>
 		<?php
-	}
 }
 
 
 function compare_general_delete() {
 	$general = get_option( 'general' );
+	if ( !isset( $general['delete'] ) || empty( $general['delete'] ) ) {
+		$general['delete'] = 'no';
+	}
 	?>
 	<input type="checkbox" value="yes" name="general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
 	<?php
@@ -536,7 +534,6 @@ function compare_reset_awin_datafeed() {
 	if ( isset( $_GET['reset'] ) && $_GET['reset'] == 'ok' ) {
 		$awin = new Awin();
 		$awin->compare_schedule_awin();
-		$awin->compare_register_prod();
 
 	}
 }

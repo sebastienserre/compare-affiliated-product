@@ -13,7 +13,6 @@ class Awin {
 	 */
 	public function __construct() {
 		add_action( 'compare_daily_event', array( $this, 'compare_schedule_awin' ) );
-	//	add_action( 'admin_init', array( $this, 'compare_schedule_awin' ) );
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
 	}
 
@@ -46,7 +45,6 @@ class Awin {
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = $awin['datafeed'];
-
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
@@ -161,6 +159,7 @@ class Awin {
 	 * Register in database product from xml files
 	 */
 	public function compare_register_prod() {
+		error_log( 'start Import' );
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
@@ -174,6 +173,8 @@ class Awin {
 		$path        = wp_upload_dir();
 		set_time_limit( 600 );
 		foreach ( $partners as $key => $value ) {
+			$event = 'start partner ' . $value;
+			error_log( $event );
 			$upload = $path['path'] . '/xml/' . $customer_id . '-' . $value . '.gz';
 
 			$xml = new XMLReader();
@@ -207,13 +208,18 @@ class Awin {
 					'ean'          => strval( $element->ean ),
 				);
 
-				$wpdb->show_errors();
+				//$wpdb->show_errors();
 				$insert = $wpdb->insert( $table, $prod );
-
+				//error_log( $wpdb->print_error() );
 
 				$xml->next( 'prod' );
 			}
+			$event = 'stop partner ' . $value;
+			error_log( $event );
 		}
+
+		$event = 'import complete';
+		error_log( $event );
 	}
 
 	public function compare_display_html( $eanlist ) {

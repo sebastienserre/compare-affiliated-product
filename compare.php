@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.0.2
+	Version: 1.0.3
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.0.2' );
+define( 'COMPARE_VERSION', '1.0.3' );
 define( 'COMPARE_PLUGIN_NAME', 'compare' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -108,11 +108,11 @@ id mediumint(9) NOT NULL AUTO_INCREMENT,
 ean varchar(255) DEFAULT NULL,
 title varchar(255) DEFAULT NULL,
 description text DEFAULT NULL,
-img varchar(99) DEFAULT NULL,
+img text DEFAULT NULL,
 partner_name varchar(45) DEFAULT NULL,
 productid varchar(45) DEFAULT NULL,
 url varchar(99) DEFAULT NULL,
-price decimal(10,2) DEFAULT NULL,
+price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 PRIMARY KEY (id)
 ) $charset_collate;";
