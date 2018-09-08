@@ -195,9 +195,6 @@ function compare_awin_partner_url() {
 		$value = 'value="' . $awin['trademark_code'] . '"';
 		?>
 		<div class="compare-partners-datafeed">
-			<?php
-			echo $partner;
-			?>
 			<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 		</div>
 		<?php
