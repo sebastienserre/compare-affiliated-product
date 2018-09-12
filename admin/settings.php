@@ -9,11 +9,16 @@ function compare_settings() {
 }
 
 function compare_settings_page() {
-	$tabs = array(
-		'general' => __( 'general', 'compare' ),
-		'awin'    => 'Awin',
-		'help'    => __( 'help', 'compare' )
+	$tabs = apply_filters(
+		'compare_settings_tab',
+		array(
+			'general' => __( 'general', 'compare' ),
+			'awin'    => 'Awin',
+			'help'    => __( 'help', 'compare' ),
+		)
 	);
+
+
 	if ( isset( $_GET['tab'] ) ) {
 
 		$active_tab = $_GET['tab'];
@@ -190,20 +195,20 @@ function compare_awin_partner_logo() {
 }
 
 function compare_awin_partner_url() {
-	$awin     = get_option( 'awin' );
+	$awin = get_option( 'awin' );
 
-		$value = 'value="' . $awin['trademark_code'] . '"';
-		?>
-		<div class="compare-partners-datafeed">
-			<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
-		</div>
-		<?php
+	$value = 'value="' . $awin['trademark_code'] . '"';
+	?>
+	<div class="compare-partners-datafeed">
+		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
+	</div>
+	<?php
 }
 
 
 function compare_general_delete() {
 	$general = get_option( 'general' );
-	if ( !isset( $general['delete'] ) || empty( $general['delete'] ) ) {
+	if ( ! isset( $general['delete'] ) || empty( $general['delete'] ) ) {
 		$general['delete'] = 'no';
 	}
 	?>
@@ -1175,9 +1180,15 @@ function compare_help() {
 	?>
 	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
 	<p><?php echo $support; ?></p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/awin.html'; ?>"><?php _e('How to configure Awin', 'compare'); ?></a> </p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/shortcodes.html'; ?>"><?php _e('How to use the shortcodes', 'compare'); ?></a> </p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/hooks.html'; ?>"><?php _e('Hooks - Action & Filter', 'compare'); ?></a> </p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/aawp.html'; ?>"><?php _e('AAWP', 'compare'); ?></a> </p>
+	<p>
+		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
+	</p>
+	<p>
+		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
+	</p>
+	<p>
+		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
+	</p>
+	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
 }

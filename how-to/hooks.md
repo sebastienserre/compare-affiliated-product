@@ -19,3 +19,4 @@ Allow you to customize the currency unit or replace the letter code by
 the symbol.
 [class-compare-basic-shortcode.php](../shortcode/class-compare-basic-shortcode.php#L26)
 
+- compare_settings_tab
