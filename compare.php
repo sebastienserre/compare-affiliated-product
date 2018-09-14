@@ -9,20 +9,26 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.0.1
+	Version: 1.1.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
-
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.0.1' );
+define( 'COMPARE_VERSION', '1.1.0' );
 define( 'COMPARE_PLUGIN_NAME', 'compare' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
+
+/**
+ * Increase memory to allow large files download / treatment
+ */
+if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
+	define( 'WP_MEMORY_LIMIT', '512M' );
+}
 
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
@@ -32,6 +38,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
 }
 
 add_action( 'plugins_loaded', 'compare_load_textdomain' );
@@ -41,7 +48,7 @@ add_action( 'plugins_loaded', 'compare_load_textdomain' );
  * @since 1.0.0
  */
 function compare_load_textdomain() {
-load_plugin_textdomain( 'compare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'compare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
 add_filter( 'aawp_template_stack', 'compare_plugin_template_path', 50, 2 );
@@ -55,7 +62,7 @@ add_filter( 'aawp_template_stack', 'compare_plugin_template_path', 50, 2 );
  */
 function compare_plugin_template_path( $template_stack, $template_names ) {
 
-	if ( file_exists( get_stylesheet_directory() . '/aawp' ) ){
+	if ( file_exists( get_stylesheet_directory() . '/aawp' ) ) {
 		return $template_stack;
 	}
 
@@ -64,7 +71,6 @@ function compare_plugin_template_path( $template_stack, $template_names ) {
 		plugin_dir_path( __FILE__ ) . 'aawp/products',
 		plugin_dir_path( __FILE__ ) . 'aawp/parts',
 	);
-
 
 
 	return $template_stack;
@@ -92,26 +98,27 @@ register_activation_hook( __FILE__, 'compare_activation' );
 
 function compare_activation() {
 
-	global $wpdb;
-	$charset_collate    = $wpdb->get_charset_collate();
-	$compare_table_name = $wpdb->prefix . 'compare';
+		global $wpdb;
+		$charset_collate    = $wpdb->get_charset_collate();
+		$compare_table_name = $wpdb->prefix . 'compare';
 
-	$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
+		$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
 id mediumint(9) NOT NULL AUTO_INCREMENT,
 ean varchar(255) DEFAULT NULL,
 title varchar(255) DEFAULT NULL,
 description text DEFAULT NULL,
-img varchar(99) DEFAULT NULL,
+img text DEFAULT NULL,
 partner_name varchar(45) DEFAULT NULL,
 productid varchar(45) DEFAULT NULL,
 url varchar(99) DEFAULT NULL,
-price decimal(10,2) DEFAULT NULL,
+price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 PRIMARY KEY (id)
 ) $charset_collate;";
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	$dd = dbDelta( $compare_sql );
-	compare_create_cron();
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$dd = dbDelta( $compare_sql );
+
+		compare_create_cron();
 }
 
 register_uninstall_hook( __FILE__, 'compare_uninstall' );
@@ -140,7 +147,7 @@ function cap_fs() {
 
 	if ( ! isset( $cap_fs ) ) {
 		// Include Freemius SDK.
-		require_once dirname(__FILE__) . '/freemius/start.php';
+		require_once dirname( __FILE__ ) . '/freemius/start.php';
 
 		$cap_fs = fs_dynamic_init( array(
 			'id'                  => '2422',
@@ -159,9 +166,9 @@ function cap_fs() {
 				'is_require_payment' => false,
 			),
 			'menu'                => array(
-				'slug'           => 'compare-settings',
-				'support'        => false,
-				'parent'         => array(
+				'slug'    => 'compare-settings',
+				'support' => false,
+				'parent'  => array(
 					'slug' => 'options-general.php',
 				),
 			),

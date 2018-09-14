@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hooks</title>
+</head>
+<body>
+<h1><a id="Actions__Filters_0"></a>Actions &amp; Filters</h1>
+<p>In order to help developpers to make Compare Affiliated Products their<br>
+	own, I put some hooks, action and filter in the code.</p>
+<p><strong>Disclaimer</strong>; If i’ve forgotten ou you need an Hook somewhere, please<br>
+	contacontact me <a href="https://www.thivinfo.com/soumettre-un-ticket/">here</a></p>
+<h2><a id="Actions_7"></a>Actions</h2>
+<ul>
+	<li>do_action( ‘thfo_compare_after_price’, $this );<br>
+		This hook fire in the AAWP Template to show the affiliated products</li>
+</ul>
+<h2><a id="Filters_11"></a>Filters</h2>
+<ul>
+	<li>
+		<p>apply_filters( ‘compare_partner_name’, $p[‘partner_name’] )<br>
+			Allow you to filter the partners logo in<br>
+			<a href="../classes/class-awin.php#L236">class-awin.php</a></p>
+	</li>
+	<li>
+		<p>apply_filters( ‘compare_currency_unit’, $currency );<br>
+			Allow you to customize the currency unit or replace the letter code by<br>
+			the symbol.<br>
+			<a href="../shortcode/class-compare-basic-shortcode.php#L26">class-compare-basic-shortcode.php</a></p>
+	</li>
+</ul>
+
+</body>
+</html>

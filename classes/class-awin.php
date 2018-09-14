@@ -45,7 +45,6 @@ class Awin {
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = $awin['datafeed'];
-		var_dump( $awin );
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
@@ -55,9 +54,9 @@ class Awin {
 		}
 
 		set_time_limit( 600 );
+		error_log( 'Start Download Feed' );
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
-
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
 				$file = array(
@@ -79,6 +78,7 @@ class Awin {
 
 			}
 		}
+		error_log( 'Stop Download Feed' );
 		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 		$this->compare_register_prod();
 	}
@@ -134,18 +134,37 @@ class Awin {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		global $wpdb;
-		$table    = $wpdb->prefix . 'compare';
-		$products = array();
+		$db = new compare_external_db();
+		if ( is_wp_error( $db ) ) {
+			global $wpdb;
+			$table    = $wpdb->prefix . 'compare';
+			$products = array();
 
-		if ( null !== $eanlist[0] ) {
-			foreach ( $eanlist as $list ) {
-				$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+			if ( null !== $eanlist[0] ) {
+				foreach ( $eanlist as $list ) {
+					$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
-				if ( ! empty( $product ) ) {
-					array_push( $products, $product );
+					if ( ! empty( $product ) ) {
+						array_push( $products, $product );
+					}
 				}
 			}
+		} else {
+			$prefix   = get_option( 'general' );
+			$prefix   = $prefix['prefix'];
+			$db       = $db->compare_external_cnx();
+			$table    = $prefix . 'compare';
+			$products = array();
+			if ( null !== $eanlist[0] ) {
+				foreach ( $eanlist as $list ) {
+					$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+					if ( ! empty( $product ) ) {
+						array_push( $products, $product );
+					}
+				}
+			}
+
 		}
 
 		$products = array_reverse( $products[0] );
@@ -161,6 +180,7 @@ class Awin {
 	 * Register in database product from xml files
 	 */
 	public function compare_register_prod() {
+		error_log( 'start Import' );
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
@@ -174,6 +194,8 @@ class Awin {
 		$path        = wp_upload_dir();
 		set_time_limit( 600 );
 		foreach ( $partners as $key => $value ) {
+			$event = 'start partner ' . $value;
+			error_log( $event );
 			$upload = $path['path'] . '/xml/' . $customer_id . '-' . $value . '.gz';
 
 			$xml = new XMLReader();
@@ -207,13 +229,18 @@ class Awin {
 					'ean'          => strval( $element->ean ),
 				);
 
-				$wpdb->show_errors();
+				//$wpdb->show_errors();
 				$insert = $wpdb->insert( $table, $prod );
-
+				//error_log( $wpdb->print_error() );
 
 				$xml->next( 'prod' );
 			}
+			$event = 'stop partner ' . $value;
+			error_log( $event );
 		}
+
+		$event = 'import complete';
+		error_log( $event );
 	}
 
 	public function compare_display_html( $eanlist ) {
