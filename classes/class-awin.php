@@ -134,18 +134,37 @@ class Awin {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		global $wpdb;
-		$table    = $wpdb->prefix . 'compare';
-		$products = array();
+		$db = new compare_external_db();
+		if ( is_wp_error( $db ) ) {
+			global $wpdb;
+			$table    = $wpdb->prefix . 'compare';
+			$products = array();
 
-		if ( null !== $eanlist[0] ) {
-			foreach ( $eanlist as $list ) {
-				$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+			if ( null !== $eanlist[0] ) {
+				foreach ( $eanlist as $list ) {
+					$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
-				if ( ! empty( $product ) ) {
-					array_push( $products, $product );
+					if ( ! empty( $product ) ) {
+						array_push( $products, $product );
+					}
 				}
 			}
+		} else {
+			$prefix   = get_option( 'general' );
+			$prefix   = $prefix['prefix'];
+			$db       = $db->compare_external_cnx();
+			$table    = $prefix . 'compare';
+			$products = array();
+			if ( null !== $eanlist[0] ) {
+				foreach ( $eanlist as $list ) {
+					$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+					if ( ! empty( $product ) ) {
+						array_push( $products, $product );
+					}
+				}
+			}
+
 		}
 
 		$products = array_reverse( $products[0] );

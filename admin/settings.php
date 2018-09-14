@@ -53,13 +53,13 @@ function compare_settings_page() {
 					settings_fields( 'awin' );
 					do_settings_sections( 'compare-awin' );
 					break;
-				case 'zanox':
-					settings_fields( 'zanox' );
-					do_settings_sections( 'compare-zanox' );
-					break;
 				case 'help':
 					settings_fields( 'compare-help' );
 					do_settings_sections( 'compare-help' );
+					break;
+				default:
+					settings_fields( 'general' );
+					do_settings_sections( 'compare-general' );
 					break;
 			}
 			submit_button( 'Save Changes', 'primary', 'save_compare_settings' );
@@ -73,18 +73,36 @@ function compare_settings_page() {
 
 add_action( 'admin_init', 'compare_register_settings' );
 function compare_register_settings() {
-	add_settings_section( 'compare-zanox', '', '', 'compare-zanox' );
-	add_settings_section( 'compare-awin', '', '', 'compare-awin' );
-	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
 
-	register_setting( 'zanox', 'zanox' );
-	register_setting( 'awin', 'awin' );
+	/**
+	 * General
+	 */
+	add_settings_section( 'compare-general', '', '', 'compare-general' );
+	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), '', 'compare-general' );
+
 	register_setting( 'general', 'general' );
+
+	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-general', 'compare-external' );
+
+	/**
+	 * Help
+	 */
+	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
 	register_setting( 'compare-help', 'help' );
 
-	add_settings_field( 'compare-zanox-connect', __( 'ConnectID', 'compare' ), 'compare_zanox_connectID', 'compare-zanox', 'compare-zanox' );
-	add_settings_field( 'compare-zanox-secret', __( 'SecretID', 'compare' ), 'compare_zanox_secretID', 'compare-zanox', 'compare-zanox' );
+	/**
+	 * Awin
+	 */
+	add_settings_section( 'compare-awin', '', '', 'compare-awin' );
+
+	register_setting( 'awin', 'awin' );
 
 	add_settings_field( 'compare-awin-api', __( 'API Key', 'compare' ), 'compare_awin_key', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-partner', __( 'Awin partner Code', 'compare' ), 'compare_awin_partner', 'compare-awin', 'compare-awin' );
@@ -93,29 +111,61 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
-
-	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
 }
 
-function compare_zanox_connectID() {
-	$connect = get_option( 'zanox' );
-	if ( ! empty( $connect ) ) {
-		$value = 'value="' . esc_attr( $connect['connectID'] ) . '"';
+
+function cae_host() {
+	$external = get_option( 'general' );
+	if ( !empty( $external ) ){
+		$value = 'value=' . esc_attr( $external['host'] );
 	}
 	?>
-	<input type="text" name="zanox[connectID]" <?php echo $value; ?>>
+
+	<input name="general[host]" type="text" <?php echo $value; ?>>
+<?php
+}
+
+function cae_prefix() {
+	$external = get_option( 'general' );
+	if ( !empty( $external ) ){
+		$value = 'value=' . esc_attr( $external['prefix'] );
+	}
+	?>
+
+	<input name="general[prefix]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
-function compare_zanox_secretID() {
-	$secret = get_option( 'zanox' );
-	if ( ! empty( $secret ) ) {
-		$value = 'value="' . esc_attr( $secret['secretID'] ) . '"';
+function cae_db() {
+	$external = get_option( 'general' );
+	if ( !empty( $external ) ){
+		$value = 'value=' . esc_attr( $external['db'] );
 	}
 	?>
-	<input type="text" name="zanox[secretID]" <?php echo $value; ?>>
+
+	<input name="general[db]" type="text" <?php echo $value; ?>>
+	<?php
+}
+
+function cae_user() {
+	$external = get_option( 'general' );
+	if ( !empty( $external ) ){
+		$value = 'value=' . esc_attr( $external['username'] );
+	}
+	?>
+
+	<input name="general[username]" type="text" <?php echo $value; ?>>
+	<?php
+}
+
+function cae_pwd() {
+	$external = get_option( 'general' );
+	if ( !empty( $external ) ){
+		$value = 'value=' . esc_attr( $external['pwd'] );
+	}
+	?>
+
+	<input name="general[pwd]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
