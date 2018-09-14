@@ -78,7 +78,7 @@ function compare_register_settings() {
 	 * General
 	 */
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), '', 'compare-general' );
+	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), 'compare_external', 'compare-general' );
 
 	register_setting( 'general', 'general' );
 
@@ -113,7 +113,15 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
 }
 
-
+function compare_external() {
+	$url = COMPARE_PLUGIN_URL . 'how-to/external-db.html';
+	$link = sprintf( wp_kses( __('For more informations, Please <a href="%s">read the documentaion</a>', 'compare'),
+		array( 'a'=> array( 'href' => array() ) ) ), esc_url( $url ) );
+	?>
+	<p><?php _e('Optionnal - It could be a good idea if you\'d like to connect several website to a common database', 'compare'); ?></p>
+	<p><?php echo $link; ?></p>
+	<?php
+}
 function cae_host() {
 	$external = get_option( 'general' );
 	if ( !empty( $external ) ){
@@ -1231,14 +1239,14 @@ function compare_help() {
 	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
 	<p><?php echo $support; ?></p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
 	</p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
 	</p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
 	</p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
+	<p><a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
 }
