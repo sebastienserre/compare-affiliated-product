@@ -9,6 +9,10 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.0.0 == 14/09/2018
+* Add External DB connection
+* Add Docs
+* Add Translations (fr_FR)
 
 = 1.0.3 == 07/09/2018
 * Bugfix in DB created
