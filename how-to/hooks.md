@@ -11,12 +11,25 @@ contacontact me [here](https://www.thivinfo.com/soumettre-un-ticket/)
 
 ## Filters
 - apply_filters( 'compare_partner_name', $p['partner_name'] )  
-Allow you to filter the partners logo in
-[class-awin.php](../classes/class-awin.php#L236)
+  Allow you to filter the partners logo  
+  [class-awin.php](../classes/class-awin.php#L236)
 
 - apply_filters( 'compare_currency_unit', $currency );  
-Allow you to customize the currency unit or replace the letter code by
-the symbol.
-[class-compare-basic-shortcode.php](../shortcode/class-compare-basic-shortcode.php#L26)
+  Allow you to customize the currency unit or replace the letter code by
+  the symbol.  
+  [class-compare-basic-shortcode.php](../shortcode/class-compare-basic-shortcode.php#L26)
 
-- compare_settings_tab
+- apply_filters( 'compare_settings_tab', $tabs );  
+  Allow you to add settings tabs  
+  [settings.php](../admin/settings.php#L12)
+- apply_filters('compare_time_limit', 600);  
+  Allow you to increase PHP limit time in import and register infos.  
+  [class-awin.php](../classes/class-awin.php#L56)  
+  [class-awin.php](../classes/class-awin.php#L215)
+- $partners = apply_filters(	'compare_partners_code',	array(	'Cdiscount'
+  => '6948',	'Toy\'R us' => '7108',	'Oxybul eveil et jeux' => '7103',
+  'Rue du Commerce' => '6901',	'Darty' => '7735',	)	);  
+  Allow you to customize logo & partner code before displaying  
+  [class-awin.php](../classes/class-awin.php#L233)
+
+
