@@ -108,8 +108,6 @@ class Awin {
 			'ResponseGroup' => 'ItemAttributes',
 		);
 
-		$gtin = $data->get_product_id(); // return the asin
-
 		$apikey        = $data->api_key;
 		$secret        = $data->api_secret_key;
 		$associate_tag = $data->api_associate_tag;
@@ -127,50 +125,55 @@ class Awin {
 			$eanlist = array( $eanlist );
 		}
 		$this->compare_display_html( $eanlist );
-		//$this->compare_get_data( $eanlist );
 	}
 
 	public function compare_get_data( $eanlist ) {
 			if ( ! is_array( $eanlist ) ) {
 				$eanlist = array( $eanlist );
 			}
-			$db = new compare_external_db();
-			if ( is_wp_error( $db ) ) {
-				global $wpdb;
-				$table    = $wpdb->prefix . 'compare';
-				$products = array();
-
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
-						}
-					}
-				}
+			$transient = get_transient( 'product' . $eanlist[0]);
+			if ( ! empty( $transient ) ){
+				return $transient;
 			} else {
-				$prefix   = get_option( 'general' );
-				$prefix   = $prefix['prefix'];
-				$db       = $db->compare_external_cnx();
-				$table    = $prefix . 'compare';
-				$products = array();
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+				$db = new compare_external_db();
+				if ( is_wp_error( $db ) ) {
+					global $wpdb;
+					$table    = $wpdb->prefix . 'compare';
+					$products = array();
 
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
+					if ( null !== $eanlist[0] ) {
+						foreach ( $eanlist as $list ) {
+							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+							if ( ! empty( $product ) ) {
+								array_push( $products, $product );
+							}
 						}
 					}
-				}
+				} else {
+					$prefix   = get_option( 'general' );
+					$prefix   = $prefix['prefix'];
+					$db       = $db->compare_external_cnx();
+					$table    = $prefix . 'compare';
+					$products = array();
+					if ( null !== $eanlist[0] ) {
+						foreach ( $eanlist as $list ) {
+							$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
+							if ( ! empty( $product ) ) {
+								array_push( $products, $product );
+							}
+						}
+					}
+
+				}
 			}
 
 
 		$products = array_reverse( $products[0] );
 		$products = array_combine( array_column( $products, 'partner_name' ), $products );
 		$products = array_reverse( $products );
+		$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS);
 		return $products;
 	}
 
