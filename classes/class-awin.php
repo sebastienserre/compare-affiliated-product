@@ -53,7 +53,8 @@ class Awin {
 			array_map( 'unlink', glob( $path['path'] . '/*' ) );
 		}
 
-		set_time_limit( 600 );
+		$secondes = apply_filters('compare_time_limit', 600);
+		set_time_limit( $secondes );
 		error_log( 'Start Download Feed' );
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
@@ -211,7 +212,8 @@ class Awin {
 
 		$customer_id = $awin['customer_id'];
 		$path        = wp_upload_dir();
-		set_time_limit( 600 );
+		$secondes = apply_filters('compare_time_limit', 600);
+		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
 			$event = 'start partner ' . $value;
 			error_log( $event );
@@ -221,21 +223,24 @@ class Awin {
 			$xml->open( 'compress.zlib://' . $upload );
 			$xml->read();
 
-			while ( $xml->read() && $xml->name != 'prod' ) {
+			while ( $xml->read() && 'prod' !== $xml->name ) {
 				;
 			}
 
-			while ( $xml->name === 'prod' ) {
+			while ( 'prod' === $xml->name ) {
 				$element    = new SimpleXMLElement( $xml->readOuterXML() );
 				$url_params = explode( '&m=', $element->uri->awTrack );
-				$partners   = apply_filters( 'compare_partners_code', array(
-					'Cdiscount'            => '6948',
-					'Toy\'R us'            => '7108',
-					'Oxybul eveil et jeux' => '7103',
-					'Rue du Commerce'      => '6901',
-					'Darty'                => '7735',
-				) );
-				$partner    = array_search( $url_params[1], $partners );
+				$partners   = apply_filters(
+					'compare_partners_code',
+					array(
+						'Cdiscount'            => '6948',
+						'Toy\'R us'            => '7108',
+						'Oxybul eveil et jeux' => '7103',
+						'Rue du Commerce'      => '6901',
+						'Darty'                => '7735',
+					)
+				);
+				$partner    = array_search( $url_params[1], $partners, true );
 
 				$prod = array(
 					'price'        => strval( $element->price->buynow ),
