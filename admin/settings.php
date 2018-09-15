@@ -85,6 +85,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-general', 'compare-external' );
@@ -111,6 +112,14 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
+}
+
+function cae_ext_check() {
+	$check = get_option('general');
+	$check = $check['ext_check'];
+	?>
+	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
+	<?php
 }
 
 function compare_external() {

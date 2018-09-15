@@ -128,52 +128,70 @@ class Awin {
 	}
 
 	public function compare_get_data( $eanlist ) {
-			if ( ! is_array( $eanlist ) ) {
-				$eanlist = array( $eanlist );
-			}
-			$transient = get_transient( 'product' . $eanlist[0]);
-			if ( ! empty( $transient ) ){
-				return $transient;
+		if ( ! is_array( $eanlist ) ) {
+			$eanlist = array( $eanlist );
+		}
+		$transient = get_transient( 'product' . $eanlist[0] );
+		if ( ! empty( $transient ) ) {
+			return $transient;
+		}
+		$external = get_option( 'general' );
+		$external = $external['ext_check'];
+		if ( 'on' === $external ) {
+			$db = new compare_external_db();
+			if ( is_wp_error( $db ) ) {
+				global $wpdb;
+				$table    = $wpdb->prefix . 'compare';
+				$products = array();
+
+				if ( null !== $eanlist[0] ) {
+					foreach ( $eanlist as $list ) {
+						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+						if ( ! empty( $product ) ) {
+							array_push( $products, $product );
+						}
+					}
+				}
 			} else {
-				$db = new compare_external_db();
-				if ( is_wp_error( $db ) ) {
-					global $wpdb;
-					$table    = $wpdb->prefix . 'compare';
-					$products = array();
+				$prefix   = get_option( 'general' );
+				$prefix   = $prefix['prefix'];
+				$db       = $db->compare_external_cnx();
+				$table    = $prefix . 'compare';
+				$products = array();
+				if ( null !== $eanlist[0] ) {
+					foreach ( $eanlist as $list ) {
+						$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
-					if ( null !== $eanlist[0] ) {
-						foreach ( $eanlist as $list ) {
-							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-							if ( ! empty( $product ) ) {
-								array_push( $products, $product );
-							}
+						if ( ! empty( $product ) ) {
+							array_push( $products, $product );
 						}
 					}
-				} else {
-					$prefix   = get_option( 'general' );
-					$prefix   = $prefix['prefix'];
-					$db       = $db->compare_external_cnx();
-					$table    = $prefix . 'compare';
-					$products = array();
-					if ( null !== $eanlist[0] ) {
-						foreach ( $eanlist as $list ) {
-							$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+				}
 
-							if ( ! empty( $product ) ) {
-								array_push( $products, $product );
-							}
-						}
+			}
+		} else {
+			global $wpdb;
+			$table    = $wpdb->prefix . 'compare';
+			$products = array();
+
+			if ( null !== $eanlist[0] ) {
+				foreach ( $eanlist as $list ) {
+					$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+					if ( ! empty( $product ) ) {
+						array_push( $products, $product );
 					}
-
 				}
 			}
+		}
 
 
-		$products = array_reverse( $products[0] );
-		$products = array_combine( array_column( $products, 'partner_name' ), $products );
-		$products = array_reverse( $products );
-		$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS);
+		$products  = array_reverse( $products[0] );
+		$products  = array_combine( array_column( $products, 'partner_name' ), $products );
+		$products  = array_reverse( $products );
+		$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
+
 		return $products;
 	}
 
@@ -210,13 +228,13 @@ class Awin {
 			while ( $xml->name === 'prod' ) {
 				$element    = new SimpleXMLElement( $xml->readOuterXML() );
 				$url_params = explode( '&m=', $element->uri->awTrack );
-				$partners   = array(
+				$partners   = apply_filters( 'compare_partners_code', array(
 					'Cdiscount'            => '6948',
 					'Toy\'R us'            => '7108',
 					'Oxybul eveil et jeux' => '7103',
 					'Rue du Commerce'      => '6901',
 					'Darty'                => '7735',
-				);
+				) );
 				$partner    = array_search( $url_params[1], $partners );
 
 				$prod = array(
