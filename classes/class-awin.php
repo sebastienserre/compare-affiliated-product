@@ -53,7 +53,7 @@ class Awin {
 			array_map( 'unlink', glob( $path['path'] . '/*' ) );
 		}
 
-		$secondes = apply_filters('compare_time_limit', 600);
+		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		error_log( 'Start Download Feed' );
 		foreach ( $urls as $key => $url ) {
@@ -212,7 +212,7 @@ class Awin {
 
 		$customer_id = $awin['customer_id'];
 		$path        = wp_upload_dir();
-		$secondes = apply_filters('compare_time_limit', 600);
+		$secondes    = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
 			$event = 'start partner ' . $value;
