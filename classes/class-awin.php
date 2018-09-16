@@ -62,6 +62,7 @@ class Awin {
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$awin = get_option( 'awin' );
 
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
