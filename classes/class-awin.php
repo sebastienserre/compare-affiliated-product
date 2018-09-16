@@ -13,7 +13,6 @@ class Awin {
 	 */
 	public function __construct() {
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
-		add_action( 'init', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
