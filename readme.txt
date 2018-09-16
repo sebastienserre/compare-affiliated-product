@@ -2,14 +2,22 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.0.3
+Stable tag: 1.1.1
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
-= 1.0.0 == 14/09/2018
+= 1.1.1 == 16/09/2018
+* Add Cron management (None, Every 4 hours, Daily & TwiceDaily
+* Add Transients to improve display time
+* Add filter hook compare_partners_code
+* Add filter hook compare_time_limit
+* Improve Doc
+* Bugfix: correct the URL to dl the GZ Archive in Awin.com
+
+= 1.1.0 == 14/09/2018
 * Add External DB connection
 * Add Docs
 * Add Translations (fr_FR)
