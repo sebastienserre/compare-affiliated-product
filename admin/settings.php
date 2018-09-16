@@ -85,6 +85,8 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
+
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
@@ -113,6 +115,21 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
 }
+
+function compare_general_cron() {
+	$option = get_option( 'general');
+	$cron = $option['cron'];
+	?>
+	<select name="general[cron]">
+		<option value="none" <?php selected( $cron, 'none'); ?>><?php _e('None', 'compare' ); ?></option>
+		<option value="four" <?php selected( $cron, 'four'); ?>><?php _e('Every 4 hours', 'compare' ); ?></option>
+		<option value="twice" <?php selected( $cron, 'twice'); ?>><?php _e('Twice Daily', 'compare' ); ?></option>
+		<option value="daily" <?php selected( $cron, 'daily'); ?>><?php _e('Daily', 'compare' ); ?></option>
+	</select>
+
+	<?php
+}
+
 
 function cae_ext_check() {
 	$check = get_option('general');

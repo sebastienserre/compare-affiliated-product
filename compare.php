@@ -117,6 +117,7 @@ PRIMARY KEY (id)
 ) $charset_collate;";
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		$dd = dbDelta( $compare_sql );
+$schedule = wp_get_schedules();
 
 		compare_create_cron();
 }
@@ -135,10 +136,30 @@ function compare_uninstall() {
 /**
  * Create Daily Cron Task
  */
+
 function compare_create_cron() {
 	if ( ! wp_next_scheduled( 'compare_daily_event' ) ) {
 		wp_schedule_event( time(), 'daily', 'compare_daily_event' );
 	}
+	if ( ! wp_next_scheduled( 'compare_twice_event' ) ) {
+		wp_schedule_event( time(), 'twicedaily', 'compare_twice_event' );
+	}
+	if ( ! wp_next_scheduled( 'compare_four_hour_event' ) ) {
+		wp_schedule_event( time(), 'fourhour', 'compare_fourhour_event' );
+	}
+}
+
+
+add_filter( 'cron_schedules', 'compare_sechule4_hours' );
+function compare_sechule4_hours( $schedules ) {
+
+	// add a 'weekly' schedule to the existing set
+	$schedules['fourhour'] = array(
+		'interval' => 14400,
+		'display' => __('Every 4 hours', 'compare')
+	);
+
+	return $schedules;
 }
 
 // Create a helper function for easy SDK access.

@@ -12,8 +12,30 @@ class Awin {
 	 * Awin constructor.
 	 */
 	public function __construct() {
-		add_action( 'compare_daily_event', array( $this, 'compare_schedule_awin' ) );
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
+		add_action( 'init', array( $this, 'compare_set_cron' ) );
+		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+	}
+
+	public function compare_set_cron() {
+		$option = get_option( 'general' );
+		$cron   = $option['cron'];
+		switch ( $cron ) {
+			case 'four':
+				$this->compare_schedule_awin();
+				break;
+			case 'twice':
+				$this->compare_schedule_awin();
+				break;
+			case 'daily':
+				$this->compare_schedule_awin();
+				break;
+			case 'none':
+				break;
+		}
+
 	}
 
 	/**
