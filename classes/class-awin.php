@@ -12,8 +12,29 @@ class Awin {
 	 * Awin constructor.
 	 */
 	public function __construct() {
-		add_action( 'compare_daily_event', array( $this, 'compare_schedule_awin' ) );
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
+		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+	}
+
+	public function compare_set_cron() {
+		$option = get_option( 'general' );
+		$cron   = $option['cron'];
+		switch ( $cron ) {
+			case 'four':
+				$this->compare_schedule_awin();
+				break;
+			case 'twice':
+				$this->compare_schedule_awin();
+				break;
+			case 'daily':
+				$this->compare_schedule_awin();
+				break;
+			case 'none':
+				break;
+		}
+
 	}
 
 	/**
@@ -40,6 +61,7 @@ class Awin {
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$awin = get_option( 'awin' );
 
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -53,7 +75,8 @@ class Awin {
 			array_map( 'unlink', glob( $path['path'] . '/*' ) );
 		}
 
-		set_time_limit( 600 );
+		$secondes = apply_filters( 'compare_time_limit', 600 );
+		set_time_limit( $secondes );
 		error_log( 'Start Download Feed' );
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
@@ -108,8 +131,6 @@ class Awin {
 			'ResponseGroup' => 'ItemAttributes',
 		);
 
-		$gtin = $data->get_product_id(); // return the asin
-
 		$apikey        = $data->api_key;
 		$secret        = $data->api_secret_key;
 		$associate_tag = $data->api_associate_tag;
@@ -127,15 +148,52 @@ class Awin {
 			$eanlist = array( $eanlist );
 		}
 		$this->compare_display_html( $eanlist );
-		//$this->compare_get_data( $eanlist );
 	}
 
 	public function compare_get_data( $eanlist ) {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		$db = new compare_external_db();
-		if ( is_wp_error( $db ) ) {
+		$transient = get_transient( 'product' . $eanlist[0] );
+		if ( ! empty( $transient ) ) {
+			return $transient;
+		}
+		$external = get_option( 'general' );
+		$external = $external['ext_check'];
+		if ( 'on' === $external ) {
+			$db = new compare_external_db();
+			if ( is_wp_error( $db ) ) {
+				global $wpdb;
+				$table    = $wpdb->prefix . 'compare';
+				$products = array();
+
+				if ( null !== $eanlist[0] ) {
+					foreach ( $eanlist as $list ) {
+						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+						if ( ! empty( $product ) ) {
+							array_push( $products, $product );
+						}
+					}
+				}
+			} else {
+				$prefix   = get_option( 'general' );
+				$prefix   = $prefix['prefix'];
+				$db       = $db->compare_external_cnx();
+				$table    = $prefix . 'compare';
+				$products = array();
+				if ( null !== $eanlist[0] ) {
+					foreach ( $eanlist as $list ) {
+						$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+						if ( ! empty( $product ) ) {
+							array_push( $products, $product );
+						}
+					}
+				}
+
+			}
+		} else {
 			global $wpdb;
 			$table    = $wpdb->prefix . 'compare';
 			$products = array();
@@ -149,31 +207,15 @@ class Awin {
 					}
 				}
 			}
-		} else {
-			$prefix   = get_option( 'general' );
-			$prefix   = $prefix['prefix'];
-			$db       = $db->compare_external_cnx();
-			$table    = $prefix . 'compare';
-			$products = array();
-			if ( null !== $eanlist[0] ) {
-				foreach ( $eanlist as $list ) {
-					$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-					if ( ! empty( $product ) ) {
-						array_push( $products, $product );
-					}
-				}
-			}
-
 		}
 
-		$products = array_reverse( $products[0] );
-		$products = array_combine( array_column( $products, 'partner_name' ), $products );
-		$products = array_reverse( $products );
 
+		$products  = array_reverse( $products[0] );
+		$products  = array_combine( array_column( $products, 'partner_name' ), $products );
+		$products  = array_reverse( $products );
+		$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 
 		return $products;
-		//$this->compare_display_html( $products );
 	}
 
 	/**
@@ -192,7 +234,8 @@ class Awin {
 
 		$customer_id = $awin['customer_id'];
 		$path        = wp_upload_dir();
-		set_time_limit( 600 );
+		$secondes    = apply_filters( 'compare_time_limit', 600 );
+		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
 			$event = 'start partner ' . $value;
 			error_log( $event );
@@ -202,21 +245,24 @@ class Awin {
 			$xml->open( 'compress.zlib://' . $upload );
 			$xml->read();
 
-			while ( $xml->read() && $xml->name != 'prod' ) {
+			while ( $xml->read() && 'prod' !== $xml->name ) {
 				;
 			}
 
-			while ( $xml->name === 'prod' ) {
+			while ( 'prod' === $xml->name ) {
 				$element    = new SimpleXMLElement( $xml->readOuterXML() );
 				$url_params = explode( '&m=', $element->uri->awTrack );
-				$partners   = array(
-					'Cdiscount'            => '6948',
-					'Toy\'R us'            => '7108',
-					'Oxybul eveil et jeux' => '7103',
-					'Rue du Commerce'      => '6901',
-					'Darty'                => '7735',
+				$partners   = apply_filters(
+					'compare_partners_code',
+					array(
+						'Cdiscount'            => '6948',
+						'Toy\'R us'            => '7108',
+						'Oxybul eveil et jeux' => '7103',
+						'Rue du Commerce'      => '6901',
+						'Darty'                => '7735',
+					)
 				);
-				$partner    = array_search( $url_params[1], $partners );
+				$partner    = array_search( $url_params[1], $partners, true );
 
 				$prod = array(
 					'price'        => strval( $element->price->buynow ),

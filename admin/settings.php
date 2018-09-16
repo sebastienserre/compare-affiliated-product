@@ -78,13 +78,16 @@ function compare_register_settings() {
 	 * General
 	 */
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), '', 'compare-general' );
+	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), 'compare_external', 'compare-general' );
 
 	register_setting( 'general', 'general' );
 
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
+
+	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-general', 'compare-external' );
@@ -113,7 +116,38 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
 }
 
+function compare_general_cron() {
+	$option = get_option( 'general');
+	$cron = $option['cron'];
+	?>
+	<select name="general[cron]">
+		<option value="none" <?php selected( $cron, 'none'); ?>><?php _e('None', 'compare' ); ?></option>
+		<option value="four" <?php selected( $cron, 'four'); ?>><?php _e('Every 4 hours', 'compare' ); ?></option>
+		<option value="twice" <?php selected( $cron, 'twice'); ?>><?php _e('Twice Daily', 'compare' ); ?></option>
+		<option value="daily" <?php selected( $cron, 'daily'); ?>><?php _e('Daily', 'compare' ); ?></option>
+	</select>
 
+	<?php
+}
+
+
+function cae_ext_check() {
+	$check = get_option('general');
+	$check = $check['ext_check'];
+	?>
+	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
+	<?php
+}
+
+function compare_external() {
+	$url = COMPARE_PLUGIN_URL . 'how-to/external-db.html';
+	$link = sprintf( wp_kses( __('For more informations, Please <a href="%s">read the documentaion</a>', 'compare'),
+		array( 'a'=> array( 'href' => array() ) ) ), esc_url( $url ) );
+	?>
+	<p><?php _e('Optionnal - It could be a good idea if you\'d like to connect several website to a common database', 'compare'); ?></p>
+	<p><?php echo $link; ?></p>
+	<?php
+}
 function cae_host() {
 	$external = get_option( 'general' );
 	if ( !empty( $external ) ){
@@ -181,7 +215,11 @@ function compare_awin_feed() {
 	$trademark = $feed['trademark_code'];
 
 	foreach ( $partners as $partner ) {
-		$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
+		if ( empty( $trademark ) ){
+			$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
+		} else {
+			$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
+		}
 		?>
 		<div hidden>
 			<?php
@@ -1231,14 +1269,14 @@ function compare_help() {
 	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
 	<p><?php echo $support; ?></p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
 	</p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
 	</p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
 	</p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . '/how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
+	<p><a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
 }
