@@ -71,3 +71,19 @@ Cloak Link
     text-decoration: underline;
     cursor: pointer;
 }
+
+img.logo-amazon {
+    width: 50px;
+}
+
+p.compare-price {
+    float: right;
+    margin: 5px;
+    min-height: 50px;
+    line-height: 50px;
+}
+
+button.btn-compare {
+    background: red;
+    color: #ffffff;
+}
