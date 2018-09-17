@@ -123,7 +123,6 @@ class Awin {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
-		//$style = $data->ge
 		$asin   = $data->get_product_id();
 		$params = array(
 			'Operation'     => 'ItemLookup',
@@ -295,7 +294,6 @@ class Awin {
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 		ob_start();
 		?>
-		<div class="compare-partners">
 			<?php
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
@@ -312,12 +310,20 @@ class Awin {
 					default:
 						$logo = $partner;
 				}
-				$link = new Cloak_Link();
-				$link->compare_create_link( $p, $logo );
+				$general = get_option( 'general' );
+				$currency = $general['currency'];
+				$currency = apply_filters( 'compare_currency_unit', $currency);
+				if ( 'on' === $general['general-cloack'] ) {
+					$link = new Cloak_Link();
+					$link->compare_create_link( $p, $logo );
+				} else {
+					?>
+					<p class=" compare-price">
+						<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
+					</p>
+					<?php
+				}
 			}
-			?>
-		</div>
-		<?php
 		$html = ob_get_clean();
 		echo $html;
 	}

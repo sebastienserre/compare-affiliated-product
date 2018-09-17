@@ -5,12 +5,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'admin_menu', 'compare_settings' );
 function compare_settings() {
-	add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
+	$option_page = add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
+	add_action( 'admin_print_scripts-'.$option_page, 'load_admin_scripts');
+}
+
+function load_admin_scripts( ) {
+	wp_enqueue_style('wp-color-picker');
+	wp_enqueue_script('color-picker-script', plugins_url( 'color-picker.js', __FILE__ ) , array('wp-color-picker'), false, true );
+}
+
+if ( class_exists( 'AAWP_Affiliate' ) ){
+	add_filter( 'compare_setting_tabs' , 'compare_add_aawp_tab');
+}
+
+function compare_add_aawp_tab( $tabs ) {
+	$tabs['aawp'] = __( 'AAWP', 'compare' );
+	return $tabs;
 }
 
 function compare_settings_page() {
-	$tabs = apply_filters(
-		'compare_settings_tab',
+
+	$tabs = apply_filters('compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
 			'awin'    => 'Awin',
@@ -43,7 +58,7 @@ function compare_settings_page() {
 
 		<form method="post" action="options.php">
 			<?php
-
+			$active_tab = apply_filters( 'compare_setting_active_tab', $active_tab );
 			switch ( $active_tab ) {
 				case 'general':
 					settings_fields( 'general' );
@@ -56,6 +71,10 @@ function compare_settings_page() {
 				case 'help':
 					settings_fields( 'compare-help' );
 					do_settings_sections( 'compare-help' );
+					break;
+				case 'aawp':
+					settings_fields( 'compare-aawp' );
+					do_settings_sections( 'compare-aawp' );
 					break;
 				default:
 					settings_fields( 'general' );
@@ -86,6 +105,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
@@ -114,6 +134,62 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
+
+	/**
+	 * Aawp
+	 */
+	add_settings_section( 'compare-aawp', '', '', 'compare-aawp' );
+	register_setting( 'compare-aawp', 'compare-aawp' );
+	add_settings_field( 'compare-aawp-button-text', __( 'Button Text', 'compare' ), 'compare_aawp_button_text', 'compare-aawp', 'compare-aawp' );
+	add_settings_field( 'compare-aawp-button-bg', __( 'Button Background Color', 'compare' ), 'compare_awwp_button_bg', 'compare-aawp', 'compare-aawp' );
+	add_settings_field( 'compare-aawp-button-color', __( 'Button Text Color', 'compare' ), 'compare_awwp_button_color', 'compare-aawp', 'compare-aawp' );
+
+
+}
+
+function compare_awwp_button_bg() {
+	$option = get_option( 'compare-aawp');
+	$color = $option['button-bg'];
+	if ( !empty( $color ) ){
+		$value = 'value="' . $color . '"';
+	}
+
+	?>
+	<input name="compare-aawp[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
+	<?php
+}
+
+function compare_awwp_button_color() {
+	$option = get_option( 'compare-aawp');
+	$color = $option['button-color'];
+	if ( !empty( $color ) ){
+		$value = 'value="' . $color . '"';
+	}
+
+	?>
+	<input name="compare-aawp[button-color]" type='text' class='color-field' <?php echo $value; ?>>
+	<?php
+}
+
+function compare_aawp_button_text() {
+	$option = get_option( 'compare-aawp');
+	$text = $option['button_text'];
+	if ( ! empty( $text ) ){
+		$value = 'value="' . $text . '"';
+	} else {
+		$value = 'value="' . __( 'Buy to ', 'compare' ) . '"';
+	}
+	?>
+	<input name="compare-aawp[button_text]" type="text" <?php echo $value; ?>
+	<?php
+}
+
+function compare_general_cloak_link() {
+	$check = get_option('general');
+	$check = $check['general-cloack'];
+	?>
+	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' )?>>
+	<?php
 }
 
 function compare_general_cron() {
