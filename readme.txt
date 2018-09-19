@@ -9,7 +9,7 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
-= 1.1.2 == 19/09/208
+= 1.1.2 == 19/09/2018
 * Add settings for AAWP templates
 * Improve AAWP Templates
 
