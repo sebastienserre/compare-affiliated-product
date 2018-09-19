@@ -13,7 +13,7 @@ class Cloak_Link {
 	 * @param array $product data of compared product.
 	 * @param string $logo String to the partner logo
 	 */
-	public function compare_create_link( $product, $logo='' ) {
+	public function compare_create_link( $product, $logo='', $data ) {
 		$url      = base64_encode( $product['url'] );
 		$currency = get_option( 'general' );
 		$currency = $currency['currency'];
@@ -32,12 +32,14 @@ class Cloak_Link {
 			$color = '#ffffff';
 		}
 		?>
-		<p class="compare-price">
-			<span class="atc"
-			      data-atc = "<?php echo $url; ?>"><?php echo $logo . ' ' . $product['price'] . ' ' . $currency ?>
-				<button style=" background:<?php echo $bg;?>; color: <?php echo $color; ?>; " class="btn-compare"><?php echo $text .' ' . $product['partner_name']; ?></button>
+		<div class="compare-price-partner compare-others">
+			<p class="atc" data-atc = "<?php echo $url; ?>">
+				<?php echo $logo . '<p class="product-price">' . $product['price'] . ' ' . $currency ?>
+			</p>
+				<button style=" background:<?php echo $bg;?>; color: <?php echo $color; ?>; " class="btn-compare"><?php echo $text; ?></button>
 			</span>
-		</p>
+		</div>
+
 		<?php
 	}
 

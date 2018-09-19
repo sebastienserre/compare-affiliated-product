@@ -76,14 +76,27 @@ img.logo-amazon {
     width: 50px;
 }
 
-p.compare-price {
-    float: right;
-    margin: 5px;
-    min-height: 50px;
-    line-height: 50px;
+.aawp-product--horizontal .compare-price {
+    display: flex;
+    flex-direction: initial;
+    justify-content: flex-end;
 }
 
-button.btn-compare {
-    background: red;
-    color: #ffffff;
+.aawp-product--horizontal .compare-price-partner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px;
+}
+
+p.atc {
+    min-height: 50px;
+}
+
+.aawp-table__td-links .compare-price-partner,
+.aawp-product--vertical .compare-price-partner {
+    float: left;
+    width: 40%;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
