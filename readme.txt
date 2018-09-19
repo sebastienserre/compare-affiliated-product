@@ -2,13 +2,17 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.1.2 == 19/09/208
+* Add settings for AAWP templates
+* Improve AAWP Templates
+
 = 1.1.1 == 16/09/2018
 * Add Cron management (None, Every 4 hours, Daily & TwiceDaily
 * Add Transients to improve display time
