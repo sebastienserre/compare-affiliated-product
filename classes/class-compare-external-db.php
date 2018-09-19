@@ -12,13 +12,16 @@ class compare_external_db {
 	public function compare_external_cnx() {
 
 		$external = get_option( 'general' );
-		$host     = $external['host'];
-		$db       = $external['db'];
-		$username = $external['username'];
-		$password = $external['pwd'];
-		$sql      = new wpdb( $username, $password, $db, $host );
+		$external = $external['ext_check'];
+		if ( 'on' === $external ) {
+			$host     = $external['host'];
+			$db       = $external['db'];
+			$username = $external['username'];
+			$password = $external['pwd'];
+			$sql      = new wpdb( $username, $password, $db, $host );
 
-		return $sql;
+			return $sql;
+		}
 	}
 
 }
