@@ -26,10 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php } ?>
                 <?php if ( $this->show_advertised_price() ) { ?>
                     <th class="aawp-table__th-pricing"><?php _e('Price', 'aawp'); ?></th>
-
                 <?php } ?>
-                <th class="aawp-table__th-links"><?php _e('See on Amazon', 'compare'); ?></th>
-                <th class="aawp-table__th-partner"><?php _e('See on other partners', 'compare'); ?></th>
+                <th class="aawp-table__th-links"><?php _e('Buy It', 'compare' ); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -69,11 +67,34 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </td>
                 <?php } ?>
                 <td class="aawp-table__td-links" data-label="<?php _e('Link', 'aawp'); ?>">
-                    <?php echo $this->get_button(); ?>
+	                <div class="compare-price">
+		                <?php do_action( 'thfo_compare_after_price', $this ); ?>
+		                <?php
+		                $option = get_option( 'compare-aawp' );
+		                $text = $option['button_text'];
+		                if ( empty($text ) ){
+			                $text = __( 'Buy to ', 'compare' );
+		                }
+		                $bg = $option['button-bg'];
+		                if ( empty( $bg ) ){
+			                $bg = '#000000';
+		                }
+		                $color = $option['button-color'];
+		                if ( empty( $color ) ){
+			                $color = '#ffffff';
+		                }
+		                ?>
+		                <div class="compare-price-partner">
+			                <p class="atc" data-atc="<?php echo base64_encode( $this->get_product_url() ); ?>">
+				                <img class="logo-amazon" src="<?php echo COMPARE_PLUGIN_URL ?>/assets/img/amazon.png">
+			                <p class="product-price"><?php echo $this->get_product_pricing() ?></p>
+			                <button class="btn-compare" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
+				                <?php echo $text; ?></button>
+			                </p>
+		                </div>
+
+	                </div>
                 </td>
-	            <td class="aawp-tabe_partners">
-		            <?php do_action( 'thfo_compare_after_price', $this ); ?>
-	            </td>
             </tr>
 
         <?php endforeach; ?>

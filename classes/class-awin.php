@@ -123,7 +123,6 @@ class Awin {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
-		//$style = $data->ge
 		$asin   = $data->get_product_id();
 		$params = array(
 			'Operation'     => 'ItemLookup',
@@ -147,7 +146,7 @@ class Awin {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		$this->compare_display_html( $eanlist );
+		$this->compare_display_html( $eanlist, $data );
 	}
 
 	public function compare_get_data( $eanlist ) {
@@ -289,35 +288,62 @@ class Awin {
 		error_log( $event );
 	}
 
-	public function compare_display_html( $eanlist ) {
+	public function compare_display_html( $eanlist, $data ) {
 		$prods            = $this->compare_get_data( $eanlist );
 		$partner_logo_url = get_option( 'awin' );
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 		ob_start();
 		?>
-		<div class="compare-partners">
-			<?php
-			foreach ( $prods as $p ) {
-				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
-				switch ( $p['partner_name'] ) {
-					case 'Cdiscount':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
-						break;
-					case 'Darty':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
-						break;
-					case 'Rue du Commerce':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
-						break;
-					default:
-						$logo = $partner;
-				}
-				$link = new Cloak_Link();
-				$link->compare_create_link( $p, $logo );
-			}
-			?>
-		</div>
 		<?php
+		foreach ( $prods as $p ) {
+			$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
+			switch ( $p['partner_name'] ) {
+				case 'Cdiscount':
+					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
+					break;
+				case 'Darty':
+					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
+					break;
+				case 'Rue du Commerce':
+					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
+					break;
+				default:
+					$logo = $partner;
+			}
+			$general  = get_option( 'general' );
+			$currency = $general['currency'];
+			$currency = apply_filters( 'compare_currency_unit', $currency );
+			$option = get_option( 'compare-aawp' );
+			$text = $option['button_text'];
+			if ( empty($text ) ){
+				$text = __( 'Buy to ', 'compare' );
+			}
+			$bg = $option['button-bg'];
+			if ( empty( $bg ) ){
+				$bg = '#000000';
+			}
+			$color = $option['button-color'];
+			if ( empty( $color ) ){
+				$color = '#ffffff';
+			}
+			if ( 'on' === $general['general-cloack'] ) {
+				$link = new Cloak_Link();
+				?>
+
+					<?php
+					$link->compare_create_link( $p, $logo, $data );
+					?>
+
+				<?php
+			} else {
+				?>
+				<p class=" compare-price">
+					<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
+				</p>
+
+				<?php
+			}
+		}
 		$html = ob_get_clean();
 		echo $html;
 	}
