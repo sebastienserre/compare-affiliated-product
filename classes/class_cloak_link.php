@@ -36,7 +36,8 @@ class Cloak_Link {
 			<p class="atc" data-atc = "<?php echo $url; ?>">
 				<?php echo $logo . '<p class="product-price">' . $product['price'] . ' ' . $currency ?>
 			</p>
-				<button style=" background:<?php echo $bg;?>; color: <?php echo $color; ?>; " class="btn-compare"><?php echo $text; ?></button>
+			<button style=" background:<?php echo $bg;?>; color: <?php echo $color; ?>; " class="atc btn-compare" data-atc = "<?php echo $url; ?>"><?php echo $text; ?></button>
+
 			</span>
 		</div>
 
