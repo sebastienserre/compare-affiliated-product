@@ -186,6 +186,7 @@ function cap_fs() {
 				'days'               => 30,
 				'is_require_payment' => false,
 			),
+			'has_affiliation'     => 'selected',
 			'menu'                => array(
 				'slug'    => 'compare-settings',
 				'support' => false,
