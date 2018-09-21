@@ -81,7 +81,7 @@ function compare_settings_page() {
 					do_settings_sections( 'compare-general' );
 					break;
 			}
-			submit_button( 'Save Changes', 'primary', 'save_compare_settings' );
+			submit_button( __('Save Changes', 'compare'), 'primary', 'save_compare_settings' );
 			?>
 		</form>
 
@@ -690,7 +690,7 @@ function compare_reset_awin_df_settings() {
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
 		'reset' => 'ok'
-	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database' ); ?></a>
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
 
 	<?php
 }

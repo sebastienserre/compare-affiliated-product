@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-05 06:15+0000\n"
+"POT-Creation-Date: 2018-09-21 05:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,92 +14,181 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
+#: compare.php:159 admin/settings.php:201
+msgid "Every 4 hours"
+msgstr ""
+
 #: admin/settings.php:8
 msgid "Compare Settings"
 msgstr ""
 
-#: admin/settings.php:13
+#: admin/settings.php:22 admin/settings.php:1356
+msgid "AAWP"
+msgstr ""
+
+#: admin/settings.php:30
 msgid "general"
 msgstr ""
 
 #. 'boulanger',
-#: admin/settings.php:15
+#: admin/settings.php:32
 msgid "help"
 msgstr ""
 
-#: admin/settings.php:26
+#: admin/settings.php:46
 msgid "Settings"
 msgstr ""
 
-#: admin/settings.php:81
-msgid "ConnectID"
-msgstr ""
-
-#: admin/settings.php:82
-msgid "SecretID"
-msgstr ""
-
 #: admin/settings.php:84
-msgid "API Key"
+msgid "Save Changes"
 msgstr ""
 
-#: admin/settings.php:85
-msgid "Awin partner Code"
+#: admin/settings.php:100
+msgid "External DB Settings"
 msgstr ""
 
-#: admin/settings.php:86
-msgid "Awin partner logo"
-msgstr ""
-
-#: admin/settings.php:87
-msgid "Awin Trademark code"
-msgstr ""
-
-#: admin/settings.php:88
-msgid "Awin Customer Code"
-msgstr ""
-
-#: admin/settings.php:90
-msgid "Reload data"
-msgstr ""
-
-#: admin/settings.php:92
+#: admin/settings.php:104
 msgid "Currency Unit"
 msgstr ""
 
-#: admin/settings.php:93
+#: admin/settings.php:105
 msgid "Languages"
 msgstr ""
 
-#: admin/settings.php:94
+#: admin/settings.php:106
 msgid "Delete All Datas when delete this plugin"
 msgstr ""
 
-#: admin/settings.php:510
+#: admin/settings.php:107
+msgid "Configure Cron Job"
+msgstr ""
+
+#: admin/settings.php:108
+msgid "Cloak Link"
+msgstr ""
+
+#: admin/settings.php:110
+msgid "Using an external DB ?"
+msgstr ""
+
+#: admin/settings.php:111
+msgid "Host"
+msgstr ""
+
+#: admin/settings.php:112
+msgid "Database"
+msgstr ""
+
+#: admin/settings.php:113
+msgid "Username"
+msgstr ""
+
+#: admin/settings.php:114
+msgid "Password"
+msgstr ""
+
+#: admin/settings.php:115
+msgid "Prefix"
+msgstr ""
+
+#: admin/settings.php:130
+msgid "API Key"
+msgstr ""
+
+#: admin/settings.php:131
+msgid "Awin partner Code"
+msgstr ""
+
+#: admin/settings.php:132
+msgid "Awin partner logo"
+msgstr ""
+
+#: admin/settings.php:133
+msgid "Awin Trademark code"
+msgstr ""
+
+#: admin/settings.php:134
+msgid "Awin Customer Code"
+msgstr ""
+
+#: admin/settings.php:136
+msgid "Reload data"
+msgstr ""
+
+#: admin/settings.php:143
+msgid "Button Text"
+msgstr ""
+
+#: admin/settings.php:144
+msgid "Button Background Color"
+msgstr ""
+
+#: admin/settings.php:145
+msgid "Button Text Color"
+msgstr ""
+
+#: admin/settings.php:180 aawp/table.php:76 classes/class_cloak_link.php:24
+#: classes/class-awin.php:319 aawp/products/horizontal.php:67
+#: aawp/products/vertical.php:56
+msgid "Buy to "
+msgstr ""
+
+#: admin/settings.php:200
+msgid "None"
+msgstr ""
+
+#: admin/settings.php:202
+msgid "Twice Daily"
+msgstr ""
+
+#: admin/settings.php:203
+msgid "Daily"
+msgstr ""
+
+#: admin/settings.php:220
+#, php-format
+msgid "For more informations, Please <a href=\"%s\">read the documentaion</a>"
+msgstr ""
+
+#: admin/settings.php:223
+msgid ""
+"Optionnal - It could be a good idea if you'd like to connect several website "
+"to a common database"
+msgstr ""
+
+#: admin/settings.php:674
 msgid "Choose your currency"
 msgstr ""
 
-#: admin/settings.php:1160
+#: admin/settings.php:693
+msgid "Delete & reload feed in database"
+msgstr ""
+
+#: admin/settings.php:1323
 msgid "Choose your language"
 msgstr ""
 
-#: admin/settings.php:1175
+#: admin/settings.php:1338
 #, php-format
 msgid ""
 "If you meet a bug, you can leave me a ticket on <a href=\"%s\" "
 "target=\"_blank\">Thivinfo.com</a>"
 msgstr ""
 
-#: admin/settings.php:1182
+#: admin/settings.php:1345
 msgid "Welcome on the support center"
 msgstr ""
 
-#: admin/settings.php:1184
+#: admin/settings.php:1348
 msgid "How to configure Awin"
 msgstr ""
 
-#: admin/settings.php:1185
+#: admin/settings.php:1351
 msgid "How to use the shortcodes"
+msgstr ""
+
+#: admin/settings.php:1354
+msgid "Hooks - Action & Filter"
 msgstr ""
 
 #: shortcode/class-compare-basic-shortcode.php:42
@@ -110,12 +199,8 @@ msgstr ""
 msgid " on "
 msgstr ""
 
-#: aawp/table.php:31
-msgid "See on Amazon"
-msgstr ""
-
-#: aawp/table.php:32
-msgid "See on other partners"
+#: aawp/table.php:30
+msgid "Buy It"
 msgstr ""
 
 #. Name of the plugin
