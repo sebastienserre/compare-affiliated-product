@@ -13,6 +13,7 @@ License URI: https://opensource.org/licenses/GPL-3.0
 = 1.1.3 == 21/09/2018
 * Improve fr_FR translation
 * add compare.pot
+* Improve AAWP Templates
 
 = 1.1.2 == 19/09/2018
 * Add settings for AAWP templates
