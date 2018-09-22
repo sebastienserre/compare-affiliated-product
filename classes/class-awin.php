@@ -313,26 +313,26 @@ class Awin {
 			$general  = get_option( 'general' );
 			$currency = $general['currency'];
 			$currency = apply_filters( 'compare_currency_unit', $currency );
-			$option = get_option( 'compare-aawp' );
-			$text = $option['button_text'];
-			if ( empty($text ) ){
+			$option   = get_option( 'compare-aawp' );
+			$text     = $option['button_text'];
+			if ( empty( $text ) ) {
 				$text = __( 'Buy to ', 'compare' );
 			}
 			$bg = $option['button-bg'];
-			if ( empty( $bg ) ){
+			if ( empty( $bg ) ) {
 				$bg = '#000000';
 			}
 			$color = $option['button-color'];
-			if ( empty( $color ) ){
+			if ( empty( $color ) ) {
 				$color = '#ffffff';
 			}
 			if ( 'on' === $general['general-cloack'] ) {
 				$link = new Cloak_Link();
 				?>
 
-					<?php
-					$link->compare_create_link( $p, $logo, $data );
-					?>
+				<?php
+				$link->compare_create_link( $p, $logo, $data );
+				?>
 
 				<?php
 			} else {
