@@ -4,24 +4,66 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 class compare_external_db {
+	public $db;
+	public $connect;
+	public $sql;
 
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'compare_external_cnx' ) );
+
 	}
 
 	public function compare_external_cnx() {
 
-		$external = get_option( 'general' );
-		$external = $external['ext_check'];
+		$option   = get_option( 'general' );
+		$external = $option['ext_check'];
 		if ( 'on' === $external ) {
-			$host     = $external['host'];
-			$db       = $external['db'];
-			$username = $external['username'];
-			$password = $external['pwd'];
-			$sql      = new wpdb( $username, $password, $db, $host );
+			$this->compare_check_sql();
+			if ( 'ok' === $this->connect ) {
+				$host     = $option['host'];
+				$db       = $option['db'];
+				$username = $option['username'];
+				$password = $option['pwd'];
 
-			return $sql;
+				$this->sql = new wpdb ( $username, $password, $db, $host );
+
+			}
+
 		}
+
+		return $this->sql;
+	}
+
+	public function compare_check_sql() {
+		$option   = get_option( 'general' );
+		$external = $option['ext_check'];
+		$this->connect  = 'ok';
+		if ( 'on' === $external ) {
+			$host     = $option['host'];
+			$db       = $option['db'];
+			$username = $option['username'];
+			$password = $option['pwd'];
+
+			$sql   = new wpdb ( $username, $password, $db, $host );
+			$error = $sql->error;
+			if ( ! empty ( $error ) ) {
+				$this->connect = 'nok';
+			}
+
+		}
+
+		return $this->connect;
+
+	}
+
+	public function compare_check_html(){
+		$this->compare_check_sql();
+		if ( 'nok' === $this->connect ) {
+			$connexion = '<div class="compare-sql-nok">' . __( 'Failed to connect to MySQL, please check your login credentials', 'compare' ) . '</div>';
+		} else {
+			$connexion = '<div class="compare-sql-ok">' . __( 'Succesfully connected to the database', 'compare' ) . '</div>';
+		}
+
+		return $connexion;
 	}
 
 }

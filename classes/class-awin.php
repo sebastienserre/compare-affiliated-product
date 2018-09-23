@@ -176,14 +176,16 @@ class Awin {
 					}
 				}
 			} else {
-				$prefix   = get_option( 'general' );
-				$prefix   = $prefix['prefix'];
-				$db       = $db->compare_external_cnx();
+				$prefix = get_option( 'general' );
+				$prefix = $prefix['prefix'];
+
+				$db       = new compare_external_db();
+				$cnx      = $db->compare_external_cnx();
 				$table    = $prefix . 'compare';
 				$products = array();
 				if ( null !== $eanlist[0] ) {
 					foreach ( $eanlist as $list ) {
-						$product = $db->get_results( $db->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+						$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
 						if ( ! empty( $product ) ) {
 							array_push( $products, $product );

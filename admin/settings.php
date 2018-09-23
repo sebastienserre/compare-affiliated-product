@@ -216,6 +216,12 @@ function cae_ext_check() {
 	}
 	?>
 	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
+
+	<?php
+	$external_db = new compare_external_db();
+	echo $external_db->compare_check_html();
+	?>
+
 	<?php
 }
 
