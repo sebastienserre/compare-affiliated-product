@@ -2,13 +2,22 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+
+= 1.1.4 == 23/09/2018
+* BUGFIX: affiliate button link
+* BUGFIX: Make an external connection only if asked!
+* BUGFIX: several PHP Warning removed
+* FEATURES: Add message on succes or fail to external connexion
+* FEATURES: Add an affiliation program. Become a Afiliated user and win money.
+* IMPROVMENT: fr_FR translation (Translate Comapre affiliated Product in your language and win 1 years of subscription for Free (5sites plans)
+* IMPROVMENT: Helps added
 
 = 1.1.3 == 21/09/2018
 * Improve fr_FR translation
