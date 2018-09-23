@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-21 05:32+0000\n"
+"POT-Creation-Date: 2018-09-23 13:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: compare.php:159 admin/settings.php:201
+#: compare.php:159 admin/settings.php:203
 msgid "Every 4 hours"
 msgstr ""
 
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Compare Settings"
 msgstr ""
 
-#: admin/settings.php:22 admin/settings.php:1356
+#: admin/settings.php:22 admin/settings.php:1366
 msgid "AAWP"
 msgstr ""
 
@@ -127,67 +127,66 @@ msgstr ""
 msgid "Button Text Color"
 msgstr ""
 
-#: admin/settings.php:180 aawp/table.php:76 classes/class_cloak_link.php:24
-#: classes/class-awin.php:319 aawp/products/horizontal.php:67
-#: aawp/products/vertical.php:56
+#: admin/settings.php:180 classes/class_cloak_link.php:29
+#: classes/class_cloak_link.php:61 classes/class-awin.php:321
 msgid "Buy to "
 msgstr ""
 
-#: admin/settings.php:200
+#: admin/settings.php:202
 msgid "None"
 msgstr ""
 
-#: admin/settings.php:202
+#: admin/settings.php:204
 msgid "Twice Daily"
 msgstr ""
 
-#: admin/settings.php:203
+#: admin/settings.php:205
 msgid "Daily"
 msgstr ""
 
-#: admin/settings.php:220
+#: admin/settings.php:230
 #, php-format
 msgid "For more informations, Please <a href=\"%s\">read the documentaion</a>"
 msgstr ""
 
-#: admin/settings.php:223
+#: admin/settings.php:233
 msgid ""
 "Optionnal - It could be a good idea if you'd like to connect several website "
 "to a common database"
 msgstr ""
 
-#: admin/settings.php:674
+#: admin/settings.php:684
 msgid "Choose your currency"
 msgstr ""
 
-#: admin/settings.php:693
+#: admin/settings.php:703
 msgid "Delete & reload feed in database"
 msgstr ""
 
-#: admin/settings.php:1323
+#: admin/settings.php:1333
 msgid "Choose your language"
 msgstr ""
 
-#: admin/settings.php:1338
+#: admin/settings.php:1348
 #, php-format
 msgid ""
 "If you meet a bug, you can leave me a ticket on <a href=\"%s\" "
 "target=\"_blank\">Thivinfo.com</a>"
 msgstr ""
 
-#: admin/settings.php:1345
+#: admin/settings.php:1355
 msgid "Welcome on the support center"
 msgstr ""
 
-#: admin/settings.php:1348
+#: admin/settings.php:1358
 msgid "How to configure Awin"
 msgstr ""
 
-#: admin/settings.php:1351
+#: admin/settings.php:1361
 msgid "How to use the shortcodes"
 msgstr ""
 
-#: admin/settings.php:1354
+#: admin/settings.php:1364
 msgid "Hooks - Action & Filter"
 msgstr ""
 
@@ -195,12 +194,20 @@ msgstr ""
 msgid "Where to find this product ?"
 msgstr ""
 
-#: shortcode/class-compare-basic-shortcode.php:63
+#: shortcode/class-compare-basic-shortcode.php:75
 msgid " on "
 msgstr ""
 
 #: aawp/table.php:30
 msgid "Buy It"
+msgstr ""
+
+#: classes/class-compare-external-db.php:61
+msgid "Failed to connect to MySQL, please check your login credentials"
+msgstr ""
+
+#: classes/class-compare-external-db.php:63
+msgid "Succesfully connected to the database"
 msgstr ""
 
 #. Name of the plugin
