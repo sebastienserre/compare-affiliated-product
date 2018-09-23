@@ -72,31 +72,70 @@ Cloak Link
     cursor: pointer;
 }
 
-img.logo-amazon {
-    width: 50px;
-}
-
+/**
+General style
+ */
 .aawp-product--horizontal .compare-price {
-    display: flex;
-    flex-direction: initial;
-    justify-content: flex-end;
+    display: block;
+    width: 100%;
 }
 
 .aawp-product--horizontal .compare-price-partner {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 10px;
+    display: block;
 }
 
-p.atc {
-    min-height: 50px;
-}
-
-.aawp-table__td-links .compare-price-partner,
-.aawp-product--vertical .compare-price-partner {
+.img-partner,
+.product-price {
+    width: 25%;
     float: left;
-    width: 40%;
-    margin-right: 20px;
-    margin-bottom: 10px;
+}
+
+button.atc.btn-compare {
+    display: block;
+    width: 30%;
+    float: left;
+}
+
+.compare-price .compare-price-partner {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #E5E5E5;
+    border-spacing: 0px;
+    border-left: 0 none;
+    border-right: 0 none;
+    height: 60px;
+    clear: both;
+}
+
+.atc {
+    height: 60px;
+    line-height: 59px;
+    vertical-align: middle;
+}
+
+.compare-price-partner:first-child .product-price {
+    font-weight: bold;
+}
+
+.aawp-product--vertical .img-partner,
+.aawp-product--vertical .product-price {
+    width: auto;
+    float: left;
+}
+
+.aawp table.aawp-table th.aawp-table__th-title,
+.aawp table.aawp-table td.aawp-table__th-title,
+.aawp table.aawp-table th.aawp-table__td-title,
+.aawp table.aawp-table td.aawp-table__td-title {
+    max-width: 150px;
+    text-align: left;
+}
+
+th.aawp-table__th-links {
+    width: 260px;
+}
+
+img.logo-amazon {
+    width: 50px;
 }

@@ -6,49 +6,50 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    die( '-1' );
+	die( '-1' );
 }
 
 ?>
 
-<div class="<?php echo $this->get_product_container_classes('aawp-product aawp-product--widget-vertical'); ?>" <?php $this->the_product_container(); ?>>
+<div class="<?php echo $this->get_product_container_classes( 'aawp-product aawp-product--widget-vertical' ); ?>" <?php $this->the_product_container(); ?>>
 
-    <?php $this->the_product_ribbons(); ?>
+	<?php $this->the_product_ribbons(); ?>
 
-    <div class="aawp-product__image-link">
-        <img class="aawp-product__image" src="<?php echo $this->get_product_image(); ?>" alt="<?php echo $this->get_product_image_alt(); ?>" <?php $this->the_product_image_title(); ?> />
-    </div>
+	<div class="aawp-product__image-link">
+		<img class="aawp-product__image" src="<?php echo $this->get_product_image(); ?>"
+		     alt="<?php echo $this->get_product_image_alt(); ?>" <?php $this->the_product_image_title(); ?> />
+	</div>
 
-    <div class="aawp-product__content">
-        <div class="aawp-product__title">
-            <?php echo $this->get_product_title(); ?>
-        </div>
+	<div class="aawp-product__content">
+		<div class="aawp-product__title">
+			<?php echo $this->get_product_title(); ?>
+		</div>
 
-        <div class="aawp-product__meta">
-            <?php if ( $this->get_product_rating() ) { ?>
-                <?php echo $this->get_product_star_rating(); ?>
-            <?php } ?>
+		<div class="aawp-product__meta">
+			<?php if ( $this->get_product_rating() ) { ?>
+				<?php echo $this->get_product_star_rating(); ?>
+			<?php } ?>
 
-            <?php $this->the_product_check_prime_logo(); ?>
-        </div>
-    </div>
+			<?php $this->the_product_check_prime_logo(); ?>
+		</div>
+	</div>
 
-    <div class="aawp-product__footer">
+	<div class="aawp-product__footer">
 
-        <div class="aawp-product__pricing">
-            <?php if ( $this->get_product_is_sale() && $this->sale_show_old_price() ) { ?>
-                <span class="aawp-product__price aawp-product__price--old"><?php echo $this->get_product_pricing('old'); ?></span>
-            <?php } ?>
+		<div class="aawp-product__pricing">
+			<?php if ( $this->get_product_is_sale() && $this->sale_show_old_price() ) { ?>
+				<span class="aawp-product__price aawp-product__price--old"><?php echo $this->get_product_pricing( 'old' ); ?></span>
+			<?php } ?>
 
-            <?php if ( $this->show_advertised_price() ) { ?>
-                <span class="aawp-product__price aawp-product__price--current"><?php echo $this->get_product_pricing(); ?></span>
-            <?php } ?>
-        </div>
+			<?php if ( $this->show_advertised_price() ) { ?>
+				<span class="aawp-product__price aawp-product__price--current"><?php echo $this->get_product_pricing(); ?></span>
+			<?php } ?>
+		</div>
 
-        <?php echo $this->get_button(); ?>
+		<?php echo $this->get_button(); ?>
 
-        <?php if ( $this->get_inline_info() ) { ?>
-            <span class="aawp-product__info"><?php echo $this->get_inline_info_text(); ?></span>
-        <?php } ?>
-    </div>
+		<?php if ( $this->get_inline_info() ) { ?>
+			<span class="aawp-product__info"><?php echo $this->get_inline_info_text(); ?></span>
+		<?php } ?>
+	</div>
 </div>
