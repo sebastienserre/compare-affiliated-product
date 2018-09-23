@@ -69,30 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <td class="aawp-table__td-links" data-label="<?php _e('Link', 'aawp'); ?>">
 	                <div class="compare-price">
 		                <?php do_action( 'thfo_compare_after_price', $this ); ?>
-		                <?php
-		                $option = get_option( 'compare-aawp' );
-		                $text = $option['button_text'];
-		                if ( empty($text ) ){
-			                $text = __( 'Buy to ', 'compare' );
-		                }
-		                $bg = $option['button-bg'];
-		                if ( empty( $bg ) ){
-			                $bg = '#000000';
-		                }
-		                $color = $option['button-color'];
-		                if ( empty( $color ) ){
-			                $color = '#ffffff';
-		                }
-		                ?>
-		                <div class="compare-price-partner">
-			                <p class="atc" data-atc="<?php echo base64_encode( $this->get_product_url() ); ?>">
-				                <img class="logo-amazon" src="<?php echo COMPARE_PLUGIN_URL ?>/assets/img/amazon.png">
-			                <p class="product-price"><?php echo $this->get_product_pricing() ?></p>
-			                <button class="btn-compare" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
-				                <?php echo $text; ?></button>
-			                </p>
-		                </div>
-
+		                <?php Cloak_Link::compare_amz_link( $this ); ?>
 	                </div>
                 </td>
             </tr>

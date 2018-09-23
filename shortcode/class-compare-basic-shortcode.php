@@ -57,17 +57,30 @@ class Compare_Basic_Widget {
 								default:
 									$logo = $partner;
 							}
-							?>
-							<div class="compare_basic_sc_partner_price">
-								<a href="<?php echo $data['url']; ?>"
-								   title="<?php echo $data['title'] . __( ' on ', 'compare' ) . $data['partner_name']; ?>">
-									<?php echo $logo; ?>
-									<p><?php echo $data['price'] . $currency; ?></p>
-								</a>
+							$general  = get_option( 'general' );
+							if ( 'on' === $general['general-cloack'] ) {
+								$link = new Cloak_Link();
+								?>
 
-							</div>
+								<?php
+								$link->compare_create_link( $p, $logo, $data );
+								?>
 
-							<?php
+								<?php
+							} else {
+								?>
+
+								<div class="compare_basic_sc_partner_price">
+									<a href="<?php echo $data['url']; ?>"
+									   title="<?php echo $data['title'] . __( ' on ', 'compare' ) . $data['partner_name']; ?>">
+										<?php echo $logo; ?>
+										<p><?php echo $data['price'] . $currency; ?></p>
+									</a>
+
+								</div>
+
+								<?php
+							}
 						}
 						?>
 					</div>

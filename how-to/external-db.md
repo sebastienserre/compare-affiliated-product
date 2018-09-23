@@ -9,3 +9,6 @@ to this "main" website.
 To use an external database, simply fill credentials to this db.  
 By using an external db, API credentials are not necessary on
 "secondary" website as they won't sync on Awin.
+## Status
+If the connexion is correct, a message in Green color will appear.
+If it fails then a RED message will appear.

@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.1.2
+	Version: 1.1.4
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.1.2' );
+define( 'COMPARE_VERSION', '1.1.4' );
 define( 'COMPARE_PLUGIN_NAME', 'compare' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -186,6 +186,7 @@ function cap_fs() {
 				'days'               => 30,
 				'is_require_payment' => false,
 			),
+			'has_affiliation'     => 'selected',
 			'menu'                => array(
 				'slug'    => 'compare-settings',
 				'support' => false,
@@ -206,3 +207,8 @@ function cap_fs() {
 cap_fs();
 // Signal that SDK was initiated.
 do_action( 'cap_fs_loaded' );
+
+add_action('admin_print_styles', 'compare_admin_style', 11 );
+function compare_admin_style() {
+	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
+}

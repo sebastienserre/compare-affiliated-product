@@ -80,7 +80,7 @@ function compare_settings_page() {
 					do_settings_sections( 'compare-general' );
 					break;
 			}
-			submit_button( 'Save Changes', 'primary', 'save_compare_settings' );
+			submit_button( __('Save Changes', 'compare'), 'primary', 'save_compare_settings' );
 			?>
 		</form>
 
@@ -186,7 +186,9 @@ function compare_aawp_button_text() {
 
 function compare_general_cloak_link() {
 	$check = get_option('general');
-	$check = $check['general-cloack'];
+	if ( isset( $check['general-cloack'] ) && ! empty( $check['general-cloack'] ) ) {
+		$check = $check['general-cloack'];
+	}
 	?>
 	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' )?>>
 	<?php
@@ -209,9 +211,17 @@ function compare_general_cron() {
 
 function cae_ext_check() {
 	$check = get_option('general');
-	$check = $check['ext_check'];
+	if ( isset( $check['ext_check'] ) && ! empty( $check['ext_check'] ) ) {
+		$check = $check['ext_check'];
+	}
 	?>
 	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
+
+	<?php
+	$external_db = new compare_external_db();
+	echo $external_db->compare_check_html();
+	?>
+
 	<?php
 }
 
@@ -690,7 +700,7 @@ function compare_reset_awin_df_settings() {
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
 		'reset' => 'ok'
-	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database' ); ?></a>
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
 
 	<?php
 }
