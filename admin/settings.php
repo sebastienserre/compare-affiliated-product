@@ -186,7 +186,9 @@ function compare_aawp_button_text() {
 
 function compare_general_cloak_link() {
 	$check = get_option('general');
-	$check = $check['general-cloack'];
+	if ( isset( $check['general-cloack'] ) && ! empty( $check['general-cloack'] ) ) {
+		$check = $check['general-cloack'];
+	}
 	?>
 	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' )?>>
 	<?php
@@ -209,7 +211,9 @@ function compare_general_cron() {
 
 function cae_ext_check() {
 	$check = get_option('general');
-	$check = $check['ext_check'];
+	if ( isset( $check['ext_check'] ) && ! empty( $check['ext_check'] ) ) {
+		$check = $check['ext_check'];
+	}
 	?>
 	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
 	<?php
