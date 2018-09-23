@@ -1,0 +1,8 @@
+.compare-sql-ok {
+    color: green;
+    font-weight: bold;
+}
+.compare-sql-nok {
+    color: red;
+    font-weight: bold;
+}

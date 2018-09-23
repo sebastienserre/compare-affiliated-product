@@ -207,3 +207,8 @@ function cap_fs() {
 cap_fs();
 // Signal that SDK was initiated.
 do_action( 'cap_fs_loaded' );
+
+add_action('admin_print_styles', 'compare_admin_style', 11 );
+function compare_admin_style() {
+	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
+}
