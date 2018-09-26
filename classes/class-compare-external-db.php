@@ -34,12 +34,13 @@ class compare_external_db {
 	}
 
 	public function compare_check_sql() {
-		$option   = get_option( 'general' );
-		if ( isset( $option['ext_check'] ) ){
+		$option        = get_option( 'general' );
+		$this->connect = 'ok';
+		if ( isset( $option['ext_check'] ) ) {
 			$external = $option['ext_check'];
 		}
-		$this->connect  = 'ok';
-		if ( 'on' === $external ) {
+
+		if ( isset( $external ) && 'on' === $external ) {
 			$host     = $option['host'];
 			$db       = $option['db'];
 			$username = $option['username'];
@@ -57,7 +58,7 @@ class compare_external_db {
 
 	}
 
-	public function compare_check_html(){
+	public function compare_check_html() {
 		$this->compare_check_sql();
 		if ( 'nok' === $this->connect ) {
 			$connexion = '<div class="compare-sql-nok">' . __( 'Failed to connect to MySQL, please check your login credentials', 'compare' ) . '</div>';
