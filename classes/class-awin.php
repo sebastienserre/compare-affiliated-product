@@ -210,13 +210,14 @@ class Awin {
 			}
 		}
 
+		if ( !empty( $products ) ) {
+			$products  = array_reverse( $products[0] );
+			$products  = array_combine( array_column( $products, 'partner_name' ), $products );
+			$products  = array_reverse( $products );
+			$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 
-		$products  = array_reverse( $products[0] );
-		$products  = array_combine( array_column( $products, 'partner_name' ), $products );
-		$products  = array_reverse( $products );
-		$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
-
-		return $products;
+			return $products;
+		}
 	}
 
 	/**
@@ -297,53 +298,55 @@ class Awin {
 		ob_start();
 		?>
 		<?php
-		foreach ( $prods as $p ) {
-			$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
-			switch ( $p['partner_name'] ) {
-				case 'Cdiscount':
-					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
-					break;
-				case 'Darty':
-					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
-					break;
-				case 'Rue du Commerce':
-					$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
-					break;
-				default:
-					$logo = $partner;
-			}
-			$general  = get_option( 'general' );
-			$currency = $general['currency'];
-			$currency = apply_filters( 'compare_currency_unit', $currency );
-			$option   = get_option( 'compare-aawp' );
-			$text     = $option['button_text'];
-			if ( empty( $text ) ) {
-				$text = __( 'Buy to ', 'compare' );
-			}
-			$bg = $option['button-bg'];
-			if ( empty( $bg ) ) {
-				$bg = '#000000';
-			}
-			$color = $option['button-color'];
-			if ( empty( $color ) ) {
-				$color = '#ffffff';
-			}
-			if ( 'on' === $general['general-cloack'] ) {
-				$link = new Cloak_Link();
-				?>
+		if ( ! is_null( $prods ) ) {
+			foreach ( $prods as $p ) {
+				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
+				switch ( $p['partner_name'] ) {
+					case 'Cdiscount':
+						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
+						break;
+					case 'Darty':
+						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
+						break;
+					case 'Rue du Commerce':
+						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
+						break;
+					default:
+						$logo = $partner;
+				}
+				$general  = get_option( 'general' );
+				$currency = $general['currency'];
+				$currency = apply_filters( 'compare_currency_unit', $currency );
+				$option   = get_option( 'compare-aawp' );
+				$text     = $option['button_text'];
+				if ( empty( $text ) ) {
+					$text = __( 'Buy to ', 'compare' );
+				}
+				$bg = $option['button-bg'];
+				if ( empty( $bg ) ) {
+					$bg = '#000000';
+				}
+				$color = $option['button-color'];
+				if ( empty( $color ) ) {
+					$color = '#ffffff';
+				}
+				if ( 'on' === $general['general-cloack'] ) {
+					$link = new Cloak_Link();
+					?>
 
-				<?php
-				$link->compare_create_link( $p, $logo, $data );
-				?>
+					<?php
+					$link->compare_create_link( $p, $logo, $data );
+					?>
 
-				<?php
-			} else {
-				?>
-				<p class=" compare-price">
-					<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
-				</p>
+					<?php
+				} else {
+					?>
+					<p class=" compare-price">
+						<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
+					</p>
 
-				<?php
+					<?php
+				}
 			}
 		}
 		$html = ob_get_clean();

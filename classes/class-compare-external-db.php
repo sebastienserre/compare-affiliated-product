@@ -47,8 +47,8 @@ class compare_external_db {
 			$password = $option['pwd'];
 
 			$sql   = new wpdb ( $username, $password, $db, $host );
-			$error = $sql->error;
-			if ( ! empty ( $error ) ) {
+
+			if ( ! empty ( $sql->error ) ) {
 				$this->connect = 'nok';
 			}
 
