@@ -60,8 +60,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php $this->the_product_check_prime_logo(); ?>
 		</div>
 		<div class="compare-price">
-			<?php do_action( 'thfo_compare_after_price', $this ); ?>
 			<?php Cloak_Link::compare_amz_link( $this ); ?>
+			<?php do_action( 'thfo_compare_after_price', $this ); ?>
 		</div>
 
 

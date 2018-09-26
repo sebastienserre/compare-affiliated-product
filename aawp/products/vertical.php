@@ -51,8 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="aawp-product__price aawp-product__price--current"><?php echo $this->get_product_pricing(); ?></span>
 			<?php } ?>
 			<div class="compare-price">
-				<?php do_action( 'thfo_compare_after_price', $this ); ?>
 				<?php Cloak_Link::compare_amz_link( $this ); ?>
+				<?php do_action( 'thfo_compare_after_price', $this ); ?>
 			</div>
 		</div>
 
