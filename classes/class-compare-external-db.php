@@ -35,7 +35,9 @@ class compare_external_db {
 
 	public function compare_check_sql() {
 		$option   = get_option( 'general' );
-		$external = $option['ext_check'];
+		if ( isset( $option['ext_check'] ) ){
+			$external = $option['ext_check'];
+		}
 		$this->connect  = 'ok';
 		if ( 'on' === $external ) {
 			$host     = $option['host'];
