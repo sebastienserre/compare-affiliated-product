@@ -2,13 +2,17 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.1.5 == 27/09/2018
+* Improve style
+* BUGFIX: remove PHP Notices and Warnings
+* Improvment: Amazon Prices are allways on top
 
 = 1.1.4 == 23/09/2018
 * BUGFIX: affiliate button link
