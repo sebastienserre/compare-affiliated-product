@@ -6,25 +6,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'admin_menu', 'compare_settings' );
 function compare_settings() {
 	$option_page = add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
-	add_action( 'admin_print_scripts-'.$option_page, 'load_admin_scripts');
+	add_action( 'admin_print_scripts-' . $option_page, 'load_admin_scripts' );
 }
 
-function load_admin_scripts( ) {
-	wp_enqueue_style('wp-color-picker');
-	wp_enqueue_script('color-picker-script', plugins_url( 'color-picker.js', __FILE__ ) , array('wp-color-picker'), false, true );
+function load_admin_scripts() {
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_enqueue_script( 'color-picker-script', plugins_url( 'color-picker.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 }
 
-if ( class_exists( 'AAWP_Affiliate' ) ){
-	add_filter( 'compare_setting_tabs' , 'compare_add_aawp_tab');
+if ( class_exists( 'AAWP_Affiliate' ) ) {
+	add_filter( 'compare_setting_tabs', 'compare_add_aawp_tab' );
 }
 
 function compare_add_aawp_tab( $tabs ) {
 	$tabs['aawp'] = __( 'AAWP', 'compare' );
+
 	return $tabs;
 }
 function compare_settings_page() {
 
-	$tabs = apply_filters('compare_setting_tabs',
+	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
 			'awin'    => 'Awin',
@@ -80,7 +81,7 @@ function compare_settings_page() {
 					do_settings_sections( 'compare-general' );
 					break;
 			}
-			submit_button( __('Save Changes', 'compare'), 'primary', 'save_compare_settings' );
+			submit_button( __( 'Save Changes', 'compare' ), 'primary', 'save_compare_settings' );
 			?>
 		</form>
 
@@ -97,7 +98,7 @@ function compare_register_settings() {
 	 * General
 	 */
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-external', __('External DB Settings', 'compare'), 'compare_external', 'compare-general' );
+	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-general' );
 
 	register_setting( 'general', 'general' );
 
@@ -148,9 +149,9 @@ function compare_register_settings() {
 }
 
 function compare_awwp_button_bg() {
-	$option = get_option( 'compare-aawp');
-	$color = $option['button-bg'];
-	if ( !empty( $color ) ){
+	$option = get_option( 'compare-aawp' );
+	$color  = $option['button-bg'];
+	if ( ! empty( $color ) ) {
 		$value = 'value="' . $color . '"';
 	}
 
@@ -160,9 +161,9 @@ function compare_awwp_button_bg() {
 }
 
 function compare_awwp_button_color() {
-	$option = get_option( 'compare-aawp');
-	$color = $option['button-color'];
-	if ( !empty( $color ) ){
+	$option = get_option( 'compare-aawp' );
+	$color  = $option['button-color'];
+	if ( ! empty( $color ) ) {
 		$value = 'value="' . $color . '"';
 	}
 
@@ -172,9 +173,9 @@ function compare_awwp_button_color() {
 }
 
 function compare_aawp_button_text() {
-	$option = get_option( 'compare-aawp');
-	$text = $option['button_text'];
-	if ( ! empty( $text ) ){
+	$option = get_option( 'compare-aawp' );
+	$text   = $option['button_text'];
+	if ( ! empty( $text ) ) {
 		$value = 'value="' . $text . '"';
 	} else {
 		$value = 'value="' . __( 'Buy to ', 'compare' ) . '"';
@@ -185,24 +186,24 @@ function compare_aawp_button_text() {
 }
 
 function compare_general_cloak_link() {
-	$check = get_option('general');
+	$check = get_option( 'general' );
 	if ( isset( $check['general-cloack'] ) && ! empty( $check['general-cloack'] ) ) {
 		$check = $check['general-cloack'];
 	}
 	?>
-	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' )?>>
+	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 	<?php
 }
 
 function compare_general_cron() {
-	$option = get_option( 'general');
-	$cron = $option['cron'];
+	$option = get_option( 'general' );
+	$cron   = $option['cron'];
 	?>
 	<select name="general[cron]">
-		<option value="none" <?php selected( $cron, 'none'); ?>><?php _e('None', 'compare' ); ?></option>
-		<option value="four" <?php selected( $cron, 'four'); ?>><?php _e('Every 4 hours', 'compare' ); ?></option>
-		<option value="twice" <?php selected( $cron, 'twice'); ?>><?php _e('Twice Daily', 'compare' ); ?></option>
-		<option value="daily" <?php selected( $cron, 'daily'); ?>><?php _e('Daily', 'compare' ); ?></option>
+		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
+		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
+		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
+		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
 	</select>
 
 	<?php
@@ -210,12 +211,12 @@ function compare_general_cron() {
 
 
 function cae_ext_check() {
-	$check = get_option('general');
+	$check = get_option( 'general' );
 	if ( isset( $check['ext_check'] ) && ! empty( $check['ext_check'] ) ) {
 		$check = $check['ext_check'];
 	}
 	?>
-	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' )?>>
+	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 
 	<?php
 	$external_db = new compare_external_db();
@@ -226,28 +227,29 @@ function cae_ext_check() {
 }
 
 function compare_external() {
-	$url = COMPARE_PLUGIN_URL . 'how-to/external-db.html';
-	$link = sprintf( wp_kses( __('For more informations, Please <a href="%s">read the documentaion</a>', 'compare'),
-		array( 'a'=> array( 'href' => array() ) ) ), esc_url( $url ) );
+	$url  = COMPARE_PLUGIN_URL . 'how-to/external-db.html';
+	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%s">read the documentaion</a>', 'compare' ),
+		array( 'a' => array( 'href' => array() ) ) ), esc_url( $url ) );
 	?>
-	<p><?php _e('Optionnal - It could be a good idea if you\'d like to connect several website to a common database', 'compare'); ?></p>
+	<p><?php _e( 'Optionnal - It could be a good idea if you\'d like to connect several website to a common database', 'compare' ); ?></p>
 	<p><?php echo $link; ?></p>
 	<?php
 }
+
 function cae_host() {
 	$external = get_option( 'general' );
-	if ( !empty( $external ) ){
+	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['host'] );
 	}
 	?>
 
 	<input name="general[host]" type="text" <?php echo $value; ?>>
-<?php
+	<?php
 }
 
 function cae_prefix() {
 	$external = get_option( 'general' );
-	if ( !empty( $external ) ){
+	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['prefix'] );
 	}
 	?>
@@ -258,7 +260,7 @@ function cae_prefix() {
 
 function cae_db() {
 	$external = get_option( 'general' );
-	if ( !empty( $external ) ){
+	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['db'] );
 	}
 	?>
@@ -269,7 +271,7 @@ function cae_db() {
 
 function cae_user() {
 	$external = get_option( 'general' );
-	if ( !empty( $external ) ){
+	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['username'] );
 	}
 	?>
@@ -280,7 +282,7 @@ function cae_user() {
 
 function cae_pwd() {
 	$external = get_option( 'general' );
-	if ( !empty( $external ) ){
+	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['pwd'] );
 	}
 	?>
@@ -301,7 +303,7 @@ function compare_awin_feed() {
 	$trademark = $feed['trademark_code'];
 
 	foreach ( $partners as $partner ) {
-		if ( empty( $trademark ) ){
+		if ( empty( $trademark ) ) {
 			$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
 		} else {
 			$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
@@ -353,18 +355,19 @@ function compare_awin_partner() {
 function compare_awin_partner_logo() {
 	$awin     = get_option( 'awin' );
 	$partners = explode( ',', $awin['partner'] );
-
 	foreach ( $partners as $partner ) {
-		$value = 'value="' . $awin['partner_logo'][ $partner ] . '"';
-		?>
-		<div class="compare-partners-datafeed">
-			<?php
-			echo $partner;
+		if ( ! empty( $awin['partner_logo'][ $partner ] ) ) {
+			$value = 'value="' . $awin['partner_logo'][ $partner ] . '"';
 			?>
-			<input type="text" name="awin[partner_logo][<?php echo $partner; ?>]" <?php echo $value; ?>><img
-					width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
-		</div>
-		<?php
+			<div class="compare-partners-datafeed">
+				<?php
+				echo $partner;
+				?>
+				<input type="text" name="awin[partner_logo][<?php echo $partner; ?>]" <?php echo $value; ?>><img
+						width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
+			</div>
+			<?php
+		}
 	}
 }
 

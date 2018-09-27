@@ -34,18 +34,21 @@ class compare_external_db {
 	}
 
 	public function compare_check_sql() {
-		$option   = get_option( 'general' );
-		$external = $option['ext_check'];
-		$this->connect  = 'ok';
-		if ( 'on' === $external ) {
+		$option        = get_option( 'general' );
+		$this->connect = 'ok';
+		if ( isset( $option['ext_check'] ) ) {
+			$external = $option['ext_check'];
+		}
+
+		if ( isset( $external ) && 'on' === $external ) {
 			$host     = $option['host'];
 			$db       = $option['db'];
 			$username = $option['username'];
 			$password = $option['pwd'];
 
 			$sql   = new wpdb ( $username, $password, $db, $host );
-			$error = $sql->error;
-			if ( ! empty ( $error ) ) {
+
+			if ( ! empty ( $sql->error ) ) {
 				$this->connect = 'nok';
 			}
 
@@ -55,7 +58,7 @@ class compare_external_db {
 
 	}
 
-	public function compare_check_html(){
+	public function compare_check_html() {
 		$this->compare_check_sql();
 		if ( 'nok' === $this->connect ) {
 			$connexion = '<div class="compare-sql-nok">' . __( 'Failed to connect to MySQL, please check your login credentials', 'compare' ) . '</div>';
