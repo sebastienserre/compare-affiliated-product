@@ -28,10 +28,18 @@ function compare_settings_page() {
 	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
-			'awin'    => 'Awin',
 			'help'    => __( 'help', 'compare' ),
 		)
 	);
+
+
+	$options = get_option('general');
+	$platforms = $options['platform'];
+	foreach ( $platforms as $platform ){
+		if ( !empty( $platform ) ){
+			$tabs[$platform] =  $platform;
+		}
+	}
 
 
 	if ( isset( $_GET['tab'] ) ) {
@@ -76,6 +84,10 @@ function compare_settings_page() {
 					settings_fields( 'compare-aawp' );
 					do_settings_sections( 'compare-aawp' );
 					break;
+				case 'effiliation':
+					settings_fields( 'compare-effiliation' );
+					do_settings_sections( 'compare-effiliation' );
+					break;
 				default:
 					settings_fields( 'general' );
 					do_settings_sections( 'compare-general' );
@@ -107,6 +119,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
@@ -123,6 +136,7 @@ function compare_register_settings() {
 
 	/**
 	 * Awin
+	 * @since 1.0.0
 	 */
 	add_settings_section( 'compare-awin', '', '', 'compare-awin' );
 
@@ -145,7 +159,44 @@ function compare_register_settings() {
 	add_settings_field( 'compare-aawp-button-bg', __( 'Button Background Color', 'compare' ), 'compare_awwp_button_bg', 'compare-aawp', 'compare-aawp' );
 	add_settings_field( 'compare-aawp-button-color', __( 'Button Text Color', 'compare' ), 'compare_awwp_button_color', 'compare-aawp', 'compare-aawp' );
 
+	/**
+	 * Effiliation
+	 * @since 1.2.0
+	 */
+	add_settings_section( 'compare-effiliation', '', '', 'compare-effiliation' );
+	register_setting( 'compare-effiliation', 'compare-effiliation' );
+	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
+	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
+}
+
+function compare_effiliation_program(){
+	echo effiliation::compare_effiliation_list_html();
+}
+function compare_effiliation_api(){
+	$options = get_option('compare-effiliation');
+	if ( !empty( $options ) ){
+		$value = 'value="' . $options['apikey'] . '"';
+	}
+	?>
+	<input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
+	<?php
+}
+
+function compare_general_platforms(){
+	$platforms = array( 'awin', 'effiliation');
+	$options = get_option('general');
+
+
+	foreach ( $platforms as $platform ){
+		if ( isset( $options['platform'] ) && ! empty( $options['platform'] ) ) {
+			$check = $options['platform'][$platform];
+		}
+		?>
+		<input type="checkbox" name="general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?> value="<?php echo $platform; ?>">
+		<?php echo $platform; ?>
+		<?php
+	}
 }
 
 function compare_awwp_button_bg() {
