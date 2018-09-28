@@ -212,3 +212,8 @@ add_action('admin_print_styles', 'compare_admin_style', 11 );
 function compare_admin_style() {
 	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
 }
+
+function responsive_tables_enqueue_script() {
+	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
+}
+add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );

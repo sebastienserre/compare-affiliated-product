@@ -132,12 +132,18 @@ button.atc.btn-compare {
     text-align: left;
 }
 
-th.aawp-table__th-links {
-    width: 260px;
-}
-
 img.logo-amazon {
     width: 50px;
+}
+
+th.aawp-table__th-links {
+    width: 400px;
+}
+
+@media screen and (min-width: 1025px) {
+    table .product-price {
+        width: 60%;
+    }
 }
 
 .img-partner {
@@ -153,5 +159,40 @@ img.logo-amazon {
     .product-price {
         width: 50%;
         text-align: center;
+    }
+}
+
+/* Credits:
+    This bit of code: Exis | exisweb.net/responsive-tables-in-wordpress
+    Original idea: Dudley Storey | codepen.io/dudleystorey/pen/Geprd */
+
+@media screen and (max-width: 600px) {
+    table {width:100%;}
+    thead {display: none;}
+    tr:nth-of-type(2n) {background-color: inherit;}
+    tr td:first-child {background: #f0f0f0; font-weight:bold;font-size:1.3em;}
+    tbody td {display: block;  text-align:center;}
+    tbody td:before {
+        content: attr(data-th);
+        display: block;
+        text-align:center;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+    table .compare-price .compare-price-partner{
+        clear: both;
+    }
+
+    table .product-price {
+        clear: both;
+    }
+
+    table .button-partner {
+        clear: both;
+    }
+
+    table .compare-price .compare-price-partner{
+        height: 180px;
     }
 }
