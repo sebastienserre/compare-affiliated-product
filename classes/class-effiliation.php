@@ -17,8 +17,28 @@ class effiliation {
 	protected static $apikey;
 
 	public function __construct() {
-		//add_action( 'admin_init', array( $this, 'compare_effiliation_register' ) );
-		//add_action( 'admin_init', array( $this, 'compare_schedule_effiliation' ) );
+		add_action( 'compare_fourhour_event', array( $this, 'compare_effiliation_set_cron' ) );
+		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
+		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
+	}
+
+	public function compare_effiliation_set_cron() {
+		$option = get_option( 'general' );
+		$cron   = $option['cron'];
+		switch ( $cron ) {
+			case 'four':
+				$this->compare_schedule_effiliation();
+				break;
+			case 'twice':
+				$this->compare_schedule_effiliation();
+				break;
+			case 'daily':
+				$this->compare_schedule_effiliation();
+				break;
+			case 'none':
+				break;
+		}
+
 	}
 
 	/**
@@ -192,12 +212,11 @@ class effiliation {
 				$wpdb->show_errors( true );
 				$wpdb->show_errors(true);
 				$insert =$wpdb->replace( $table, $prod );
-				//var_dump( $insert );
-				//var_dump( $wpdb->last_error( ) );
-				//die;
 			}
 		}
+
 	}
+
 }
 
 new effiliation();

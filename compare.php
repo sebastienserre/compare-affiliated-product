@@ -42,6 +42,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-effiliation.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class-template.php';
 }
 
 add_action( 'plugins_loaded', 'compare_load_textdomain' );
