@@ -228,7 +228,7 @@ class Awin {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
-		$truncat = $wpdb->query( 'DELETE FROM' . $table . ' WHERE `platform` LIKE Awin' );
+		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
 
 		$awin     = get_option( 'awin' );
 		$partners = $awin['partner'];
