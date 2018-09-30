@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.1.5.1
+	Version: 1.2.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,11 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.1.5.1' );
-define( 'COMPARE_PLUGIN_NAME', 'compare' );
+define( 'COMPARE_VERSION', '1.2.0' );
+define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
+define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * Increase memory to allow large files download / treatment
@@ -33,6 +34,7 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';

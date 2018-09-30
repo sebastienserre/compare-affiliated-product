@@ -17,8 +17,8 @@ class effiliation {
 	protected static $apikey;
 
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'compare_effiliation_register' ) );
-		//dd_action( 'admin_init', array( $this, 'compare_schedule_effiliation' ) );
+		//add_action( 'admin_init', array( $this, 'compare_effiliation_register' ) );
+		//add_action( 'admin_init', array( $this, 'compare_schedule_effiliation' ) );
 	}
 
 	/**
