@@ -228,7 +228,7 @@ class Awin {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
-		$truncat = $wpdb->query( 'TRUNCATE TABLE ' . $table );
+		$truncat = $wpdb->query( 'DELETE FROM' . $table . ' WHERE `platform` LIKE Awin' );
 
 		$awin     = get_option( 'awin' );
 		$partners = $awin['partner'];
@@ -275,6 +275,7 @@ class Awin {
 					'partner_name' => $partner,
 					'productid'    => strval( $xml->getAttribute( 'id' ) ),
 					'ean'          => strval( $element->ean ),
+					'platform'  =>  'Awin',
 				);
 
 				//$wpdb->show_errors();

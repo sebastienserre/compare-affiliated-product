@@ -105,6 +105,7 @@ function compare_activation() {
 
 		$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
 id mediumint(9) NOT NULL AUTO_INCREMENT,
+platform text DEFAULT NULL,
 ean varchar(255) DEFAULT NULL,
 title varchar(255) DEFAULT NULL,
 description text DEFAULT NULL,
@@ -214,6 +215,19 @@ function compare_admin_style() {
 	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
 }
 
+add_action( 'plugins_loaded', 'compare_add_db_column' );
+function compare_add_db_column() {
+	global $wpdb;
+
+	$compare_table_name = $wpdb->prefix . 'compare';
+
+	$row = $wpdb->get_results(  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = '$compare_table_name' AND column_name = 'platform'"  );
+
+	if(empty($row)){
+		$wpdb->query("ALTER TABLE $compare_table_name ADD platform text DEFAULT NULL");
+	}
+}
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }
