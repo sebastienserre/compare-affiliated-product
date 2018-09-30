@@ -17,8 +17,8 @@ class effiliation {
 	protected static $apikey;
 
 	public function __construct() {
-		//add_action( 'admin_init', array( $this, 'compare_schedule_effiliation' ) );
-		//add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
+		add_action( 'admin_init', array( $this, 'compare_effiliation_register' ) );
+		//dd_action( 'admin_init', array( $this, 'compare_schedule_effiliation' ) );
 	}
 
 	/**
@@ -53,12 +53,12 @@ class effiliation {
 		foreach ( $programs as $program ) {
 			foreach ( $program as $prog ) {
 				if ( isset( $options['programs'] ) && ! empty( $options['programs'] ) ) {
-					$check = $options['programs'][$prog['id_session']];
+					$check = $options['programs'][ $prog['siteannonceur'] ];
 				}
 				?>
 				<p>
-					<input type="checkbox" value="<?php echo $prog['id_session']; ?>"
-					       name="compare-effiliation[programs][<?php echo $prog['id_session'] ?>]" <?php checked( $check, $prog['id_session'] ) ?>>
+					<input type="checkbox" value="<?php echo $prog['siteannonceur']; ?>"
+					       name="compare-effiliation[programs][<?php echo $prog['siteannonceur'] ?>]" <?php checked( $check, $prog['siteannonceur'] ) ?>>
 					<label for="compare-effiliation[programs][<?php $prog['siteannonceur'] ?>]">
 						<img src="<?php echo $prog['urllo']; ?>" alt="<?php echo $prog['siteannonceur']; ?>"
 						     title="<?php echo $prog['siteannonceur']; ?>">
@@ -69,7 +69,7 @@ class effiliation {
 		}
 	}
 
-	public static function compare_effiliation_get_feed(){
+	public static function compare_effiliation_get_feed() {
 		$apikey   = self::compare_get_apikey();
 		$url      = 'https://apiv2.effiliation.com/apiv2/productfeeds.json?key=' . $apikey . '&filter=mines';
 		$response = wp_remote_get( $url, array( 'sslverify' => false, ) );
@@ -79,7 +79,7 @@ class effiliation {
 		}
 
 		foreach ( $decoded_body['feeds'] as $feeds ) {
-			$urls[$feeds['site_affilieur']] = $feeds['code'];
+			$urls[ $feeds['site_affilieur'] ] = $feeds['code'];
 		}
 
 		return $urls;
@@ -108,7 +108,7 @@ class effiliation {
 	/**
 	 * Download and unzip xml from Effiliation
 	 */
-	public function compare_schedule_effiliation( ) {
+	public function compare_schedule_effiliation() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -146,12 +146,57 @@ class effiliation {
 				$results = wp_handle_sideload( $file, $overrides );
 
 			} else {
-				error_log( $temp_file->errors['http_request_failed'][0]);
+				error_log( $temp_file->errors['http_request_failed'][0] );
 			}
 		}
 		error_log( 'Stop Download Effiliation Feed' );
 		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
-		//$this->compare_register_prod();
+		$this->compare_effiliation_register();
+	}
+
+	public function compare_effiliation_register() {
+		global $wpdb;
+		$options  = get_option( 'compare-effiliation' );
+		$programs = $options['programs'];
+		error_log( 'start Effiliation Import' );
+		$table = $wpdb->prefix . 'compare';
+
+		$truncat  = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "effiliation"' );
+		$path     = wp_upload_dir();
+		$secondes = apply_filters( 'compare_time_limit', 600 );
+		set_time_limit( $secondes );
+		foreach ( $programs as $program ) {
+			$event = 'start partner ' . $program;
+			error_log( $event );
+			$upload  = $path['path'] . '/effiliation/xml/' . $program . '.gz';
+			$new_xml = file_get_contents( 'compress.zlib://' . $upload );
+			//$xml = new SimpleXMLElement();
+			libxml_use_internal_errors( false );
+			$element = simplexml_load_string( $new_xml, 'SimpleXMLElement' );
+
+			libxml_clear_errors();
+
+			foreach ( $element->product as $prod ) {
+				$prod = array(
+					'price'        => strval( $prod->price ),
+					'title'        => strval( $prod->name ),
+					'description'  => strval( $prod->description ),
+					'img'          => strval( $prod->url_image ),
+					'url'          => strval( $prod->url_product ),
+					'partner_name' => $program,
+					'productid'    => strval( $prod->sku ),
+					'ean'          => strval( $prod->ean ),
+					'platform'     => 'effiliation',
+				);
+
+				$wpdb->show_errors( true );
+				$wpdb->show_errors(true);
+				$insert =$wpdb->replace( $table, $prod );
+				//var_dump( $insert );
+				//var_dump( $wpdb->last_error( ) );
+				//die;
+			}
+		}
 	}
 }
 
