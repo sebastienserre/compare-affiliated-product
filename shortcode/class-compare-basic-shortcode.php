@@ -19,7 +19,7 @@ class Compare_Basic_Widget {
 		), $atts, 'compare_basic_sc' );
 
 		$awin             = new Awin();
-		$datas            = $awin->compare_get_data( $atts['ean'] );
+		$datas            = template::compare_get_data( $atts['ean'] );
 		$main_partner     = ucfirst( $atts['partner'] );
 		$general          = get_option( 'general' );
 		$currency         = $general['currency'];
@@ -55,7 +55,7 @@ class Compare_Basic_Widget {
 									$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
 									break;
 								default:
-									$logo = $partner;
+									$logo = '<img class="compare_partner_logo" src="' . COMPARE_PLUGIN_URL . '/assets/img/default-logo.png" >';
 							}
 							$general  = get_option( 'general' );
 							if ( 'on' === $general['general-cloack'] ) {
@@ -63,7 +63,7 @@ class Compare_Basic_Widget {
 								?>
 
 								<?php
-								$link->compare_create_link( $p, $logo, $data );
+								$link->compare_create_link( $data, $logo, $data );
 								?>
 
 								<?php
