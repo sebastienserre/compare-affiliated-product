@@ -356,7 +356,6 @@ function compare_awin_partner_logo() {
 	$awin     = get_option( 'awin' );
 	$partners = explode( ',', $awin['partner'] );
 	foreach ( $partners as $partner ) {
-		if ( ! empty( $awin['partner_logo'][ $partner ] ) ) {
 			$value = 'value="' . $awin['partner_logo'][ $partner ] . '"';
 			?>
 			<div class="compare-partners-logo">
@@ -368,7 +367,7 @@ function compare_awin_partner_logo() {
 			</div>
 			<?php
 		}
-	}
+
 }
 
 function compare_awin_partner_url() {
