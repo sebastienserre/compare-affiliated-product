@@ -359,7 +359,7 @@ function compare_awin_partner_logo() {
 		if ( ! empty( $awin['partner_logo'][ $partner ] ) ) {
 			$value = 'value="' . $awin['partner_logo'][ $partner ] . '"';
 			?>
-			<div class="compare-partners-datafeed">
+			<div class="compare-partners-logo">
 				<?php
 				echo $partner;
 				?>
