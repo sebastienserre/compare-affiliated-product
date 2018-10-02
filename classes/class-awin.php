@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Awin {
 
+	protected $awin;
+
 	/**
 	 * Awin constructor.
 	 */
@@ -15,6 +17,8 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'admin_init', array($this, 'compare_get_awin_partners' ) );
+		$this->awin = get_option( 'awin' );
 	}
 
 	public function compare_set_cron() {
@@ -56,16 +60,38 @@ class Awin {
 		return $dir;
 	}
 
+	public function compare_get_awin_partners() {
+		$url = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
+		$temp_file = download_url( $url, 300 );
+		$csv = file_get_contents( $url );
+		$array = array_map("str_getcsv", explode("\n", $csv));
+		$array_1 = array_shift( $array );
+		$partners = explode(',', $this->awin['partner'] );
+		$results = array();
+		foreach ( $partners as $partner ){
+			foreach ( $array as $a ) {
+				if ( $a[3] === 'active') {
+					$search = array_search( $partner, $a );
+					if ( false !== $search ){
+						$results[$partner] = $a[5];
+					}
+				}
+			}
+
+		}
+		return $results;
+
+	}
+
 	/**
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		$awin = get_option( 'awin' );
-
+		$this->compare_get_awin_partners();
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
-		$urls = $awin['datafeed'];
+		$urls = $this->awin['datafeed'];
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
@@ -83,7 +109,7 @@ class Awin {
 				// Array based on $_FILE as seen in PHP file uploads
 				$file = array(
 					//'name'     => basename($url), // ex: wp-header-logo.png
-					'name'     => $awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
+					'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
 					'type'     => 'application/gzip',
 					'tmp_name' => $temp_file,
 					'error'    => 0,
@@ -107,9 +133,8 @@ class Awin {
 
 
 	public function compare_awin_data( $product_id ) {
-		$awin_options = get_option( 'awin' );
 		$path         = wp_upload_dir();
-		$xml          = $path['path'] . '/xml/datafeed_' . $awin_options['customer_id'] . '.xml';
+		$xml          = $path['path'] . '/xml/datafeed_' . $this->awin['customer_id'] . '.xml';
 
 		if ( file_exists( $xml ) ) {
 			$xml = simplexml_load_file( $xml );
@@ -126,11 +151,10 @@ class Awin {
 
 		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
 
-		$awin     = get_option( 'awin' );
-		$partners = $awin['partner'];
+		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
 
-		$customer_id = $awin['customer_id'];
+		$customer_id = $this->awin['customer_id'];
 		$path        = wp_upload_dir();
 		$secondes    = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
