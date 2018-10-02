@@ -120,6 +120,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-logo', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
@@ -404,18 +405,34 @@ function compare_awin_partner() {
 }
 
 function compare_awin_partner_logo() {
-	$awin     = get_option( 'awin' );
-	$partners = explode( ',', $awin['partner'] );
-	foreach ( $partners as $partner ) {
-			$value = 'value="' . $awin['partner_logo'][ $partner ] . '"';
+	$awin_data = new Awin();
+	$partners = $awin_data->compare_get_awin_partners();
+	$awin = get_option( 'awin' );
+	$general = get_option('general');
+	foreach ( $partners as $key => $partner ) {
+		if ( ! empty( $awin['partner_logo'][ $key ]['img'] ) ) {
+			$value = 'value="' . $awin['partner_logo'][ $key ]['img'] . '"';
+		}
+
 			?>
 			<div class="compare-partners-logo">
 				<?php
-				echo $partner;
+
+				echo $key;
 				?>
-				<input type="text" name="awin[partner_logo][<?php echo $partner; ?>]" <?php echo $value; ?>><img
-						width="40px" src="<?php echo $awin['partner_logo'][ $partner ]; ?>">
+				<select name="awin[partner_logo][<?php echo $key; ?>]['name']">
+					<option><?php _e('Choose your partner', 'compare' );?></option>
+					<?php  foreach ($partners as $k => $p ){
+						?>
+						<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>-->
+
+					<?php } ?>
+				</select>
+<!--				<input type="text" name="general[partner_logo][][img]" <?php /*echo $value; */?>>
+-->				<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
+				<img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
 			</div>
+
 			<?php
 		}
 
