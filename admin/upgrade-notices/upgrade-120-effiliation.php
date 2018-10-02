@@ -40,6 +40,7 @@ function compare_120_db_upgrade() {
 		$wpdb->query( 'ALTER TABLE ' . $table . ' MODIFY partner_name varchar(255)' );
 		$wpdb->query( 'ALTER TABLE ' . $table . ' MODIFY productid varchar(255)' );
 		$wpdb->query( 'ALTER TABLE ' . $table . ' MODIFY url text' );
+		$wpdb->query( 'ALTER TABLE ' . $table . ' ADD COLUMN partner_code varchar(45) AFTER partner_name');
 
 		delete_transient( 'compare_120_updated' );
 	}
