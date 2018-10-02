@@ -70,11 +70,14 @@ class effiliation {
 		$programs = self::compare_get_effiliation_program();
 		$options  = get_option( 'compare-effiliation' );
 
+
 		foreach ( $programs as $program ) {
 			foreach ( $program as $prog ) {
 				if ( isset( $options['programs'] ) && ! empty( $options['programs'] ) ) {
 					$check = $options['programs'][ $prog['siteannonceur'] ];
 				}
+				$img = update_option("general[partner_logo][$prog[id_programme]]['img']", $prog['urllo'] );
+				$name = update_option("general[partner_logo][$prog[id_programme]]['name']", $prog['siteannonceur'] );
 				?>
 				<p>
 					<input type="checkbox" value="<?php echo $prog['siteannonceur']; ?>"
