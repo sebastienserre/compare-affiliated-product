@@ -17,7 +17,6 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
-		add_action( 'admin_init', array($this, 'compare_get_awin_partners' ) );
 		$this->awin = get_option( 'awin' );
 	}
 
@@ -60,25 +59,38 @@ class Awin {
 		return $dir;
 	}
 
-	public function compare_get_awin_partners() {
-		$url = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
-		$temp_file = download_url( $url, 300 );
-		$csv = file_get_contents( $url );
-		$array = array_map("str_getcsv", explode("\n", $csv));
-		$array_1 = array_shift( $array );
-		$partners = explode(',', $this->awin['partner'] );
-		$results = array();
-		foreach ( $partners as $partner ){
+	public function compare_get_awin_partners( $partner_code = '' ) {
+		$url          = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
+		$temp_file    = download_url( $url, 300 );
+		$csv          = file_get_contents( $url );
+		$array        = array_map( "str_getcsv", explode( "\n", $csv ) );
+		$array_1      = array_shift( $array );
+
+		if ( empty( $partner_code ) ) {
+			$partners = explode( ',', $this->awin['partner'] );
+			$results  = array();
+			foreach ( $partners as $partner ) {
+				foreach ( $array as $a ) {
+					if ( $a[3] === 'active' ) {
+						$search = array_search( $partner, $a );
+						if ( false !== $search ) {
+							$results[ $partner ] = $a[5];
+						}
+					}
+				}
+
+			}
+		} else {
 			foreach ( $array as $a ) {
-				if ( $a[3] === 'active') {
-					$search = array_search( $partner, $a );
-					if ( false !== $search ){
-						$results[$partner] = $a[5];
+				if ( $a[3] === 'active' ) {
+					$search = array_search( $partner_code, $a );
+					if ( false !== $search ) {
+						$results[ $partner_code ] = $a[1];
 					}
 				}
 			}
-
 		}
+
 		return $results;
 
 	}
@@ -133,8 +145,8 @@ class Awin {
 
 
 	public function compare_awin_data( $product_id ) {
-		$path         = wp_upload_dir();
-		$xml          = $path['path'] . '/xml/datafeed_' . $this->awin['customer_id'] . '.xml';
+		$path = wp_upload_dir();
+		$xml  = $path['path'] . '/xml/datafeed_' . $this->awin['customer_id'] . '.xml';
 
 		if ( file_exists( $xml ) ) {
 			$xml = simplexml_load_file( $xml );
@@ -149,7 +161,7 @@ class Awin {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
-		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
+		//$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
 
 		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
@@ -159,6 +171,10 @@ class Awin {
 		$secondes    = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
+			$partner_details = $this->compare_get_awin_partners( $value );
+			foreach ( $partner_details as $partner_detail){
+				$partner_details = $partner_detail;
+			}
 			$event = 'start partner ' . $value;
 			error_log( $event );
 			$upload = $path['path'] . '/xml/' . $customer_id . '-' . $value . '.gz';
@@ -172,19 +188,10 @@ class Awin {
 			}
 
 			while ( 'prod' === $xml->name ) {
-				$element    = new SimpleXMLElement( $xml->readOuterXML() );
-				$url_params = explode( '&m=', $element->uri->awTrack );
-				$partners   = apply_filters(
-					'compare_partners_code',
-					array(
-						'Cdiscount'            => '6948',
-						'Toy\'R us'            => '7108',
-						'Oxybul eveil et jeux' => '7103',
-						'Rue du Commerce'      => '6901',
-						'Darty'                => '7735',
-					)
-				);
-				$partner    = array_search( $url_params[1], $partners, true );
+				$element       = new SimpleXMLElement( $xml->readOuterXML() );
+				$code_partners = explode( 'feedId=', $element->uri->awImage );
+				$code_partners = explode( '&k=', $code_partners[1] );
+				$code_partners = $code_partners[0];
 
 				$prod = array(
 					'price'        => strval( $element->price->buynow ),
@@ -192,10 +199,11 @@ class Awin {
 					'description'  => strval( $element->text->desc ),
 					'img'          => strval( $element->uri->mImage ),
 					'url'          => strval( $element->uri->awTrack ),
-					'partner_name' => $partner,
+					'partner_name' => $partner_details,
 					'productid'    => strval( $xml->getAttribute( 'id' ) ),
 					'ean'          => strval( $element->ean ),
-					'platform'  =>  'Awin',
+					'platform'     => 'Awin',
+					'partner_code' => $code_partners,
 				);
 
 				//$wpdb->show_errors();
