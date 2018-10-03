@@ -39,7 +39,7 @@ class Compare_Basic_Widget {
 					<div class="compare_sc_description">
 					<p><?php echo esc_attr( $datas[ $main_partner ]['description'] ); ?></p>
 					</div>
-					<h4 class="compare_sc_title"><?php _e('Where to find this product ?', 'compare'); ?></h4>
+					<h4 class="compare_sc_title"><?php _e('Where to find this product?', 'compare'); ?></h4>
 					<div class="price-box">
 						<?php
 						foreach ( $datas as $data ) {

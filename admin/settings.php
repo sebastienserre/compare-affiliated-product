@@ -103,12 +103,12 @@ function compare_register_settings() {
 	register_setting( 'general', 'general' );
 
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-language', __( 'Languages', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Datas when delete this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 
-	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-general', 'compare-external' );
@@ -231,7 +231,7 @@ function compare_external() {
 	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%s">read the documentaion</a>', 'compare' ),
 		array( 'a' => array( 'href' => array() ) ) ), esc_url( $url ) );
 	?>
-	<p><?php _e( 'Optionnal - It could be a good idea if you\'d like to connect several website to a common database', 'compare' ); ?></p>
+	<p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare' ); ?></p>
 	<p><?php echo $link; ?></p>
 	<?php
 }
@@ -703,7 +703,7 @@ function compare_reset_awin_df_settings() {
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
 		'reset' => 'ok'
-	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feeds in database', 'compare' ); ?></a>
 
 	<?php
 }
@@ -1348,7 +1348,7 @@ function compare_general_languages() {
 
 function compare_help() {
 	$support_link = 'https://www.thivinfo.com/soumettre-un-ticket/';
-	$support      = sprintf( wp_kses( __( 'If you meet a bug, you can leave me a ticket on <a href="%s" target="_blank">Thivinfo.com</a>', 'compare' ), array(
+	$support      = sprintf( wp_kses( __( 'If you encounter a bug, you can leave me a ticket on <a href="%s" target="_blank">Thivinfo.com</a>', 'compare' ), array(
 		'a' => array(
 			'href'   => array(),
 			'target' => array()
@@ -1364,7 +1364,7 @@ function compare_help() {
 		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
 	</p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/hooks.html'; ?>"><?php _e( 'Hooks - Action & Filter', 'compare' ); ?></a>
+		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/hooks.html'; ?>"><?php _e( 'Hooks - Actions & Filters', 'compare' ); ?></a>
 	</p>
 	<p><a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
