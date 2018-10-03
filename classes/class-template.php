@@ -108,7 +108,8 @@ class template {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		$transient = get_transient( 'product' . $eanlist[0] );
+
+		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
 		}
@@ -169,7 +170,7 @@ class template {
 			$products  = array_reverse( $products[0] );
 			$products  = array_combine( array_column( $products, 'partner_name' ), $products );
 			$products  = array_reverse( $products );
-			$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
+			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 
 			return $products;
 		}
@@ -187,6 +188,23 @@ class template {
 			$logos[$program['id_programme']] = $program['urllo'];
 		}
 		return $logos;
+	}
+
+	protected function clear_others_pending_posts_transient( $ean ) {
+		global $wpdb;
+
+		$others_pending_posts_transients = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_name FROM {$wpdb->options}
+                WHERE option_name LIKE %s",
+				$wpdb->esc_like( '_transient_dff_others_pending_posts_' ) . '%'
+			)
+		);
+
+		foreach ( $others_pending_posts_transients as $transient ) {
+			$transient_name = str_replace( '_transient_', '', $transient );
+			delete_transient( $transient_name );
+		}
 	}
 
 }

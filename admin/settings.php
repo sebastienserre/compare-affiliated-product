@@ -120,7 +120,6 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-logo', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
@@ -168,7 +167,20 @@ function compare_register_settings() {
 	register_setting( 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
+	add_settings_field( 'compare-effiliation-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_effiliation_settings', 'compare-effiliation', 'compare-effiliation' );
 
+}
+
+function compare_reset_effiliation_settings() {
+
+	?>
+	<a href="<?php echo add_query_arg( array(
+		'page'  => 'compare-settings',
+		'tab'   =>  'effiliation',
+		'reset' => 'ok'
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
+
+	<?php
 }
 
 function compare_effiliation_program(){
@@ -407,7 +419,7 @@ function compare_awin_partner() {
 function compare_awin_partner_logo() {
 	$awin_data = new Awin();
 	$partners = $awin_data->compare_get_awin_partners();
-	$awin = get_option( 'awin' );
+		$awin = get_option( 'awin' );
 	$general = get_option('general');
 	foreach ( $partners as $key => $partner ) {
 		if ( ! empty( $awin['partner_logo'][ $key ]['img'] ) ) {
@@ -769,19 +781,11 @@ function compare_reset_awin_df_settings() {
 	?>
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
+		'tab'   =>  'awin',
 		'reset' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
 
 	<?php
-}
-
-add_action( 'admin_init', 'compare_reset_awin_datafeed' );
-function compare_reset_awin_datafeed() {
-	if ( isset( $_GET['reset'] ) && $_GET['reset'] == 'ok' ) {
-		$awin = new Awin();
-		$awin->compare_schedule_awin();
-
-	}
 }
 
 function compare_general_languages() {
@@ -1435,4 +1439,24 @@ function compare_help() {
 	</p>
 	<p><a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
+}
+
+add_action( 'admin_init', 'compare_reset_feed' );
+function compare_reset_feed() {
+	if ( isset( $_GET['reset'] ) && $_GET['reset'] === 'ok' ) {
+		if (isset ( $_GET['tab'] ) ) {
+			switch ( $_GET['tab'] ) {
+				case 'awin' :
+					$awin = new Awin();
+					$awin->compare_reset_awin_datafeed();
+					break;
+				case 'effiliation':
+					$effiliation = new Effiliation();
+					$effiliation->compare_reset_effiliation_feed();
+
+			}
+		}
+
+
+	}
 }

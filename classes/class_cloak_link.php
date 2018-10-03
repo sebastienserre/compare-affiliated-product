@@ -43,7 +43,7 @@ class Cloak_Link {
 		?>
 		<div class="compare-price-partner compare-others">
 			<div class="atc" data-atc="<?php echo $url; ?>">
-				<div class="compare_partner_logo"><img src="<?php echo $logo ?>"></div>
+				<div class="img-partner"><img src="<?php echo $logo ?>"></div>
 				<div class="product-price">
 					<?php echo $product['price'] . ' ' . $currency ?>
 				</div>

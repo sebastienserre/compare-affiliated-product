@@ -24,7 +24,7 @@ class Compare_Basic_Widget {
 		$general          = get_option( 'general' );
 		$currency         = $general['currency'];
 		$currency         = apply_filters( 'compare_currency_unit', $currency );
-		$partner_logo_url = get_option( 'awin' );
+		$option = get_option( 'general' );
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 
 		ob_start();
@@ -39,31 +39,18 @@ class Compare_Basic_Widget {
 					<div class="compare_sc_description">
 					<p><?php echo esc_attr( $datas[ $main_partner ]['description'] ); ?></p>
 					</div>
-					<h4 class="compare_sc_title"><?php _e('Where to find this product ?', 'compare'); ?></h4>
+					<h4 class="compare_sc_title"><?php _e('Where finding this product ?', 'compare'); ?></h4>
 					<div class="price-box">
 						<?php
 						foreach ( $datas as $data ) {
-							$partner = apply_filters( 'compare_partner_name', $data['partner_name'] );
-							switch ( $data['partner_name'] ) {
-								case 'Cdiscount':
-									$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
-									break;
-								case 'Darty':
-									$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
-									break;
-								case 'Rue du Commerce':
-									$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
-									break;
-								default:
-									$logo = '<img class="compare_partner_logo" src="' . COMPARE_PLUGIN_URL . '/assets/img/default-logo.png" >';
-							}
+
 							$general  = get_option( 'general' );
 							if ( 'on' === $general['general-cloack'] ) {
 								$link = new Cloak_Link();
 								?>
 
 								<?php
-								$link->compare_create_link( $data, $logo, $data );
+								$link->compare_create_link( $data );
 								?>
 
 								<?php

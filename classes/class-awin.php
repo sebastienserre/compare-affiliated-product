@@ -161,7 +161,7 @@ class Awin {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
-		//$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
+		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
 
 		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
@@ -218,6 +218,11 @@ class Awin {
 
 		$event = 'import complete';
 		error_log( $event );
+	}
+
+
+	public function compare_reset_awin_datafeed() {
+			$this->compare_schedule_awin();
 	}
 
 }

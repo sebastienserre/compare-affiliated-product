@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.2.0
  * https://publisher.effiliation.com/
  */
-class effiliation {
+class Effiliation {
 
 	/**
 	 * @var string Apikey to retrieve in Effiliation.com settings page.
@@ -20,6 +20,12 @@ class effiliation {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
+
+		//add_action( 'admin_init', array($this, 'compare_effiliation_register'));
+	}
+
+	public function compare_reset_effiliation_feed() {
+			$this->compare_schedule_effiliation();
 	}
 
 	public function compare_effiliation_set_cron() {
@@ -179,8 +185,7 @@ class effiliation {
 
 	public function compare_effiliation_register() {
 		global $wpdb;
-		$options  = get_option( 'compare-effiliation' );
-		$programs = $options['programs'];
+		$programs = self::compare_get_effiliation_program();
 		error_log( 'start Effiliation Import' );
 		$table = $wpdb->prefix . 'compare';
 
@@ -188,10 +193,10 @@ class effiliation {
 		$path     = wp_upload_dir();
 		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
-		foreach ( $programs as $program ) {
-			$event = 'start partner ' . $program;
+		foreach ( $programs['programs'] as $program ) {
+			$event = 'start partner ' . $program['siteannonceur'];
 			error_log( $event );
-			$upload  = $path['path'] . '/effiliation/xml/' . $program . '.gz';
+			$upload  = $path['path'] . '/' . $program['siteannonceur'] . '.gz';
 			$new_xml = file_get_contents( 'compress.zlib://' . $upload );
 			//$xml = new SimpleXMLElement();
 			libxml_use_internal_errors( false );
@@ -206,7 +211,8 @@ class effiliation {
 					'description'  => strval( $prod->description ),
 					'img'          => strval( $prod->url_image ),
 					'url'          => strval( $prod->url_product ),
-					'partner_name' => $program,
+					'partner_name' => $program['siteannonceur'],
+					'partner_code' => $program['id_programme'],
 					'productid'    => strval( $prod->sku ),
 					'ean'          => strval( $prod->ean ),
 					'platform'     => 'effiliation',
@@ -215,11 +221,15 @@ class effiliation {
 				$wpdb->show_errors( true );
 				$wpdb->show_errors(true);
 				$insert =$wpdb->replace( $table, $prod );
+				$transient = get_transient( 'product_' . strval( $prod->ean ) );
+				if (! empty( $transient ) ){
+					delete_transient( $transient );
+				}
 			}
 		}
-
+		error_log( 'stop Effiliation Import' );
 	}
 
 }
 
-new effiliation();
+new Effiliation();
