@@ -107,13 +107,14 @@ function compare_activation() {
 		$compare_table_name = $wpdb->prefix . 'compare';
 
 		$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
-id mediumint(9) NOT NULL AUTO_INCREMENT,
+id int(255) NOT NULL AUTO_INCREMENT,
 platform text DEFAULT NULL,
 ean varchar(255) DEFAULT NULL,
 title text DEFAULT NULL,
 description text DEFAULT NULL,
 img text DEFAULT NULL,
 partner_name varchar(255) DEFAULT NULL,
+partner_code varchar(45) DEFAULT NULL,
 productid varchar(255) DEFAULT NULL,
 url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
