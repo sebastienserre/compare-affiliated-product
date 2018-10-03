@@ -7,6 +7,7 @@ class template {
 
 	function __construct() {
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
+		add_action( 'admin_init', array( $this, 'compare_get_partner_logo' ) );
 	}
 
 	/**
@@ -174,6 +175,19 @@ class template {
 		}
 	}
 
+	public static function compare_get_partner_logo() {
+		$awin = get_option( 'awin' );
+		foreach ( $awin['partner_logo'] as $key => $img ){
+			$logos[$key] = $img['img'];
+		}
+
+		$effi = get_option('compare-effiliation');
+		$programs = Effiliation::compare_get_effiliation_program();
+		foreach ( $programs['programs'] as $program ){
+			$logos[$program['id_programme']] = $program['urllo'];
+		}
+		return $logos;
+	}
 
 }
 
