@@ -16,7 +16,13 @@ class template {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
-		$asin   = $data->get_product_id();
+		if ( is_object( $data) ){
+			$asin   = $data->get_product_id();
+		} else {
+			$asin = $data['asin'];
+			$data = new AAWP_Template_Handler();
+		}
+
 		$params = array(
 			'Operation'     => 'ItemLookup',
 			'ItemId'        => $asin,
