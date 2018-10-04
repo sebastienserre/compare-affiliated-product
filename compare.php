@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.1.5.1
+	Version: 1.2.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,11 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.1.5.1' );
-define( 'COMPARE_PLUGIN_NAME', 'compare' );
+define( 'COMPARE_VERSION', '1.2.0' );
+define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
+define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * Increase memory to allow large files download / treatment
@@ -33,12 +34,15 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class-effiliation.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class-template.php';
 }
 
 add_action( 'plugins_loaded', 'compare_load_textdomain' );
@@ -103,14 +107,16 @@ function compare_activation() {
 		$compare_table_name = $wpdb->prefix . 'compare';
 
 		$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
-id mediumint(9) NOT NULL AUTO_INCREMENT,
+id int(255) NOT NULL AUTO_INCREMENT,
+platform text DEFAULT NULL,
 ean varchar(255) DEFAULT NULL,
-title varchar(255) DEFAULT NULL,
+title text DEFAULT NULL,
 description text DEFAULT NULL,
 img text DEFAULT NULL,
-partner_name varchar(45) DEFAULT NULL,
-productid varchar(45) DEFAULT NULL,
-url varchar(99) DEFAULT NULL,
+partner_name varchar(255) DEFAULT NULL,
+partner_code varchar(45) DEFAULT NULL,
+productid varchar(255) DEFAULT NULL,
+url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 PRIMARY KEY (id)
@@ -213,6 +219,19 @@ function compare_admin_style() {
 	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
 }
 
+add_action( 'plugins_loaded', 'compare_add_db_column' );
+function compare_add_db_column() {
+	global $wpdb;
+
+	$compare_table_name = $wpdb->prefix . 'compare';
+
+	$row = $wpdb->get_results(  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = '$compare_table_name' AND column_name = 'platform'"  );
+
+	if(empty($row)){
+		$wpdb->query("ALTER TABLE $compare_table_name ADD platform text DEFAULT NULL");
+	}
+}
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }

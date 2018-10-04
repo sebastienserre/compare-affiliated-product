@@ -8,14 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Awin {
 
+	protected $awin;
+
 	/**
 	 * Awin constructor.
 	 */
 	public function __construct() {
-		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+		$this->awin = get_option( 'awin' );
 	}
 
 	public function compare_set_cron() {
@@ -57,16 +59,51 @@ class Awin {
 		return $dir;
 	}
 
+	public function compare_get_awin_partners( $partner_code = '' ) {
+		$url          = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
+		$temp_file    = download_url( $url, 300 );
+		$csv          = file_get_contents( $url );
+		$array        = array_map( "str_getcsv", explode( "\n", $csv ) );
+		$array_1      = array_shift( $array );
+
+		if ( empty( $partner_code ) ) {
+			$partners = explode( ',', $this->awin['partner'] );
+			$results  = array();
+			foreach ( $partners as $partner ) {
+				foreach ( $array as $a ) {
+					if ( $a[3] === 'active' ) {
+						$search = array_search( $partner, $a );
+						if ( false !== $search ) {
+							$results[ $partner ] = $a[5];
+						}
+					}
+				}
+
+			}
+		} else {
+			foreach ( $array as $a ) {
+				if ( $a[3] === 'active' ) {
+					$search = array_search( $partner_code, $a );
+					if ( false !== $search ) {
+						$results[ $partner_code ] = $a[1];
+					}
+				}
+			}
+		}
+
+		return $results;
+
+	}
+
 	/**
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		$awin = get_option( 'awin' );
-
+		$this->compare_get_awin_partners();
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
-		$urls = $awin['datafeed'];
+		$urls = $this->awin['datafeed'];
 
 		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 
@@ -84,7 +121,7 @@ class Awin {
 				// Array based on $_FILE as seen in PHP file uploads
 				$file = array(
 					//'name'     => basename($url), // ex: wp-header-logo.png
-					'name'     => $awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
+					'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
 					'type'     => 'application/gzip',
 					'tmp_name' => $temp_file,
 					'error'    => 0,
@@ -108,115 +145,11 @@ class Awin {
 
 
 	public function compare_awin_data( $product_id ) {
-		$awin_options = get_option( 'awin' );
-		$path         = wp_upload_dir();
-		$xml          = $path['path'] . '/xml/datafeed_' . $awin_options['customer_id'] . '.xml';
+		$path = wp_upload_dir();
+		$xml  = $path['path'] . '/xml/datafeed_' . $this->awin['customer_id'] . '.xml';
 
 		if ( file_exists( $xml ) ) {
 			$xml = simplexml_load_file( $xml );
-		}
-	}
-
-	/**
-	 * Get All EAN Code attached to the ASIN
-	 *
-	 * @param array $data array of data about displayed product.
-	 */
-	public function compare_display_price( $data ) {
-		$asin   = $data->get_product_id();
-		$params = array(
-			'Operation'     => 'ItemLookup',
-			'ItemId'        => $asin,
-			'ResponseGroup' => 'ItemAttributes',
-		);
-
-		$apikey        = $data->api_key;
-		$secret        = $data->api_secret_key;
-		$associate_tag = $data->api_associate_tag;
-
-		$asin2ean = aws_signed_request( 'fr', $params, $apikey, $secret, $associate_tag );
-
-		$asin2ean = wp_remote_get( $asin2ean );
-		$asin2ean = $asin2ean['body'];
-
-		$amazon  = simplexml_load_string( $asin2ean );
-		$json    = wp_json_encode( $amazon );
-		$array   = json_decode( $json, true );
-		$eanlist = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
-		if ( ! is_array( $eanlist ) ) {
-			$eanlist = array( $eanlist );
-		}
-		$this->compare_display_html( $eanlist, $data );
-	}
-
-	public function compare_get_data( $eanlist ) {
-		if ( ! is_array( $eanlist ) ) {
-			$eanlist = array( $eanlist );
-		}
-		$transient = get_transient( 'product' . $eanlist[0] );
-		if ( ! empty( $transient ) ) {
-			return $transient;
-		}
-		$external = get_option( 'general' );
-		$external = $external['ext_check'];
-		if ( 'on' === $external ) {
-			$db = new compare_external_db();
-			if ( is_wp_error( $db ) ) {
-				global $wpdb;
-				$table    = $wpdb->prefix . 'compare';
-				$products = array();
-
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
-						}
-					}
-				}
-			} else {
-				$prefix = get_option( 'general' );
-				$prefix = $prefix['prefix'];
-
-				$db       = new compare_external_db();
-				$cnx      = $db->compare_external_cnx();
-				$table    = $prefix . 'compare';
-				$products = array();
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
-						}
-					}
-				}
-
-			}
-		} else {
-			global $wpdb;
-			$table    = $wpdb->prefix . 'compare';
-			$products = array();
-
-			if ( null !== $eanlist[0] ) {
-				foreach ( $eanlist as $list ) {
-					$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-					if ( ! empty( $product ) ) {
-						array_push( $products, $product );
-					}
-				}
-			}
-		}
-
-		if ( !empty( $products ) ) {
-			$products  = array_reverse( $products[0] );
-			$products  = array_combine( array_column( $products, 'partner_name' ), $products );
-			$products  = array_reverse( $products );
-			$transient = set_transient( 'product' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
-
-			return $products;
 		}
 	}
 
@@ -228,17 +161,20 @@ class Awin {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
 
-		$truncat = $wpdb->query( 'TRUNCATE TABLE ' . $table );
+		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
 
-		$awin     = get_option( 'awin' );
-		$partners = $awin['partner'];
+		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
 
-		$customer_id = $awin['customer_id'];
+		$customer_id = $this->awin['customer_id'];
 		$path        = wp_upload_dir();
 		$secondes    = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
+			$partner_details = $this->compare_get_awin_partners( $value );
+			foreach ( $partner_details as $partner_detail){
+				$partner_details = $partner_detail;
+			}
 			$event = 'start partner ' . $value;
 			error_log( $event );
 			$upload = $path['path'] . '/xml/' . $customer_id . '-' . $value . '.gz';
@@ -252,19 +188,10 @@ class Awin {
 			}
 
 			while ( 'prod' === $xml->name ) {
-				$element    = new SimpleXMLElement( $xml->readOuterXML() );
-				$url_params = explode( '&m=', $element->uri->awTrack );
-				$partners   = apply_filters(
-					'compare_partners_code',
-					array(
-						'Cdiscount'            => '6948',
-						'Toy\'R us'            => '7108',
-						'Oxybul eveil et jeux' => '7103',
-						'Rue du Commerce'      => '6901',
-						'Darty'                => '7735',
-					)
-				);
-				$partner    = array_search( $url_params[1], $partners, true );
+				$element       = new SimpleXMLElement( $xml->readOuterXML() );
+				$code_partners = explode( 'feedId=', $element->uri->awImage );
+				$code_partners = explode( '&k=', $code_partners[1] );
+				$code_partners = $code_partners[0];
 
 				$prod = array(
 					'price'        => strval( $element->price->buynow ),
@@ -272,9 +199,11 @@ class Awin {
 					'description'  => strval( $element->text->desc ),
 					'img'          => strval( $element->uri->mImage ),
 					'url'          => strval( $element->uri->awTrack ),
-					'partner_name' => $partner,
+					'partner_name' => $partner_details,
 					'productid'    => strval( $xml->getAttribute( 'id' ) ),
 					'ean'          => strval( $element->ean ),
+					'platform'     => 'Awin',
+					'partner_code' => $code_partners,
 				);
 
 				//$wpdb->show_errors();
@@ -291,68 +220,10 @@ class Awin {
 		error_log( $event );
 	}
 
-	public function compare_display_html( $eanlist, $data ) {
-		$prods            = $this->compare_get_data( $eanlist );
-		$partner_logo_url = get_option( 'awin' );
-		$partner_logo_url = $partner_logo_url['partner_logo'];
-		ob_start();
-		?>
-		<?php
-		if ( ! is_null( $prods ) ) {
-			foreach ( $prods as $p ) {
-				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
-				switch ( $p['partner_name'] ) {
-					case 'Cdiscount':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
-						break;
-					case 'Darty':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
-						break;
-					case 'Rue du Commerce':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
-						break;
-					default:
-						$logo = $partner;
-				}
-				$general  = get_option( 'general' );
-				$currency = $general['currency'];
-				$currency = apply_filters( 'compare_currency_unit', $currency );
-				$option   = get_option( 'compare-aawp' );
-				$text     = $option['button_text'];
-				if ( empty( $text ) ) {
-					$text = __( 'Buy to ', 'compare' );
-				}
-				$bg = $option['button-bg'];
-				if ( empty( $bg ) ) {
-					$bg = '#000000';
-				}
-				$color = $option['button-color'];
-				if ( empty( $color ) ) {
-					$color = '#ffffff';
-				}
-				if ( 'on' === $general['general-cloack'] ) {
-					$link = new Cloak_Link();
-					?>
 
-					<?php
-					$link->compare_create_link( $p, $logo, $data );
-					?>
-
-					<?php
-				} else {
-					?>
-					<p class=" compare-price">
-						<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
-					</p>
-
-					<?php
-				}
-			}
-		}
-		$html = ob_get_clean();
-		echo $html;
+	public function compare_reset_awin_datafeed() {
+			$this->compare_schedule_awin();
 	}
-
 
 }
 

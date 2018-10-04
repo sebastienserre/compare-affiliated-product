@@ -18,7 +18,11 @@ class Cloak_Link {
 	 * @param array  $product data of compared product.
 	 * @param string $logo    String to the partner logo
 	 */
-	public function compare_create_link( $product, $logo = '', $data ) {
+	public function compare_create_link( $product ) {
+		$logos = template::compare_get_partner_logo();
+		if ( isset( $logos[$product['partner_code']] ) ){
+			$logo = $logos[$product['partner_code']];
+		}
 		$url      = base64_encode( $product['url'] );
 		$currency = get_option( 'general' );
 		$currency = $currency['currency'];
@@ -39,7 +43,7 @@ class Cloak_Link {
 		?>
 		<div class="compare-price-partner compare-others">
 			<div class="atc" data-atc="<?php echo $url; ?>">
-				<div class="img-partner"><?php echo $logo ?></div>
+				<div class="img-partner"><img src="<?php echo $logo ?>"></div>
 				<div class="product-price">
 					<?php echo $product['price'] . ' ' . $currency ?>
 				</div>

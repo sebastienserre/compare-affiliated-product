@@ -6,3 +6,7 @@
     color: red;
     font-weight: bold;
 }
+
+a.nav-tab {
+    text-transform: capitalize;
+}
