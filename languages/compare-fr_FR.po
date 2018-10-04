@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-23 13:55+0000\n"
-"PO-Revision-Date: 2018-09-23 13:56+0000\n"
+"POT-Creation-Date: 2018-10-04 15:39+0000\n"
+"PO-Revision-Date: 2018-10-04 15:43+0000\n"
 "Last-Translator: sebastien Serre <sebastien@thivinfo.com>\n"
 "Language-Team: Français\n"
 "Language: fr_FR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: compare.php:159 admin/settings.php:203
+#: compare.php:165 admin/settings.php:268
 msgid "Every 4 hours"
 msgstr "Toutes les 4 h"
 
@@ -21,7 +21,7 @@ msgstr "Toutes les 4 h"
 msgid "Compare Settings"
 msgstr "Compare Affiliated Product"
 
-#: admin/settings.php:22 admin/settings.php:1366
+#: admin/settings.php:22 admin/settings.php:1440
 msgid "AAWP"
 msgstr "AAWP"
 
@@ -30,126 +30,138 @@ msgid "general"
 msgstr "Général"
 
 #. 'boulanger',
-#: admin/settings.php:32
+#: admin/settings.php:31
 msgid "help"
 msgstr "Aide"
 
-#: admin/settings.php:46
+#: admin/settings.php:54
 msgid "Settings"
 msgstr "Réglages"
 
-#: admin/settings.php:84
+#: admin/settings.php:96
 msgid "Save Changes"
 msgstr "Enregistrer"
 
-#: admin/settings.php:100
+#: admin/settings.php:113
 msgid "External DB Settings"
 msgstr "Réglage de la BDD externe"
 
-#: admin/settings.php:104
+#: admin/settings.php:117
 msgid "Currency Unit"
 msgstr "Monnaie"
 
-#: admin/settings.php:105
+#: admin/settings.php:118
 msgid "Languages"
 msgstr "Langues"
 
-#: admin/settings.php:106
+#: admin/settings.php:119
 msgid "Delete All Datas when delete this plugin"
 msgstr "Effacer toutes les données lors de la suppression de cette extension"
 
-#: admin/settings.php:107
+#: admin/settings.php:120
 msgid "Configure Cron Job"
 msgstr "Configurer la tache CRON"
 
-#: admin/settings.php:108
+#: admin/settings.php:121
 msgid "Cloak Link"
 msgstr "Obfusquer le lien"
 
-#: admin/settings.php:110
+#: admin/settings.php:122
+msgid "Platforms"
+msgstr "Plateformes"
+
+#: admin/settings.php:124
 msgid "Using an external DB ?"
 msgstr "Utiliser une base de donnée externe ?"
 
-#: admin/settings.php:111
+#: admin/settings.php:125
 msgid "Host"
 msgstr "Hôte"
 
-#: admin/settings.php:112
+#: admin/settings.php:126
 msgid "Database"
 msgstr "Nom de la base"
 
-#: admin/settings.php:113
+#: admin/settings.php:127
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: admin/settings.php:114
+#: admin/settings.php:128
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin/settings.php:115
+#: admin/settings.php:129
 msgid "Prefix"
 msgstr "Préfixe"
 
-#: admin/settings.php:130
+#: admin/settings.php:145 admin/settings.php:168
 msgid "API Key"
 msgstr "Clé API"
 
-#: admin/settings.php:131
+#: admin/settings.php:146
 msgid "Awin partner Code"
 msgstr "Code Partenaire Awin"
 
-#: admin/settings.php:132
+#: admin/settings.php:147
 msgid "Awin partner logo"
 msgstr "Logo des partenaires Awin"
 
-#: admin/settings.php:133
+#: admin/settings.php:148
 msgid "Awin Trademark code"
 msgstr "Code Marques Awin"
 
-#: admin/settings.php:134
+#: admin/settings.php:149
 msgid "Awin Customer Code"
 msgstr "Code Client Awin"
 
-#: admin/settings.php:136
+#: admin/settings.php:151 admin/settings.php:170
 msgid "Reload data"
 msgstr "Réinitialiser les données"
 
-#: admin/settings.php:143
+#: admin/settings.php:158
 msgid "Button Text"
 msgstr "Texte du bouton"
 
-#: admin/settings.php:144
+#: admin/settings.php:159
 msgid "Button Background Color"
 msgstr "Couleur de fond"
 
-#: admin/settings.php:145
+#: admin/settings.php:160
 msgid "Button Text Color"
 msgstr "Couleur du texte"
 
-#: admin/settings.php:180 classes/class_cloak_link.php:29
-#: classes/class_cloak_link.php:61 classes/class-awin.php:321
+#: admin/settings.php:169
+msgid "My Programs"
+msgstr "Mes Programmes"
+
+#: admin/settings.php:181 admin/settings.php:786
+msgid "Delete & reload feed in database"
+msgstr "Effacer & recharger les flux en base de données."
+
+#: admin/settings.php:245 classes/class_cloak_link.php:33
+#: classes/class_cloak_link.php:65 classes/class-template.php:74
 msgid "Buy to "
 msgstr "Acheter chez"
 
-#: admin/settings.php:202
+#: admin/settings.php:267
 msgid "None"
 msgstr "Aucun"
 
-#: admin/settings.php:204
+#: admin/settings.php:269
 msgid "Twice Daily"
 msgstr "2 fois par jour"
 
-#: admin/settings.php:205
+#: admin/settings.php:270
 msgid "Daily"
 msgstr "Quotiennement"
 
-#: admin/settings.php:230
+#: admin/settings.php:295
 #, php-format
 msgid "For more informations, Please <a href=\"%s\">read the documentaion</a>"
 msgstr ""
 "Pour plus d'informations, veuillez <a href=\"%s\">lire la documentation</a>"
 
-#: admin/settings.php:233
+#: admin/settings.php:298
 msgid ""
 "Optionnal - It could be a good idea if you'd like to connect several website "
 "to a common database"
@@ -157,19 +169,19 @@ msgstr ""
 "Optionel - Ceci peut etre une bonne idée si vous voulez connecter plusieurs "
 "site sur la même base de données."
 
-#: admin/settings.php:684
+#: admin/settings.php:436
+msgid "Choose your partner"
+msgstr "Choisissez votre partenaire."
+
+#: admin/settings.php:766
 msgid "Choose your currency"
 msgstr "Choisissez votre monnaie"
 
-#: admin/settings.php:703
-msgid "Delete & reload feed in database"
-msgstr "Effacer & recharger les flux en base de données."
-
-#: admin/settings.php:1333
+#: admin/settings.php:1407
 msgid "Choose your language"
 msgstr "Choisissez votre langue"
 
-#: admin/settings.php:1348
+#: admin/settings.php:1422
 #, php-format
 msgid ""
 "If you meet a bug, you can leave me a ticket on <a href=\"%s\" "
@@ -178,27 +190,27 @@ msgstr ""
 "Si vous rencontrez un bug, laissez moi un ticket sur <a href=\"%s\" "
 "target=\"_blank\">Thivinfo.com</a>"
 
-#: admin/settings.php:1355
+#: admin/settings.php:1429
 msgid "Welcome on the support center"
 msgstr "Bienvenue sur le support"
 
-#: admin/settings.php:1358
+#: admin/settings.php:1432
 msgid "How to configure Awin"
 msgstr "Comment congigurer Awin [en] ?"
 
-#: admin/settings.php:1361
+#: admin/settings.php:1435
 msgid "How to use the shortcodes"
 msgstr "Comment utiliser les shortcodes [en] ?"
 
-#: admin/settings.php:1364
+#: admin/settings.php:1438
 msgid "Hooks - Action & Filter"
 msgstr "Hooks - Actions et filtres"
 
 #: shortcode/class-compare-basic-shortcode.php:42
-msgid "Where to find this product ?"
-msgstr "Ou acheter ce produit ?"
+msgid "Where finding this product ?"
+msgstr "Où trouver ce produit ?"
 
-#: shortcode/class-compare-basic-shortcode.php:75
+#: shortcode/class-compare-basic-shortcode.php:62
 msgid " on "
 msgstr "chez"
 
@@ -206,15 +218,29 @@ msgstr "chez"
 msgid "Buy It"
 msgstr "Acheter!"
 
-#: classes/class-compare-external-db.php:61
+#: classes/class-compare-external-db.php:64
 msgid "Failed to connect to MySQL, please check your login credentials"
 msgstr ""
 "Impossible de se connecter à la base de données. Veuillez vérifier vos "
 "identifiants de connexion."
 
-#: classes/class-compare-external-db.php:63
+#: classes/class-compare-external-db.php:66
 msgid "Succesfully connected to the database"
 msgstr "Connexion à la base de données réussie."
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:26
+#, php-format
+msgctxt "Plugin's name"
+msgid "Thanks for updating %s"
+msgstr "Merci d'avoir mis à jour %s"
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:27
+msgid "Please follow the link to upgrade the database"
+msgstr "Veuillez cliquer sur le lien pour mettre à jour ma base de données."
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:28
+msgid "Click to Update"
+msgstr "Cliquez pour mettre à jour"
 
 #. Name of the plugin
 msgid "Compare Affiliated Products"
