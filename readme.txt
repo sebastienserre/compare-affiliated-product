@@ -10,9 +10,10 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 == Changelog ==
 
-=1.2.0 == TBD
+=1.2.0 == 04/10/2018
 * IMPROVMENT: Add Effiliation Platform
 * IMPROVMENT: Correct Database schema to allow easy new future platform integration
+* IMPROVMENT: Adapt AAWP Table Template
 
 = 1.1.5 == 27/09/2018
 * Improve style
