@@ -2,13 +2,18 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.1.5
+Stable tag: 1.2.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+
+=1.2.0 == TBD
+* IMPROVMENT: Add Effiliation Platform
+* IMPROVMENT: Correct Database schema to allow easy new future platform integration
+
 = 1.1.5 == 27/09/2018
 * Improve style
 * BUGFIX: remove PHP Notices and Warnings
