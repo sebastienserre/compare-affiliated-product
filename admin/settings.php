@@ -120,6 +120,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB ?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
@@ -171,6 +172,27 @@ function compare_register_settings() {
 
 }
 
+
+function compare_general_transients(){
+	?>
+	<a href="<?php echo add_query_arg( array(
+		'page'  => 'compare-settings',
+		'transient-delete' => 'ok'
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
+
+	<?php
+}
+
+add_action( 'admin_init', 'compare_delete_transients' );
+function compare_delete_transients(){
+	if ( 'ok' === $_GET['transient-delete'] && isset( $_GET['transient-delete'] ) ){
+		global $wpdb;
+		$table = $wpdb->prefix . 'options';
+		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE ( '%product%' );");
+	}
+}
+
+
 function compare_reset_effiliation_settings() {
 
 	?>
@@ -182,6 +204,7 @@ function compare_reset_effiliation_settings() {
 
 	<?php
 }
+
 
 function compare_effiliation_program(){
 	echo effiliation::compare_effiliation_list_html();
