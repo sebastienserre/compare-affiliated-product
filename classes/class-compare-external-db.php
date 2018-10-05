@@ -14,7 +14,7 @@ class compare_external_db {
 
 	public function compare_external_cnx() {
 
-		$option   = get_option( 'general' );
+		$option   = get_option( 'compare-general' );
 		$external = $option['ext_check'];
 		if ( 'on' === $external ) {
 			$this->compare_check_sql();
@@ -34,7 +34,7 @@ class compare_external_db {
 	}
 
 	public function compare_check_sql() {
-		$option        = get_option( 'general' );
+		$option        = get_option( 'compare-general' );
 		$this->connect = 'ok';
 		if ( isset( $option['ext_check'] ) ) {
 			$external = $option['ext_check'];

@@ -33,7 +33,7 @@ function compare_settings_page() {
 	);
 
 
-	$options = get_option('general');
+	$options = get_option('compare-general');
 	$platforms = $options['platform'];
 	foreach ( $platforms as $platform ){
 		if ( !empty( $platform ) ){
@@ -69,7 +69,7 @@ function compare_settings_page() {
 			$active_tab = apply_filters( 'compare_setting_active_tab', $active_tab );
 			switch ( $active_tab ) {
 				case 'general':
-					settings_fields( 'general' );
+					settings_fields( 'compare-general' );
 					do_settings_sections( 'compare-general' );
 					break;
 				case 'awin':
@@ -89,7 +89,7 @@ function compare_settings_page() {
 					do_settings_sections( 'compare-effiliation' );
 					break;
 				default:
-					settings_fields( 'general' );
+					settings_fields( 'compare-general' );
 					do_settings_sections( 'compare-general' );
 					break;
 			}
@@ -112,7 +112,7 @@ function compare_register_settings() {
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
 	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-general' );
 
-	register_setting( 'general', 'general' );
+	register_setting( 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
@@ -221,7 +221,7 @@ function compare_effiliation_api(){
 
 function compare_general_platforms(){
 	$platforms = array( 'awin', 'effiliation');
-	$options = get_option('general');
+	$options = get_option('compare-general');
 
 
 	foreach ( $platforms as $platform ){
@@ -229,7 +229,7 @@ function compare_general_platforms(){
 			$check = $options['platform'][$platform];
 		}
 		?>
-		<input type="checkbox" name="general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?> value="<?php echo $platform; ?>">
+		<input type="checkbox" name="compare-general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?> value="<?php echo $platform; ?>">
 		<?php echo $platform; ?>
 		<?php
 	}
@@ -273,20 +273,20 @@ function compare_aawp_button_text() {
 }
 
 function compare_general_cloak_link() {
-	$check = get_option( 'general' );
+	$check = get_option( 'compare-general' );
 	if ( isset( $check['general-cloack'] ) && ! empty( $check['general-cloack'] ) ) {
 		$check = $check['general-cloack'];
 	}
 	?>
-	<input name="general[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+	<input name="compare-general[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 	<?php
 }
 
 function compare_general_cron() {
-	$option = get_option( 'general' );
+	$option = get_option( 'compare-general' );
 	$cron   = $option['cron'];
 	?>
-	<select name="general[cron]">
+	<select name="compare-general[cron]">
 		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
 		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
 		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
@@ -298,12 +298,12 @@ function compare_general_cron() {
 
 
 function cae_ext_check() {
-	$check = get_option( 'general' );
+	$check = get_option( 'compare-general' );
 	if ( isset( $check['ext_check'] ) && ! empty( $check['ext_check'] ) ) {
 		$check = $check['ext_check'];
 	}
 	?>
-	<input name="general[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+	<input name="compare-general[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 
 	<?php
 	$external_db = new compare_external_db();
@@ -324,57 +324,57 @@ function compare_external() {
 }
 
 function cae_host() {
-	$external = get_option( 'general' );
+	$external = get_option( 'compare-general' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['host'] );
 	}
 	?>
 
-	<input name="general[host]" type="text" <?php echo $value; ?>>
+	<input name="compare-general[host]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_prefix() {
-	$external = get_option( 'general' );
+	$external = get_option( 'compare-general' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['prefix'] );
 	}
 	?>
 
-	<input name="general[prefix]" type="text" <?php echo $value; ?>>
+	<input name="compare-general[prefix]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_db() {
-	$external = get_option( 'general' );
+	$external = get_option( 'compare-general' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['db'] );
 	}
 	?>
 
-	<input name="general[db]" type="text" <?php echo $value; ?>>
+	<input name="compare-general[db]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_user() {
-	$external = get_option( 'general' );
+	$external = get_option( 'compare-general' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['username'] );
 	}
 	?>
 
-	<input name="general[username]" type="text" <?php echo $value; ?>>
+	<input name="compare-general[username]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_pwd() {
-	$external = get_option( 'general' );
+	$external = get_option( 'compare-general' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['pwd'] );
 	}
 	?>
 
-	<input name="general[pwd]" type="text" <?php echo $value; ?>>
+	<input name="compare-general[pwd]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -385,7 +385,7 @@ function compare_awin_feed() {
 	}
 	$partners  = $feed['partner'];
 	$partners  = explode( ',', $partners );
-	$general   = get_option( 'general' );
+	$general   = get_option( 'compare-general' );
 	$lang      = $general['languages'];
 	$trademark = $feed['trademark_code'];
 
@@ -442,8 +442,7 @@ function compare_awin_partner() {
 function compare_awin_partner_logo() {
 	$awin_data = new Awin();
 	$partners = $awin_data->compare_get_awin_partners();
-		$awin = get_option( 'awin' );
-	$general = get_option('general');
+	$awin = get_option( 'awin' );
 	foreach ( $partners as $key => $partner ) {
 		if ( ! empty( $awin['partner_logo'][ $key ]['img'] ) ) {
 			$value = 'value="' . $awin['partner_logo'][ $key ]['img'] . '"';
@@ -463,8 +462,7 @@ function compare_awin_partner_logo() {
 
 					<?php } ?>
 				</select>
-<!--				<input type="text" name="general[partner_logo][][img]" <?php /*echo $value; */?>>
--->				<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
+				<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
 				<img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
 			</div>
 
@@ -486,12 +484,12 @@ function compare_awin_partner_url() {
 
 
 function compare_general_delete() {
-	$general = get_option( 'general' );
+	$general = get_option( 'compare-general' );
 	if ( ! isset( $general['delete'] ) || empty( $general['delete'] ) ) {
 		$general['delete'] = 'no';
 	}
 	?>
-	<input type="checkbox" value="yes" name="general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
+	<input type="checkbox" value="yes" name="compare-general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
 	<?php
 }
 
@@ -783,9 +781,9 @@ function compare_currency_unit() {
 		'ZWR' => 'Zimbabwean Dollar (2008)',
 		'ZWL' => 'Zimbabwean Dollar (2009)',
 	);
-	$general  = get_option( 'general' );
+	$general  = get_option( 'compare-general' );
 	?>
-	<select name="general[currency]">
+	<select name="compare-general[currency]">
 		<option><?php _e( 'Choose your currency', 'compare' ); ?></option>
 		<?php
 		foreach ( $currency as $key => $curr ) {
@@ -1424,9 +1422,9 @@ function compare_general_languages() {
 		'zun'     => 'Zuni',
 	);
 
-	$general = get_option( 'general' );
+	$general = get_option( 'compare-general' );
 	?>
-	<select name="general[languages]">
+	<select name="compare-general[languages]">
 		<option><?php _e( 'Choose your language', 'compare' ); ?></option>
 		<?php
 		foreach ( $lang as $key => $lang ) {
@@ -1479,7 +1477,5 @@ function compare_reset_feed() {
 
 			}
 		}
-
-
 	}
 }

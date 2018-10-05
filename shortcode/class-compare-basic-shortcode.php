@@ -21,10 +21,10 @@ class Compare_Basic_Widget {
 		$awin             = new Awin();
 		$datas            = template::compare_get_data( $atts['ean'] );
 		$main_partner     = ucfirst( $atts['partner'] );
-		$general          = get_option( 'general' );
+		$general          = get_option( 'compare-general' );
 		$currency         = $general['currency'];
 		$currency         = apply_filters( 'compare_currency_unit', $currency );
-		$option = get_option( 'general' );
+		$option = get_option( 'compare-general' );
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 
 		ob_start();
@@ -44,7 +44,7 @@ class Compare_Basic_Widget {
 						<?php
 						foreach ( $datas as $data ) {
 
-							$general  = get_option( 'general' );
+							$general  = get_option( 'compare-general' );
 							if ( 'on' === $general['general-cloack'] ) {
 								$link = new Cloak_Link();
 								?>

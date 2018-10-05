@@ -24,9 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( $this->show_star_rating() ) { ?>
 				<th class="aawp-table__th-rating"><?php _e( 'Rating', 'aawp' ); ?></th>
 			<?php } ?>
-			<?php if ( $this->show_advertised_price() ) { ?>
-				<th class="aawp-table__th-pricing"><?php _e( 'Price', 'aawp' ); ?></th>
-			<?php } ?>
+
 			<th class="aawp-table__th-links"><?php _e( 'Buy It', 'compare' ); ?></th>
 		</tr>
 		</thead>
@@ -58,16 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php } ?>
 					</td>
 				<?php } ?>
-				<?php if ( $this->show_advertised_price() ) { ?>
-					<td class="aawp-table__td-pricing" data-label="<?php _e( 'Price', 'aawp' ); ?>">
-						<?php if ( $this->product_is_on_sale() ) { ?>
-							<?php if ( $this->sale_show_old_price() ) { ?>
-								<span class="aawp-product__price aawp-product__price--old"><?php echo $this->get_product_pricing( 'old' ); ?></span>
-							<?php } ?>
-						<?php } ?>
-						<span class="aawp-product__price"><?php echo $this->get_product_pricing(); ?></span><?php $this->the_product_check_prime_logo(); ?>
-					</td>
-				<?php } ?>
+
 				<td class="aawp-table__td-links" data-label="<?php _e( 'Link', 'aawp' ); ?>">
 					<div class="compare-price">
 						<?php Cloak_Link::compare_amz_link( $this ); ?>

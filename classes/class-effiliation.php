@@ -29,7 +29,7 @@ class Effiliation {
 	}
 
 	public function compare_effiliation_set_cron() {
-		$option = get_option( 'general' );
+		$option = get_option( 'compare-general' );
 		$cron   = $option['cron'];
 		switch ( $cron ) {
 			case 'four':

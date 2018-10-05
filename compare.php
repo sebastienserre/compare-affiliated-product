@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.2.0
+	Version: 1.2.1
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.2.0' );
+define( 'COMPARE_VERSION', '1.2.1' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -131,7 +131,7 @@ $schedule = wp_get_schedules();
 register_uninstall_hook( __FILE__, 'compare_uninstall' );
 function compare_uninstall() {
 	global $wpdb;
-	$options = get_option( 'general' );
+	$options = get_option( 'compare-general' );
 	$delete  = $options['delete'];
 
 	if ( 'yes' === $delete ) {
