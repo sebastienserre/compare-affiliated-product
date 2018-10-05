@@ -156,11 +156,6 @@ th.aawp-table__th-links {
     width: 30px;
 }
 
-.entry-content .aawp .aawp-product--vertical{
-    border: none;
-    padding: 0;
-}
-
 @media screen and (max-width: 425px) {
     .product-price {
         width: 50%;
