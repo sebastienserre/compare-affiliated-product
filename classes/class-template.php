@@ -56,6 +56,7 @@ class template {
 		?>
 		<?php
 		if ( ! is_null( $prods ) ) {
+			$i = 1;
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
 				switch ( $p['partner_name'] ) {
@@ -71,7 +72,7 @@ class template {
 					default:
 						$logo = $partner;
 				}
-				$general  = get_option( 'general' );
+				$general  = get_option( 'compare-general' );
 				$currency = $general['currency'];
 				$currency = apply_filters( 'compare_currency_unit', $currency );
 				$option   = get_option( 'compare-aawp' );
@@ -90,10 +91,11 @@ class template {
 				if ( 'on' === $general['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
-
+					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 					<?php
 					$link->compare_create_link( $p, $logo, $data );
 					?>
+					</div>
 
 					<?php
 				} else {
@@ -104,6 +106,7 @@ class template {
 
 					<?php
 				}
+				$i++;
 			}
 		}
 		$html = ob_get_clean();
@@ -115,11 +118,11 @@ class template {
 			$eanlist = array( $eanlist );
 		}
 
-		$transient = get_transient( 'product_' . $eanlist[0] );
+/*		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
-		}
-		$external = get_option( 'general' );
+		}*/
+		$external = get_option( 'compare-general' );
 		$external = $external['ext_check'];
 		if ( 'on' === $external ) {
 			$db = new compare_external_db();
@@ -138,7 +141,7 @@ class template {
 					}
 				}
 			} else {
-				$prefix = get_option( 'general' );
+				$prefix = get_option( 'compare-general' );
 				$prefix = $prefix['prefix'];
 
 				$db       = new compare_external_db();
@@ -195,23 +198,7 @@ class template {
 		}
 		return $logos;
 	}
-
-	protected function clear_others_pending_posts_transient( $ean ) {
-		global $wpdb;
-
-		$others_pending_posts_transients = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT option_name FROM {$wpdb->options}
-                WHERE option_name LIKE %s",
-				$wpdb->esc_like( '_transient_dff_others_pending_posts_' ) . '%'
-			)
-		);
-
-		foreach ( $others_pending_posts_transients as $transient ) {
-			$transient_name = str_replace( '_transient_', '', $transient );
-			delete_transient( $transient_name );
-		}
-	}
+	
 
 }
 

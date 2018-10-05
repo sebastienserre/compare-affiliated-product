@@ -24,7 +24,7 @@ class Cloak_Link {
 			$logo = $logos[$product['partner_code']];
 		}
 		$url      = base64_encode( $product['url'] );
-		$currency = get_option( 'general' );
+		$currency = get_option( 'compare-general' );
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
 		$option   = get_option( 'compare-aawp' );
@@ -41,7 +41,7 @@ class Cloak_Link {
 			$color = '#ffffff';
 		}
 		?>
-		<div class="compare-price-partner compare-others">
+
 			<div class="atc" data-atc="<?php echo $url; ?>">
 				<div class="img-partner"><img src="<?php echo $logo ?>"></div>
 				<div class="product-price">
@@ -53,7 +53,6 @@ class Cloak_Link {
 					</button>
 				</div>
 			</div>
-		</div>
 
 		<?php
 	}
@@ -73,7 +72,7 @@ class Cloak_Link {
 			$color = '#ffffff';
 		}
 		?>
-		<div class="compare-price-partner">
+		<div class="compare-price-partner compare-price-amz">
 			<div class="atc" data-atc="<?php echo base64_encode( $data->get_product_url() ); ?>">
 				<div class="img-partner">
 					<img class="logo-amazon" src="<?php echo COMPARE_PLUGIN_URL ?>/assets/img/amazon.png">
