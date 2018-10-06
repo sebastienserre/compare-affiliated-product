@@ -99,10 +99,46 @@ class template {
 
 					<?php
 				} else {
+					$logos = template::compare_get_partner_logo();
+
+						if ( isset( $logos[ $p['partner_code'] ] ) ) {
+							$logo = $logos[ $p['partner_code'] ];
+						}
+						$url = $p['url'];
+
+					$currency = get_option( 'compare-general' );
+					$currency = $currency['currency'];
+					$currency = apply_filters( 'compare_currency_unit', $currency );
+					$option   = get_option( 'compare-aawp' );
+					$text     = $option['button_text'];
+					if ( empty( $text ) ) {
+						$text = __( 'Buy to ', 'compare' );
+					}
+					$bg = $option['button-bg'];
+					if ( empty( $bg ) ) {
+						$bg = '#000000';
+					}
+					$color = $option['button-color'];
+					if ( empty( $color ) ) {
+						$color = '#ffffff';
+					}
+
 					?>
-					<p class=" compare-price">
-						<a href="<?php echo $p['url']; ?>"><?php echo $logo . ' ' . $p['price'] . ' ' . $currency; ?></a>
-					</p>
+					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
+						<div class="product-price">
+							<a href="<?php echo $p['url']; ?>">
+							<?php echo $p['price'] . ' ' . $currency ?>
+							</a>
+						</div>
+						<div class="button-partner">
+							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a class="btn-compare">
+								<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
+							</a>
+							</button>
+						</div>
+					</div>
+
 
 					<?php
 				}
@@ -118,10 +154,10 @@ class template {
 			$eanlist = array( $eanlist );
 		}
 
-/*		$transient = get_transient( 'product_' . $eanlist[0] );
+		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
-		}*/
+		}
 		$external = get_option( 'compare-general' );
 		$external = $external['ext_check'];
 		if ( 'on' === $external ) {
