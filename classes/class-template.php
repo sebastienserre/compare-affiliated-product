@@ -155,10 +155,10 @@ class template {
 			$eanlist = array( $eanlist );
 		}
 
-/*		$transient = get_transient( 'product_' . $eanlist[0] );
+		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
-		}*/
+		}
 		$external = get_option( 'compare-general' );
 		$external = $external['ext_check'];
 
@@ -243,7 +243,7 @@ class template {
 				}
 			}
 
-			//$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
+			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 			return $products;
 		}
 	}
