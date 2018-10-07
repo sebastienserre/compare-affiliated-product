@@ -86,8 +86,11 @@ General style
 
 .img-partner,
 .product-price {
-    width: 40%;
     float: left;
+}
+
+.product-price {
+    width: 44%;
 }
 
 button.atc.btn-compare {
@@ -149,6 +152,7 @@ th.aawp-table__th-links {
 @media screen and (min-width: 1025px) {
     table .product-price {
         width: 60%;
+        text-align: center;
     }
 }
 
@@ -196,4 +200,8 @@ th.aawp-table__th-links {
     table .compare-price .compare-price-partner{
         height: 180px;
     }
+}
+
+.compare-price button{
+    min-width: auto;
 }
