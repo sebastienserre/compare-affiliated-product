@@ -82,8 +82,8 @@ class Effiliation {
 				if ( isset( $options['programs'] ) && ! empty( $options['programs'] ) ) {
 					$check = $options['programs'][ $prog['siteannonceur'] ];
 				}
-				$img = update_option("general[partner_logo][$prog[id_programme]]['img']", $prog['urllo'] );
-				$name = update_option("general[partner_logo][$prog[id_programme]]['name']", $prog['siteannonceur'] );
+				$img = update_option("compare-general[partner_logo][$prog[id_programme]]['img']", $prog['urllo'] );
+				$name = update_option("compare-general[partner_logo][$prog[id_programme]]['name']", $prog['siteannonceur'] );
 				?>
 				<p>
 					<input type="checkbox" value="<?php echo $prog['siteannonceur']; ?>"

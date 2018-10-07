@@ -42,7 +42,7 @@ class Compare_Basic_Widget {
 					<h4 class="compare_sc_title"><?php _e('Where finding this product?', 'compare'); ?></h4>
 					<div class="price-box">
 						<?php
-						foreach ( $datas as $data ) {
+						foreach ( $datas as $p ) {
 
 							$general  = get_option( 'compare-general' );
 							if ( 'on' === $general['general-cloack'] ) {
@@ -50,20 +50,50 @@ class Compare_Basic_Widget {
 								?>
 
 								<?php
-								$link->compare_create_link( $data );
+								$link->compare_create_link( $p );
 								?>
 
 								<?php
 							} else {
+
+								$logos = template::compare_get_partner_logo();
+
+								if ( isset( $logos[ $p['partner_code'] ] ) ) {
+								$logo = $logos[ $p['partner_code'] ];
+								}
+								$url = $p['url'];
+
+								$currency = get_option( 'compare-general' );
+								$currency = $currency['currency'];
+								$currency = apply_filters( 'compare_currency_unit', $currency );
+								$option   = get_option( 'compare-aawp' );
+								$text     = $option['button_text'];
+								if ( empty( $text ) ) {
+								$text = __( 'Buy to ', 'compare' );
+								}
+								$bg = $option['button-bg'];
+								if ( empty( $bg ) ) {
+								$bg = '#000000';
+								}
+								$color = $option['button-color'];
+								if ( empty( $color ) ) {
+								$color = '#ffffff';
+								}
+
 								?>
-
-								<div class="compare_basic_sc_partner_price">
-									<a href="<?php echo $data['url']; ?>"
-									   title="<?php echo $data['title'] . __( ' on ', 'compare' ) . $data['partner_name']; ?>">
-										<?php echo $logo; ?>
-										<p><?php echo $data['price'] . $currency; ?></p>
-									</a>
-
+								<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+									<div class="img-partner"><img src="<?php echo $logo ?>"></div>
+									<div class="product-price">
+										<a href="<?php echo $p['url']; ?>">
+											<?php echo $p['price'] . ' ' . $currency ?>
+										</a>
+									</div>
+									<div class="button-partner">
+										<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a class="btn-compare">
+												<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
+											</a>
+										</button>
+									</div>
 								</div>
 
 								<?php

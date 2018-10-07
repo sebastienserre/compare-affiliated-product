@@ -8,6 +8,7 @@ class template {
 	function __construct() {
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
 		add_action( 'admin_init', array( $this, 'compare_get_partner_logo' ) );
+
 	}
 
 	/**
@@ -154,12 +155,27 @@ class template {
 			$eanlist = array( $eanlist );
 		}
 
-		$transient = get_transient( 'product_' . $eanlist[0] );
+/*		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
-		}
+		}*/
 		$external = get_option( 'compare-general' );
 		$external = $external['ext_check'];
+
+		/**
+		 * Get Subscribed programs
+		 */
+		$p = get_option( 'awin' );
+		if ( ! empty( $p['partner'] ) ) {
+			$programs = explode( ',', $p['partner'] );
+		}
+
+		$effiliation_programs = get_option( 'compare-effiliation');
+		if (!empty( $effiliation_programs['programs'] ) ){
+			foreach ( $effiliation_programs['programs'] as $key => $effiliation_program ) {
+				array_push( $programs, $effiliation_program );
+			}
+		}
 		if ( 'on' === $external ) {
 			$db = new compare_external_db();
 			if ( is_wp_error( $db ) ) {
@@ -202,21 +218,32 @@ class template {
 
 			if ( null !== $eanlist[0] ) {
 				foreach ( $eanlist as $list ) {
-					$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+					foreach ($programs as $program ) {
+						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
-					if ( ! empty( $product ) ) {
-						array_push( $products, $product );
+
+						if ( ! empty( $product ) ) {
+							array_push( $products, $product );
+						}
 					}
 				}
 			}
 		}
 
 		if ( !empty( $products ) ) {
+			$subscribed = compare_get_programs();
 			$products  = array_reverse( $products[0] );
 			$products  = array_combine( array_column( $products, 'partner_name' ), $products );
 			$products  = array_reverse( $products );
-			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 
+			foreach ( $products as $key => $value){
+				$in_array = array_key_exists( $key, $subscribed );
+				if ( false ===  $in_array  ){
+					unset( $products[ $key ] );
+				}
+			}
+
+			//$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
 			return $products;
 		}
 	}
@@ -234,7 +261,7 @@ class template {
 		}
 		return $logos;
 	}
-	
+
 
 }
 

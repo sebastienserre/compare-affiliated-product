@@ -74,7 +74,7 @@ class Awin {
 					if ( $a[3] === 'active' ) {
 						$search = array_search( $partner, $a );
 						if ( false !== $search ) {
-							$results[ $partner ] = $a[5];
+							$results[ $partner ] = $a[1];
 						}
 					}
 				}
@@ -224,6 +224,7 @@ class Awin {
 	public function compare_reset_awin_datafeed() {
 			$this->compare_schedule_awin();
 	}
+
 
 }
 

@@ -23,6 +23,7 @@ function compare_add_aawp_tab( $tabs ) {
 
 	return $tabs;
 }
+
 function compare_settings_page() {
 
 	$tabs = apply_filters( 'compare_setting_tabs',
@@ -33,11 +34,11 @@ function compare_settings_page() {
 	);
 
 
-	$options = get_option('compare-general');
+	$options   = get_option( 'compare-general' );
 	$platforms = $options['platform'];
-	foreach ( $platforms as $platform ){
-		if ( !empty( $platform ) ){
-			$tabs[$platform] =  $platform;
+	foreach ( $platforms as $platform ) {
+		if ( ! empty( $platform ) ) {
+			$tabs[ $platform ] = $platform;
 		}
 	}
 
@@ -137,6 +138,7 @@ function compare_register_settings() {
 
 	/**
 	 * Awin
+	 *
 	 * @since 1.0.0
 	 */
 	add_settings_section( 'compare-awin', '', '', 'compare-awin' );
@@ -162,6 +164,7 @@ function compare_register_settings() {
 
 	/**
 	 * Effiliation
+	 *
 	 * @since 1.2.0
 	 */
 	add_settings_section( 'compare-effiliation', '', '', 'compare-effiliation' );
@@ -173,10 +176,10 @@ function compare_register_settings() {
 }
 
 
-function compare_general_transients(){
+function compare_general_transients() {
 	?>
 	<a href="<?php echo add_query_arg( array(
-		'page'  => 'compare-settings',
+		'page'             => 'compare-settings',
 		'transient-delete' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
 
@@ -184,11 +187,11 @@ function compare_general_transients(){
 }
 
 add_action( 'admin_init', 'compare_delete_transients' );
-function compare_delete_transients(){
-	if ( 'ok' === $_GET['transient-delete'] && isset( $_GET['transient-delete'] ) ){
+function compare_delete_transients() {
+	if ( 'ok' === $_GET['transient-delete'] && isset( $_GET['transient-delete'] ) ) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'options';
-		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE ( '%product%' );");
+		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE ( '%product%' );" );
 	}
 }
 
@@ -198,7 +201,7 @@ function compare_reset_effiliation_settings() {
 	?>
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
-		'tab'   =>  'effiliation',
+		'tab'   => 'effiliation',
 		'reset' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feed in database', 'compare' ); ?></a>
 
@@ -206,12 +209,13 @@ function compare_reset_effiliation_settings() {
 }
 
 
-function compare_effiliation_program(){
+function compare_effiliation_program() {
 	echo effiliation::compare_effiliation_list_html();
 }
-function compare_effiliation_api(){
-	$options = get_option('compare-effiliation');
-	if ( !empty( $options ) ){
+
+function compare_effiliation_api() {
+	$options = get_option( 'compare-effiliation' );
+	if ( ! empty( $options ) ) {
 		$value = 'value="' . $options['apikey'] . '"';
 	}
 	?>
@@ -219,17 +223,19 @@ function compare_effiliation_api(){
 	<?php
 }
 
-function compare_general_platforms(){
-	$platforms = array( 'awin', 'effiliation');
-	$options = get_option('compare-general');
+function compare_general_platforms() {
+	$platforms = array( 'awin', 'effiliation' );
+	$options   = get_option( 'compare-general' );
 
 
-	foreach ( $platforms as $platform ){
+	foreach ( $platforms as $platform ) {
 		if ( isset( $options['platform'] ) && ! empty( $options['platform'] ) ) {
-			$check = $options['platform'][$platform];
+			$check = $options['platform'][ $platform ];
 		}
 		?>
-		<input type="checkbox" name="compare-general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?> value="<?php echo $platform; ?>">
+		<input type="checkbox"
+		       name="compare-general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
+		       value="<?php echo $platform; ?>">
 		<?php echo $platform; ?>
 		<?php
 	}
@@ -441,33 +447,33 @@ function compare_awin_partner() {
 
 function compare_awin_partner_logo() {
 	$awin_data = new Awin();
-	$partners = $awin_data->compare_get_awin_partners();
-	$awin = get_option( 'awin' );
+	$partners  = $awin_data->compare_get_awin_partners();
+	$awin      = get_option( 'awin' );
 	foreach ( $partners as $key => $partner ) {
 		if ( ! empty( $awin['partner_logo'][ $key ]['img'] ) ) {
 			$value = 'value="' . $awin['partner_logo'][ $key ]['img'] . '"';
 		}
 
-			?>
-			<div class="compare-partners-logo">
-				<?php
-
-				echo $key;
-				?>
-				<select name="awin[partner_logo][<?php echo $key; ?>]['name']">
-					<option><?php _e('Choose your partner', 'compare' );?></option>
-					<?php  foreach ($partners as $k => $p ){
-						?>
-						<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>-->
-
-					<?php } ?>
-				</select>
-				<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
-				<img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
-			</div>
-
+		?>
+		<div class="compare-partners-logo">
 			<?php
-		}
+
+			echo $key;
+			?>
+			<select name="awin[partner_logo][<?php echo $key; ?>]['name']">
+				<option><?php _e( 'Choose your partner', 'compare' ); ?></option>
+				<?php foreach ( $partners as $k => $p ) {
+					?>
+					<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>-->
+
+				<?php } ?>
+			</select>
+			<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
+			<img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
+		</div>
+
+		<?php
+	}
 
 }
 
@@ -802,7 +808,7 @@ function compare_reset_awin_df_settings() {
 	?>
 	<a href="<?php echo add_query_arg( array(
 		'page'  => 'compare-settings',
-		'tab'   =>  'awin',
+		'tab'   => 'awin',
 		'reset' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete & reload feeds in database', 'compare' ); ?></a>
 
@@ -1465,7 +1471,7 @@ function compare_help() {
 add_action( 'admin_init', 'compare_reset_feed' );
 function compare_reset_feed() {
 	if ( isset( $_GET['reset'] ) && $_GET['reset'] === 'ok' ) {
-		if (isset ( $_GET['tab'] ) ) {
+		if ( isset ( $_GET['tab'] ) ) {
 			switch ( $_GET['tab'] ) {
 				case 'awin' :
 					$awin = new Awin();
@@ -1478,4 +1484,49 @@ function compare_reset_feed() {
 			}
 		}
 	}
+}
+
+//add_action( 'admin_init', 'compare_get_programs' );
+function compare_get_programs() {
+	$awin_data            = new Awin();
+	$awin_partners        = $awin_data->compare_get_awin_partners();
+	$effiliation_partners = Effiliation::compare_get_effiliation_program();
+	$options              = get_option( 'compare-general' );
+
+	$awin_programs = array();
+
+	$p = get_option( 'awin' );
+
+	if ( ! empty( $p['partner'] ) ) {
+		$programs = $p['partner'];
+	}
+	array_push( $awin_programs, $programs );
+
+	$list = array();
+	foreach ( $awin_programs as $key => $value ) {
+		if ( false != strpos( $value, ',' ) ) {
+			$awins = explode( ',', $value ) ;
+		}
+
+		array_push( $list, $awins );
+	}
+	$test = array_intersect_ukey( $awins , $awin_partners );
+	$list = array_flip( $list[0] );
+	foreach ( $list as $key => $value ){
+		$subscribed[$awin_partners[$key] ] = $value;
+	}
+
+	/**
+	 * Get Effiliation list of programs
+	 */
+	$effiliation_programs = get_option( 'compare-effiliation');
+
+	if ( !empty( $effiliation_programs['programs'] ) ){
+		foreach ( $effiliation_programs['programs'] as $programs ){
+			$subscribed[$programs] = $programs;
+		}
+	}
+
+
+	return $subscribed;
 }
