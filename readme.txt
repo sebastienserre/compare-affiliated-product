@@ -10,6 +10,11 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 == Changelog ==
 
+= 1.2.2 == 07/10/2018
+* BUGFIX: Programs not selected in options will now not been displayed
+* IMPROVMENT: HTML markup improved for better experience on mobile devices.
+* IMPROVMENT: Without cloaked link, use same template as with cloaked Links
+
 =1.2.1 == 05/10/2018
 * BUGFIX Fix the problem of languages on Back Office.
 * IMPROVMENT Correct style
