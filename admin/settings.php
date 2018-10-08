@@ -178,10 +178,11 @@ function compare_register_settings() {
 
 function compare_general_transients() {
 	?>
-	<a href="<?php echo add_query_arg( array(
+	<a class="btn btn-del-transient" href="<?php echo add_query_arg( array(
 		'page'             => 'compare-settings',
 		'transient-delete' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
+	<p><?php _e('Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare'); ?></p>
 
 	<?php
 }
@@ -211,6 +212,7 @@ function compare_reset_effiliation_settings() {
 
 function compare_effiliation_program() {
 	echo effiliation::compare_effiliation_list_html();
+
 }
 
 function compare_effiliation_api() {
@@ -220,6 +222,7 @@ function compare_effiliation_api() {
 	}
 	?>
 	<input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
+	<p><?php printf( __('%s API Key. Get in your profile', 'compare'), 'Effiliation'); ?></p>
 	<?php
 }
 
@@ -237,8 +240,12 @@ function compare_general_platforms() {
 		       name="compare-general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
 		       value="<?php echo $platform; ?>">
 		<?php echo $platform; ?>
+
 		<?php
 	}
+	?>
+	<p><?php _e('Check the platform to work with', 'compare'); ?></p>
+	<?php
 }
 
 function compare_awwp_button_bg() {
@@ -298,7 +305,7 @@ function compare_general_cron() {
 		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
 		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
 	</select>
-
+	<p><?php _e('Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
 	<?php
 }
 
@@ -421,6 +428,7 @@ function compare_awin_id() {
 	}
 	?>
 	<input type="text" name="awin[customer_id]" value="<?php echo esc_attr( $value ) ?>">
+	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare'), 'Awin') ?></p>
 	<?php
 }
 
@@ -432,6 +440,7 @@ function compare_awin_key() {
 	}
 	?>
 	<input type="text" name="awin[apikey]" value="<?php echo esc_attr( $value ) ?>">
+	<p><?php printf( __('%s API Key. Get in your profile', 'compare'), 'Awin'); ?></p>
 	<?php
 }
 
@@ -442,6 +451,7 @@ function compare_awin_partner() {
 	}
 	?>
 	<input type="text" name="awin[partner]" value="<?php echo esc_attr( $value ) ?>">
+	<p><?php printf( __( 'Choose the programs you\'d like to display on your site. You can get code by creating a feed in %s website', 'compare' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -464,7 +474,7 @@ function compare_awin_partner_logo() {
 				<option><?php _e( 'Choose your partner', 'compare' ); ?></option>
 				<?php foreach ( $partners as $k => $p ) {
 					?>
-					<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>-->
+					<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>
 
 				<?php } ?>
 			</select>
@@ -474,7 +484,9 @@ function compare_awin_partner_logo() {
 
 		<?php
 	}
-
+	?>
+	<p><?php _e( 'Upload first image on media library then paste the link here.', 'compare' ); ?></p>
+	<?php
 }
 
 function compare_awin_partner_url() {
@@ -485,6 +497,7 @@ function compare_awin_partner_url() {
 	<div class="compare-partners-datafeed">
 		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 	</div>
+	<p><?php printf( __('Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare'), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -800,6 +813,7 @@ function compare_currency_unit() {
 
 		?>
 	</select>
+	<p><?php _e('Currency unit used to display prices', 'compare'); ?></p>
 	<?php
 }
 
@@ -1441,6 +1455,7 @@ function compare_general_languages() {
 
 		?>
 	</select>
+	<p><?php _e('languages used to get datafeed in right language', 'compare') ?></p>
 	<?php
 }
 

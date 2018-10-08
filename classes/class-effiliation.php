@@ -96,6 +96,9 @@ class Effiliation {
 				<?php
 			}
 		}
+		?>
+		<p><?php _e( 'Check the program to display', 'compare' ); ?></p>
+<?php
 	}
 
 	public static function compare_effiliation_get_feed() {

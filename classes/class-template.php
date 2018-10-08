@@ -49,6 +49,11 @@ class template {
 		$this->compare_display_html( $eanlist, $data );
 	}
 
+	/**
+	 * Provides HTML to display
+	 * @param $eanlist Array of EAN13
+	 * @param $data array of Product datas.
+	 */
 	public function compare_display_html( $eanlist, $data ) {
 		$prods            = $this->compare_get_data( $eanlist );
 		$partner_logo_url = get_option( 'awin' );
@@ -150,6 +155,12 @@ class template {
 		echo $html;
 	}
 
+	/**
+	 * Provide an array of EAN then get data from partners
+	 * @param $eanlist array
+	 *
+	 * @return array Array of products
+	 */
 	public function compare_get_data( $eanlist ) {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
@@ -248,6 +259,10 @@ class template {
 		}
 	}
 
+	/**
+	 * Get Logo URL
+	 * @return array array of logo url
+	 */
 	public static function compare_get_partner_logo() {
 		$awin = get_option( 'awin' );
 		foreach ( $awin['partner_logo'] as $key => $img ){
