@@ -94,7 +94,7 @@ class template {
 				if ( empty( $color ) ) {
 					$color = '#ffffff';
 				}
-				if ( 'on' === $general['general-cloack'] ) {
+				if ( isset( $general['general-cloack'] ) && 'on' === $general['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
