@@ -189,7 +189,7 @@ function compare_general_transients() {
 
 add_action( 'admin_init', 'compare_delete_transients' );
 function compare_delete_transients() {
-	if ( 'ok' === $_GET['transient-delete'] && isset( $_GET['transient-delete'] ) ) {
+	if ( isset( $_GET['transient-delete'] ) && 'ok' === $_GET['transient-delete'] ) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'options';
 		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE ( '%product%' );" );
