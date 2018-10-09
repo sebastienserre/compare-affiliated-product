@@ -188,7 +188,7 @@ class template {
 			}
 		}
 		if ( 'on' === $external ) {
-			$db = new compare_external_db();
+			$db       = compare_external_db::getInstance();
 			if ( is_wp_error( $db ) ) {
 				global $wpdb;
 				$table    = $wpdb->prefix . 'compare';
@@ -207,13 +207,13 @@ class template {
 				$prefix = get_option( 'compare-general' );
 				$prefix = $prefix['prefix'];
 
-				$db       = new compare_external_db();
-				$cnx      = $db->compare_external_cnx();
+				$db       = compare_external_db::getInstance();
+				$cnx      = $db->getConnection();
 				$table    = $prefix . 'compare';
 				$products = array();
 				if ( null !== $eanlist[0] ) {
 					foreach ( $eanlist as $list ) {
-						$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+						$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean LIKE %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
 						if ( ! empty( $product ) ) {
 							array_push( $products, $product );
