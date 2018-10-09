@@ -2,13 +2,16 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.2.3 == 09/10/2018
+* BUGFIX: rewrite connexion to external DB
+* Fix Notices
 
 = 1.2.2 == 07/10/2018
 * BUGFIX: Programs not selected in options will now not been displayed
