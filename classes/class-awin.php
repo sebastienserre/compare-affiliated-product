@@ -34,6 +34,7 @@ class Awin {
 				$this->compare_schedule_awin();
 				break;
 			case 'none':
+				__return_false();
 				break;
 		}
 
