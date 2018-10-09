@@ -1502,7 +1502,6 @@ function compare_reset_feed() {
 	}
 }
 
-//add_action( 'admin_init', 'compare_get_programs' );
 function compare_get_programs() {
 	$awin_data            = new Awin();
 	$awin_partners        = $awin_data->compare_get_awin_partners();
