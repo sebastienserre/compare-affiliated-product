@@ -4,33 +4,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 class compare_external_db {
-	public $db;
-	public $connect;
-	public $sql;
+	private $_connection;
+	private static $_instance; //The single instance
+	private $_host = '';
+	private $_username = '';
+	private $_password = '';
+	private $_database = '';
+	private $connect = '';
 
-	public function __construct() {
+	/*
+Get an instance of the Database
+@return Instance
+*/
+	public static function getInstance() {
+		if ( ! self::$_instance ) { // If no instance then make one
+			self::$_instance = new self();
+		}
 
+		return self::$_instance;
 	}
 
-	public function compare_external_cnx() {
+
+	public function __construct() {
+		$this->compare_create_connexion();
+	}
+
+	public function compare_create_connexion() {
+		$this->compare_set_credentials();
+		$this->_connection = new wpdb( $this->_username,
+			$this->_password, $this->_database, $this->_host );
+	}
+
+	public function compare_set_credentials() {
 
 		$option   = get_option( 'compare-general' );
 		$external = $option['ext_check'];
 		if ( 'on' === $external ) {
-			$this->compare_check_sql();
-			if ( 'ok' === $this->connect ) {
-				$host     = $option['host'];
-				$db       = $option['db'];
-				$username = $option['username'];
-				$password = $option['pwd'];
-
-				$this->sql = new wpdb ( $username, $password, $db, $host );
-
-			}
-
+			$this->_host     = $option['host'];
+			$this->_database = $option['db'];
+			$this->_username = $option['username'];
+			$this->_password = $option['pwd'];
 		}
 
-		return $this->sql;
 	}
 
 	public function compare_check_sql() {
@@ -39,23 +54,15 @@ class compare_external_db {
 		if ( isset( $option['ext_check'] ) ) {
 			$external = $option['ext_check'];
 		}
-
+		//$cnx = $this->getConnection();
 		if ( isset( $external ) && 'on' === $external ) {
-			$host     = $option['host'];
-			$db       = $option['db'];
-			$username = $option['username'];
-			$password = $option['pwd'];
-
-			$sql   = new wpdb ( $username, $password, $db, $host );
-
-			if ( ! empty ( $sql->error ) ) {
+			if ( false == $this->_connection->has_connected ) {
 				$this->connect = 'nok';
+
 			}
 
+			return $this->connect;
 		}
-
-		return $this->connect;
-
 	}
 
 	public function compare_check_html() {
@@ -67,6 +74,15 @@ class compare_external_db {
 		}
 
 		return $connexion;
+	}
+
+	// Magic method clone is empty to prevent duplication of connection
+	private function __clone() {
+	}
+
+	// Get mysqli connection
+	public function getConnection() {
+		return $this->_connection;
 	}
 
 }
