@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Awin {
 
 	protected $awin;
+	protected $_option;
 
 	/**
 	 * Awin constructor.
@@ -20,9 +21,12 @@ class Awin {
 		$this->awin = get_option( 'awin' );
 	}
 
+	public function compare_set_option(){
+		$this->_option = get_option( 'compare-general' );
+	}
+
 	public function compare_set_cron() {
-		$option = get_option( 'compare-general' );
-		$cron   = $option['cron'];
+		$cron   = $this->_option['cron'];
 		switch ( $cron ) {
 			case 'four':
 				$this->compare_schedule_awin();
