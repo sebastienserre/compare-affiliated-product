@@ -20,9 +20,10 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+		add_action( 'admin_init', array( $this, 'compare_schedule_awin' ) );
 		$this->awin = get_option( 'awin' );
-		//$this->queue = new DlBackground_Process();
-		//$this->queue_register = new register_background_process();
+		$this->queue = new DlBackground_Process();
+		$this->queue_register = new register_background_process();
 	}
 
 	public function compare_set_option(){
@@ -54,21 +55,21 @@ class Awin {
 	 * @return array $dir new wp upload dir
 	 */
 	public function compare_upload_dir( $dir ) {
-		$mkdir = wp_mkdir_p( $dir['path'] . '/xml' );
+		$mkdir = wp_mkdir_p( $dir['path'] . '/awin/xml' );
 		if ( ! $mkdir ) {
-			wp_mkdir_p( $dir['path'] . '/xml' );
+			wp_mkdir_p( $dir['path'] . '/awin/xml' );
 		}
 		$dir =
 			array(
-				'path'   => $dir['path'] . '/xml',
-				'url'    => $dir['url'] . '/xml',
-				'subdir' => $dir['path'] . '/xml',
+				'path'   => $dir['path'] . '/awin/xml',
+				'url'    => $dir['url'] . '/awin/xml',
+				'subdir' => $dir['path'] . '/awin/xml',
 			) + $dir;
 
 		return $dir;
 	}
 
-	public static function compare_get_awin_partners( $partner_code = '' ) {
+	public function compare_get_awin_partners( $partner_code = '' ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$url          = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
 		$temp_file    = download_url( $url, 300 );
@@ -110,7 +111,6 @@ class Awin {
 	 */
 	public static function compare_schedule_awin() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		$this->compare_get_awin_partners();
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = $this->awin['datafeed'];
@@ -127,12 +127,32 @@ class Awin {
 		error_log( 'Start Download Feed' );
 
 		foreach ( $urls as $key => $url ) {
-			$this->queue->push_to_queue( [ 'key' => $key, 'url' => $url ] );
+			$temp_file = download_url( $url, 300 );
+			if ( ! is_wp_error( $temp_file ) ) {
+				// Array based on $_FILE as seen in PHP file uploads
+				$file = array(
+					//'name'     => basename($url), // ex: wp-header-logo.png
+					'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
+					'type'     => 'application/gzip',
+					'tmp_name' => $temp_file,
+					'error'    => 0,
+					'size'     => filesize( $temp_file ),
+				);
+
+				$overrides = array(
+					'test_form' => false,
+					'test_size' => true,
+				);
+
+				// Move the temporary file into the uploads directory
+				$results = wp_handle_sideload( $file, $overrides );
+
+
+			}
 		}
-		$this->queue->dispatch();
 		error_log( 'Stop Download Feed' );
 		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
-
+		$this->compare_register_prod();
 	}
 
 
@@ -165,7 +185,7 @@ class Awin {
 		foreach ( $partners as $key => $value ) {
 			$this->queue_register->push_to_queue( [ 'key' => $key, 'url' => $url ] );
 		}
-		$this->queue_register->dispatch();
+		$this->queue_register->save()->dispatch();
 
 		$event = 'import complete';
 		error_log( $event );

@@ -33,6 +33,8 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
+	include_once COMPARE_PLUGIN_PATH . '/classes/dl_background_process.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/register_background_process.php';
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
 	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
@@ -44,8 +46,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-template.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/dl_background_process.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/register_background_process.php';
+
 }
 
 add_action( 'plugins_loaded', 'compare_load_textdomain' );

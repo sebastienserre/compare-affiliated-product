@@ -7,9 +7,8 @@ class register_background_process extends WP_Background_Process {
 	protected $action = 'register_data';
 
 	protected function task( $item ){
-
-
-		$partner_details = Awin::compare_get_awin_partners( $value );
+		$awin = new Awin();
+		$partner_details = $awin->compare_get_awin_partners( $value );
 		foreach ( $partner_details as $partner_detail){
 			$partner_details = $partner_detail;
 		}

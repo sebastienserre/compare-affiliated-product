@@ -23,30 +23,7 @@ class DlBackground_Process extends WP_Background_Process {
 	 */
 	protected function task( $item ) {
 
-		$key       = $item['key'];
-		$url       = $item['url'];
-		$temp_file = download_url( $url, 300 );
-		if ( ! is_wp_error( $temp_file ) ) {
-			// Array based on $_FILE as seen in PHP file uploads
-			$file = array(
-				//'name'     => basename($url), // ex: wp-header-logo.png
-				'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
-				'type'     => 'application/gzip',
-				'tmp_name' => $temp_file,
-				'error'    => 0,
-				'size'     => filesize( $temp_file ),
-			);
 
-			$overrides = array(
-				'test_form' => false,
-				'test_size' => true,
-			);
-
-			// Move the temporary file into the uploads directory
-			$results = wp_handle_sideload( $file, $overrides );
-
-
-		}
 
 		return false;
 	}
