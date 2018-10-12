@@ -23,7 +23,7 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
 		 * @var string
 		 * @access protected
 		 */
-		protected $action = 'background_process';
+		protected $action = 'awinBackground_process';
 
 		/**
 		 * Start time of current process.

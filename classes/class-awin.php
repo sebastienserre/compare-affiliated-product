@@ -10,6 +10,8 @@ class Awin {
 
 	protected $awin;
 	protected $_option;
+	protected $queue;
+	protected $queue_register;
 
 	/**
 	 * Awin constructor.
@@ -19,6 +21,8 @@ class Awin {
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
 		$this->awin = get_option( 'awin' );
+		//$this->queue = new DlBackground_Process();
+		//$this->queue_register = new register_background_process();
 	}
 
 	public function compare_set_option(){
@@ -64,7 +68,7 @@ class Awin {
 		return $dir;
 	}
 
-	public function compare_get_awin_partners( $partner_code = '' ) {
+	public static function compare_get_awin_partners( $partner_code = '' ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$url          = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
 		$temp_file    = download_url( $url, 300 );
@@ -104,7 +108,7 @@ class Awin {
 	/**
 	 * Download and unzip xml from Awin
 	 */
-	public function compare_schedule_awin() {
+	public static function compare_schedule_awin() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$this->compare_get_awin_partners();
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -121,32 +125,14 @@ class Awin {
 		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		error_log( 'Start Download Feed' );
+
 		foreach ( $urls as $key => $url ) {
-			$temp_file = download_url( $url, 300 );
-			if ( ! is_wp_error( $temp_file ) ) {
-				// Array based on $_FILE as seen in PHP file uploads
-				$file = array(
-					//'name'     => basename($url), // ex: wp-header-logo.png
-					'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
-					'type'     => 'application/gzip',
-					'tmp_name' => $temp_file,
-					'error'    => 0,
-					'size'     => filesize( $temp_file ),
-				);
-
-				$overrides = array(
-					'test_form' => false,
-					'test_size' => true,
-				);
-
-				// Move the temporary file into the uploads directory
-				$results = wp_handle_sideload( $file, $overrides );
-
-			}
+			$this->queue->push_to_queue( [ 'key' => $key, 'url' => $url ] );
 		}
+		$this->queue->dispatch();
 		error_log( 'Stop Download Feed' );
 		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
-		$this->compare_register_prod();
+
 	}
 
 
@@ -177,50 +163,9 @@ class Awin {
 		$secondes    = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $partners as $key => $value ) {
-			$partner_details = $this->compare_get_awin_partners( $value );
-			foreach ( $partner_details as $partner_detail){
-				$partner_details = $partner_detail;
-			}
-			$event = 'start partner ' . $value;
-			error_log( $event );
-			$upload = $path['path'] . '/xml/' . $customer_id . '-' . $value . '.gz';
-
-			$xml = new XMLReader();
-			$xml->open( 'compress.zlib://' . $upload );
-			$xml->read();
-
-			while ( $xml->read() && 'prod' !== $xml->name ) {
-				;
-			}
-
-			while ( 'prod' === $xml->name ) {
-				$element       = new SimpleXMLElement( $xml->readOuterXML() );
-				$code_partners = explode( 'feedId=', $element->uri->awImage );
-				$code_partners = explode( '&k=', $code_partners[1] );
-				$code_partners = $code_partners[0];
-
-				$prod = array(
-					'price'        => strval( $element->price->buynow ),
-					'title'        => $element->text->name ? strval( $element->text->name ) : '',
-					'description'  => strval( $element->text->desc ),
-					'img'          => strval( $element->uri->mImage ),
-					'url'          => strval( $element->uri->awTrack ),
-					'partner_name' => $partner_details,
-					'productid'    => strval( $xml->getAttribute( 'id' ) ),
-					'ean'          => strval( $element->ean ),
-					'platform'     => 'Awin',
-					'partner_code' => $code_partners,
-				);
-
-				//$wpdb->show_errors();
-				$insert = $wpdb->insert( $table, $prod );
-				//error_log( $wpdb->print_error() );
-
-				$xml->next( 'prod' );
-			}
-			$event = 'stop partner ' . $value;
-			error_log( $event );
+			$this->queue_register->push_to_queue( [ 'key' => $key, 'url' => $url ] );
 		}
+		$this->queue_register->dispatch();
 
 		$event = 'import complete';
 		error_log( $event );
