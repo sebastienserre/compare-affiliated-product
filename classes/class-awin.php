@@ -221,11 +221,11 @@ class Awin {
 
 			$xml->next( 'prod' );
 
+
+			}
 			$path = null;
 			$upload = null;
 			$partner_details = null;
-			}
-
 
 			$event = 'stop partner ' . $value;
 			error_log( $event );
