@@ -42,6 +42,12 @@ class Effiliation {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
+
+		add_action( 'admin_init', array( $this, 'compare_effiliation_register'));
+
+		if( 'cli' === php_sapi_name() ) {
+			$this->compare_schedule_effiliation();
+		}
 	}
 
 	public function compare_reset_effiliation_feed() {
@@ -161,16 +167,8 @@ class Effiliation {
 	}
 
 	/**
-	 * Download and unzip xml from EffiLes règles de chasse varient selon les territoires, les associations ou sociétés de chasses, les zones privées ou publiques, les règlements locaux… Voilà pourquoi il est difficile de s’en faire une idée précise sur internet. Mais il y a toujours un « tronc commun » préfectoral : Les tirs en direction des habitations, des routes, sont formellement interdits… On peut donc partir en battue au ras de la propriété privée, et tirer, mais toujours dos à celle-ci.
-Que dit la loi générale : « au titre de la police de chasse, il n’y a pas de distance déterminée autour des habitations » (sous réserve bien sûr d’être dos à l’habitation)… Trois choses peuvent modifier cela :
-1)      Un arrêté municipal pour déterminer un périmètre de tir (200m). Les raisons doivent être motivées par des circonstances locales et précises de sécurité particulière. Cela signifie qu’il ne suffit pas de d’écrire « pour raisons de sécurité » ; encore moins « parce que cela gêne le voisinage »... La chasse en France est un droit règlementé. Pour info, il n’y a pas sur Thiverval-Grignon d’arrêté de ce type, parce qu’il n’y a pas de « circonstances locales particulières » qui le permettent.
-2)      Un zonage soumis à l’action « ACCA ». Dans ces zonages, on ne peut pas tirer à moins de 150m des habitations. Pour info, nous ne sommes pas en zonage ACCA.
-3)      Un règlement local de l’association ou société de chasse locale… Ici nous sommes concernés car la société de chasse de la Commune a règlementé l’interdiction de tir à moins de 100m des habitations dans ses statuts.
-Mais attention ! Ces règles sont applicables sur les domaines de chasses publiques. Il existe aussi les chasses privées, sur domaines privés. Et nous sommes concernés par l’AgroParisTech qui dispose sur la Commune de sa propre société de chasse « ministérielle ». Et je pense que vous avez eu affaire à elle car ils n’ont pas, eux, de règlement local fixant une limite de distance tirs, et ils appliquent la Loi stricto-senso.
-Quelles sont les zones ? Si vous êtes dos à la RD 119, Folleville devant vous… Les terres à droite du parc (jusqu’au futur golf) sont du domaine de la société de chasse communale. A gauche du parc (jusqu’au rond-point et entre les deux ronds-points), ce sont des terres appartenant à l’Agro et donc de leur propre société de chasse.
-
-Voilà ce je pouvais vous dire en matière de règlementation et de cas de figure sur notre Commune. Je peux vous dire aussi que votre mail m’a alerté sur le sujet et qu’avec le programme d’habitat sur Folleville je vais demander un règlement de chasse au Ministère de l’agriculture, fixant une limite de tirs pour ses chasseurs. De là vous dire que j’arriverai à quelque chose, il y a un pas que je ne franchirai pas aujourd’hui… mais je suis pugnace ! et j’ai ce matin même demandé un RV au responsable local de la société (garde-chasse Agro). En tout état de cause, avec certitude n’attendons rien d’officiel pour cette année alors que la période de chasse est commencée ; je connais les lenteurs de l’Administration et il y a longtemps que je ne « rêve » plus sur ce sujet.liation
-	 */
+	 * Download and unzip xml from Effiliaiton
+	 **/
 	public function compare_schedule_effiliation() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
@@ -223,14 +221,14 @@ Voilà ce je pouvais vous dire en matière de règlementation et de cas de figur
 		error_log( 'start Effiliation Import' );
 		$table = $wpdb->prefix . 'compare';
 
-		$truncat  = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "effiliation"' );
+	//	$truncat  = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "effiliation"' );
 		$path     = wp_upload_dir();
 		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $programs['programs'] as $program ) {
 			$event = 'start partner ' . $program['siteannonceur'];
 			error_log( $event );
-			$upload  = $path['path'] . '/' . $program['siteannonceur'] . '.gz';
+			$upload  = $path['path'] . '/effiliation/xml/' . $program['siteannonceur'] . '.gz';
 			$new_xml = file_get_contents( 'compress.zlib://' . $upload );
 			//$xml = new SimpleXMLElement();
 			libxml_use_internal_errors( false );
@@ -252,13 +250,12 @@ Voilà ce je pouvais vous dire en matière de règlementation et de cas de figur
 					'platform'     => 'effiliation',
 				);
 
-				$wpdb->show_errors( true );
-				$wpdb->show_errors(true);
-				$insert =$wpdb->replace( $table, $prod );
+				$wpdb->replace( $table, $prod );
 				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
 				if (! empty( $transient ) ){
 					delete_transient( $transient );
 				}
+				$transient = null;
 			}
 		}
 		error_log( 'stop Effiliation Import' );

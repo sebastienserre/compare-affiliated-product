@@ -50,7 +50,13 @@ class register_background_process extends WP_Background_Process {
 				'partner_code' => $value,
 			);
 
-			$insert = $wpdb->insert( $table, $prod );
+			$wpdb->replace( $table, $prod );
+
+			$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+			if (! empty( $transient ) ){
+				delete_transient( $transient );
+			}
+			$transient = null;
 
 			$xml->next( 'prod' );
 

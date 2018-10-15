@@ -198,7 +198,7 @@ class Awin {
 	public function compare_register_prod() {
 		error_log( 'start Import' );
 
-		$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );
+		/*$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );*/
 
 		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
