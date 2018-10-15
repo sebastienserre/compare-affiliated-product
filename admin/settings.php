@@ -170,7 +170,6 @@ function compare_register_settings() {
 	register_setting( 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
-	add_settings_field( 'compare-effiliation-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_effiliation_settings', 'compare-effiliation', 'compare-effiliation' );
 
 }
 
@@ -186,7 +185,11 @@ function compare_general_transients() {
 	<?php
 }
 
-add_action( 'admin_init', 'compare_delete_transients' );
+/**
+ * Deprecated since 1.2.4
+ */
+
+//add_action( 'admin_init', 'compare_delete_transients' );
 function compare_delete_transients() {
 	if ( isset( $_GET['transient-delete'] ) && 'ok' === $_GET['transient-delete'] ) {
 		global $wpdb;
@@ -195,7 +198,9 @@ function compare_delete_transients() {
 	}
 }
 
-
+/**
+ * Deprecated since 1.2.5
+ */
 function compare_reset_effiliation_settings() {
 
 	?>
