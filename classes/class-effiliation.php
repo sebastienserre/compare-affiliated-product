@@ -1,5 +1,27 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+
+/**
+ * Include wp-load only if triggered by cli
+ */
+if( 'cli' === php_sapi_name() ) {
+
+	function find_wordpress_base_path() {
+		$dir = dirname( __FILE__ );
+		do {
+			//it is possible to check for other files here
+			if ( file_exists( $dir . "/wp-config.php" ) ) {
+				return $dir;
+			}
+		} while ( $dir = realpath( "$dir/.." ) );
+
+		return null;
+	}
+
+	define( 'BASE_PATH', find_wordpress_base_path() . "/" );
+	define( 'WP_USE_THEMES', false );
+	global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
+	require BASE_PATH . 'wp-load.php';
+} elseif ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
 
@@ -20,8 +42,6 @@ class Effiliation {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
-
-		//add_action( 'admin_init', array($this, 'compare_effiliation_register'));
 	}
 
 	public function compare_reset_effiliation_feed() {
@@ -30,6 +50,9 @@ class Effiliation {
 
 	public function compare_effiliation_set_cron() {
 		$option = get_option( 'compare-general' );
+		if ( ! isset( $option['platform']['effiliation'] ) ){
+			return;
+		}
 		$cron   = $option['cron'];
 		switch ( $cron ) {
 			case 'four':
@@ -138,7 +161,15 @@ class Effiliation {
 	}
 
 	/**
-	 * Download and unzip xml from Effiliation
+	 * Download and unzip xml from EffiLes règles de chasse varient selon les territoires, les associations ou sociétés de chasses, les zones privées ou publiques, les règlements locaux… Voilà pourquoi il est difficile de s’en faire une idée précise sur internet. Mais il y a toujours un « tronc commun » préfectoral : Les tirs en direction des habitations, des routes, sont formellement interdits… On peut donc partir en battue au ras de la propriété privée, et tirer, mais toujours dos à celle-ci.
+Que dit la loi générale : « au titre de la police de chasse, il n’y a pas de distance déterminée autour des habitations » (sous réserve bien sûr d’être dos à l’habitation)… Trois choses peuvent modifier cela :
+1)      Un arrêté municipal pour déterminer un périmètre de tir (200m). Les raisons doivent être motivées par des circonstances locales et précises de sécurité particulière. Cela signifie qu’il ne suffit pas de d’écrire « pour raisons de sécurité » ; encore moins « parce que cela gêne le voisinage »... La chasse en France est un droit règlementé. Pour info, il n’y a pas sur Thiverval-Grignon d’arrêté de ce type, parce qu’il n’y a pas de « circonstances locales particulières » qui le permettent.
+2)      Un zonage soumis à l’action « ACCA ». Dans ces zonages, on ne peut pas tirer à moins de 150m des habitations. Pour info, nous ne sommes pas en zonage ACCA.
+3)      Un règlement local de l’association ou société de chasse locale… Ici nous sommes concernés car la société de chasse de la Commune a règlementé l’interdiction de tir à moins de 100m des habitations dans ses statuts.
+Mais attention ! Ces règles sont applicables sur les domaines de chasses publiques. Il existe aussi les chasses privées, sur domaines privés. Et nous sommes concernés par l’AgroParisTech qui dispose sur la Commune de sa propre société de chasse « ministérielle ». Et je pense que vous avez eu affaire à elle car ils n’ont pas, eux, de règlement local fixant une limite de distance tirs, et ils appliquent la Loi stricto-senso.
+Quelles sont les zones ? Si vous êtes dos à la RD 119, Folleville devant vous… Les terres à droite du parc (jusqu’au futur golf) sont du domaine de la société de chasse communale. A gauche du parc (jusqu’au rond-point et entre les deux ronds-points), ce sont des terres appartenant à l’Agro et donc de leur propre société de chasse.
+
+Voilà ce je pouvais vous dire en matière de règlementation et de cas de figure sur notre Commune. Je peux vous dire aussi que votre mail m’a alerté sur le sujet et qu’avec le programme d’habitat sur Folleville je vais demander un règlement de chasse au Ministère de l’agriculture, fixant une limite de tirs pour ses chasseurs. De là vous dire que j’arriverai à quelque chose, il y a un pas que je ne franchirai pas aujourd’hui… mais je suis pugnace ! et j’ai ce matin même demandé un RV au responsable local de la société (garde-chasse Agro). En tout état de cause, avec certitude n’attendons rien d’officiel pour cette année alors que la période de chasse est commencée ; je connais les lenteurs de l’Administration et il y a longtemps que je ne « rêve » plus sur ce sujet.liation
 	 */
 	public function compare_schedule_effiliation() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
