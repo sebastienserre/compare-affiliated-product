@@ -19,7 +19,7 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
-		$this->queue_register = new register_background_process();
+
 		$this->awin = get_option( 'awin' );
 
 	}
@@ -180,6 +180,9 @@ class Awin {
 		$xml = new XMLReader();
 
 		foreach ( $partners as $key => $value ) {
+			error_log( memory_get_usage() );
+
+			$this->queue_register = new register_background_process();
 
 			$partner_details = $this->compare_get_awin_partners( $value );
 			foreach ( $partner_details as $partner_detail ) {
@@ -227,11 +230,16 @@ class Awin {
 			$upload = null;
 			$partner_details = null;
 
+
+			$this->queue_register->save();
+			$this->queue_register->dispatch();
+			unset( $this->queue_register );
+			error_log( memory_get_usage() );
 			$event = 'stop partner ' . $value;
 			error_log( $event );
+
 		}
-		$this->queue_register->save();
-		$this->queue_register->dispatch();
+
 		$event = 'import complete';
 		error_log( $event );
 		return true;
