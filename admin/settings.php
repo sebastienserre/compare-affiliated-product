@@ -151,7 +151,6 @@ function compare_register_settings() {
 	add_settings_field( 'compare-awin-partner_url', __( 'Awin Trademark code', 'compare' ), 'compare_awin_partner_url', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
-	add_settings_field( 'compare-awin-feed-reset', __( 'Reload data', 'compare' ), 'compare_reset_awin_df_settings', 'compare-awin', 'compare-awin' );
 
 	/**
 	 * Aawp
@@ -818,6 +817,9 @@ function compare_currency_unit() {
 	<?php
 }
 
+/**
+ * Deprecated since 1.2.4
+ */
 function compare_reset_awin_df_settings() {
 
 	?>
@@ -1484,6 +1486,9 @@ function compare_help() {
 	<?php
 }
 
+/**
+ * Deprecated since 1.2.4
+ */
 add_action( 'admin_init', 'compare_reset_feed' );
 function compare_reset_feed() {
 	if ( isset( $_GET['reset'] ) && $_GET['reset'] === 'ok' ) {
