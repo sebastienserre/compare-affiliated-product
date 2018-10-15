@@ -26,7 +26,10 @@ Get an instance of the Database
 
 
 	public function __construct() {
-		$this->compare_create_connexion();
+		$option   = get_option( 'compare-general' );
+		if ( isset( $option['ext_check'] ) && 'on' === $option['ext_check'] ) {
+			$this->compare_create_connexion();
+		}
 	}
 
 	public function compare_create_connexion() {
@@ -38,12 +41,14 @@ Get an instance of the Database
 	public function compare_set_credentials() {
 
 		$option   = get_option( 'compare-general' );
-		$external = $option['ext_check'];
-		if ( 'on' === $external ) {
-			$this->_host     = $option['host'];
-			$this->_database = $option['db'];
-			$this->_username = $option['username'];
-			$this->_password = $option['pwd'];
+		if (isset( $option['ext_check']) ) {
+			$external = $option['ext_check'];
+			if ( 'on' === $external ) {
+				$this->_host     = $option['host'];
+				$this->_database = $option['db'];
+				$this->_username = $option['username'];
+				$this->_password = $option['pwd'];
+			}
 		}
 
 	}

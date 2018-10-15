@@ -171,7 +171,9 @@ class template {
 			return $transient;
 		}
 		$external = get_option( 'compare-general' );
-		$external = $external['ext_check'];
+		if ( ! empty( $external ) ) {
+			$external = $external['ext_check'];
+		}
 
 		/**
 		 * Get Subscribed programs

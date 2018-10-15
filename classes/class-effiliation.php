@@ -224,7 +224,7 @@ class Effiliation {
 				$wpdb->show_errors( true );
 				$wpdb->show_errors(true);
 				$insert =$wpdb->replace( $table, $prod );
-				$transient = get_transient( 'product_' . strval( $prod->ean ) );
+				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
 				if (! empty( $transient ) ){
 					delete_transient( $transient );
 				}
