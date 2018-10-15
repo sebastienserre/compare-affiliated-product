@@ -1,7 +1,29 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+/**
+ * Include wp-load only if triggered by cli
+ */
+if( 'cli' === php_sapi_name() ) {
+
+	function find_wordpress_base_path() {
+		$dir = dirname( __FILE__ );
+		do {
+			//it is possible to check for other files here
+			if ( file_exists( $dir . "/wp-config.php" ) ) {
+				return $dir;
+			}
+		} while ( $dir = realpath( "$dir/.." ) );
+
+		return null;
+	}
+
+	define( 'BASE_PATH', find_wordpress_base_path() . "/" );
+	define( 'WP_USE_THEMES', false );
+	global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
+	require BASE_PATH . 'wp-load.php';
+} elseif ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
+
 
 /**
  * Class Awin
@@ -19,8 +41,13 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+		$this->queue_register = new register_background_process();
+		$this->awin           = get_option( 'awin' );
+		$this->_option        = get_option( 'compare-general' );
 
-		$this->awin = get_option( 'awin' );
+		if( 'cli' === php_sapi_name() ) {
+			$this->compare_schedule_awin();
+		}
 
 	}
 
@@ -30,6 +57,9 @@ class Awin {
 
 	public function compare_set_cron() {
 		$cron = $this->_option['cron'];
+		if ( ! isset( $this->_option['platform']['awin'] ) ) {
+			return;
+		}
 		switch ( $cron ) {
 			case 'four':
 				$this->compare_schedule_awin();
@@ -175,65 +205,30 @@ class Awin {
 
 		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
-		$awin = get_option( 'awin' );
+		$awin        = get_option( 'awin' );
 		$customer_id = $awin['customer_id'];
-		$xml = new XMLReader();
+
 
 		foreach ( $partners as $key => $value ) {
-			error_log( memory_get_usage() );
-
-			$this->queue_register = new register_background_process();
-
-			$partner_details = $this->compare_get_awin_partners( $value );
-			foreach ( $partner_details as $partner_detail ) {
-				$partner_details = $partner_detail;
-			}
-
 			$event = 'start partner ' . $value;
 			error_log( $event );
+			error_log( memory_get_usage() );
 
-			$path        = wp_upload_dir();
-			$upload      = $path['path'] . '/awin/xml/' . $customer_id . '-' . $value . '.gz';
-
-
-
-			$xml->open( 'compress.zlib://' . $upload );
-			$xml->read();
-
-			while ( $xml->read() && 'prod' !== $xml->name ) {
-				;
-			}
-			while ( 'prod' === $xml->name ) {
-
-				$element       = new SimpleXMLElement( $xml->readOuterXML() );
-
-				$prod = array(
-					'price'        => strval( $element->price->buynow ),
-					'title'        => $element->text->name ? strval( $element->text->name ) : '',
-					'description'  => strval( $element->text->desc ),
-					'img'          => strval( $element->uri->mImage ),
-					'url'          => strval( $element->uri->awTrack ),
-					'partner_name' => $partner_details,
-					'productid'    => strval( $xml->getAttribute( 'id' ) ),
-					'ean'          => strval( $element->ean ),
-					'platform'     => 'Awin',
-					'partner_code' => $value,
-				);
-
-			$this->queue_register->push_to_queue( $prod );
-
-			$xml->next( 'prod' );
-
-
-			}
-			$path = null;
-			$upload = null;
-			$partner_details = null;
-
+			$this->queue_register->push_to_queue(
+				array(
+					'key'         => $key,
+					'value'       => $value,
+					'customer_id' => $customer_id,
+				)
+			);
 
 			$this->queue_register->save();
 			$this->queue_register->dispatch();
-			unset( $this->queue_register );
+
+			$path            = null;
+			$upload          = null;
+			$partner_details = null;
+
 			error_log( memory_get_usage() );
 			$event = 'stop partner ' . $value;
 			error_log( $event );
@@ -242,7 +237,7 @@ class Awin {
 
 		$event = 'import complete';
 		error_log( $event );
-		return true;
+
 	}
 
 
