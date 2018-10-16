@@ -9,6 +9,9 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+=1.2.4 == 16/10/2018
+* IMPROVMENT: Improve perf by adding a cli update by CRON
+
 = 1.2.3 == 09/10/2018
 * BUGFIX: rewrite connexion to external DB
 * Fix Notices
