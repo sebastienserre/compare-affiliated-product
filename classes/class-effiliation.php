@@ -43,8 +43,6 @@ class Effiliation {
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
 
-		add_action( 'admin_init', array( $this, 'compare_effiliation_register'));
-
 		if( 'cli' === php_sapi_name() ) {
 			$this->compare_schedule_effiliation();
 		}
