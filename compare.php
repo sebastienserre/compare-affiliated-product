@@ -40,6 +40,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
+	include_once COMPARE_PLUGIN_PATH . '/inc/helpers.php';
 
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
@@ -104,6 +105,9 @@ function compare_load_scripts() {
 
 register_activation_hook( __FILE__, 'compare_activation' );
 
+/**
+ * Create Table on plugin activation
+ */
 function compare_activation() {
 
 		global $wpdb;
@@ -119,11 +123,12 @@ description text DEFAULT NULL,
 img text DEFAULT NULL,
 partner_name varchar(255) DEFAULT NULL,
 partner_code varchar(45) DEFAULT NULL,
-productid varchar(255) DEFAULT NULL,
+productid varchar(99) DEFAULT NULL,
 url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
+platform text DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-PRIMARY KEY (id)
+PRIMARY KEY (productid)
 ) $charset_collate;";
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		$dd = dbDelta( $compare_sql );
@@ -133,6 +138,10 @@ $schedule = wp_get_schedules();
 }
 
 register_uninstall_hook( __FILE__, 'compare_uninstall' );
+
+/**
+ * Delete table on plugin deletion
+ */
 function compare_uninstall() {
 	global $wpdb;
 	$options = get_option( 'compare-general' );
@@ -161,6 +170,11 @@ function compare_create_cron() {
 
 
 add_filter( 'cron_schedules', 'compare_sechule4_hours' );
+/**
+ * @param $schedules array array with existing WP Schedule
+ *
+ * @return $schedules array
+ */
 function compare_sechule4_hours( $schedules ) {
 
 	// add a 'weekly' schedule to the existing set
@@ -173,6 +187,11 @@ function compare_sechule4_hours( $schedules ) {
 }
 
 // Create a helper function for easy SDK access.
+/**
+ * Do not Edit in any cases
+ * @return Freemius
+ * @throws Freemius_Exception
+ */
 function cap_fs() {
 	global $cap_fs;
 
@@ -219,23 +238,16 @@ cap_fs();
 do_action( 'cap_fs_loaded' );
 
 add_action('admin_print_styles', 'compare_admin_style', 11 );
+/**
+ * Load Style for Admin
+ */
 function compare_admin_style() {
 	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
 }
 
-add_action( 'plugins_loaded', 'compare_add_db_column' );
-function compare_add_db_column() {
-	global $wpdb;
-
-	$compare_table_name = $wpdb->prefix . 'compare';
-
-	$row = $wpdb->get_results(  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
-WHERE table_name = '$compare_table_name' AND column_name = 'platform'"  );
-
-	if(empty($row)){
-		$wpdb->query("ALTER TABLE $compare_table_name ADD platform text DEFAULT NULL");
-	}
-}
+/**
+ * Load Script to make beautiful responsive tables
+ */
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }

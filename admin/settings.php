@@ -4,11 +4,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 add_action( 'admin_menu', 'compare_settings' );
+/**
+ * create Settings page
+ */
 function compare_settings() {
 	$option_page = add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
 	add_action( 'admin_print_scripts-' . $option_page, 'load_admin_scripts' );
 }
 
+/**
+ * load script for admin settings
+ */
 function load_admin_scripts() {
 	wp_enqueue_style( 'wp-color-picker' );
 	wp_enqueue_script( 'color-picker-script', plugins_url( 'color-picker.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
@@ -18,14 +24,26 @@ if ( class_exists( 'AAWP_Affiliate' ) ) {
 	add_filter( 'compare_setting_tabs', 'compare_add_aawp_tab' );
 }
 
+/**
+ * Add a tab AAWP only if AAWp activated
+ * @param $tabs array Array With tabs already defined in settings
+ *
+ * @return mixed
+ */
 function compare_add_aawp_tab( $tabs ) {
 	$tabs['aawp'] = __( 'AAWP', 'compare' );
 
 	return $tabs;
 }
 
+/**
+ * Create the settings content
+ */
 function compare_settings_page() {
 
+	/**
+	 * Filter this hooks to add a tab in the setting page
+	 */
 	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
@@ -173,14 +191,16 @@ function compare_register_settings() {
 
 }
 
-
+/**
+ * Delete transients
+ */
 function compare_general_transients() {
 	?>
 	<a class="btn btn-del-transient" href="<?php echo add_query_arg( array(
 		'page'             => 'compare-settings',
 		'transient-delete' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
-	<p><?php _e('Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare'); ?></p>
+	<p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare' ); ?></p>
 
 	<?php
 }
@@ -226,7 +246,7 @@ function compare_effiliation_api() {
 	}
 	?>
 	<input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
-	<p><?php printf( __('%s API Key. Get in your profile', 'compare'), 'Effiliation'); ?></p>
+	<p><?php printf( __( '%s API Key. Get in your profile', 'compare' ), 'Effiliation' ); ?></p>
 	<?php
 }
 
@@ -248,7 +268,7 @@ function compare_general_platforms() {
 		<?php
 	}
 	?>
-	<p><?php _e('Check the platform to work with', 'compare'); ?></p>
+	<p><?php _e( 'Check the platform to work with', 'compare' ); ?></p>
 	<?php
 }
 
@@ -309,7 +329,7 @@ function compare_general_cron() {
 		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
 		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
 	</select>
-	<p><?php _e('Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
+	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
 	<?php
 }
 
@@ -324,7 +344,7 @@ function cae_ext_check() {
 
 	<?php
 	$external_db = compare_external_db::getInstance();
-	$cnx = $external_db->compare_check_html();
+	$cnx         = $external_db->compare_check_html();
 	echo $cnx;
 	?>
 
@@ -433,7 +453,7 @@ function compare_awin_id() {
 	}
 	?>
 	<input type="text" name="awin[customer_id]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare'), 'Awin') ?></p>
+	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare' ), 'Awin' ) ?></p>
 	<?php
 }
 
@@ -445,7 +465,7 @@ function compare_awin_key() {
 	}
 	?>
 	<input type="text" name="awin[apikey]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __('%s API Key. Get in your profile', 'compare'), 'Awin'); ?></p>
+	<p><?php printf( __( '%s API Key. Get in your profile', 'compare' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -502,7 +522,7 @@ function compare_awin_partner_url() {
 	<div class="compare-partners-datafeed">
 		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 	</div>
-	<p><?php printf( __('Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare'), 'Awin' ); ?></p>
+	<p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -818,7 +838,7 @@ function compare_currency_unit() {
 
 		?>
 	</select>
-	<p><?php _e('Currency unit used to display prices', 'compare'); ?></p>
+	<p><?php _e( 'Currency unit used to display prices', 'compare' ); ?></p>
 	<?php
 }
 
@@ -1463,7 +1483,7 @@ function compare_general_languages() {
 
 		?>
 	</select>
-	<p><?php _e('languages used to get datafeed in right language', 'compare') ?></p>
+	<p><?php _e( 'languages used to get datafeed in right language', 'compare' ) ?></p>
 	<?php
 }
 
@@ -1530,25 +1550,25 @@ function compare_get_programs() {
 	$list = array();
 	foreach ( $awin_programs as $key => $value ) {
 		if ( false != strpos( $value, ',' ) ) {
-			$awins = explode( ',', $value ) ;
+			$awins = explode( ',', $value );
 		}
 
 		array_push( $list, $awins );
 	}
-	$test = array_intersect_ukey( $awins , $awin_partners );
+	$test = array_intersect_ukey( $awins, $awin_partners );
 	$list = array_flip( $list[0] );
-	foreach ( $list as $key => $value ){
-		$subscribed[$awin_partners[$key] ] = $value;
+	foreach ( $list as $key => $value ) {
+		$subscribed[ $awin_partners[ $key ] ] = $value;
 	}
 
 	/**
 	 * Get Effiliation list of programs
 	 */
-	$effiliation_programs = get_option( 'compare-effiliation');
+	$effiliation_programs = get_option( 'compare-effiliation' );
 
-	if ( !empty( $effiliation_programs['programs'] ) ){
-		foreach ( $effiliation_programs['programs'] as $programs ){
-			$subscribed[$programs] = $programs;
+	if ( ! empty( $effiliation_programs['programs'] ) ) {
+		foreach ( $effiliation_programs['programs'] as $programs ) {
+			$subscribed[ $programs ] = $programs;
 		}
 	}
 
