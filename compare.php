@@ -13,7 +13,8 @@
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly.
+}
+// Exit if accessed directly.
 /**
  * Define Constant
  */
@@ -24,7 +25,7 @@ define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
 define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-$upload = wp_upload_dir(  );
+$upload = wp_upload_dir();
 
 define( 'COMPARE_XML_PATH', $upload['basedir'] . '/compare-xml/' );
 
@@ -107,21 +108,11 @@ function compare_load_scripts() {
 	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }
 
-register_activation_hook( __FILE__, 'compare_activation' );
-
-/**
- * Create Table on plugin activation
- */
-function compare_activation() {
-
-		global $wpdb;
-		$charset_collate    = $wpdb->get_charset_collate();
-		$compare_table_name = $wpdb->prefix . 'compare';
 /**
  * Triggered on admin_init if plugin updated by FTP
  */
 add_action( 'admin_init', 'compare_create_db' );
-function compare_create_db(){
+function compare_create_db() {
 	/**
 	 * Create Table
 	 */
@@ -226,6 +217,7 @@ function compare_sechule4_hours( $schedules ) {
 // Create a helper function for easy SDK access.
 /**
  * Do not Edit in any cases
+ *
  * @return Freemius
  * @throws Freemius_Exception
  */
@@ -299,8 +291,8 @@ WHERE table_name = '$compare_table_name' AND column_name = 'platform'" );
 /**
  * Load Script to make beautiful responsive tables
  */
+
+add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }
-
-add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
