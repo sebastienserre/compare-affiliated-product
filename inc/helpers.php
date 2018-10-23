@@ -3,10 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
 
-add_action( 'compare_daily_event', 'compare_delete_old_data' );
-function compare_delete_old_data(){
-	global $wpdb;
-	$table = $wpdb->prefix . 'compare';
-	$wpdb->query( "DELETE FROM $table WHERE `last_updated` < CURRENT_DATE" );
+function compare_reset_upload_dir( $dir ){
+	$dir =
+		array(
+			'path'   => $dir['path'],
+			'url'    => $dir['url'],
+			'subdir' => $dir['path'],
+		) + $dir;
 
+	return $dir;
 }

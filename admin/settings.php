@@ -352,8 +352,8 @@ function cae_ext_check() {
 }
 
 function compare_external() {
-	$url  = COMPARE_PLUGIN_URL . 'how-to/external-db.html';
-	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%s">read the documentaion</a>', 'compare' ),
+	$url  = 'https://www.thivinfo.com/docs/compare-affiliated-products/hooks/connection-to-an-external-db/';
+	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%1$s">read the documentation</a>', 'compare' ),
 		array( 'a' => array( 'href' => array() ) ) ), esc_url( $url ) );
 	?>
 	<p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare' ); ?></p>
@@ -1489,7 +1489,7 @@ function compare_general_languages() {
 
 function compare_help() {
 	$support_link = 'https://www.thivinfo.com/soumettre-un-ticket/';
-	$support      = sprintf( wp_kses( __( 'If you encounter a bug, you can leave me a ticket on <a href="%s" target="_blank">Thivinfo.com</a>', 'compare' ), array(
+	$support      = sprintf( wp_kses( __( 'If you encounter a bug, you can leave me a ticket on <a href="%1$s" target="_blank">Thivinfo.com</a>', 'compare' ), array(
 		'a' => array(
 			'href'   => array(),
 			'target' => array()
@@ -1499,15 +1499,8 @@ function compare_help() {
 	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
 	<p><?php echo $support; ?></p>
 	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/awin.html'; ?>"><?php _e( 'How to configure Awin', 'compare' ); ?></a>
+		<a href="https://www.thivinfo.com/docs/compare-affiliated-products/"><?php _e( 'Documentation Center', 'compare' ); ?></a>
 	</p>
-	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/shortcodes.html'; ?>"><?php _e( 'How to use the shortcodes', 'compare' ); ?></a>
-	</p>
-	<p>
-		<a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/hooks.html'; ?>"><?php _e( 'Hooks - Actions & Filters', 'compare' ); ?></a>
-	</p>
-	<p><a href="<?php echo COMPARE_PLUGIN_URL . 'how-to/aawp.html'; ?>"><?php _e( 'AAWP', 'compare' ); ?></a></p>
 	<?php
 }
 

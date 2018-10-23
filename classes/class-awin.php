@@ -4,25 +4,31 @@
  */
 if( 'cli' === php_sapi_name() ) {
 
-	function find_wordpress_base_path() {
-		$dir = dirname( __FILE__ );
-		do {
-			//it is possible to check for other files here
-			if ( file_exists( $dir . "/wp-config.php" ) ) {
-				return $dir;
-			}
-		} while ( $dir = realpath( "$dir/.." ) );
+	if ( ! function_exists( 'find_wordpress_base_path' ) ) {
+		function find_wordpress_base_path() {
+			$dir = dirname( __FILE__ );
+			do {
+				//it is possible to check for other files here
+				if ( file_exists( $dir . "/wp-config.php" ) ) {
+					return $dir;
+				}
+			} while ( $dir = realpath( "$dir/.." ) );
 
-		return null;
+			return null;
+		}
 	}
 
-	define( 'BASE_PATH', find_wordpress_base_path() . "/" );
-	define( 'WP_USE_THEMES', false );
+	if ( ! defined( 'BASE_PATH' ) ) {
+		define( 'BASE_PATH', find_wordpress_base_path() . "/" );
+	}
+	if ( ! defined( 'WP_USE_THEMES' ) ) {
+		define( 'WP_USE_THEMES', false );
+	}
 	global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
 	require BASE_PATH . 'wp-load.php';
 } elseif ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly.
+}
 
 
 /**
@@ -41,12 +47,15 @@ class Awin {
 		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
-		$this->queue_register = new register_background_process();
 		$this->awin           = get_option( 'awin' );
 		$this->_option        = get_option( 'compare-general' );
 
 		if( 'cli' === php_sapi_name() ) {
 			$this->compare_schedule_awin();
+		}
+
+		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
+			$this->compare_register_prod();
 		}
 
 	}
@@ -75,26 +84,6 @@ class Awin {
 				break;
 		}
 
-	}
-
-	/**
-	 * @param string $dir wp upload dir
-	 *
-	 * @return array $dir new wp upload dir
-	 */
-	public function compare_upload_dir( $dir ) {
-		$mkdir = wp_mkdir_p( $dir['path'] . '/awin/xml' );
-		if ( ! $mkdir ) {
-			wp_mkdir_p( $dir['path'] . '/awin/xml' );
-		}
-		$dir =
-			array(
-				'path'   => $dir['path'] . '/awin/xml',
-				'url'    => $dir['url'] . '/awin/xml',
-				'subdir' => $dir['path'] . '/awin/xml',
-			) + $dir;
-
-		return $dir;
 	}
 
 	public function compare_get_awin_partners( $partner_code = '' ) {
@@ -142,43 +131,28 @@ class Awin {
 
 		$urls = $this->awin['datafeed'];
 
-		add_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
-
-		$path = wp_upload_dir();
-		if ( file_exists( $path['path'] ) && is_dir( $path['path'] ) ) {
-			array_map( 'unlink', glob( $path['path'] . '/*' ) );
+		$path = COMPARE_XML_PATH . 'awin/' ;
+		if ( file_exists( $path ) && is_dir( $path ) ) {
+			array_map( 'unlink', glob( $path . '/*' ) );
+		} else {
+			wp_mkdir_p( $path );
 		}
 
 		$secondes = apply_filters( 'compare_time_limit', 600 );
-		set_time_limit( $secondes );
+
 		error_log( 'Start Download Feed' );
 
 		foreach ( $urls as $key => $url ) {
+			set_time_limit( $secondes );
 			$temp_file = download_url( $url, 300 );
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
-				$file = array(
-					//'name'     => basename($url), // ex: wp-header-logo.png
-					'name'     => $this->awin['customer_id'] . '-' . $key . '.gz', // ex: wp-header-logo.png
-					'type'     => 'application/gzip',
-					'tmp_name' => $temp_file,
-					'error'    => 0,
-					'size'     => filesize( $temp_file ),
-				);
-
-				$overrides = array(
-					'test_form' => false,
-					'test_size' => true,
-				);
-
-				// Move the temporary file into the uploads directory
-				$results = wp_handle_sideload( $file, $overrides );
-
+				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
+				$results = rename( $temp_file, $path . $name);
 
 			}
 		}
 		error_log( 'Stop Download Feed' );
-		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 		$this->compare_register_prod();
 	}
 
@@ -198,32 +172,70 @@ class Awin {
 	public function compare_register_prod() {
 		error_log( 'start Import' );
 
-		/*$truncat = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "Awin"' );*/
-
 		$partners = $this->awin['partner'];
 		$partners = explode( ',', $partners );
 
-		$secondes = apply_filters( 'compare_time_limit', 600 );
-		set_time_limit( $secondes );
+		$secondes = apply_filters( 'compare_time_limit', 6000 );
+
 		$awin        = get_option( 'awin' );
 		$customer_id = $awin['customer_id'];
 
 
 		foreach ( $partners as $key => $value ) {
+
 			$event = 'start partner ' . $value;
 			error_log( $event );
 			error_log( memory_get_usage() );
 
-			$this->queue_register->push_to_queue(
-				array(
-					'key'         => $key,
-					'value'       => $value,
-					'customer_id' => $customer_id,
-				)
-			);
 
-			$this->queue_register->save();
-			$this->queue_register->dispatch();
+			global $wpdb;
+			$table       = $wpdb->prefix . 'compare';
+			$xml         = new XMLReader();
+
+			$partner_details = $this->compare_get_awin_partners( $value );
+			foreach ( $partner_details as $partner_detail ) {
+				$partner_details = $partner_detail;
+			}
+
+			$path = COMPARE_XML_PATH . 'awin/' ;
+			$upload = $path . $customer_id . '-' . $value . '.gz';
+
+
+			$xml->open( 'compress.zlib://' . $upload );
+			$xml->read();
+
+			while ( $xml->read() && 'prod' !== $xml->name ) {
+				;
+			}
+
+			while ( 'prod' === $xml->name ) {
+				set_time_limit( $secondes );
+				$element = new SimpleXMLElement( $xml->readOuterXML() );
+
+				$prod = array(
+					'price'        => strval( $element->price->buynow ),
+					'title'        => $element->text->name ? strval( $element->text->name ) : '',
+					'description'  => strval( $element->text->desc ),
+					'img'          => strval( $element->uri->mImage ),
+					'url'          => strval( $element->uri->awTrack ),
+					'partner_name' => $partner_details,
+					'productid'    => strval( $xml->getAttribute( 'id' ) ),
+					'ean'          => strval( $element->ean ),
+					'platform'     => 'Awin',
+					'partner_code' => $value,
+				);
+
+				$wpdb->replace( $table, $prod );
+
+/*				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+				if (! empty( $transient ) ){
+					delete_transient( $transient );
+				}*/
+				//$transient = null;
+				$xml->next( 'prod' );
+
+
+			}
 
 			$path            = null;
 			$upload          = null;

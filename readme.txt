@@ -2,14 +2,19 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.3
+Stable tag: 1.2.5
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
-=1.2.4 == 16/10/2018
+= 1.2.5 == 23/10/2018
+* IMPROVMENT: Improve registration speed
+* IMPROVMENT: Create unique folder to store xml files
+* BUGFIX: Correct French Translation
+
+= 1.2.4 == 16/10/2018
 * IMPROVMENT: Improve perf by adding a cli update by CRON
 
 = 1.2.3 == 09/10/2018

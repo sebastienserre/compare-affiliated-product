@@ -3,22 +3,27 @@
 /**
  * Include wp-load only if triggered by cli
  */
-if( 'cli' === php_sapi_name() ) {
+if ( 'cli' === php_sapi_name() ) {
 
-	function find_wordpress_base_path() {
-		$dir = dirname( __FILE__ );
-		do {
-			//it is possible to check for other files here
-			if ( file_exists( $dir . "/wp-config.php" ) ) {
-				return $dir;
-			}
-		} while ( $dir = realpath( "$dir/.." ) );
+	if ( ! function_exists( 'find_wordpress_base_path' ) ) {
+		function find_wordpress_base_path() {
+			$dir = dirname( __FILE__ );
+			do {
+				//it is possible to check for other files here
+				if ( file_exists( $dir . "/wp-config.php" ) ) {
+					return $dir;
+				}
+			} while ( $dir = realpath( "$dir/.." ) );
 
-		return null;
+			return null;
+		}
 	}
-
-	define( 'BASE_PATH', find_wordpress_base_path() . "/" );
-	define( 'WP_USE_THEMES', false );
+	if ( ! defined( 'BASE_PATH' ) ) {
+		define( 'BASE_PATH', find_wordpress_base_path() . "/" );
+	}
+	if ( ! defined( 'WP_USE_THEMES' ) ) {
+		define( 'WP_USE_THEMES', false );
+	}
 	global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
 	require BASE_PATH . 'wp-load.php';
 } elseif ( ! defined( 'ABSPATH' ) ) {
@@ -43,21 +48,21 @@ class Effiliation {
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
 
-		if( 'cli' === php_sapi_name() ) {
+		if ( 'cli' === php_sapi_name() ) {
 			$this->compare_schedule_effiliation();
 		}
 	}
 
 	public function compare_reset_effiliation_feed() {
-			$this->compare_schedule_effiliation();
+		$this->compare_schedule_effiliation();
 	}
 
 	public function compare_effiliation_set_cron() {
 		$option = get_option( 'compare-general' );
-		if ( ! isset( $option['platform']['effiliation'] ) ){
+		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
 		}
-		$cron   = $option['cron'];
+		$cron = $option['cron'];
 		switch ( $cron ) {
 			case 'four':
 				$this->compare_schedule_effiliation();
@@ -109,8 +114,8 @@ class Effiliation {
 				if ( isset( $options['programs'] ) && ! empty( $options['programs'] ) ) {
 					$check = $options['programs'][ $prog['siteannonceur'] ];
 				}
-				$img = update_option("compare-general[partner_logo][$prog[id_programme]]['img']", $prog['urllo'] );
-				$name = update_option("compare-general[partner_logo][$prog[id_programme]]['name']", $prog['siteannonceur'] );
+				$img  = update_option( "compare-general[partner_logo][$prog[id_programme]]['img']", $prog['urllo'] );
+				$name = update_option( "compare-general[partner_logo][$prog[id_programme]]['name']", $prog['siteannonceur'] );
 				?>
 				<p>
 					<input type="checkbox" value="<?php echo $prog['siteannonceur']; ?>"
@@ -125,7 +130,7 @@ class Effiliation {
 		}
 		?>
 		<p><?php _e( 'Check the program to display', 'compare' ); ?></p>
-<?php
+		<?php
 	}
 
 	public static function compare_effiliation_get_feed() {
@@ -150,16 +155,16 @@ class Effiliation {
 	 * @return array $dir new wp upload dir
 	 */
 	public function compare_upload_effiliation_dir( $dir ) {
-		$mkdir = wp_mkdir_p( $dir['path'] . '/effiliation/xml' );
+		$mkdir = wp_mkdir_p( $dir['path'] . '/xml/effiliation' );
 		if ( ! $mkdir ) {
-			wp_mkdir_p( $dir['path'] . '/effiliation/xml' );
+			wp_mkdir_p( $dir['path'] . '/xml/effiliation' );
 		}
 		$dir =
 			array(
-				'path'   => $dir['path'] . '/effiliation/xml',
-				'url'    => $dir['url'] . '/effiliation/xml',
-				'subdir' => $dir['path'] . '/effiliation/xml',
-			) + $dir;
+				'path'   => $dir['path'] . '/xml/effiliation',
+				'url'    => $dir['url'] . '/xml/effiliation',
+				'subdir' => $dir['path'] . '/xml/effiliation',
+			);
 
 		return $dir;
 	}
@@ -173,8 +178,7 @@ class Effiliation {
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
 		$urls = self::compare_effiliation_get_feed();
-		$path = wp_upload_dir();
-		$path = $path['path'];
+		$path = COMPARE_XML_PATH . 'effiliation/';
 		if ( file_exists( $path ) && is_dir( $path ) ) {
 			array_map( 'unlink', glob( $path . '/*' ) );
 		} else {
@@ -187,29 +191,16 @@ class Effiliation {
 		foreach ( $urls as $key => $url ) {
 			$temp_file = download_url( $url, 300 );
 			if ( ! is_wp_error( $temp_file ) ) {
-				// Array based on $_FILE as seen in PHP file uploads
-				$file = array(
-					'name'     => $key . '.gz', // ex: wp-header-logo.png
-					'type'     => 'application/gzip',
-					'tmp_name' => $temp_file,
-					'error'    => 0,
-					'size'     => filesize( $temp_file ),
-				);
 
-				$overrides = array(
-					'test_form' => false,
-					'test_size' => true,
-				);
+				$name    = $key . '.gz';
+				$results = rename( $temp_file, $path . $name );
 
-				// Move the temporary file into the uploads directory
-				$results = wp_handle_sideload( $file, $overrides );
 
 			} else {
 				error_log( $temp_file->errors['http_request_failed'][0] );
 			}
 		}
 		error_log( 'Stop Download Effiliation Feed' );
-		remove_filter( 'upload_dir', array( $this, 'compare_upload_dir' ) );
 		$this->compare_effiliation_register();
 	}
 
@@ -219,14 +210,13 @@ class Effiliation {
 		error_log( 'start Effiliation Import' );
 		$table = $wpdb->prefix . 'compare';
 
-	//	$truncat  = $wpdb->query( 'DELETE FROM ' . $table . ' WHERE `platform` LIKE "effiliation"' );
-		$path     = wp_upload_dir();
+		$path = COMPARE_XML_PATH . 'effiliation/';
 		$secondes = apply_filters( 'compare_time_limit', 600 );
 		set_time_limit( $secondes );
 		foreach ( $programs['programs'] as $program ) {
 			$event = 'start partner ' . $program['siteannonceur'];
 			error_log( $event );
-			$upload  = $path['path'] . '/effiliation/xml/' . $program['siteannonceur'] . '.gz';
+			$upload  = $path . $program['siteannonceur'] . '.gz';
 			$new_xml = file_get_contents( 'compress.zlib://' . $upload );
 			//$xml = new SimpleXMLElement();
 			libxml_use_internal_errors( false );
@@ -250,7 +240,7 @@ class Effiliation {
 
 				$wpdb->replace( $table, $prod );
 				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
-				if (! empty( $transient ) ){
+				if ( ! empty( $transient ) ) {
 					delete_transient( $transient );
 				}
 				$transient = null;
