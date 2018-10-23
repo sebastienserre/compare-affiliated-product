@@ -24,6 +24,10 @@ define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
 define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
+$upload = wp_upload_dir(  );
+
+define( 'COMPARE_XML_PATH', $upload['basedir'] . '/compare-xml/' );
+
 /**
  * Increase memory to allow large files download / treatment
  */
@@ -33,14 +37,13 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
-	include_once COMPARE_PLUGIN_PATH . '/3rd-party/wp-background-processing/wp-background-processing.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/register_background_process.php';
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
 	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
-
+	include_once COMPARE_PLUGIN_PATH . '/inc/helpers.php';
+	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
@@ -102,16 +105,20 @@ function compare_load_scripts() {
 	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }
 
-register_activation_hook( __FILE__, 'compare_activation' );
+/**
+ * Triggered on admin_init if plugin updated by FTP
+ */
+add_action( 'admin_init', 'compare_create_db' );
+function compare_create_db(){
+	/**
+	 * Create Table
+	 */
+	global $wpdb;
+	$charset_collate    = $wpdb->get_charset_collate();
+	$compare_table_name = $wpdb->prefix . 'compare';
 
-function compare_activation() {
-
-		global $wpdb;
-		$charset_collate    = $wpdb->get_charset_collate();
-		$compare_table_name = $wpdb->prefix . 'compare';
-
-		$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
-id int(255) NOT NULL AUTO_INCREMENT,
+	$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
+productid varchar(255) DEFAULT NULL,
 platform text DEFAULT NULL,
 ean varchar(255) DEFAULT NULL,
 title text DEFAULT NULL,
@@ -119,17 +126,40 @@ description text DEFAULT NULL,
 img text DEFAULT NULL,
 partner_name varchar(255) DEFAULT NULL,
 partner_code varchar(45) DEFAULT NULL,
-productid varchar(255) DEFAULT NULL,
 url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-PRIMARY KEY (id)
+PRIMARY KEY (productid)
 ) $charset_collate;";
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		$dd = dbDelta( $compare_sql );
-$schedule = wp_get_schedules();
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	$dd = dbDelta( $compare_sql );
+}
 
-		compare_create_cron();
+register_activation_hook( __FILE__, 'compare_activation' );
+
+function compare_activation() {
+
+	/**
+	 * Create DB
+	 */
+
+	compare_create_db();
+
+	/**
+	 * Create Cron Tasks
+	 */
+	compare_create_cron();
+
+	/**
+	 * Create a folder to store xml files
+	 */
+
+	$upload     = wp_upload_dir();
+	$upload_dir = $upload['basedir'];
+	$upload_dir = $upload_dir . '/compare-xml';
+	if ( ! is_dir( $upload_dir ) ) {
+		mkdir( $upload_dir, 0700 );
+	}
 }
 
 register_uninstall_hook( __FILE__, 'compare_uninstall' );
@@ -166,7 +196,7 @@ function compare_sechule4_hours( $schedules ) {
 	// add a 'weekly' schedule to the existing set
 	$schedules['fourhour'] = array(
 		'interval' => 14400,
-		'display' => __('Every 4 hours', 'compare')
+		'display'  => __( 'Every 4 hours', 'compare' )
 	);
 
 	return $schedules;
@@ -218,9 +248,9 @@ cap_fs();
 // Signal that SDK was initiated.
 do_action( 'cap_fs_loaded' );
 
-add_action('admin_print_styles', 'compare_admin_style', 11 );
+add_action( 'admin_print_styles', 'compare_admin_style', 11 );
 function compare_admin_style() {
-	wp_enqueue_style('compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION);
+	wp_enqueue_style( 'compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION );
 }
 
 add_action( 'plugins_loaded', 'compare_add_db_column' );
@@ -229,14 +259,16 @@ function compare_add_db_column() {
 
 	$compare_table_name = $wpdb->prefix . 'compare';
 
-	$row = $wpdb->get_results(  "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
-WHERE table_name = '$compare_table_name' AND column_name = 'platform'"  );
+	$row = $wpdb->get_results( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = '$compare_table_name' AND column_name = 'platform'" );
 
-	if(empty($row)){
-		$wpdb->query("ALTER TABLE $compare_table_name ADD platform text DEFAULT NULL");
+	if ( empty( $row ) ) {
+		$wpdb->query( "ALTER TABLE $compare_table_name ADD platform text DEFAULT NULL" );
 	}
 }
+
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }
+
 add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
