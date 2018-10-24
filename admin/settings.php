@@ -47,6 +47,7 @@ function compare_settings_page() {
 	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
+			'advanced' => __( 'advanced', 'compare' ),
 			'help'    => __( 'help', 'compare' ),
 		)
 	);
@@ -107,6 +108,10 @@ function compare_settings_page() {
 					settings_fields( 'compare-effiliation' );
 					do_settings_sections( 'compare-effiliation' );
 					break;
+				case 'advanced':
+					settings_fields( 'compare-advanced' );
+					do_settings_sections( 'compare-advanced' );
+					break;
 				default:
 					settings_fields( 'compare-general' );
 					do_settings_sections( 'compare-general' );
@@ -129,7 +134,7 @@ function compare_register_settings() {
 	 * General
 	 */
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-general' );
+	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
 
 	register_setting( 'compare-general', 'compare-general' );
 
@@ -141,12 +146,12 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 
-	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-general', 'compare-external' );
-	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-general', 'compare-external' );
-	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-general', 'compare-external' );
-	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-general', 'compare-external' );
-	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-general', 'compare-external' );
-	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-general', 'compare-external' );
+	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-external' );
 
 	/**
 	 * Help
