@@ -17,8 +17,8 @@ class template {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
-		if ( is_object( $data) ){
-			$asin   = $data->get_product_id();
+		if ( is_object( $data ) ) {
+			$asin = $data->get_product_id();
 		} else {
 			$asin = $data['asin'];
 			$data = new AAWP_Template_Handler();
@@ -51,8 +51,9 @@ class template {
 
 	/**
 	 * Provides HTML to display
+	 *
 	 * @param $eanlist Array of EAN13
-	 * @param $data array of Product datas.
+	 * @param $data    array of Product datas.
 	 */
 	public function compare_display_html( $eanlist, $data ) {
 		$prods            = $this->compare_get_data( $eanlist );
@@ -83,6 +84,8 @@ class template {
 				$currency = apply_filters( 'compare_currency_unit', $currency );
 				$option   = get_option( 'compare-aawp' );
 				$text     = $option['button_text'];
+				$tracker  = apply_filters( 'compare_url_tracker', get_bloginfo('url') );
+				$url      = $p['url'] . '&clickref=' . $tracker;
 				if ( empty( $text ) ) {
 					$text = __( 'Buy to ', 'compare' );
 				}
@@ -98,19 +101,18 @@ class template {
 					$link = new Cloak_Link();
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
-					<?php
-					$link->compare_create_link( $p, $logo, $data );
-					?>
+						<?php
+						$link->compare_create_link( $p, $logo, $data );
+						?>
 					</div>
 
 					<?php
 				} else {
 					$logos = template::compare_get_partner_logo();
 
-						if ( isset( $logos[ $p['partner_code'] ] ) ) {
-							$logo = $logos[ $p['partner_code'] ];
-						}
-						$url = $p['url'];
+					if ( isset( $logos[ $p['partner_code'] ] ) ) {
+						$logo = $logos[ $p['partner_code'] ];
+					}
 
 					$currency = get_option( 'compare-general' );
 					$currency = $currency['currency'];
@@ -133,14 +135,15 @@ class template {
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
 						<div class="product-price">
-							<a href="<?php echo $p['url']; ?>">
-							<?php echo $p['price'] . ' ' . $currency ?>
+							<a href="<?php echo $url; ?>">
+								<?php echo $p['price'] . ' ' . $currency ?>
 							</a>
 						</div>
 						<div class="button-partner">
-							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a class="btn-compare">
-								<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
-							</a>
+							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
+										class="btn-compare">
+									<a href="<?php echo $url; ?>"><?php echo $text; ?></a>
+								</a>
 							</button>
 						</div>
 					</div>
@@ -148,7 +151,7 @@ class template {
 
 					<?php
 				}
-				$i++;
+				$i ++;
 			}
 		}
 		$html = ob_get_clean();
@@ -157,6 +160,7 @@ class template {
 
 	/**
 	 * Provide an array of EAN then get data from partners
+	 *
 	 * @param $eanlist array
 	 *
 	 * @return array Array of products
@@ -183,14 +187,14 @@ class template {
 			$programs = explode( ',', $p['partner'] );
 		}
 
-		$effiliation_programs = get_option( 'compare-effiliation');
-		if (!empty( $effiliation_programs['programs'] ) ){
+		$effiliation_programs = get_option( 'compare-effiliation' );
+		if ( ! empty( $effiliation_programs['programs'] ) ) {
 			foreach ( $effiliation_programs['programs'] as $key => $effiliation_program ) {
 				array_push( $programs, $effiliation_program );
 			}
 		}
 		if ( 'on' === $external ) {
-			$db       = compare_external_db::getInstance();
+			$db = compare_external_db::getInstance();
 			if ( is_wp_error( $db ) ) {
 				global $wpdb;
 				$table    = $wpdb->prefix . 'compare';
@@ -231,7 +235,7 @@ class template {
 
 			if ( null !== $eanlist[0] ) {
 				foreach ( $eanlist as $list ) {
-					foreach ($programs as $program ) {
+					foreach ( $programs as $program ) {
 						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
 
@@ -243,39 +247,42 @@ class template {
 			}
 		}
 
-		if ( !empty( $products ) ) {
+		if ( ! empty( $products ) ) {
 			$subscribed = compare_get_programs();
-			$products  = array_reverse( $products[0] );
-			$products  = array_combine( array_column( $products, 'partner_name' ), $products );
-			$products  = array_reverse( $products );
+			$products   = array_reverse( $products[0] );
+			$products   = array_combine( array_column( $products, 'partner_name' ), $products );
+			$products   = array_reverse( $products );
 
-			foreach ( $products as $key => $value){
+			foreach ( $products as $key => $value ) {
 				$in_array = array_key_exists( $key, $subscribed );
-				if ( false ===  $in_array  ){
+				if ( false === $in_array ) {
 					unset( $products[ $key ] );
 				}
 			}
 
 			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
+
 			return $products;
 		}
 	}
 
 	/**
 	 * Get Logo URL
+	 *
 	 * @return array array of logo url
 	 */
 	public static function compare_get_partner_logo() {
 		$awin = get_option( 'awin' );
-		foreach ( $awin['partner_logo'] as $key => $img ){
-			$logos[$key] = $img['img'];
+		foreach ( $awin['partner_logo'] as $key => $img ) {
+			$logos[ $key ] = $img['img'];
 		}
 
-		$effi = get_option('compare-effiliation');
+		$effi     = get_option( 'compare-effiliation' );
 		$programs = Effiliation::compare_get_effiliation_program();
-		foreach ( $programs['programs'] as $program ){
-			$logos[$program['id_programme']] = $program['urllo'];
+		foreach ( $programs['programs'] as $program ) {
+			$logos[ $program['id_programme'] ] = $program['urllo'];
 		}
+
 		return $logos;
 	}
 

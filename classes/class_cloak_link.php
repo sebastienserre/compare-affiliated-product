@@ -23,7 +23,8 @@ class Cloak_Link {
 		if ( isset( $logos[$product['partner_code']] ) ){
 			$logo = $logos[$product['partner_code']];
 		}
-		$url      = base64_encode( $product['url'] );
+		$tracker  = apply_filters( 'compare_url_tracker', get_bloginfo('url') );
+		$url      = base64_encode( $product['url'] . '&clickref=' . $tracker );
 		$currency = get_option( 'compare-general' );
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
