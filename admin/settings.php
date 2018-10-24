@@ -145,6 +145,7 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-general', 'compare-general' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
@@ -194,6 +195,20 @@ function compare_register_settings() {
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
+}
+
+/**
+ * @since 1.2.6
+ * Customize the tracking word
+ */
+function compare_general_trackers(){
+	$options = get_option( 'compare-general' );
+	if ( ! empty( $options ) ) {
+		$value = 'value="' . $options['tracker'] . '"';
+	}
+	?>
+	<input type="text" name="compare-general[tracker]" <?php echo $value; ?>>
+	<?php
 }
 
 /**
