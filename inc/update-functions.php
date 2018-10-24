@@ -9,6 +9,7 @@ function compare_125_add_primary_key_productid(){
 	if ( false === $update125 || empty( $update125 ) ) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'compare';
+		$truncat = $wpdb->query("TRUNCATE $table" );
 		$alter = $wpdb->query( "ALTER TABLE $table ADD PRIMARY KEY (productid)" );
 		update_option( 'compare_update_key_125', 1);
 	}
