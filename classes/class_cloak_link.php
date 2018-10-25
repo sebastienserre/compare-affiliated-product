@@ -90,6 +90,47 @@ class Cloak_Link {
 		</div>
 		<?php
 	}
+
+	public function compare_amz_cloak_table( $data ) {
+		$option = get_option( 'compare-aawp' );
+		$text   = $option['button_text'];
+		if ( empty( $text ) ) {
+			$text = __( 'Buy to ', 'compare' );
+		}
+		$bg = $option['button-bg'];
+		if ( empty( $bg ) ) {
+			$bg = '#000000';
+		}
+		$color = $option['button-color'];
+		if ( empty( $color ) ) {
+			$color = '#ffffff';
+		}
+		$product = aawp_get_product_from_api( $data['asin'] );
+		if ( null === $product['pricing']['new'] ){
+			$price = $product['pricing']['list']['normalized'];
+		} else {
+			$price = $product['pricing']['new']['normalized'];
+		}
+		$currency = $general['currency'];
+		$currency = apply_filters( 'compare_currency_unit', $currency );
+		?>
+		<div class="compare-price-partner compare-price-amz">
+			<div class="atc" data-atc="<?php echo base64_encode( $product['urls']['basic'] ); ?>">
+				<div class="img-partner">
+					<img class="logo-amazon" src="<?php echo COMPARE_PLUGIN_URL ?>/assets/img/amazon.png">
+				</div>
+				<div class="product-price">
+					<?php echo $price . $currency; ?>
+				</div>
+				<div class="button-partner">
+					<button class="btn-compare" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
+						<?php echo $text; ?>
+					</button>
+				</div>
+			</div>
+		</div>
+<?php
+	}
 }
 
 new Cloak_Link();

@@ -32,3 +32,41 @@ function compare_customize_tracker_word( $word ){
 	}
 	return $word;
 }
+
+/**
+ * Get All EAN Code attached to the ASIN
+ *
+ * @param array $data array of data about displayed product.
+ */
+function compare_get_ean( $data ) {
+	if ( is_object( $data ) ) {
+		$asin = $data->get_product_id();
+	} else {
+		$asin = $data['asin'];
+		$data = new AAWP_Template_Handler();
+	}
+
+	$params = array(
+		'Operation'     => 'ItemLookup',
+		'ItemId'        => $asin,
+		'ResponseGroup' => 'ItemAttributes',
+	);
+
+	$apikey        = $data->api_key;
+	$secret        = $data->api_secret_key;
+	$associate_tag = $data->api_associate_tag;
+
+	$asin2ean = aws_signed_request( 'fr', $params, $apikey, $secret, $associate_tag );
+
+	$asin2ean = wp_remote_get( $asin2ean );
+	$asin2ean = $asin2ean['body'];
+
+	$amazon  = simplexml_load_string( $asin2ean );
+	$json    = wp_json_encode( $amazon );
+	$array   = json_decode( $json, true );
+	$eanlist = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
+	if ( ! is_array( $eanlist ) ) {
+		$eanlist = array( $eanlist );
+	}
+	return $eanlist;
+}

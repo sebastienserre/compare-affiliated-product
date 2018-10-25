@@ -205,3 +205,10 @@ th.aawp-table__th-links {
 .compare-price button{
     min-width: auto;
 }
+
+@media screen and (max-width: 990px) {
+    .aawp table.aawp-table td.aawp-table__td-title {
+        width: 100%;
+        max-width: none;
+    }
+}
