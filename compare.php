@@ -10,6 +10,7 @@
 	Text Domain: compare
 	Domain Path: /languages/
 	Version: 1.2.6
+@fs_premium_only /pro/, /languages/
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,10 +26,6 @@ define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
 define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-$upload = wp_upload_dir();
-
-define( 'COMPARE_XML_PATH', $upload['basedir'] . '/compare-xml/' );
-
 /**
  * Increase memory to allow large files download / treatment
  */
@@ -38,74 +35,38 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
-	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+
 	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-zanox-api.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-awin.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
-	include_once COMPARE_PLUGIN_PATH . '/inc/helpers.php';
 	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
-	include_once COMPARE_PLUGIN_PATH . '/inc/helpers.php';
 
-	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-effiliation.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-template.php';
-
+	if ( cap_fs()->is__premium_only() ){
+		include_once COMPARE_PLUGIN_PATH . '/pro/main-pro.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/admin/settings.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/helpers.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-zanox-api.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-awin.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/shortcode/class-compare-basic-shortcode.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-template.php';
+	}
 }
 
-add_action( 'plugins_loaded', 'compare_load_textdomain' );
+add_action( 'plugins_loaded', 'compare_load_textdomain__premium_only' );
 /**
  * Load plugin textdomain.
  *
  * @since 1.0.0
  */
-function compare_load_textdomain() {
+function compare_load_textdomain__premium_only() {
 	load_plugin_textdomain( 'compare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}
-
-add_filter( 'aawp_template_stack', 'compare_plugin_template_path', 50, 2 );
-/**
- * Customize templates path to plugin
- *
- * @param array $template_stack
- * @param array $template_names
- *
- * @return array
- */
-function compare_plugin_template_path( $template_stack, $template_names ) {
-
-	if ( file_exists( get_stylesheet_directory() . '/aawp' ) ) {
-		return $template_stack;
-	}
-
-	$template_stack = array(
-		plugin_dir_path( __FILE__ ) . 'aawp/',
-		plugin_dir_path( __FILE__ ) . 'aawp/products',
-		plugin_dir_path( __FILE__ ) . 'aawp/parts',
-	);
-
-
-	return $template_stack;
 }
 
 add_action( 'wp_enqueue_scripts', 'compare_load_style' );
 function compare_load_style() {
 	wp_enqueue_style( 'compare_partner', COMPARE_PLUGIN_URL . '/assets/css/compare-partner.css', '', COMPARE_VERSION );
-}
-
-add_action( 'wp_enqueue_scripts', 'compare_load_scripts' );
-/**
- * Enqueue Scripts
- */
-function compare_load_scripts() {
-	/**
-	 * Convert-a-link is a system from Awin
-	 */
-	$customer_id = get_option( 'awin' );
-	wp_enqueue_script( 'convert-a-link', 'https://www.dwin2.com/pub.' . $customer_id['customer_id'] . '.min.js', array(), '1.0.0', true );
-	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }
 
 /**
