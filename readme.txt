@@ -2,13 +2,17 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+
+= 1.2.7 == 25/10/2018
+* BUGFIX: Correct Table Markup
+* IMPROVMENT: Correct Responsive Design on table
 
 = 1.2.6 == 24/10/2018
 * FEATURES: add a tracking word in the URL. by defult the website URL
