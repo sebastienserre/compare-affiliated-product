@@ -39,6 +39,8 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/amazon.php';
 
 	if ( cap_fs()->is__premium_only() ){
 		include_once COMPARE_PLUGIN_PATH . '/pro/main-pro.php';
