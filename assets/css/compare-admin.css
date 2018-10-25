@@ -10,3 +10,9 @@
 a.nav-tab {
     text-transform: capitalize;
 }
+
+a.nav-tab.nav-tab-help {
+    float: right;
+    background: #fe5000;
+    color: white;
+}

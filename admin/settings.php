@@ -44,7 +44,7 @@ function compare_settings_page() {
 			foreach ( $tabs as $tab => $value ) {
 				?>
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=compare-settings&tab=' . $tab ) ); ?>"
-				   class="nav-tab <?php echo $active_tab === $tab ? 'nav-tab-active' : ''; ?>"><?php echo $value ?></a>
+				   class="nav-tab <?php echo 'nav-tab-' . $tab; echo $active_tab === $tab ? ' nav-tab-active' : ''; ?>"><?php echo $value ?></a>
 			<?php } ?>
 		</h2>
 
