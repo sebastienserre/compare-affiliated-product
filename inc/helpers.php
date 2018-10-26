@@ -70,3 +70,26 @@ function compare_get_ean( $data ) {
 	}
 	return $eanlist;
 }
+
+/**
+ * CReate a file with the pid number to avoid launching cron twice
+ */
+function cap_create_pid() {
+	$descriptorspec = [
+		0 => [ 'pipe', 'r' ],
+		1 => [ 'pipe', 'w' ],
+		2 => [ 'pipe', 'w' ]
+	];
+	$proc           = proc_open( 'lando php classes/class-awin.php', $descriptorspec, $pipes );
+	$proc_details   = proc_get_status( $proc );
+	$pid            = $proc_details['pid'];
+
+	fopen( COMPARE_PLUGIN_PATH . 'compare.pid', 'w+' );
+	fwrtite( COMPARE_PLUGIN_PATH . 'compare.pid', $pid );
+}
+
+function cap_delete_pid(){
+	if ( file_exists( OMPARE_PLUGIN_PATH . 'compare.pid' ) ){
+		unlink( OMPARE_PLUGIN_PATH . 'compare.pid' );
+	}
+}
