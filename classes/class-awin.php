@@ -2,7 +2,7 @@
 /**
  * Include wp-load only if triggered by cli
  */
-if( 'cli' === php_sapi_name() ) {
+/*if( 'cli' === php_sapi_name() ) {
 
 	if ( ! function_exists( 'find_wordpress_base_path' ) ) {
 		function find_wordpress_base_path() {
@@ -28,8 +28,7 @@ if( 'cli' === php_sapi_name() ) {
 	require BASE_PATH . 'wp-load.php';
 } elseif ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
+}*/
 
 /**
  * Class Awin
@@ -55,7 +54,7 @@ class Awin {
 		}
 
 		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
-			$this->compare_register_prod();
+			$this->compare_schedule_awin();
 		}
 
 	}
@@ -126,6 +125,7 @@ class Awin {
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
+
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
