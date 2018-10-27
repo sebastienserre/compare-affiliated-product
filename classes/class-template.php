@@ -174,7 +174,7 @@ class template {
 		if ( ! empty( $transient ) ) {
 			return $transient;
 		}
-		$external = get_option( 'compare-general' );
+		$external = get_option( 'compare-advanced' );
 		if ( ! empty( $external ) ) {
 			$external = $external['ext_check'];
 		}
@@ -210,7 +210,7 @@ class template {
 					}
 				}
 			} else {
-				$prefix = get_option( 'compare-general' );
+				$prefix = get_option( 'compare-advanced' );
 				$prefix = $prefix['prefix'];
 
 				$db       = compare_external_db::getInstance();

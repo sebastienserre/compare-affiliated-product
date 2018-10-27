@@ -364,8 +364,10 @@ function cae_ext_check() {
 	<input name="compare-advanced[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 
 	<?php
-	$external_db = compare_external_db::getInstance();
-	$cnx         = $external_db->compare_check_html();
+	//$external_db = compare_external_db::getInstance();
+	$connection = new compare_external_db();
+	$external_db = $connection->compare_create_connexion();
+	$cnx         = $connection->compare_check_html();
 	echo $cnx;
 	?>
 

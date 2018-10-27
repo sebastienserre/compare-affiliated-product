@@ -28,7 +28,7 @@ Get an instance of the Database
 
 	public function __construct() {
 		$this->option   = get_option( 'compare-advanced' );
-		if ( isset( $option['ext_check'] ) && 'on' === $option['ext_check'] ) {
+		if ( isset( $this->option['ext_check'] ) && 'on' === $this->option['ext_check'] ) {
 			$this->compare_create_connexion();
 		}
 	}
