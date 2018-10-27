@@ -134,7 +134,7 @@ function compare_register_settings() {
 	 * General
 	 */
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
+	add_settings_section( 'compare-advanced', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
 
 	register_setting( 'compare-general', 'compare-general' );
 
@@ -147,12 +147,13 @@ function compare_register_settings() {
 	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-general', 'compare-general' );
 
-	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-external' );
+	register_setting( 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-advanced' );
+	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-advanced' );
 
 	/**
 	 * Help
@@ -355,12 +356,12 @@ function compare_general_cron() {
 
 
 function cae_ext_check() {
-	$check = get_option( 'compare-general' );
+	$check = get_option( 'compare-advanced' );
 	if ( isset( $check['ext_check'] ) && ! empty( $check['ext_check'] ) ) {
 		$check = $check['ext_check'];
 	}
 	?>
-	<input name="compare-general[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+	<input name="compare-advanced[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 
 	<?php
 	$external_db = compare_external_db::getInstance();
@@ -382,57 +383,57 @@ function compare_external() {
 }
 
 function cae_host() {
-	$external = get_option( 'compare-general' );
+	$external = get_option( 'compare-advanced' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['host'] );
 	}
 	?>
 
-	<input name="compare-general[host]" type="text" <?php echo $value; ?>>
+	<input name="compare-advanced[host]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_prefix() {
-	$external = get_option( 'compare-general' );
+	$external = get_option( 'compare-advanced' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['prefix'] );
 	}
 	?>
 
-	<input name="compare-general[prefix]" type="text" <?php echo $value; ?>>
+	<input name="compare-advanced[prefix]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_db() {
-	$external = get_option( 'compare-general' );
+	$external = get_option( 'compare-advanced' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['db'] );
 	}
 	?>
 
-	<input name="compare-general[db]" type="text" <?php echo $value; ?>>
+	<input name="compare-advanced[db]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_user() {
-	$external = get_option( 'compare-general' );
+	$external = get_option( 'compare-advanced' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['username'] );
 	}
 	?>
 
-	<input name="compare-general[username]" type="text" <?php echo $value; ?>>
+	<input name="compare-advanced[username]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
 function cae_pwd() {
-	$external = get_option( 'compare-general' );
+	$external = get_option( 'compare-advanced' );
 	if ( ! empty( $external ) ) {
 		$value = 'value=' . esc_attr( $external['pwd'] );
 	}
 	?>
 
-	<input name="compare-general[pwd]" type="text" <?php echo $value; ?>>
+	<input name="compare-advanced[pwd]" type="text" <?php echo $value; ?>>
 	<?php
 }
 

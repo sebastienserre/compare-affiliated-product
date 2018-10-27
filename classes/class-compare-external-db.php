@@ -11,6 +11,7 @@ class compare_external_db {
 	private $_password = '';
 	private $_database = '';
 	private $connect = '';
+	private $option;
 
 	/*
 Get an instance of the Database
@@ -26,7 +27,7 @@ Get an instance of the Database
 
 
 	public function __construct() {
-		$option   = get_option( 'compare-general' );
+		$this->option   = get_option( 'compare-advanced' );
 		if ( isset( $option['ext_check'] ) && 'on' === $option['ext_check'] ) {
 			$this->compare_create_connexion();
 		}
@@ -40,26 +41,23 @@ Get an instance of the Database
 
 	public function compare_set_credentials() {
 
-		$option   = get_option( 'compare-general' );
-		if (isset( $option['ext_check']) ) {
-			$external = $option['ext_check'];
+		if (isset( $this->option['ext_check']) ) {
+			$external = $this->option['ext_check'];
 			if ( 'on' === $external ) {
-				$this->_host     = $option['host'];
-				$this->_database = $option['db'];
-				$this->_username = $option['username'];
-				$this->_password = $option['pwd'];
+				$this->_host     = $this->option['host'];
+				$this->_database = $this->option['db'];
+				$this->_username = $this->option['username'];
+				$this->_password = $this->option['pwd'];
 			}
 		}
 
 	}
 
 	public function compare_check_sql() {
-		$option        = get_option( 'compare-general' );
 		$this->connect = 'ok';
-		if ( isset( $option['ext_check'] ) ) {
-			$external = $option['ext_check'];
+		if ( isset( $this->option['ext_check'] ) ) {
+			$external = $this->option['ext_check'];
 		}
-		//$cnx = $this->getConnection();
 		if ( isset( $external ) && 'on' === $external ) {
 			if ( false == $this->_connection->has_connected ) {
 				$this->connect = 'nok';
