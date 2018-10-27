@@ -23,8 +23,19 @@ class Cloak_Link {
 		if ( isset( $logos[$product['partner_code']] ) ){
 			$logo = $logos[$product['partner_code']];
 		}
-		$tracker  = apply_filters( 'compare_url_tracker', get_bloginfo('url') );
-		$url      = base64_encode( $product['url'] . '&clickref=' . $tracker );
+
+		/**
+		 * Add an URL tracker
+		 */
+		switch ( $p['platform'] ){
+			case 'Awin':
+				$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
+				$url     = $p['url'] . '&clickref=' . $tracker;
+				break;
+			default:
+				$url     = $p['url'];
+		}
+
 		$currency = get_option( 'compare-general' );
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
