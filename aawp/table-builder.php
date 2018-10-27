@@ -93,17 +93,31 @@ if ( ! isset( $aawp_table['products'] ) || ! is_array( $aawp_table['products'] )
 
                                 <div class="<?php aawp_the_table_product_data_classes( 'aawp-tb__data', $table_row_id, $table_product_id ); ?>">
                                     <?php aawp_the_table_product_data( $table_row_id, $table_product_id ); ?>
-                                </div>
+	                                 </div>
 
                             <?php endif; ?>
 
                         </div>
 
                     <?php endforeach; ?>
-
+		                <div class="partners aawp-tb-product-<?php echo $table_product_id; ?> <?php aawp_the_table_product_data_classes( 'aawp-tb__data', $table_row_id, $table_product_id ); ?><?php if ( $table_product['highlight'] ) echo ' aawp-tb__data--highlight'; ?>  aawp-tb__row">
+			                <div class="compare-price">
+				                <?php Cloak_Link::compare_amz_cloak_table( $table_product ); ?>
+				                <?php do_action( 'thfo_compare_after_price', $table_product ); ?>
+			                </div>
+		                </div>
                 </div>
 
             <?php endforeach; ?>
+	        <?php foreach ( $aawp_table['products'] as $table_product_id => $table_product ) { ?>
+		        <div class="partners aawp-tb-product-<?php echo $table_product_id; ?> <?php aawp_the_table_product_data_classes( 'aawp-tb__data', $table_row_id, $table_product_id ); ?><?php if ( $table_product['highlight'] ) echo ' aawp-tb__data--highlight'; ?>">
+			        <div class="compare-price">
+				        <?php Cloak_Link::compare_amz_cloak_table( $table_product ); ?>
+				        <?php do_action( 'thfo_compare_after_price', $table_product ); ?>
+			        </div>
+		        </div>
+	        <?php } ?>
+
 
         </div>
 

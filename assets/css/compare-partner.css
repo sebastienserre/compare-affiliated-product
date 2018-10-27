@@ -212,3 +212,14 @@ th.aawp-table__th-links {
         max-width: none;
     }
 }
+
+.aawp-tb--mobile.aawp-tb--hide-labels .aawp-tb__data,
+.aawp-tb--mobile.aawp-tb--hide-mobile-labels .aawp-tb__data{
+    display: table;
+}
+
+@media screen and (max-width: 769px) {
+    .aawp table.aawp-table td:before {
+        display: none !important;
+    }
+}

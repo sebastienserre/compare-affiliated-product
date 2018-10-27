@@ -1,35 +1,4 @@
 <?php
-
-/**
- * Include wp-load only if triggered by cli
- */
-if ( 'cli' === php_sapi_name() ) {
-
-	if ( ! function_exists( 'find_wordpress_base_path' ) ) {
-		function find_wordpress_base_path() {
-			$dir = dirname( __FILE__ );
-			do {
-				//it is possible to check for other files here
-				if ( file_exists( $dir . "/wp-config.php" ) ) {
-					return $dir;
-				}
-			} while ( $dir = realpath( "$dir/.." ) );
-
-			return null;
-		}
-	}
-	if ( ! defined( 'BASE_PATH' ) ) {
-		define( 'BASE_PATH', find_wordpress_base_path() . "/" );
-	}
-	if ( ! defined( 'WP_USE_THEMES' ) ) {
-		define( 'WP_USE_THEMES', false );
-	}
-	global $wp, $wp_query, $wp_the_query, $wp_rewrite, $wp_did_header;
-	require BASE_PATH . 'wp-load.php';
-} elseif ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly.
-
 /**
  * Class effiliation
  *
@@ -48,9 +17,6 @@ class Effiliation {
 		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
 		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
 
-		if ( 'cli' === php_sapi_name() ) {
-			$this->compare_schedule_effiliation();
-		}
 	}
 
 	public function compare_reset_effiliation_feed() {
@@ -173,6 +139,9 @@ class Effiliation {
 	 * Download and unzip xml from Effiliaiton
 	 **/
 	public function compare_schedule_effiliation() {
+		if ( ! isset( $this->_option['platform']['effiliation'] ) ){
+			return false;
+		}
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -250,5 +219,3 @@ class Effiliation {
 	}
 
 }
-
-new Effiliation();
