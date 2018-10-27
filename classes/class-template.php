@@ -84,6 +84,10 @@ class template {
 				$currency = apply_filters( 'compare_currency_unit', $currency );
 				$option   = get_option( 'compare-aawp' );
 				$text     = $option['button_text'];
+
+				/**
+				 * Add an URL tracker
+				 */
 				switch ( $p['platform'] ){
 					case 'Awin':
 						$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
