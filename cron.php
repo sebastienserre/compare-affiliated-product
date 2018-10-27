@@ -1,22 +1,5 @@
 <?php
-/**
- * Include wp-load only if triggered by cli
- */
-
-
-https://wordpressfr.slack.com/archives/C0538Q46U/p1540562802031400
-// Fake WordPress, build server array
-$_SERVER = array(
-        'HTTP_HOST'       => $domain,
-        'SERVER_NAME'     => $domain,
-        'REQUEST_URI'     => basename( __FILE__ ),
-        'REQUEST_METHOD'  => 'GET',
-        'SCRIPT_NAME'     => basename( __FILE__ ),
-        'SCRIPT_FILENAME' => basename( __FILE__ ),
-        'PHP_SELF'        => basename( __FILE__ )
-);
-
-
+error_log('start cron');
 // Detect wp-config location
 // Inspiration : http://boiteaweb.fr/wordpress-bootstraps-ou-comment-bien-charger-wordpress-6717.html
 $wp_location = 'wp-load.php';
@@ -35,8 +18,9 @@ if ( ! defined( 'DB_NAME' ) ) {
     die( '-8' );
 }
 
+
 /**
- * Create a file with the pid number to avoid launching cron twice
+ * Create a file with the date to avoid launching cron twice
  */
 function cap_create_pid() {
 
@@ -53,10 +37,15 @@ function cap_delete_pid() {
 }
 
 if ( ! file_exists( 'compare.txt' ) ) {
+	error_log('file don\'t exist');
 	cap_create_pid();
+	error_log('file created');
 	$awin = new Awin();
 	$awin->compare_schedule_awin();
+	$effiliation = new Effiliation();
+	$effiliation->compare_schedule_effiliation();
 	cap_delete_pid();
+	error_log('file deleted');
 } else {
 	exit;
 }
