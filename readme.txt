@@ -9,6 +9,11 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.2.10 === 28/10/2018
+* Improvment: cron.php added. Import performance increased
+* BUGFIX: correct the url tracking for Awin platform.
+* correct several AAWP templates
+
 = 1.2.8 + 1.2.9 == 27/10/2018
 * Bugfix: correct Advanced Setting tab
 

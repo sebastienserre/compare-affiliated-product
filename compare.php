@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.2.9
+	Version: 1.2.10
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.2.9' );
+define( 'COMPARE_VERSION', '1.2.10' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
