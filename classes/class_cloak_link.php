@@ -27,13 +27,13 @@ class Cloak_Link {
 		/**
 		 * Add an URL tracker
 		 */
-		switch ( $p['platform'] ){
+		switch ( $product['platform'] ){
 			case 'Awin':
 				$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
-				$url     = $p['url'] . '&clickref=' . $tracker;
+				$url     = base64_encode( $product['url'] . '&clickref=' . $tracker );
 				break;
 			default:
-				$url     = $p['url'];
+				$url     = base64_encode( $product['url'] );
 		}
 
 		$currency = get_option( 'compare-general' );
