@@ -13,9 +13,7 @@ class Awin {
 	 * Awin constructor.
 	 */
 	public function __construct() {
-		add_action( 'compare_fourhour_event', array( $this, 'compare_set_cron' ) );
-		add_action( 'compare_twice_event', array( $this, 'compare_set_cron' ) );
-		add_action( 'compare_daily_event', array( $this, 'compare_set_cron' ) );
+
 		$this->awin           = get_option( 'awin' );
 		$this->_option        = get_option( 'compare-general' );
 
@@ -30,6 +28,10 @@ class Awin {
 	}
 
 	public function compare_set_cron() {
+
+		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
+			return;
+		}
 		$cron = $this->_option['cron'];
 		if ( ! isset( $this->_option['platform']['awin'] ) ) {
 			return;
@@ -94,6 +96,7 @@ class Awin {
 		if ( ! isset( $this->_option['platform']['awin'] ) ){
 			return false;
 		}
+		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
@@ -216,6 +219,7 @@ class Awin {
 		}
 
 		$event = 'import complete';
+		cap_delete_pid();
 		error_log( $event );
 
 	}

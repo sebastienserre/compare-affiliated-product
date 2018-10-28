@@ -13,9 +13,7 @@ class Effiliation {
 	protected static $apikey;
 
 	public function __construct() {
-		add_action( 'compare_fourhour_event', array( $this, 'compare_effiliation_set_cron' ) );
-		add_action( 'compare_twice_event', array( $this, 'compare_effiliation_set_cron' ) );
-		add_action( 'compare_daily_event', array( $this, 'compare_effiliation_set_cron' ) );
+
 
 	}
 
@@ -142,6 +140,7 @@ class Effiliation {
 		if ( ! isset( $this->_option['platform']['effiliation'] ) ){
 			return false;
 		}
+		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -215,6 +214,7 @@ class Effiliation {
 				$transient = null;
 			}
 		}
+		cap_delete_pid();
 		error_log( 'stop Effiliation Import' );
 	}
 

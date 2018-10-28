@@ -37,15 +37,11 @@ function cap_delete_pid() {
 }
 
 if ( ! file_exists( 'compare.txt' ) ) {
-	error_log('file don\'t exist');
-	cap_create_pid();
-	error_log('file created');
 	$awin = new Awin();
 	$awin->compare_schedule_awin();
 	$effiliation = new Effiliation();
 	$effiliation->compare_schedule_effiliation();
-	cap_delete_pid();
-	error_log('file deleted');
+
 } else {
 	exit;
 }
