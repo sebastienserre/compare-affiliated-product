@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Compare Affiliated Products
 	Plugin URI: https://www.thivinfo.com
-	Description: Display Easily products from your affiliate program (Awin)
+	Description: Display Easily products from your affiliate program (Awin, Effiliation)
 	Author: Sébastien SERRE
 	Author URI: https://thivinfo.com
 	Tested up to: 4.9
