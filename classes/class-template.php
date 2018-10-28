@@ -125,7 +125,7 @@ class template {
 						$logo = $logos[ $p['partner_code'] ];
 					}
 
-					$currency = get_option( 'compare-general' );
+					/*$currency = get_option( 'compare-general' );
 					$currency = $currency['currency'];
 					$currency = apply_filters( 'compare_currency_unit', $currency );
 					$option   = get_option( 'compare-aawp' );
@@ -140,7 +140,7 @@ class template {
 					$color = $option['button-color'];
 					if ( empty( $color ) ) {
 						$color = '#ffffff';
-					}
+					}*/
 
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
@@ -153,7 +153,7 @@ class template {
 						<div class="button-partner">
 							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
 										class="btn-compare">
-									<a href="<?php echo $url; ?>"><?php echo $text; ?></a>
+									<a style="color: <?php echo $color; ?>;" href="<?php echo $url; ?>"><?php echo $text; ?></a>
 								</a>
 							</button>
 						</div>
