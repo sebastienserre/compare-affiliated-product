@@ -298,3 +298,14 @@ add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
 function responsive_tables_enqueue_script() {
 	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
 }
+
+
+/*function cap_atts( $atts ){
+	$atts['partners'] =
+}*/
+add_filter( 'aawp_func_supported_attributes', 'cap_supported', 20,2);
+function cap_supported( $supported, $type ) {
+	//var_dump( $supported );
+	array_push( $supported, 'partners' );
+	return $supported;
+}
