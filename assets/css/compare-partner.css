@@ -184,22 +184,11 @@ th.aawp-table__th-links {
     }
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1439px) {
-    table .compare-price .compare-price-partner{
-        clear: both;
+@media screen and (min-width: 1025px) {
+    .product-price {
+        width: 44%;
     }
 
-    table .product-price {
-        clear: both;
-    }
-
-    table .button-partner {
-        clear: both;
-    }
-
-    table .compare-price .compare-price-partner{
-        height: 180px;
-    }
 }
 
 .compare-price button{
@@ -221,5 +210,15 @@ th.aawp-table__th-links {
 @media screen and (max-width: 769px) {
     .aawp table.aawp-table td:before {
         display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    .product-price {
+        width: auto;
+    }
+    table .product-price {
+        width: 44%;
     }
 }
