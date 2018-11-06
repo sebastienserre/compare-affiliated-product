@@ -2,13 +2,16 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.13
+Stable tag: 1.2.14
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.2.14 === 06/11/2018
+* BUGFIX: Improve CSS on AAWP Table
+
 = 1.2.13 === 28/10/2018
 * Improvment: cron.php added. Import performance increased
 * BUGFIX: correct the url tracking for Awin platform.
