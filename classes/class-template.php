@@ -6,10 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class template {
 
 	function __construct() {
+
 		add_action( 'thfo_compare_after_price', array( $this, 'compare_display_price' ) );
 		add_action( 'admin_init', array( $this, 'compare_get_partner_logo' ) );
 
 	}
+
 
 	/**
 	 * Get All EAN Code attached to the ASIN
@@ -17,6 +19,16 @@ class template {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
+
+		switch ( $data->atts['partners'] ){
+			case 'nok' :
+				return;
+			case '':
+			case 'ok':
+			default:
+				continue;
+		}
+
 		if ( is_object( $data ) ) {
 			$asin = $data->get_product_id();
 		} else {

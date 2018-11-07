@@ -70,19 +70,3 @@ function compare_get_ean( $data ) {
 	}
 	return $eanlist;
 }
-
-
-
-/**
- * @description Add a supported param in AAWP Shortcoded to allow alter it
- * @param $supported array list of supported Shortcode Params
- * @param $type array type of params
- *
- * @return mixed
- */
-add_filter( 'aawp_func_supported_attributes', 'cap_supported', 20,2);
-function cap_supported( $supported, $type ) {
-	//var_dump( $supported );
-	array_push( $supported, 'partners' );
-	return $supported;
-}
