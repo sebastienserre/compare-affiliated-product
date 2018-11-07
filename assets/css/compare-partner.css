@@ -217,6 +217,7 @@ th.aawp-table__th-links {
 @media screen and (max-width: 1024px) {
     .product-price {
         width: auto;
+        margin-left: 10%;
     }
     table .product-price {
         width: 44%;
