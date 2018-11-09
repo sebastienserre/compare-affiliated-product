@@ -13,7 +13,7 @@ class Compare_price {
 			$amz              = aawp_get_product( $product_id );
 			$amz['price_new'] = explode( '.', $amz['price'] );
 			$amz['price_cts'] = substr( $amz['price_new'][1], 0, 2 );
-			$amz['price']     = $amz['price_new'][0] . '.' . $amz['price_cts'];
+			$amz['price']     = $amz['price_new'][0] . ',' . $amz['price_cts'];
 			$products['amz']  =
 				array(
 					'ean'          => $amz['ean'],

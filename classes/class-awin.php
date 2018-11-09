@@ -183,8 +183,11 @@ class Awin {
 				set_time_limit( $secondes );
 				$element = new SimpleXMLElement( $xml->readOuterXML() );
 
+				$price_new = explode( '.', strval( $element->price->buynow ) );
+				$price_cts = substr( $price_new[1], 0, 2 );
+				$price     = $price_new[0] . ',' . $price_cts;
 				$prod = array(
-					'price'        => strval( $element->price->buynow ),
+					'price'        => $price,
 					'title'        => $element->text->name ? strval( $element->text->name ) : '',
 					'description'  => strval( $element->text->desc ),
 					'img'          => strval( $element->uri->mImage ),
