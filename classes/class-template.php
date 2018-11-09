@@ -276,7 +276,10 @@ class template {
 			$subscribed = compare_get_programs();
 			$products   = array_reverse( $products[0] );
 			$products   = array_combine( array_column( $products, 'partner_name' ), $products );
-			$products   = apply_filters( 'compare_products', $products, $atts );
+
+			if ( has_shortcode( get_the_content(), 'compare_price' ) ) {
+				$products = apply_filters( 'compare_products', $products, $atts );
+			}
 			$products   = array_reverse( $products );
 			foreach ( $products as $key => $value ) {
 				if ( 'amz' !== $key ) {
