@@ -193,12 +193,12 @@ class Effiliation {
 			libxml_clear_errors();
 
 			foreach ( $element->product as $prod ) {
-				$price_new = explode( '.', strval( $prod->price ) );
+				/*$price_new = explode( '.', strval( $prod->price ) );
 				$price_cts = substr( $price_new[1], 0, 2 );
-				$price     = $price_new[0] . ',' . $price_cts;
+				$price     = $price_new[0] . ',' . $price_cts;*/
 
 				$prod = array(
-					'price'        => $price,
+					'price'        => strval( $prod->price ),
 					'title'        => strval( $prod->name ),
 					'description'  => strval( $prod->description ),
 					'img'          => strval( $prod->url_image ),

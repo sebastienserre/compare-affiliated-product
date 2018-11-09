@@ -23,6 +23,9 @@ class Cloak_Link {
 		if ( isset( $logos[$product['partner_code']] ) ){
 			$logo = $logos[$product['partner_code']];
 		}
+		if ( "amz" === $product['partner_code'] ){
+			$logo = COMPARE_PLUGIN_URL. '/assets/img/amazon.png';
+		}
 
 		/**
 		 * Add an URL tracker
@@ -56,6 +59,13 @@ class Cloak_Link {
 
 			<div class="atc" data-atc="<?php echo $url; ?>">
 				<div class="img-partner"><img src="<?php echo $logo ?>"></div>
+				<?php if ( has_shortcode( get_the_content(), 'compare_price') ) {
+					?>
+					<div class="compare_partner_name">
+						<p><?php echo $product['partner_name']; ?></p>
+					</div>
+			<?php
+				}?>
 				<div class="product-price">
 					<?php echo $product['price'] . ' ' . $currency ?>
 				</div>

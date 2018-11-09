@@ -271,8 +271,6 @@ class template {
 			}
 		}
 
-
-	//	$products = apply_filters('compare_products', $products, $atts);
 		if ( ! empty( $products ) ) {
 
 			$subscribed = compare_get_programs();

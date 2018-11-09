@@ -245,10 +245,6 @@ Compare Price Shortcode
     float: left;
 }
 
-.compare_partner_name {
-    width: 55%;
-}
-
 button.compare_buy{
     float: right;
 }
@@ -265,3 +261,9 @@ button.compare_buy{
     clear: both;
 }
 
+.compare_sc .product-price{
+    width: 25%;
+}
+.compare_sc .compare_partner_name {
+    width: 50%;
+}
