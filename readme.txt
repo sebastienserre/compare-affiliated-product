@@ -2,18 +2,22 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.14
+Stable tag: 1.2.15
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 1.2.15 === 09 nov 2018
+* FEATURES: Add [compare_price] Shortcode. Allow you to display a table with price comparison (Awin + Effiliation or Awin + Effiliation + Amazon with GetAAWP plugin)
+* FEATURES: Add partners params in GETAAWP [Amazon] shortcode to display or not the Compare Affiliated Products Partner.
+
 = 1.2.14 === 06/11/2018
 * BUGFIX: Improve CSS on AAWP Table
 
 = 1.2.13 === 28/10/2018
-* Improvment: cron.php added. Import performance increased
+* FEATURES: cron.php added. Import performance increased
 * BUGFIX: correct the url tracking for Awin platform.
 * BUGFIX: Improved cloacked link
 * BUGFIX: Correct several AAWP templates
@@ -25,18 +29,18 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 = 1.2.7 == 25/10/2018
 * BUGFIX: Correct Table Markup
-* IMPROVMENT: Correct Responsive Design on table
+* FEATURES: Correct Responsive Design on table
 
 = 1.2.6 == 24/10/2018
 * FEATURES: add a tracking word in the URL. by defult the website URL
 
 = 1.2.5 == 23/10/2018
-* IMPROVMENT: Improve registration speed
-* IMPROVMENT: Create unique folder to store xml files
+* FEATURES: Improve registration speed
+* FEATURES: Create unique folder to store xml files
 * BUGFIX: Correct French Translation
 
 = 1.2.4 == 16/10/2018
-* IMPROVMENT: Improve perf by adding a cli update by CRON
+* FEATURES: Improve perf by adding a cli update by CRON
 
 = 1.2.3 == 09/10/2018
 * BUGFIX: rewrite connexion to external DB
@@ -44,22 +48,22 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 = 1.2.2 == 07/10/2018
 * BUGFIX: Programs not selected in options will now not been displayed
-* IMPROVMENT: HTML markup improved for better experience on mobile devices.
-* IMPROVMENT: Without cloaked link, use same template as with cloaked Links
+* FEATURES: HTML markup improved for better experience on mobile devices.
+* FEATURES: Without cloaked link, use same template as with cloaked Links
 
 =1.2.1 == 05/10/2018
 * BUGFIX Fix the problem of languages on Back Office.
-* IMPROVMENT Correct style
+* FEATURES Correct style
 
 =1.2.0 == 04/10/2018
-* IMPROVMENT: Add Effiliation Platform
-* IMPROVMENT: Correct Database schema to allow easy new future platform integration
-* IMPROVMENT: Adapt AAWP Table Template
+* FEATURES: Add Effiliation Platform
+* FEATURES: Correct Database schema to allow easy new future platform integration
+* FEATURES: Adapt AAWP Table Template
 
 = 1.1.5 == 27/09/2018
 * Improve style
 * BUGFIX: remove PHP Notices and Warnings
-* Improvment: Amazon Prices are allways on top
+* FEATURES: Amazon Prices are allways on top
 
 = 1.1.4 == 23/09/2018
 * BUGFIX: affiliate button link
@@ -67,11 +71,11 @@ License URI: https://opensource.org/licenses/GPL-3.0
 * BUGFIX: several PHP Warning removed
 * FEATURES: Add message on succes or fail to external connexion
 * FEATURES: Add an affiliation program. Become a Afiliated user and win money.
-* IMPROVMENT: fr_FR translation (Translate Comapre affiliated Product in your language and win 1 years of subscription for Free (5sites plans)
-* IMPROVMENT: Helps added
+* FEATURES: fr_FR translation (Translate Comapre affiliated Product in your language and win 1 years of subscription for Free (5sites plans)
+* FEATURES: Helps added
 
 = 1.1.3 == 21/09/2018
-* Improve fr_FR translation
+* FEATURES fr_FR translation
 * add compare.pot
 * Improve AAWP Templates
 
