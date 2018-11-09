@@ -223,3 +223,45 @@ th.aawp-table__th-links {
         width: 44%;
     }
 }
+
+/**
+Compare Price Shortcode
+ */
+
+.compare_sc.compare_price_main {
+    width: 50%;
+}
+
+.compare_price-partner {
+    min-height: 60px;
+}
+.compare_partner_logo img{
+    width: 50px;
+}
+
+.compare_price,
+.compare_partner_name,
+.compare_partner_logo{
+    float: left;
+}
+
+.compare_partner_name {
+    width: 55%;
+}
+
+button.compare_buy{
+    float: right;
+}
+
+.compare_partner_logo{
+    text-align: left;
+}
+
+.compare_partner_name,
+.compare_price{
+    text-align: center;
+}
+.clear{
+    clear: both;
+}
+

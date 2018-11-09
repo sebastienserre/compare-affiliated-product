@@ -50,6 +50,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/inc/scheduler.php';
 
 	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-basic-shortcode.php';
+	include_once COMPARE_PLUGIN_PATH . '/shortcode/class-compare-price.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class_cloak_link.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-external-db.php';
 
@@ -309,7 +310,6 @@ function responsive_tables_enqueue_script() {
 
 add_filter( 'aawp_func_supported_attributes', 'cap_supported', 20,2);
 function cap_supported( $supported, $type ) {
-	//var_dump( $supported );
 	array_push( $supported, 'partners' );
 	return $supported;
 }

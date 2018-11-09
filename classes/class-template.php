@@ -20,7 +20,7 @@ class template {
 	 */
 	public function compare_display_price( $data ) {
 
-		switch ( $data->atts['partners'] ){
+		switch ( $data->atts['partners'] ) {
 			case 'nok' :
 				return;
 			case '':
@@ -100,13 +100,13 @@ class template {
 				/**
 				 * Add an URL tracker
 				 */
-				switch ( $p['platform'] ){
+				switch ( $p['platform'] ) {
 					case 'Awin':
 						$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
 						$url     = $p['url'] . '&clickref=' . $tracker;
 						break;
 					default:
-						$url     = $p['url'];
+						$url = $p['url'];
 				}
 
 				if ( empty( $text ) ) {
@@ -165,7 +165,8 @@ class template {
 						<div class="button-partner">
 							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
 										class="btn-compare">
-									<a style="color: <?php echo $color; ?>;" href="<?php echo $url; ?>"><?php echo $text; ?></a>
+									<a style="color: <?php echo $color; ?>;"
+									   href="<?php echo $url; ?>"><?php echo $text; ?></a>
 								</a>
 							</button>
 						</div>
@@ -188,15 +189,15 @@ class template {
 	 *
 	 * @return array Array of products
 	 */
-	public function compare_get_data( $eanlist ) {
+	public function compare_get_data( $eanlist, $atts = '' ) {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
 
 		$transient = get_transient( 'product_' . $eanlist[0] );
-		if ( ! empty( $transient ) ) {
-			return $transient;
-		}
+		/*		if ( ! empty( $transient ) ) {
+					return $transient;
+				}*/
 		$external = get_option( 'compare-advanced' );
 		if ( ! empty( $external ) ) {
 			$external = $external['ext_check'];
@@ -270,16 +271,21 @@ class template {
 			}
 		}
 
+
+	//	$products = apply_filters('compare_products', $products, $atts);
 		if ( ! empty( $products ) ) {
+
 			$subscribed = compare_get_programs();
 			$products   = array_reverse( $products[0] );
 			$products   = array_combine( array_column( $products, 'partner_name' ), $products );
+			$products   = apply_filters( 'compare_products', $products, $atts );
 			$products   = array_reverse( $products );
-
 			foreach ( $products as $key => $value ) {
-				$in_array = array_key_exists( $key, $subscribed );
-				if ( false === $in_array ) {
-					unset( $products[ $key ] );
+				if ( 'amz' !== $key ) {
+					$in_array = array_key_exists( $key, $subscribed );
+					if ( false === $in_array ) {
+						unset( $products[ $key ] );
+					}
 				}
 			}
 

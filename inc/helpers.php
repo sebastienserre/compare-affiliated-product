@@ -39,12 +39,19 @@ function compare_customize_tracker_word( $word ){
  * @param array $data array of data about displayed product.
  */
 function compare_get_ean( $data ) {
-	if ( is_object( $data ) ) {
-		$asin = $data->get_product_id();
-	} else {
-		$asin = $data['asin'];
-		$data = new AAWP_Template_Handler();
+	switch ( $data ){
+		case ( is_object( $data ) ):
+			$asin = $data->get_product_id();
+			break;
+		case ( 10 === strlen( $data ) ):
+			$asin = $data;
+			break;
+		default:
+			$asin = $data['asin'];
+			break;
 	}
+
+	$data = new AAWP_Template_Handler();
 
 	$params = array(
 		'Operation'     => 'ItemLookup',
