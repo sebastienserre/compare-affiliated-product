@@ -448,6 +448,27 @@ function compare_help() {
 	<?php
 }
 
+/**
+ * Deprecated since 1.2.4
+ */
+add_action( 'admin_init', 'compare_reset_feed' );
+function compare_reset_feed() {
+	if ( isset( $_GET['reset'] ) && $_GET['reset'] === 'ok' ) {
+		if ( isset ( $_GET['tab'] ) ) {
+			switch ( $_GET['tab'] ) {
+				case 'awin' :
+					$awin = new Awin();
+					$awin->compare_reset_awin_datafeed();
+					break;
+				case 'effiliation':
+					$effiliation = new Effiliation();
+					$effiliation->compare_reset_effiliation_feed();
+
+			}
+		}
+	}
+}
+
 function compare_get_programs() {
 	$awin_data            = new Awin();
 	$awin_partners        = $awin_data->compare_get_awin_partners();

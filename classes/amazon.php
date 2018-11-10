@@ -38,7 +38,39 @@ class Amazon {
 			$this,
 			'compare_amz_secretkey'
 		), 'compare-amazon', 'compare-amazon' );
+		add_settings_field( 'compare-amazon-trackingid', __( 'Amazon Tracking ID', 'compare' ), array(
+			$this,
+			'compare_amz_trackingid'
+		), 'compare-amazon', 'compare-amazon' );
+		add_settings_field( 'compare-amazon-country', __( 'Amazon Country', 'compare' ), array(
+			$this,
+			'compare_amz_country'
+		), 'compare-amazon', 'compare-amazon' );
 
+	}
+
+	public function compare_amz_country() {
+		$country = array( 'Amazon.com', 'Amazon.ca', 'Amazon.br', 'Amazon.com.mx', 'Amazon.co.uk', 'Amazon.de', 'Amazon.fr', 'Amazon.es', 'Amazon.it', 'Amazon.co.jp', 'Amazon.cn', 'Amazon.in' );
+		?>
+		<select name="compare-amazon[country]">
+			<?php
+			foreach ( $country as $amazon){
+				?>
+				<option value="<?php echo $amazon ?>" <?php selected( $amazon, $this->amz['country']) ?>><?php echo $amazon ?></option>
+				<?php
+			}
+			?>
+		</select>
+		<?php
+	}
+
+	public function compare_amz_trackingid() {
+		if ( ! empty( $this->amz['trackingid'] ) ) {
+			$value = 'value="' . $this->amz['trackingid'] . '"';
+		}
+		?>
+		<input type="text" name="compare-amazon[trackingid]" <?php echo $value ?>>
+		<?php
 	}
 
 	public function compare_amz_apikey() {
