@@ -26,9 +26,15 @@ Horizontal ShortCode
     display: flex;
 }
 
-.compare_basic_sc_left,
+.compare_basic_sc .product-price {
+    width: auto;
+}
+
+.compare_basic_sc_left{
+    width: 33%;
+}
 .compare_basic_right{
-    width: 50%;
+    padding-left: 30px;
 }
 
 .price-box {

@@ -9,36 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Compare_Basic_Widget {
 	public function __construct() {
 		add_shortcode( 'compare_basic_sc', array( $this, 'compare_basic_sc' ) );
-		//add_filter( 'compare_products', array( $this, 'compare_add_amz' ), '', 2 );
-	}
-
-	public static function compare_add_amz( $products, $atts ) {
-		if ( class_exists( 'AAWP_Affiliate' ) ) {
-			$data['asin']     = $atts['product'];
-			$product_id       = aawp_create_product( $data );
-			$amz              = aawp_get_product( $product_id );
-			$amz['price_new'] = explode( '.', $amz['price'] );
-			$amz['price_cts'] = substr( $amz['price_new'][1], 0, 2 );
-			$amz['price']     = $amz['price_new'][0] . ',' . $amz['price_cts'];
-			$products['amz']  =
-				array(
-					'ean'          => $amz['ean'],
-					'title'        => $amz['title'],
-					'description'  => $amz['title'],
-					'img'          => $amz['image_ids'],
-					'partner_name' => 'Amazon FR',
-					'partner_code' => 'amz',
-					'product_id'   => $amz['id'],
-					'url'          => $amz['urls']['basic'],
-					'price'        => $amz['price'],
-					'last_updated' => $amz['date_updated'],
-					'platform'     => 'Amz'
-
-				);
-
-		}
-
-		return $products;
 	}
 
 	public function compare_basic_sc( $atts ) {
