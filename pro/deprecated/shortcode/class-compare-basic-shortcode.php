@@ -4,6 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 /**
+ * Deprecated since version 2.0.0
+ * Please use the [cap] shortcode instead.
+ */
+
+/**
  * Class Compare_Basic_Widget
  */
 class Compare_Basic_Widget {

@@ -1,5 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly.
 
+/**
+ * Class Compare_price
+ * Deprecated since version 2.0.0
+ * Please use the [cap] shortcode instead.
+ */
 class Compare_price {
 	public function __construct() {
 		add_shortcode( 'compare_price', array( $this, 'compare_price_sc' ) );

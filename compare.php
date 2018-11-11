@@ -43,8 +43,8 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/helpers.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-zanox-api.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-awin.php';
-		include_once COMPARE_PLUGIN_PATH . '/pro/shortcode/class-compare-basic-shortcode.php';
-		include_once COMPARE_PLUGIN_PATH . '/pro/shortcode/class-compare-price.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/deprecated/shortcode/class-compare-basic-shortcode.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/deprecated/shortcode/class-compare-price.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
