@@ -162,8 +162,7 @@ class Effiliation {
 
 				$name    = $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
-
-
+				unlink( $temp_file );
 			} else {
 				error_log( $temp_file->errors['http_request_failed'][0] );
 			}

@@ -120,7 +120,7 @@ class Awin {
 				// Array based on $_FILE as seen in PHP file uploads
 				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
 				$results = rename( $temp_file, $path . $name);
-
+				unlink( $temp_file );
 			}
 		}
 		error_log( 'Stop Download Feed' );
