@@ -130,6 +130,8 @@ button.atc.btn-compare {
     vertical-align: middle;
 }
 
+
+
 .compare-price-partner:first-child .product-price {
     font-weight: bold;
 }
@@ -170,6 +172,13 @@ th.aawp-table__th-links {
     .product-price {
         width: 50%;
         text-align: center;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .compare-price-partner .atc {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -238,11 +247,28 @@ Compare Price Shortcode
     width: 50%;
 }*/
 
+.compare_sc .product-price {
+    background: #f5fff4;
+    color: #278422;
+    text-align: center;
+}
 .compare_price-partner {
     min-height: 60px;
 }
+
+.compare_sc .atc:first-child .product-price {
+    font-weight: bold;
+}
 .compare_partner_logo img{
     width: 50px;
+}
+
+.compare_sc.compare_price_main {
+    border-top: #E5E5E5 solid 1px;
+}
+
+.compare_sc .atc {
+    border-bottom: 1px #E5E5E5 solid;
 }
 
 .compare_price,
@@ -272,4 +298,33 @@ button.compare_buy{
 }
 .compare_sc .compare_partner_name {
     width: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+    .compare_sc .product-price {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .compare_sc .compare_partner_name{
+        width: 49%;
+    }
+    .compare_sc .product-price{
+        width: auto;
+        margin-left: 0;
+    }
+    .compare_sc .atc {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .compare_sc .compare_partner_name {
+        display: none;
+    }
+    .compare_sc .product-price{
+        width: 50%;
+    }
 }
