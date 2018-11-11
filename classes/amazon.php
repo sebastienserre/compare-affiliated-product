@@ -11,6 +11,7 @@ class Amazon {
 		add_filter( 'compare_setting_tabs', array( $this, 'compare_amazon_settings_tabs' ) );
 		add_action( 'admin_init', array( $this, 'compare_amazon_settings' ) );
 		$this->amz = get_option( 'compare-amazon' );
+		add_shortcode( 'compare_amz_shortcode', array( $this, 'amz_shortcode' ) );
 	}
 
 	/**
@@ -50,13 +51,31 @@ class Amazon {
 	}
 
 	public function compare_amz_country() {
-		$country = array( 'Amazon.com', 'Amazon.ca', 'Amazon.br', 'Amazon.com.mx', 'Amazon.co.uk', 'Amazon.de', 'Amazon.fr', 'Amazon.es', 'Amazon.it', 'Amazon.co.jp', 'Amazon.cn', 'Amazon.in' );
+		$country = array(
+			'amazon.com',
+			'amazon.ca',
+			'amazon.br',
+			'amazon.com.mx',
+			'amazon.co.uk',
+			'amazon.de',
+			'amazon.fr',
+			'amazon.es',
+			'amazon.it',
+			'amazon.co.jp',
+			'amazon.cn',
+			'amazon.in'
+		);
+		if ( ! empty( $this->amz['country'] ) ) {
+			$value = $this->amz['country'];
+		}
 		?>
 		<select name="compare-amazon[country]">
 			<?php
-			foreach ( $country as $amazon){
+			foreach ( $country as $amazon ) {
 				?>
-				<option value="<?php echo $amazon ?>" <?php selected( $amazon, $this->amz['country']) ?>><?php echo $amazon ?></option>
+				<option value="<?php echo $amazon ?>" <?php if ( ! empty( $value ) ) {
+					selected( $amazon, $value );
+				} ?>><?php echo $amazon ?></option>
 				<?php
 			}
 			?>
@@ -84,11 +103,141 @@ class Amazon {
 
 	public function compare_amz_secretkey() {
 		if ( ! empty( $this->amz['secretkey'] ) ) {
-			$value = 'value="tropfastoche"';
+			$value = 'value="' . $this->amz['secretkey'] . '"';
 		}
 		?>
 		<input type="password" name="compare-amazon[secretkey]" <?php echo $value ?>>
 		<?php
+	}
+
+	public function compare_get_amz_data( $asin ) {
+		$access_key_id = $this->amz['apikey'];
+		$secret_key    = $this->amz['secretkey'];
+		$country       = $this->amz['country'];
+		$endpoint      = 'webservices.' . $country;
+
+		$uri = "/onca/xml";
+
+		$params = array(
+			"Service"        => "AWSECommerceService",
+			"Operation"      => "ItemLookup",
+			"AWSAccessKeyId" => $access_key_id,
+			"AssociateTag"   => $asin,
+			"ItemId"         => $asin,
+			"IdType"         => "ASIN",
+			"ResponseGroup"  => "Images,ItemAttributes,Offers"
+		);
+
+		// Set current timestamp if not set
+		if ( ! isset( $params["Timestamp"] ) ) {
+			$params["Timestamp"] = gmdate( 'Y-m-d\TH:i:s\Z' );
+		}
+
+// Sort the parameters by key
+		ksort( $params );
+
+		$pairs = array();
+
+		foreach ( $params as $key => $value ) {
+			array_push( $pairs, rawurlencode( $key ) . "=" . rawurlencode( $value ) );
+		}
+
+// Generate the canonical query
+		$canonical_query_string = join( "&", $pairs );
+
+// Generate the string to be signed
+		$string_to_sign = "GET\n" . $endpoint . "\n" . $uri . "\n" . $canonical_query_string;
+
+// Generate the signature required by the Product Advertising API
+		$signature = base64_encode( hash_hmac( "sha256", $string_to_sign, $secret_key, true ) );
+
+// Generate the signed URL
+		$request_url = 'https://' . $endpoint . $uri . '?' . $canonical_query_string . '&Signature=' . rawurlencode( $signature );
+
+		$xmlfile = file_get_contents( $request_url );
+		$obj     = simplexml_load_string( $xmlfile );
+		$json    = json_encode( $obj );
+		$data    = json_decode( $json, true );
+
+		return $data;
+	}
+
+	public function amz_shortcode( $atts ) {
+		$atts = shortcode_atts( array(
+			'product' => '',
+		), $atts, 'compare_amz_shortcode' );
+
+		$data = $this->compare_get_amz_data( $atts['product'] );
+
+
+		ob_start();
+		?>
+		<div class="compare_basic_amz">
+			<h3><?php echo esc_attr( $data['Items']['Item']['ItemAttributes']['Title'] ); ?></h3>
+			<div class="main-row">
+				<div class="compare_basic_sc_left">
+					<img src="<?php echo esc_url( $data['Items']['Item']['LargeImage']['URL'] ); ?>"/>
+				</div>
+				<div class="compare_basic_right">
+					<div class="compare_sc_description">
+						<ul>
+							<?php
+							if (is_array( $data['Items']['Item']['ItemAttributes']['Feature'] ) ){
+								foreach ( $data['Items']['Item']['ItemAttributes']['Feature'] as $feature ){
+									echo '<li>' . $feature . '</li>';
+								}
+							} else {
+								echo '<li>' . $data['Items']['Item']['ItemAttributes']['Feature'] . '</li>';
+							}
+							?>
+						</ul>
+					</div>
+					<div class="price-box">
+						<?php
+						$url = $p['url'];
+
+						$currency = get_option( 'compare-general' );
+						$currency = $currency['currency'];
+						$currency = apply_filters( 'compare_currency_unit', $currency );
+						$option   = get_option( 'compare-aawp' );
+						$text     = $option['button_text'];
+						if ( empty( $text ) ) {
+							$text = __( 'Buy to ', 'compare' );
+						}
+						$bg = $option['button-bg'];
+						if ( empty( $bg ) ) {
+							$bg = '#000000';
+						}
+						$color = $option['button-color'];
+						if ( empty( $color ) ) {
+							$color = '#ffffff';
+						}
+						$price = $data['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+						$price = explode(' ', $price );
+						$price = $price[1] . ' ' . $currency;
+						?>
+						<div class="compare-price-partner compare-others">
+							<div class="product-price">
+								<a href="<?php echo $data['Items']['Item']['Offers']['MoreOffersUrl']; ?>">
+									<?php echo $price; ?>
+								</a>
+								<p><?php echo esc_attr( $data['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'] )?></p>
+							</div>
+							<div class="button-partner">
+								<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a class="btn-compare">
+										<a href="<?php echo $data['Items']['Item']['Offers']['MoreOffersUrl']; ?>"><?php echo $text; ?></a>
+									</a>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+
+		return ob_get_clean();
+
 	}
 }
 

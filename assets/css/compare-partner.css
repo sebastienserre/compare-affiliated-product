@@ -273,3 +273,10 @@ button.compare_buy{
 .compare_sc .compare_partner_name {
     width: 50%;
 }
+
+/**
+Amz Shortcode
+ */
+.compare_basic_amz .price-box{
+    display: block;
+}
