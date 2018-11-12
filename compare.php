@@ -56,6 +56,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/amazon.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-shortcode.php';
+	include_once COMPARE_PLUGIN_PATH . '/inc/functions.php';
 
 }
 
