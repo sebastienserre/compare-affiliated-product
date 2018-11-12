@@ -160,6 +160,10 @@ class compare_shortcode {
 		if ( empty( $color ) ) {
 			$color = '#ffffff';
 		}
+		ob_start();
+		?>
+		<div class="cap-sc">
+		<?php
 		foreach ( $products as $p ) {
 
 			$logos = template::compare_get_partner_logo();
@@ -170,7 +174,7 @@ class compare_shortcode {
 			if ( "amz" === $p['partner_code'] ) {
 				$logo = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
 			}
-			ob_start();
+
 			?>
 			<div class="compare_price-partner">
 				<div class="compare_partner_logo">
@@ -191,7 +195,10 @@ class compare_shortcode {
 			</div>
 			<?php
 		}
-
+		?>
+		</div>
+			<?php
+		return ob_get_clean();
 	}
 }
 

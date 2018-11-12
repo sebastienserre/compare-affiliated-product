@@ -280,3 +280,34 @@ Amz Shortcode
 .compare_basic_amz .price-box{
     display: block;
 }
+
+/**
+Cap Shortcode
+ */
+
+.cap-sc {
+    border-top: 1px solid #e5e5e5;
+}
+
+.cap-sc .compare_price-partner {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 1em;
+    line-height: 2em;
+    min-height: 83px;
+}
+
+.cap-sc .compare_partner_name {
+    width: 50%;
+}
+
+@media screen and (max-width: 425px) {
+    .cap-sc .compare_partner_name {
+        display: none;
+    }
+
+    .cap-sc .compare_price {
+        width: 40%;
+    }
+}
