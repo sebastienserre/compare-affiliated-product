@@ -64,9 +64,9 @@ function compare_settings_page() {
 					settings_fields( 'compare-help' );
 					do_settings_sections( 'compare-help' );
 					break;
-				case 'aawp':
-					settings_fields( 'compare-aawp' );
-					do_settings_sections( 'compare-aawp' );
+				case 'style':
+					settings_fields( 'compare-style' );
+					do_settings_sections( 'compare-style' );
 					break;
 				case 'effiliation':
 					settings_fields( 'compare-effiliation' );

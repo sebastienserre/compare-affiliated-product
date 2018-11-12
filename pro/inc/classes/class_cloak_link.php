@@ -42,7 +42,7 @@ class Cloak_Link {
 		$currency = get_option( 'compare-general' );
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
-		$option   = get_option( 'compare-aawp' );
+		$option   = get_option( 'compare-style' );
 		$text     = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );
@@ -80,7 +80,7 @@ class Cloak_Link {
 	}
 
 	public static function compare_amz_link( $data ) {
-		$option = get_option( 'compare-aawp' );
+		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );
@@ -113,7 +113,7 @@ class Cloak_Link {
 	}
 
 	public function compare_amz_cloak_table( $data ) {
-		$option = get_option( 'compare-aawp' );
+		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );

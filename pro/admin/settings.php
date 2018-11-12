@@ -25,7 +25,7 @@ if ( class_exists( 'AAWP_Affiliate' ) ) {
  * @return mixed
  */
 function compare_add_aawp_tab( $tabs ) {
-	$tabs['aawp'] = __( 'AAWP', 'compare' );
+	$tabs['style'] = __( 'Style', 'compare' );
 
 	return $tabs;
 }
@@ -119,11 +119,11 @@ function compare_pro_register_settings() {
 	/**
 	 * Aawp
 	 */
-	add_settings_section( 'compare-aawp', '', '', 'compare-aawp' );
-	register_setting( 'compare-aawp', 'compare-aawp' );
-	add_settings_field( 'compare-aawp-button-text', __( 'Button Text', 'compare' ), 'compare_aawp_button_text', 'compare-aawp', 'compare-aawp' );
-	add_settings_field( 'compare-aawp-button-bg', __( 'Button Background Color', 'compare' ), 'compare_awwp_button_bg', 'compare-aawp', 'compare-aawp' );
-	add_settings_field( 'compare-aawp-button-color', __( 'Button Text Color', 'compare' ), 'compare_awwp_button_color', 'compare-aawp', 'compare-aawp' );
+	add_settings_section( 'compare-style', '', '', 'compare-style' );
+	register_setting( 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare' ), 'compare_button_text', 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare' ), 'compare_button_bg', 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare' ), 'compare_button_color', 'compare-style', 'compare-style' );
 
 	/**
 	 * Effiliation
@@ -190,32 +190,32 @@ function compare_general_platforms() {
 	<?php
 }
 
-function compare_awwp_button_bg() {
-	$option = get_option( 'compare-aawp' );
+function compare_button_bg() {
+	$option = get_option( 'compare-style' );
 	$color  = $option['button-bg'];
 	if ( ! empty( $color ) ) {
 		$value = 'value="' . $color . '"';
 	}
 
 	?>
-	<input name="compare-aawp[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
+	<input name="compare-style[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
 	<?php
 }
 
-function compare_awwp_button_color() {
-	$option = get_option( 'compare-aawp' );
+function compare_button_color() {
+	$option = get_option( 'compare-style' );
 	$color  = $option['button-color'];
 	if ( ! empty( $color ) ) {
 		$value = 'value="' . $color . '"';
 	}
 
 	?>
-	<input name="compare-aawp[button-color]" type='text' class='color-field' <?php echo $value; ?>>
+	<input name="compare-style[button-color]" type='text' class='color-field' <?php echo $value; ?>>
 	<?php
 }
 
-function compare_aawp_button_text() {
-	$option = get_option( 'compare-aawp' );
+function compare_button_text() {
+	$option = get_option( 'compare-style' );
 	$text   = $option['button_text'];
 	if ( ! empty( $text ) ) {
 		$value = 'value="' . $text . '"';
@@ -223,7 +223,7 @@ function compare_aawp_button_text() {
 		$value = 'value="' . __( 'Buy to ', 'compare' ) . '"';
 	}
 	?>
-	<input name="compare-aawp[button_text]" type="text" <?php echo $value; ?>
+	<input name="compare-style[button_text]" type="text" <?php echo $value; ?>
 	<?php
 }
 

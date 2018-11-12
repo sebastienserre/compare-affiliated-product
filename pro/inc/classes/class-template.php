@@ -94,7 +94,7 @@ class template {
 				$general  = get_option( 'compare-general' );
 				$currency = $general['currency'];
 				$currency = apply_filters( 'compare_currency_unit', $currency );
-				$option   = get_option( 'compare-aawp' );
+				$option   = get_option( 'compare-style' );
 				$text     = $option['button_text'];
 
 				/**
@@ -140,7 +140,7 @@ class template {
 					/*$currency = get_option( 'compare-general' );
 					$currency = $currency['currency'];
 					$currency = apply_filters( 'compare_currency_unit', $currency );
-					$option   = get_option( 'compare-aawp' );
+					$option   = get_option( 'compare-style' );
 					$text     = $option['button_text'];
 					if ( empty( $text ) ) {
 						$text = __( 'Buy to ', 'compare' );
@@ -274,13 +274,16 @@ class template {
 		if ( ! empty( $products ) ) {
 
 			$subscribed = compare_get_programs();
-			$products   = array_reverse( $products[0] );
-			$products   = array_combine( array_column( $products, 'partner_name' ), $products );
+
+			$products = array_reverse( $products[0] );
+			$products = array_combine( array_column( $products, 'partner_name' ), $products );
+
 
 			if ( has_shortcode( get_the_content(), 'compare_price' ) ) {
 				$products = apply_filters( 'compare_products', $products, $atts );
 			}
-			$products   = array_reverse( $products );
+			$products = array_reverse( $products );
+
 			foreach ( $products as $key => $value ) {
 				if ( 'amz' !== $key ) {
 					$in_array = array_key_exists( $key, $subscribed );

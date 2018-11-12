@@ -199,7 +199,7 @@ class Amazon {
 						$currency = get_option( 'compare-general' );
 						$currency = $currency['currency'];
 						$currency = apply_filters( 'compare_currency_unit', $currency );
-						$option   = get_option( 'compare-aawp' );
+						$option   = get_option( 'compare-style' );
 						$text     = $option['button_text'];
 						if ( empty( $text ) ) {
 							$text = __( 'Buy to ', 'compare' );

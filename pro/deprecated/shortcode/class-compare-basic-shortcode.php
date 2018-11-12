@@ -3,10 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
 
-/**
- * Deprecated since version 2.0.0
- * Please use the [cap] shortcode instead.
- */
 
 /**
  * Class Compare_Basic_Widget
@@ -72,7 +68,7 @@ class Compare_Basic_Widget {
 								$currency = get_option( 'compare-general' );
 								$currency = $currency['currency'];
 								$currency = apply_filters( 'compare_currency_unit', $currency );
-								$option   = get_option( 'compare-aawp' );
+								$option   = get_option( 'compare-style' );
 								$text     = $option['button_text'];
 								if ( empty( $text ) ) {
 								$text = __( 'Buy to ', 'compare' );
