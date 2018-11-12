@@ -22,7 +22,7 @@ class Effiliation {
 	}
 
 	public function compare_effiliation_set_cron() {
-		$option = get_option( 'compare-general' );
+		$option = get_option( 'compare-premium' );
 		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
 		}

@@ -111,6 +111,13 @@ class Amazon {
 	}
 
 	public function compare_get_amz_data( $asin ) {
+
+		$data = get_transient('amz-' . $asin);
+
+		if (! empty( $data ) ){
+			return $data;
+		}
+
 		$access_key_id = $this->amz['apikey'];
 		$secret_key    = $this->amz['secretkey'];
 		$country       = $this->amz['country'];
@@ -159,6 +166,7 @@ class Amazon {
 		$json    = json_encode( $obj );
 		$data    = json_decode( $json, true );
 
+		set_transient('amz-' . $asin, $data, HOUR_IN_SECONDS * 4 );
 		return $data;
 	}
 

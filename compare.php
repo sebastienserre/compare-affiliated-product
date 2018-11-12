@@ -9,7 +9,6 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-	Version: 1.2.6
 @fs_premium_only /pro/, /languages/
 	Version: 1.2.16
 	*/
@@ -139,7 +138,7 @@ register_uninstall_hook( __FILE__, 'compare_uninstall' );
  */
 function compare_uninstall() {
 	global $wpdb;
-	$options = get_option( 'compare-general' );
+	$options = get_option( 'compare-premium' );
 	$delete  = $options['delete'];
 
 	if ( 'yes' === $delete ) {

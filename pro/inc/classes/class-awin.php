@@ -8,6 +8,7 @@ class Awin {
 	protected $awin;
 	protected $_option;
 	protected $queue_register;
+	protected $_premium;
 
 	/**
 	 * Awin constructor.
@@ -16,6 +17,7 @@ class Awin {
 
 		$this->awin           = get_option( 'awin' );
 		$this->_option        = get_option( 'compare-general' );
+		$this->premium  = get_option( 'compare-premium' );
 
 		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
 			$this->compare_schedule_awin();
@@ -27,12 +29,16 @@ class Awin {
 		$this->_option = get_option( 'compare-general' );
 	}
 
+	public function compare_set_premium(){
+		$this->_premium = get_option( 'compare-premium' );
+	}
+
 	public function compare_set_cron() {
 
 		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
 			return;
 		}
-		$cron = $this->_option['cron'];
+		$cron = $this->_premium['cron'];
 		if ( ! isset( $this->_option['platform']['awin'] ) ) {
 			return;
 		}

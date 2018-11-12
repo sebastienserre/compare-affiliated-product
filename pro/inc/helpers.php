@@ -26,7 +26,7 @@ add_filter( 'compare_url_tracker', 'compare_customize_tracker_word' );
  * @return string you input in settings
  */
 function compare_customize_tracker_word( $word ){
-	$options = get_option( 'compare-general' );
+	$options = get_option( 'compare-premium' );
 	if ( !empty( $options['tracker'] ) ){
 		$word = $options['tracker'];
 	}

@@ -56,10 +56,21 @@ function compare_pro_register_settings() {
 	/**
 	 * General
 	 */
+	register_setting( 'compare-general', 'compare-general' );
+
+	add_settings_section( 'compare-general', '', '', 'compare-general' );
+
+	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
+
+
+	/**
+	 * Advanced
+	 */
+	register_setting( 'compare-advanced', 'compare-advanced' );
 
 	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
-	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	//add_settings_section( 'compare-advanced', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
+
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
@@ -67,23 +78,19 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-external' );
 	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-external' );
 	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-external' );
-	register_setting( 'compare-general', 'compare-general' );
-
-	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
-
-	register_setting( 'compare-advanced', 'compare-advanced' );
 
 	/**
 	 * Premium
 	 */
 
+	register_setting('compare-premium', 'compare-premium');
 	add_settings_section( 'compare-premium', '', '', 'compare-premium' );
+
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
 
 	/**
 	 * Help
@@ -111,7 +118,9 @@ function compare_pro_register_settings() {
 	 * Style
 	 */
 	add_settings_section( 'compare-style', '', '', 'compare-style' );
+
 	register_setting( 'compare-style', 'compare-style' );
+
 	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare' ), 'compare_button_text', 'compare-style', 'compare-style' );
 	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare' ), 'compare_button_bg', 'compare-style', 'compare-style' );
 	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare' ), 'compare_button_color', 'compare-style', 'compare-style' );
@@ -122,7 +131,9 @@ function compare_pro_register_settings() {
 	 * @since 1.2.0
 	 */
 	add_settings_section( 'compare-effiliation', '', '', 'compare-effiliation' );
+
 	register_setting( 'compare-effiliation', 'compare-effiliation' );
+
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
@@ -133,12 +144,12 @@ function compare_pro_register_settings() {
  * Customize the tracking word
  */
 function compare_general_trackers() {
-	$options = get_option( 'compare-general' );
+	$options = get_option( 'compare-premium' );
 	if ( ! empty( $options ) ) {
 		$value = 'value="' . $options['tracker'] . '"';
 	}
 	?>
-	<input type="text" name="compare-general[tracker]" <?php echo $value; ?>>
+	<input type="text" name="compare-premium[tracker]" <?php echo $value; ?>>
 	<?php
 }
 
@@ -505,10 +516,10 @@ function compare_get_programs() {
 }
 
 function compare_general_cron() {
-	$option = get_option( 'compare-general' );
+	$option = get_option( 'compare-premium' );
 	$cron   = $option['cron'];
 	?>
-	<select name="compare-general[cron]">
+	<select name="compare-premium[cron]">
 		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
 		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
 		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
@@ -519,11 +530,11 @@ function compare_general_cron() {
 }
 
 function compare_general_delete() {
-	$general = get_option( 'compare-general' );
+	$general = get_option( 'compare-premium' );
 	if ( ! isset( $general['delete'] ) || empty( $general['delete'] ) ) {
 		$general['delete'] = 'no';
 	}
 	?>
-	<input type="checkbox" value="yes" name="compare-general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
+	<input type="checkbox" value="yes" name="compare-premium[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
 	<?php
 }

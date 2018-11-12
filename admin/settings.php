@@ -114,7 +114,6 @@ function compare_register_settings() {
 
 	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 
-
 }
 
 
