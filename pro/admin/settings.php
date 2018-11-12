@@ -50,15 +50,16 @@ function compare_pro_settings_page( $tabs ) {
 }
 
 
-add_action( 'admin_init', 'compare_pro_register_settings' );
+add_action( 'admin_init', 'compare_pro_register_settings', 20 );
 function compare_pro_register_settings() {
 
 	/**
 	 * General
 	 */
+
 	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
-	add_settings_section( 'compare-advanced', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
+	//add_settings_section( 'compare-advanced', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
 
 	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
 	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
@@ -70,20 +71,10 @@ function compare_pro_register_settings() {
 
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
 
 	register_setting( 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-advanced' );
-	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-advanced' );
 
 	/**
 	 * Premium
@@ -117,7 +108,7 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 
 	/**
-	 * Aawp
+	 * Style
 	 */
 	add_settings_section( 'compare-style', '', '', 'compare-style' );
 	register_setting( 'compare-style', 'compare-style' );
@@ -511,4 +502,28 @@ function compare_get_programs() {
 
 
 	return $subscribed;
+}
+
+function compare_general_cron() {
+	$option = get_option( 'compare-general' );
+	$cron   = $option['cron'];
+	?>
+	<select name="compare-general[cron]">
+		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
+		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
+		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
+		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
+	</select>
+	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
+	<?php
+}
+
+function compare_general_delete() {
+	$general = get_option( 'compare-general' );
+	if ( ! isset( $general['delete'] ) || empty( $general['delete'] ) ) {
+		$general['delete'] = 'no';
+	}
+	?>
+	<input type="checkbox" value="yes" name="compare-general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
+	<?php
 }

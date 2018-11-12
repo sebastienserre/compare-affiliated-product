@@ -111,8 +111,8 @@ function compare_register_settings() {
 
 	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
 	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-general', 'compare-general' );
+
+	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 
 
 }
@@ -129,33 +129,6 @@ function compare_general_transients() {
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
 	<p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare' ); ?></p>
 
-	<?php
-}
-
-function compare_general_cron() {
-	$option = get_option( 'compare-general' );
-	$cron   = $option['cron'];
-	?>
-	<select name="compare-general[cron]">
-		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
-		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
-		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
-		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
-	</select>
-	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
-	<?php
-}
-
-
-
-
-function compare_general_delete() {
-	$general = get_option( 'compare-general' );
-	if ( ! isset( $general['delete'] ) || empty( $general['delete'] ) ) {
-		$general['delete'] = 'no';
-	}
-	?>
-	<input type="checkbox" value="yes" name="compare-general[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
 	<?php
 }
 
