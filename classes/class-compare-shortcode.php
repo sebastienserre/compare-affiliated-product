@@ -161,6 +161,12 @@ class compare_shortcode {
 			$color = '#ffffff';
 		}
 		foreach ( $products as $p ) {
+
+			$logos = template::compare_get_partner_logo();
+
+			if ( isset( $logos[ $p['partner_code'] ] ) ) {
+				$logo = $logos[ $p['partner_code'] ];
+			}
 			if ( "amz" === $p['partner_code'] ) {
 				$logo = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
 			}
