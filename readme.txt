@@ -2,13 +2,17 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 1.2.16
+Stable tag: 2.0.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+= 2.0.0 == TBD
+* FEATURES: Add a free version with Amazon
+* FEATURES: Rewrite Shortcodes to only have one.
+
 = 1.2.15 === 09 nov 2018
 * FEATURES: Add [compare_price] Shortcode. Allow you to display a table with price comparison (Awin + Effiliation or Awin + Effiliation + Amazon with GetAAWP plugin)
 * FEATURES: Add partners params in GETAAWP [Amazon] shortcode to display or not the Compare Affiliated Products Partner.
