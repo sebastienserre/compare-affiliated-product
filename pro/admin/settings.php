@@ -114,16 +114,6 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 
-	/**
-	 * Style
-	 */
-	add_settings_section( 'compare-style', '', '', 'compare-style' );
-
-	register_setting( 'compare-style', 'compare-style' );
-
-	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare' ), 'compare_button_text', 'compare-style', 'compare-style' );
-	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare' ), 'compare_button_bg', 'compare-style', 'compare-style' );
-	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare' ), 'compare_button_color', 'compare-style', 'compare-style' );
 
 	/**
 	 * Effiliation
@@ -189,43 +179,6 @@ function compare_general_platforms() {
 	}
 	?>
 	<p><?php _e( 'Check the platform to work with', 'compare' ); ?></p>
-	<?php
-}
-
-function compare_button_bg() {
-	$option = get_option( 'compare-style' );
-	$color  = $option['button-bg'];
-	if ( ! empty( $color ) ) {
-		$value = 'value="' . $color . '"';
-	}
-
-	?>
-	<input name="compare-style[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
-	<?php
-}
-
-function compare_button_color() {
-	$option = get_option( 'compare-style' );
-	$color  = $option['button-color'];
-	if ( ! empty( $color ) ) {
-		$value = 'value="' . $color . '"';
-	}
-
-	?>
-	<input name="compare-style[button-color]" type='text' class='color-field' <?php echo $value; ?>>
-	<?php
-}
-
-function compare_button_text() {
-	$option = get_option( 'compare-style' );
-	$text   = $option['button_text'];
-	if ( ! empty( $text ) ) {
-		$value = 'value="' . $text . '"';
-	} else {
-		$value = 'value="' . __( 'Buy to ', 'compare' ) . '"';
-	}
-	?>
-	<input name="compare-style[button_text]" type="text" <?php echo $value; ?>
 	<?php
 }
 
