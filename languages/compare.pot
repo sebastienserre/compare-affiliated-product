@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-13 06:28+0000\n"
+"POT-Creation-Date: 2018-11-13 06:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -321,7 +321,8 @@ msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Display Easily products from your affiliated programs (Awin, Effiliation...)"
+"Display Easily products from your affiliated programs (Amazon, Awin, "
+"Effiliation...)"
 msgstr ""
 
 #. URI of the plugin

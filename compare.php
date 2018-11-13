@@ -10,7 +10,7 @@
 	Text Domain: compare
 	Domain Path: /languages/
 @fs_premium_only /pro/, /languages/
-	Version: 1.2.16
+	Version: 2.0.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '1.2.16' );
+define( 'COMPARE_VERSION', '2.0.0' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
