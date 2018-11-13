@@ -15,3 +15,8 @@ function cap_delete_transients() {
 		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_timeout_product_%'" );
 	}
 }
+
+add_action( 'after_setup_theme', 'cap_add_logo_size' );
+function cap_add_logo_size() {
+	add_image_size( 'cap_logo', 30 );
+}
