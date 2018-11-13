@@ -4,31 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 
-/**
- * load script for admin settings
- */
-function load_admin_scripts() {
-	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_script( 'color-picker-script', plugins_url( 'color-picker.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-}
 
-if ( class_exists( 'AAWP_Affiliate' ) ) {
-	add_filter( 'compare_setting_tabs', 'compare_add_aawp_tab' );
-	add_action( 'admin_enqueue_scripts', 'load_admin_scripts');
-}
-
-/**
- * Add a tab AAWP only if AAWp activated
- *
- * @param $tabs array Array With tabs already defined in settings
- *
- * @return mixed
- */
-function compare_add_aawp_tab( $tabs ) {
-	$tabs['style'] = __( 'Style', 'compare' );
-
-	return $tabs;
-}
 
 /**
  * Create the settings content
