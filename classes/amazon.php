@@ -207,7 +207,9 @@ class Amazon {
 					</div>
 					<div class="price-box">
 						<?php
-						$url = $p['url'];
+						$tag = $this->amz['trackingid'];
+						$url = $data['Items']['Item']['Offers']['MoreOffersUrl'];
+						$url = add_query_arg('tag', $tag, $url);
 
 						$currency = get_option( 'compare-general' );
 						$currency = $currency['currency'];
@@ -231,7 +233,7 @@ class Amazon {
 						?>
 						<div class="compare-price-partner compare-others">
 							<div class="product-price">
-								<a href="<?php echo $data['Items']['Item']['Offers']['MoreOffersUrl']; ?>">
+								<a href="<?php echo $url; ?>">
 									<?php echo $price; ?>
 								</a>
 								<p><?php echo esc_attr( $data['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'] )?></p>

@@ -63,81 +63,72 @@ class compare_shortcode {
 		array_multisort( $vc_array_name, SORT_ASC, $products );
 
 		foreach ( $products as $key => $p ) {
-			$products[$key]['price'] = number_format( floatval( $p['price'] ), 2) . $currency;
+			$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
 
 		}
 
 		switch ( $atts['type'] ) {
 			case 'basic':
-				return $this->cap_shortcode_basic( $datas );
+				return $this->cap_shortcode_basic( $products );
 			case 'table':
 				return $this->cap_shortcode_table( $products );
 		}
 	}
 
 
-	public function cap_shortcode_basic( $data ) {
+	public function cap_shortcode_basic( $products ) {
+
 		ob_start();
 		?>
 		<div class="compare_basic_amz">
-			<h3><?php echo esc_attr( $data['Items']['Item']['ItemAttributes']['Title'] ); ?></h3>
+			<h3><?php echo esc_attr( $products['amz']['title'] ); ?></h3>
 			<div class="main-row">
 				<div class="compare_basic_sc_left">
-					<img src="<?php echo esc_url( $data['Items']['Item']['LargeImage']['URL'] ); ?>"/>
+					<img src="<?php echo esc_url( $products['amz']['img'] ); ?>"/>
 				</div>
 				<div class="compare_basic_right">
 					<div class="compare_sc_description">
 						<ul>
 							<?php
-							if ( is_array( $data['Items']['Item']['ItemAttributes']['Feature'] ) ) {
-								foreach ( $data['Items']['Item']['ItemAttributes']['Feature'] as $feature ) {
+							if ( is_array( $products['amz']['description'] ) ) {
+								foreach ( $products['amz']['description'] as $feature ) {
 									echo '<li>' . $feature . '</li>';
 								}
 							} else {
-								echo '<li>' . $data['Items']['Item']['ItemAttributes']['Feature'] . '</li>';
+								echo '<li>' . $products['amz']['description'] . '</li>';
 							}
 							?>
 						</ul>
 					</div>
-					<div class="price-box">
+					<div class="price-box cap-sc">
 						<?php
-						$url = $p['url'];
+						foreach ( $products as $p ) {
+							if ( "amz" === $p['partner_code'] ) {
+								$logo     = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
+								$amz      = get_option( 'compare-amazon' );
+								$tag      = $amz['trackingid'];
+								$p['url'] = add_query_arg( 'tag', $tag, $p['url'] );
+							}
 
-						$currency = get_option( 'compare-general' );
-						$currency = $currency['currency'];
-						$currency = apply_filters( 'compare_currency_unit', $currency );
-						$option   = get_option( 'compare-style' );
-						$text     = $option['button_text'];
-						if ( empty( $text ) ) {
-							$text = __( 'Buy to ', 'compare' );
+							$option = get_option( 'compare-style' );
+							$text   = $option['button_text'];
+							if ( empty( $text ) ) {
+								$text = __( 'Buy to ', 'compare' );
+							}
+							$bg = $option['button-bg'];
+							if ( empty( $bg ) ) {
+								$bg = '#000000';
+							}
+							$color = $option['button-color'];
+							if ( empty( $color ) ) {
+								$color = '#ffffff';
+							}
+							?>
+
+							<?php
+							echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
 						}
-						$bg = $option['button-bg'];
-						if ( empty( $bg ) ) {
-							$bg = '#000000';
-						}
-						$color = $option['button-color'];
-						if ( empty( $color ) ) {
-							$color = '#ffffff';
-						}
-						$price = $data['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
-						$price = explode( ' ', $price );
-						$price = $price[1] . ' ' . $currency;
 						?>
-						<div class="compare-price-partner compare-others">
-							<div class="product-price">
-								<a href="<?php echo $data['Items']['Item']['Offers']['MoreOffersUrl']; ?>">
-									<?php echo $price; ?>
-								</a>
-								<p><?php echo esc_attr( $data['Items']['Item']['Offers']['Offer']['OfferListing']['Availability'] ) ?></p>
-							</div>
-							<div class="button-partner">
-								<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
-											class="btn-compare">
-										<a href="<?php echo $data['Items']['Item']['Offers']['MoreOffersUrl']; ?>"><?php echo $text; ?></a>
-									</a>
-								</button>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -160,47 +151,55 @@ class compare_shortcode {
 		if ( empty( $color ) ) {
 			$color = '#ffffff';
 		}
+
 		ob_start();
 		?>
 		<div class="cap-sc">
-		<?php
-		foreach ( $products as $p ) {
+			<?php
+			foreach ( $products as $p ) {
 
-			if ( cap_fs()->is__premium_only() ) {
-				$logos = template::compare_get_partner_logo();
+				if ( cap_fs()->is__premium_only() ) {
+					$logos = template::compare_get_partner_logo();
 
-				if ( isset( $logos[ $p['partner_code'] ] ) ) {
-					$logo = $logos[ $p['partner_code'] ];
+					if ( isset( $logos[ $p['partner_code'] ] ) ) {
+						$logo = $logos[ $p['partner_code'] ];
+					}
 				}
-			}
-			if ( "amz" === $p['partner_code'] ) {
-				$logo = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
-			}
+				if ( "amz" === $p['partner_code'] ) {
+					$logo     = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
+					$amz      = get_option( 'compare-amazon' );
+					$tag      = $amz['trackingid'];
+					$p['url'] = add_query_arg( 'tag', $tag, $p['url'] );
+				}
 
+				echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
+			}
 			?>
-			<div class="compare_price-partner">
-				<div class="compare_partner_logo">
-					<img src="<?php echo $logo; ?>">
-				</div>
-				<div class="compare_partner_name">
-					<p><?php echo $p['partner_name']; ?></p>
-				</div>
-				<div class="compare_price">
-					<?php echo $p['price'] . ' ' . $currency; ?>
-				</div>
-				<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "
-				        class="compare_buy"><a
-							class="btn-compare">
-						<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
-					</a>
-				</button>
-			</div>
-			<?php
-		}
-		?>
 		</div>
-			<?php
+		<?php
 		return ob_get_clean();
+	}
+
+	public function cap_template_price( $p, $text, $color, $bg, $logo ) {
+		?>
+		<div class="compare_price-partner">
+			<div class="compare_partner_logo">
+				<img src="<?php echo $logo; ?>">
+			</div>
+			<div class="compare_partner_name">
+				<p><?php echo $p['partner_name']; ?></p>
+			</div>
+			<div class="compare_price">
+				<?php echo $p['price'] . ' ' . $currency; ?>
+			</div>
+			<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "
+			        class="compare_buy"><a
+						class="btn-compare">
+					<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
+				</a>
+			</button>
+		</div>
+		<?php
 	}
 }
 
