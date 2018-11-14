@@ -1,4 +1,4 @@
-<?php
+f<?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
@@ -195,9 +195,9 @@ class template {
 		}
 
 		$transient = get_transient( 'product_' . $eanlist[0] );
-		/*		if ( ! empty( $transient ) ) {
+		if ( ! empty( $transient ) ) {
 					return $transient;
-				}*/
+		}
 		$external = get_option( 'compare-advanced' );
 		if ( ! empty( $external ) ) {
 			$external = $external['ext_check'];
