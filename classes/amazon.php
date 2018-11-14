@@ -110,6 +110,11 @@ class Amazon {
 		<?php
 	}
 
+	/**
+	 * @param $asin
+	 *
+	 * @return array|mixed|null|object
+	 */
 	public function compare_get_amz_data( $asin ) {
 
 		$data = get_transient('amz-' . $asin);

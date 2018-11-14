@@ -37,6 +37,7 @@ add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
 
 	if ( cap_fs()->is__premium_only() ){
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-template.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/main-pro.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/admin/settings.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/helpers.php';
@@ -47,9 +48,10 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
-		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-template.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
 	}
+
+
 	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
@@ -200,7 +202,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => true,
+			'is_premium'          => false,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(

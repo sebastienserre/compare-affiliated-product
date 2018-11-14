@@ -138,7 +138,7 @@ function compare_effiliation_api() {
 
 function compare_general_platforms() {
 	$platforms = array( 'awin', 'effiliation' );
-	$options   = get_option( 'compare-general' );
+	$options   = get_option( 'compare-premium' );
 
 
 	foreach ( $platforms as $platform ) {
@@ -147,7 +147,7 @@ function compare_general_platforms() {
 		}
 		?>
 		<input type="checkbox"
-		       name="compare-general[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
+		       name="compare-premium[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
 		       value="<?php echo $platform; ?>">
 		<?php echo $platform; ?>
 
@@ -159,12 +159,12 @@ function compare_general_platforms() {
 }
 
 function compare_general_cloak_link() {
-	$check = get_option( 'compare-general' );
+	$check = get_option( 'compare-premium' );
 	if ( isset( $check['general-cloack'] ) && ! empty( $check['general-cloack'] ) ) {
 		$check = $check['general-cloack'];
 	}
 	?>
-	<input name="compare-general[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+	<input name="compare-premium[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 	<?php
 }
 
