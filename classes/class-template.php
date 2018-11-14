@@ -195,7 +195,7 @@ class template {
 		}
 
 		$transient = get_transient( 'product_' . $eanlist[0] );
-		if ( ! empty( $transient ) ) {
+		if ( ! empty( $transient ) && false === WP_DEBUG ) {
 					return $transient;
 		}
 		$external = get_option( 'compare-advanced' );
