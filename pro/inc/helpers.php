@@ -77,3 +77,20 @@ function compare_get_ean( $data ) {
 	}
 	return $eanlist;
 }
+
+/**
+ * Create a file with the date to avoid launching cron twice
+ */
+function cap_create_pid() {
+
+	$date = date( 'd F Y @ H\hi:s' );
+	$file = fopen( COMPARE_PLUGIN_PATH . 'compare.txt', 'w+' );
+	fwrite( $file, $date );
+	fclose( $file );
+}
+
+function cap_delete_pid() {
+	if ( file_exists( 'compare.txt' ) ) {
+		unlink( COMPARE_PLUGIN_PATH . 'compare.txt' );
+	}
+}

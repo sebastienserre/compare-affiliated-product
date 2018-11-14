@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare
 	Domain Path: /languages/
-@fs_premium_only /pro/, /languages/
+@fs_premium_only /pro/, /languages/, /cron.php
 	Version: 2.0.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {

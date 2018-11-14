@@ -18,24 +18,6 @@ if ( ! defined( 'DB_NAME' ) ) {
     die( '-8' );
 }
 
-
-/**
- * Create a file with the date to avoid launching cron twice
- */
-function cap_create_pid() {
-
-	$date = date( 'd F Y @ H\hi:s' );
-	$file = fopen( 'compare.txt', 'w+' );
-	fwrite( $file, $date );
-	fclose( $file );
-}
-
-function cap_delete_pid() {
-	if ( file_exists( 'compare.txt' ) ) {
-		unlink( 'compare.txt' );
-	}
-}
-
 if ( ! file_exists( 'compare.txt' ) ) {
 	$awin = new Awin();
 	$awin->compare_schedule_awin();

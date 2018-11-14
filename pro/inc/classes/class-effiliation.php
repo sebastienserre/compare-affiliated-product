@@ -1,4 +1,8 @@
 <?php
+
+if ( class_exists( 'WP_CLI' ) ){
+	WP_CLI::add_command('cap_import_effiliation', 'Effiliation' );
+}
 /**
  * Class effiliation
  *
@@ -13,7 +17,6 @@ class Effiliation {
 	protected static $apikey;
 
 	public function __construct() {
-
 
 	}
 
@@ -137,8 +140,9 @@ class Effiliation {
 	 * Download and unzip xml from Effiliaiton
 	 **/
 	public function compare_schedule_effiliation() {
-		if ( ! isset( $this->_option['platform']['effiliation'] ) ){
-			return false;
+		$option = get_option( 'compare-premium' );
+		if ( ! isset( $option['platform']['effiliation'] ) ) {
+			return;
 		}
 		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -162,7 +166,8 @@ class Effiliation {
 
 				$name    = $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
-
+				$metaDatas = sys_get_temp_dir($temp_file);
+				unlink( $temp_file );
 
 			} else {
 				error_log( $temp_file->errors['http_request_failed'][0] );

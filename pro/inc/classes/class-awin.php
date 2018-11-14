@@ -1,4 +1,7 @@
 <?php
+if ( class_exists( 'WP_CLI' ) ){
+	WP_CLI::add_command('cap_import_awin', 'Awin' );
+}
 
 /**
  * Class Awin
@@ -99,8 +102,9 @@ class Awin {
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
-		if ( ! isset( $this->_option['platform']['awin'] ) ){
-			return false;
+		$option = get_option( 'compare-premium' );
+		if ( ! isset( $option['platform']['awin'] ) ) {
+			return;
 		}
 		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -125,7 +129,8 @@ class Awin {
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
 				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
-				$results = rename( $temp_file, $path . $name);
+				$results = rename( $temp_file, $path . $name );
+				unlink( $temp_file );
 
 			}
 		}
