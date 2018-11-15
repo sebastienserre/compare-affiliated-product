@@ -39,7 +39,7 @@ function compare_customize_tracker_word( $word ){
  * @param array $data array of data about displayed product.
  */
 function compare_get_ean( $data ) {
-	switch ( $data ){
+	switch ( $data ) {
 		case ( is_object( $data ) ):
 			$asin = $data->get_product_id();
 			break;
@@ -49,6 +49,11 @@ function compare_get_ean( $data ) {
 		default:
 			$asin = $data['asin'];
 			break;
+	}
+
+	$transient = get_transient( 'eanlist-' . $asin );
+	if ( ! empty( $transient ) ) {
+		return $transient;
 	}
 
 
@@ -74,8 +79,9 @@ function compare_get_ean( $data ) {
 	$array   = json_decode( $json, true );
 	$eanlist = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
 	if ( ! is_array( $eanlist ) ) {
-		$eanlist = array( $eanlist );
+		$eanlist[0] = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
 	}
+	$transient = set_transient( 'eanlist-' . $asin, $eanlist, 4 * HOUR_IN_SECONDS );
 	return $eanlist;
 }
 
