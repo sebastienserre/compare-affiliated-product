@@ -51,7 +51,8 @@ function compare_get_ean( $data ) {
 			break;
 	}
 
-	$data = new AAWP_Template_Handler();
+
+	$data = new Amazon();
 
 	$params = array(
 		'Operation'     => 'ItemLookup',
@@ -59,9 +60,9 @@ function compare_get_ean( $data ) {
 		'ResponseGroup' => 'ItemAttributes',
 	);
 
-	$apikey        = $data->api_key;
-	$secret        = $data->api_secret_key;
-	$associate_tag = $data->api_associate_tag;
+	$apikey        = $data->amz['apikey'];
+	$secret        = $data->amz['secretkey'];
+	$associate_tag = $data->amz['trackingid'];
 
 	$asin2ean = aws_signed_request( 'fr', $params, $apikey, $secret, $associate_tag );
 
