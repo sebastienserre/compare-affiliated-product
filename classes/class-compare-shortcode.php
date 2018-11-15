@@ -108,20 +108,25 @@ class compare_shortcode {
 								$amz      = get_option( 'compare-amazon' );
 								$tag      = $amz['trackingid'];
 								$p['url'] = add_query_arg( 'tag', $tag, $p['url'] );
-							}
+							} else {
+								$logos = template::compare_get_partner_logo();
+								if ( isset( $logos[ $p['partner_code'] ] ) ) {
+									$logo = $logos[ $p['partner_code'] ];
+								}
 
-							$option = get_option( 'compare-style' );
-							$text   = $option['button_text'];
-							if ( empty( $text ) ) {
-								$text = __( 'Buy to ', 'compare' );
-							}
-							$bg = $option['button-bg'];
-							if ( empty( $bg ) ) {
-								$bg = '#000000';
-							}
-							$color = $option['button-color'];
-							if ( empty( $color ) ) {
-								$color = '#ffffff';
+								$option = get_option( 'compare-style' );
+								$text   = $option['button_text'];
+								if ( empty( $text ) ) {
+									$text = __( 'Buy to ', 'compare' );
+								}
+								$bg = $option['button-bg'];
+								if ( empty( $bg ) ) {
+									$bg = '#000000';
+								}
+								$color = $option['button-color'];
+								if ( empty( $color ) ) {
+									$color = '#ffffff';
+								}
 							}
 							?>
 
@@ -136,6 +141,7 @@ class compare_shortcode {
 		<?php
 		return ob_get_clean();
 	}
+
 
 	public function cap_shortcode_table( $products ) {
 		$option = get_option( 'compare-style' );
@@ -180,7 +186,10 @@ class compare_shortcode {
 		return ob_get_clean();
 	}
 
-	public function cap_template_price( $p, $text, $color, $bg, $logo ) {
+	public
+	function cap_template_price(
+		$p, $text, $color, $bg, $logo
+	) {
 		?>
 		<div class="compare_price-partner">
 			<div class="compare_partner_logo">

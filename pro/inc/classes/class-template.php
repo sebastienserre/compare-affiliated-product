@@ -137,23 +137,6 @@ class template {
 						$logo = $logos[ $p['partner_code'] ];
 					}
 
-					/*$currency = get_option( 'compare-general' );
-					$currency = $currency['currency'];
-					$currency = apply_filters( 'compare_currency_unit', $currency );
-					$option   = get_option( 'compare-style' );
-					$text     = $option['button_text'];
-					if ( empty( $text ) ) {
-						$text = __( 'Buy to ', 'compare' );
-					}
-					$bg = $option['button-bg'];
-					if ( empty( $bg ) ) {
-						$bg = '#000000';
-					}
-					$color = $option['button-color'];
-					if ( empty( $color ) ) {
-						$color = '#ffffff';
-					}*/
-
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
