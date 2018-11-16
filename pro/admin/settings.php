@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'compare_setting_tabs', 'compare_pro_settings_page' );
 function compare_pro_settings_page( $tabs ) {
 	$tabs['advanced'] = __( 'advanced', 'compare' );
-	$tabs['help']     = __( 'help', 'compare' );
 	$tabs['premium']     = __( 'premium', 'compare' );
 	$options          = get_option( 'compare-general' );
 	$platforms        = $options['platform'];
@@ -67,12 +66,6 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
-
-	/**
-	 * Help
-	 */
-	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
-	register_setting( 'compare-help', 'help' );
 
 	/**
 	 * Awin
@@ -359,23 +352,6 @@ function compare_awin_partner_url() {
 		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 	</div>
 	<p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare' ), 'Awin' ); ?></p>
-	<?php
-}
-
-function compare_help() {
-	$support_link = 'https://www.thivinfo.com/soumettre-un-ticket/';
-	$support      = sprintf( wp_kses( __( 'If you encounter a bug, you can leave me a ticket on <a href="%1$s" target="_blank">Thivinfo.com</a>', 'compare' ), array(
-		'a' => array(
-			'href'   => array(),
-			'target' => array()
-		)
-	) ), esc_url( $support_link ) );
-	?>
-	<h3><?php _e( 'Welcome on the support center', 'compare' ); ?></h3>
-	<p><?php echo $support; ?></p>
-	<p>
-		<a href="https://www.thivinfo.com/docs/compare-affiliated-products/"><?php _e( 'Documentation Center', 'compare' ); ?></a>
-	</p>
 	<?php
 }
 

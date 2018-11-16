@@ -36,6 +36,15 @@ if ( ! defined( 'WP_MEMORY_LIMIT' ) ) {
 add_action( 'plugins_loaded', 'compare_load_files' );
 function compare_load_files() {
 
+	include_once COMPARE_PLUGIN_PATH . '/admin/ads.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
+	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
+	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/amazon.php';
+	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-shortcode.php';
+	include_once COMPARE_PLUGIN_PATH . '/inc/functions.php';
+
 	if ( cap_fs()->is__premium_only() ){
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-template.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/main-pro.php';
@@ -50,15 +59,6 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
 	}
-
-
-	include_once COMPARE_PLUGIN_PATH . '/admin/upgrade-notices/upgrade-120-effiliation.php';
-	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
-	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
-	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/amazon.php';
-	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-shortcode.php';
-	include_once COMPARE_PLUGIN_PATH . '/inc/functions.php';
 
 }
 
@@ -202,7 +202,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => true,
+			'is_premium'          => false,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(
@@ -274,4 +274,9 @@ add_filter( 'aawp_func_supported_attributes', 'cap_supported', 20,2);
 function cap_supported( $supported, $type ) {
 	array_push( $supported, 'partners' );
 	return $supported;
+}
+
+add_action( 'admin_enqueue_scripts', 'cap_load_admin_style' );
+function cap_load_admin_style() {
+	wp_enqueue_style( 'cap_admin_style', COMPARE_PLUGIN_URL . 'admin/assets/css/admin-style.css', '', '1.0' );
 }

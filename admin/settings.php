@@ -21,7 +21,7 @@ function load_admin_scripts() {
 }
 
 if ( class_exists( 'AAWP_Affiliate' ) ) {
-	add_action( 'admin_enqueue_scripts', 'load_admin_scripts');
+	add_action( 'admin_enqueue_scripts', 'load_admin_scripts' );
 }
 
 /**
@@ -35,7 +35,8 @@ function compare_settings_page() {
 	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
 			'general' => __( 'general', 'compare' ),
-			'style' => __( 'Style', 'compare' ),
+			'style'   => __( 'Style', 'compare' ),
+			'help'    => __( 'help', 'compare' ),
 
 		)
 	);
@@ -49,6 +50,7 @@ function compare_settings_page() {
 	}
 	?>
 	<div class="wrap">
+
 		<h2><?php _e( 'Settings', 'compare' ); ?></h2>
 		<!--<div class="description">This is description of the page.</div>-->
 		<?php settings_errors(); ?>
@@ -58,7 +60,8 @@ function compare_settings_page() {
 			foreach ( $tabs as $tab => $value ) {
 				?>
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=compare-settings&tab=' . $tab ) ); ?>"
-				   class="nav-tab <?php echo 'nav-tab-' . $tab; echo $active_tab === $tab ? ' nav-tab-active' : ''; ?>"><?php echo $value ?></a>
+				   class="nav-tab <?php echo 'nav-tab-' . $tab;
+				   echo $active_tab === $tab ? ' nav-tab-active' : ''; ?>"><?php echo $value ?></a>
 			<?php } ?>
 		</h2>
 
@@ -139,6 +142,11 @@ function compare_register_settings() {
 	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare' ), 'compare_button_bg', 'compare-style', 'compare-style' );
 	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare' ), 'compare_button_color', 'compare-style', 'compare-style' );
 
+	/**
+	 * Help
+	 */
+	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
+	register_setting( 'compare-help', 'help' );
 }
 
 function compare_button_bg() {
@@ -1126,4 +1134,28 @@ function compare_general_languages() {
 	</select>
 	<p><?php _e( 'languages used to get datafeed in right language', 'compare' ) ?></p>
 	<?php
+}
+
+function compare_help() {
+	echo cap_support();
+	echo cap_doc();
+	echo cap_advertisment();
+	?>
+	<div class="clear"></div>
+
+	<?php
+}
+
+add_filter( 'admin_body_class', 'cap_add_tab_class' );
+function cap_add_tab_class( $classes ) {
+	if ( isset( $_GET['tab'] ) ) {
+
+		$active_tab = $_GET['tab'];
+
+	} else {
+		$active_tab = 'general';
+	}
+	$classes = 'tab-' . $active_tab;
+
+	return $classes;
 }
