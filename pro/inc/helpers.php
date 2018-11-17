@@ -40,9 +40,9 @@ function compare_customize_tracker_word( $word ){
  */
 function compare_get_ean( $data ) {
 	switch ( $data ) {
-		case ( is_object( $data ) ):
+		/*case ( is_object( $data ) ):
 			$asin = $data->get_product_id();
-			break;
+			break;*/
 		case ( 10 === strlen( $data ) ):
 			$asin = $data;
 			break;

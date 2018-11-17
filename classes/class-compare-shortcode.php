@@ -54,10 +54,8 @@ class compare_shortcode {
 
 
 		foreach ( $products as $key => $p ) {
-			//$products[$key]['price'] = number_format( floatval( $p['price'] ), 2);
 			$products[ $key ]['price'] = floatval( $p['price'] );
 			$vc_array_name[ $key ]     = $p['price'];
-
 		}
 
 		array_multisort( $vc_array_name, SORT_ASC, $products );

@@ -45,7 +45,8 @@ class Compare_price {
 
 		$ean = compare_get_ean( $atts['product'] );
 
-		$datas = template::compare_get_data( $ean, $atts );
+		$template = new template();
+		$datas = $template->compare_get_data( $ean, $atts );
 
 
 		if ( empty( $datas ) ) {
