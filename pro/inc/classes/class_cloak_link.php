@@ -18,7 +18,7 @@ class Cloak_Link {
 	 * @param array  $product data of compared product.
 	 * @param string $logo    String to the partner logo
 	 */
-	public function compare_create_link( $product ) {
+	public function compare_create_link( $product, $logo, $data ) {
 		$logos = template::compare_get_partner_logo();
 		if ( isset( $logos[$product['partner_code']] ) ){
 			$logo = $logos[$product['partner_code']];

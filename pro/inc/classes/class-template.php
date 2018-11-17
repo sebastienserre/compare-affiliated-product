@@ -92,6 +92,7 @@ class template {
 						$logo = $partner;
 				}
 				$general  = get_option( 'compare-general' );
+				$premium = get_option( 'compare-premium' );
 				$currency = $general['currency'];
 				$currency = apply_filters( 'compare_currency_unit', $currency );
 				$option   = get_option( 'compare-style' );
@@ -120,7 +121,7 @@ class template {
 				if ( empty( $color ) ) {
 					$color = '#ffffff';
 				}
-				if ( isset( $general['general-cloack'] ) && 'on' === $general['general-cloack'] ) {
+				if ( isset( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
