@@ -59,7 +59,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<td class="aawp-table__td-reviews" data-label="<?php _e( 'Link', 'aawp' ); ?>">
 					<div class="compare-price">
-						<?php Cloak_Link::compare_amz_link( $this ); ?>
 						<?php do_action( 'thfo_compare_after_price', $this ); ?>
 					</div>
 				</td>
