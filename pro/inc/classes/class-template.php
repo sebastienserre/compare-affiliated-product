@@ -178,9 +178,9 @@ class template {
 		}
 
 		$transient = get_transient( 'product_' . $eanlist[0] );
-		/*		if ( ! empty( $transient ) ) {
-					return $transient;
-				}*/
+		if ( ! empty( $transient ) ) {
+			return $transient;
+		}
 		$external = get_option( 'compare-advanced' );
 		if ( ! empty( $external ) ) {
 			$external = $external['ext_check'];
@@ -277,6 +277,14 @@ class template {
 						unset( $products[ $key ] );
 					}
 				}
+				$products[ $key ]['price'] = floatval( $value['price'] );
+				$vc_array_name[ $key ]     = $value['price'];
+			}
+			array_multisort( $vc_array_name, SORT_ASC, $products );
+
+			foreach ( $products as $key => $p ) {
+				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
+
 			}
 
 			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
