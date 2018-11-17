@@ -26,7 +26,7 @@ class compare_shortcode {
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
 
-		$price = $datas['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+		$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 		$price = explode( ' ', $price );
 		$price = intval( $price[1] );
 

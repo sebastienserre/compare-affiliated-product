@@ -62,10 +62,10 @@ class template {
 
 		switch ( $data->atts['partners'] ) {
 			case 'nok' :
-				$amz = new Amazon();
-				$datas = $amz->compare_get_amz_data( $asin);
+				$amz   = new Amazon();
+				$datas = $amz->compare_get_amz_data( $asin );
 
-				$price = $datas['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
+				$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 				$price = explode( ' ', $price );
 				$price = intval( $price[1] );
 
@@ -78,7 +78,7 @@ class template {
 						'partner_name' => 'Amazon FR',
 						'partner_code' => 'amz',
 						'product_id'   => $datas['Items']['item']['ASIN'],
-						'url'          => $datas['Items']['Item']['Offers']['MoreOffersUrl'],
+						'url'          => $datas['Items']['Item']['DetailPageURL'],
 						'price'        => $price,
 						'platform'     => 'Amz'
 
@@ -87,36 +87,35 @@ class template {
 			case '':
 			case 'ok':
 			default:
-			$prods            = $this->compare_get_data( $eanlist );
-			$amz = new Amazon();
-			$datas = $amz->compare_get_amz_data( $asin);
+				$prods = $this->compare_get_data( $eanlist );
+				$amz   = new Amazon();
+				$datas = $amz->compare_get_amz_data( $asin );
 
-			$price = $datas['Items']['Item']['Offers']['Offer']['OfferListing']['Price']['FormattedPrice'];
-			$price = explode( ' ', $price );
-			$price = intval( $price[1] );
+			$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
+				$price = explode( ' ', $price );
+				$price = intval( $price[1] );
 
-			$prods['amz'] =
-				array(
-					'ean'          => '',
-					'title'        => $datas['Items']['Item']['ItemAttributes']['Title'],
-					'description'  => $datas['Items']['Item']['ItemAttributes']['Feature'],
-					'img'          => $datas['Items']['Item']['LargeImage']['URL'],
-					'partner_name' => 'Amazon FR',
-					'partner_code' => 'amz',
-					'product_id'   => $datas['Items']['item']['ASIN'],
-					'url'          => $datas['Items']['Item']['Offers']['MoreOffersUrl'],
-					'price'        => $price,
-					'platform'     => 'Amz'
+				$prods['amz'] =
+					array(
+						'ean'          => '',
+						'title'        => $datas['Items']['Item']['ItemAttributes']['Title'],
+						'description'  => $datas['Items']['Item']['ItemAttributes']['Feature'],
+						'img'          => $datas['Items']['Item']['LargeImage']['URL'],
+						'partner_name' => 'Amazon FR',
+						'partner_code' => 'amz',
+						'product_id'   => $datas['Items']['item']['ASIN'],
+						'url'          => $datas['Items']['Item']['DetailPageURL'],
+						'price'        => $price,
+						'platform'     => 'Amz'
 
-				);
-			break;
+					);
+				break;
 		}
-
 
 
 		foreach ( $prods as $key => $p ) {
 			$prods[ $key ]['price'] = floatval( $p['price'] );
-			$vc_array_name[ $key ]     = $p['price'];
+			$vc_array_name[ $key ]  = $p['price'];
 		}
 
 		array_multisort( $vc_array_name, SORT_ASC, $prods );
@@ -136,7 +135,7 @@ class template {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
 
 				$general  = get_option( 'compare-general' );
-				$premium = get_option( 'compare-premium' );
+				$premium  = get_option( 'compare-premium' );
 				$currency = $general['currency'];
 				$currency = apply_filters( 'compare_currency_unit', $currency );
 				$option   = get_option( 'compare-style' );
@@ -177,10 +176,17 @@ class template {
 					<?php
 				} else {
 					if ( "amz" === $p['partner_code'] ) {
-						$logo     = COMPARE_PLUGIN_URL . 'assets/img/amazon.png';
-						$amz      = get_option( 'compare-amazon' );
-						$tag      = $amz['trackingid'];
-						$p['url'] = add_query_arg( 'tag', $tag, $p['url'] );
+						$logo   = COMPARE_PLUGIN_URL . 'assets/img/amazon.png';
+						$amz    = get_option( 'compare-amazon' );
+						$tag    = $amz['trackingid'];
+						$tagpos = strpos( $p['url'], 'tag=' );
+						if ( $tagpos > 0 ) {
+							$url      = explode( 'tag=', $p['url'] );
+							$p['url'] = add_query_arg( 'tag', $tag, $url[0] );
+							$url      = $p['url'] . '&keywords=' . $url[1];
+						} else {
+							$url = add_query_arg( 'tag', $tag, $p['url'] );
+						}
 					} else {
 						$logos = template::compare_get_partner_logo();
 
@@ -190,30 +196,30 @@ class template {
 					}
 
 
-						?>
-						<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
-							<div class="img-partner"><img src="<?php echo $logo ?>"></div>
-							<div class="product-price">
-								<a href="<?php echo $url; ?>">
-									<?php echo $p['price'] . ' ' . $currency ?>
-								</a>
-							</div>
-							<div class="button-partner">
-								<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
-											class="btn-compare">
-										<a style="color: <?php echo $color; ?>;"
-										   href="<?php echo $url; ?>"><?php echo $text; ?></a>
-									</a>
-								</button>
-							</div>
+					?>
+					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
+						<div class="product-price">
+							<a href="<?php echo $url; ?>">
+								<?php echo $p['price'] . ' ' . $currency ?>
+							</a>
 						</div>
+						<div class="button-partner">
+							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
+										class="btn-compare">
+									<a style="color: <?php echo $color; ?>;"
+									   href="<?php echo $url; ?>"><?php echo $text; ?></a>
+								</a>
+							</button>
+						</div>
+					</div>
 
 
-						<?php
-					}
+					<?php
 				}
-				$i ++;
 			}
+			$i ++;
+		}
 
 		$html = ob_get_clean();
 		echo $html;
