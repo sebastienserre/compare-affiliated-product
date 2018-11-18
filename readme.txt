@@ -2,13 +2,18 @@
 Contributors: sebastienserre
 Tags: affiliate, affilate program, awin, aawp
 Tested up to: 4.9
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
+
+= 2.0.1 == 18 nov 2018
+* BUGFIX: Correct Platform Settings
+* BUGFIX: Correct bug in currency unit display
+
 = 2.0.0 == 18 nov 2018
 * FEATURES: Add a free version with Amazon
 * FEATURES: Rewrite Shortcodes to only have one.
