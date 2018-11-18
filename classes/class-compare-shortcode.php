@@ -14,7 +14,7 @@ class compare_shortcode {
 			array(
 				'type'     => 'basic',
 				'product'  => '',
-				'partners' => '',
+				'partners' => 'nok',
 			),
 			$atts,
 			'cap'
