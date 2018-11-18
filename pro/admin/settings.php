@@ -13,7 +13,7 @@ add_filter( 'compare_setting_tabs', 'compare_pro_settings_page' );
 function compare_pro_settings_page( $tabs ) {
 	$tabs['advanced'] = __( 'advanced', 'compare' );
 	$tabs['premium']     = __( 'premium', 'compare' );
-	$options          = get_option( 'compare-general' );
+	$options          = get_option( 'compare-premium' );
 	$platforms        = $options['platform'];
 	foreach ( $platforms as $platform ) {
 		if ( ! empty( $platform ) ) {
