@@ -58,9 +58,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php } ?>
 
 				<td class="aawp-table__td-reviews" data-label="<?php _e( 'Link', 'aawp' ); ?>">
-					<div class="compare-price">
-						<?php do_action( 'thfo_compare_after_price', $this ); ?>
-					</div>
+					<!-- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
+					<?php do_action( 'thfo_compare_after_price', $this ); ?>
+					<!-- Hook Added by Compare Affiliated Products -->
 				</td>
 			</tr>
 

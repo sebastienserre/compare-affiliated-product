@@ -61,9 +61,11 @@ if ( ! isset( $aawp_table['products'] ) || ! is_array( $aawp_table['products'] )
             <?php endforeach; ?>
 	        <?php foreach ( $aawp_table['products'] as $table_product_id => $table_product ) { ?>
 	        <div class="partners aawp-tb-product-<?php echo $table_product_id; ?> <?php aawp_the_table_product_data_classes( 'aawp-tb__data', $table_row_id, $table_product_id ); ?><?php if ( $table_product['highlight'] ) echo ' aawp-tb__data--highlight'; ?>">
-		        <div class="compare-price">
+
+		        <!-- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
 		        <?php do_action( 'thfo_compare_after_price', $table_product ); ?>
-		        </div>
+		        <!-- Hook Added by Compare Affiliated Products -->
+
 	        </div>
 	        <?php } ?>
         </div>

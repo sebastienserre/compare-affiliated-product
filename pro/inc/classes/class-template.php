@@ -131,6 +131,9 @@ class template {
 		<?php
 		if ( ! is_null( $prods ) ) {
 			$i = 1;
+			?>
+			<div class="compare-price">
+			<?php
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
 
@@ -167,6 +170,7 @@ class template {
 				if ( isset( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
+
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 						<?php
 						$link->compare_create_link( $p, $logo, $data );
@@ -218,6 +222,9 @@ class template {
 					<?php
 				}
 			}
+			?>
+			</div>
+				<?php
 			$i ++;
 		}
 
