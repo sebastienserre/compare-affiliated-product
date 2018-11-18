@@ -9,9 +9,14 @@ License URI: https://opensource.org/licenses/GPL-3.0
 
 
 == Changelog ==
-= 2.0.0 == TBD
+= 2.0.0 == 18 nov 2018
 * FEATURES: Add a free version with Amazon
 * FEATURES: Rewrite Shortcodes to only have one.
+* OPTIMIZATION: Add Transients
+* OPTIMIZATION: Remove temp file after registering data in DB.
+* BUGFIX: Correct price sorting
+* BUGFIX: Improve Templates
+
 
 = 1.2.15 === 09 nov 2018
 * FEATURES: Add [compare_price] Shortcode. Allow you to display a table with price comparison (Awin + Effiliation or Awin + Effiliation + Amazon with GetAAWP plugin)
