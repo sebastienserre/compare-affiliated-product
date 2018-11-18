@@ -198,29 +198,28 @@ class Effiliation {
 			libxml_clear_errors();
 
 			foreach ( $element->product as $prod ) {
-				/*$price_new = explode( '.', strval( $prod->price ) );
-				$price_cts = substr( $price_new[1], 0, 2 );
-				$price     = $price_new[0] . ',' . $price_cts;*/
 
-				$prod = array(
-					'price'        => strval( $prod->price ),
-					'title'        => strval( $prod->name ),
-					'description'  => strval( $prod->description ),
-					'img'          => strval( $prod->url_image ),
-					'url'          => strval( $prod->url_product ),
-					'partner_name' => $program['siteannonceur'],
-					'partner_code' => $program['id_programme'],
-					'productid'    => strval( $prod->sku ),
-					'ean'          => strval( $prod->ean ),
-					'platform'     => 'effiliation',
-				);
+				if ( ! empty( strval( $prod->ean ) ) ) {
+					$prod = array(
+						'price'        => strval( $prod->price ),
+						'title'        => strval( $prod->name ),
+						'description'  => strval( $prod->description ),
+						'img'          => strval( $prod->url_image ),
+						'url'          => strval( $prod->url_product ),
+						'partner_name' => $program['siteannonceur'],
+						'partner_code' => $program['id_programme'],
+						'productid'    => strval( $prod->sku ),
+						'ean'          => strval( $prod->ean ),
+						'platform'     => 'effiliation',
+					);
 
-				$wpdb->replace( $table, $prod );
-				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
-				if ( ! empty( $transient ) ) {
-					delete_transient( $transient );
+					$wpdb->replace( $table, $prod );
+					$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+					if ( ! empty( $transient ) ) {
+						delete_transient( $transient );
+					}
+					$transient = null;
 				}
-				$transient = null;
 			}
 		}
 		cap_delete_pid();
