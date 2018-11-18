@@ -26,7 +26,7 @@ add_filter( 'compare_url_tracker', 'compare_customize_tracker_word' );
  * @return string you input in settings
  */
 function compare_customize_tracker_word( $word ){
-	$options = get_option( 'compare-general' );
+	$options = get_option( 'compare-premium' );
 	if ( !empty( $options['tracker'] ) ){
 		$word = $options['tracker'];
 	}
@@ -39,10 +39,10 @@ function compare_customize_tracker_word( $word ){
  * @param array $data array of data about displayed product.
  */
 function compare_get_ean( $data ) {
-	switch ( $data ){
-		case ( is_object( $data ) ):
+	switch ( $data ) {
+		/*case ( is_object( $data ) ):
 			$asin = $data->get_product_id();
-			break;
+			break;*/
 		case ( 10 === strlen( $data ) ):
 			$asin = $data;
 			break;
@@ -51,7 +51,13 @@ function compare_get_ean( $data ) {
 			break;
 	}
 
-	$data = new AAWP_Template_Handler();
+	$transient = get_transient( 'eanlist-' . $asin );
+	if ( ! empty( $transient ) ) {
+		return $transient;
+	}
+
+
+	$data = new Amazon();
 
 	$params = array(
 		'Operation'     => 'ItemLookup',
@@ -59,9 +65,9 @@ function compare_get_ean( $data ) {
 		'ResponseGroup' => 'ItemAttributes',
 	);
 
-	$apikey        = $data->api_key;
-	$secret        = $data->api_secret_key;
-	$associate_tag = $data->api_associate_tag;
+	$apikey        = $data->amz['apikey'];
+	$secret        = $data->amz['secretkey'];
+	$associate_tag = $data->amz['trackingid'];
 
 	$asin2ean = aws_signed_request( 'fr', $params, $apikey, $secret, $associate_tag );
 
@@ -73,7 +79,25 @@ function compare_get_ean( $data ) {
 	$array   = json_decode( $json, true );
 	$eanlist = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
 	if ( ! is_array( $eanlist ) ) {
-		$eanlist = array( $eanlist );
+		$eanlist[0] = $array['Items']['Item']['ItemAttributes']['EANList']['EANListElement'];
 	}
+	$transient = set_transient( 'eanlist-' . $asin, $eanlist, 4 * HOUR_IN_SECONDS );
 	return $eanlist;
+}
+
+/**
+ * Create a file with the date to avoid launching cron twice
+ */
+function cap_create_pid() {
+
+	$date = date( 'd F Y @ H\hi:s' );
+	$file = fopen( COMPARE_PLUGIN_PATH . 'compare.txt', 'w+' );
+	fwrite( $file, $date );
+	fclose( $file );
+}
+
+function cap_delete_pid() {
+	if ( file_exists( 'compare.txt' ) ) {
+		unlink( COMPARE_PLUGIN_PATH . 'compare.txt' );
+	}
 }

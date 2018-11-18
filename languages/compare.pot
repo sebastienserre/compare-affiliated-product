@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-24 16:32+0000\n"
+"POT-Creation-Date: 2018-11-13 06:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: compare.php:211 admin/settings.php:348
+#: compare.php:178 pro/admin/settings.php:524
 msgid "Every 4 hours"
 msgstr ""
 
@@ -22,266 +22,81 @@ msgstr ""
 msgid "Compare Settings"
 msgstr ""
 
-#: admin/settings.php:34
-msgid "AAWP"
-msgstr ""
-
-#: admin/settings.php:49
+#: admin/settings.php:25
 msgid "general"
 msgstr ""
 
-#: admin/settings.php:50
-msgid "advanced"
-msgstr ""
-
-#. 'boulanger',
-#: admin/settings.php:51
-msgid "help"
-msgstr ""
-
-#: admin/settings.php:74
+#: admin/settings.php:38
 msgid "Settings"
 msgstr ""
 
-#: admin/settings.php:120
+#: admin/settings.php:92
 msgid "Save Changes"
 msgstr ""
 
-#: admin/settings.php:137
-msgid "External DB Settings"
-msgstr ""
-
-#: admin/settings.php:141
+#: admin/settings.php:112 pro/admin/settings.php:63
 msgid "Currency Unit"
 msgstr ""
 
-#: admin/settings.php:142
+#: admin/settings.php:113 pro/admin/settings.php:64
 msgid "Language"
 msgstr ""
 
-#: admin/settings.php:143
-msgid "Delete All Data when deleting this plugin"
-msgstr ""
-
-#: admin/settings.php:144
-msgid "Configure Cron Job"
-msgstr ""
-
-#: admin/settings.php:145
-msgid "Cloak Link"
-msgstr ""
-
-#: admin/settings.php:146
-msgid "Platforms"
-msgstr ""
-
-#: admin/settings.php:147
+#: admin/settings.php:115
 msgid "Delete Transients (cache)"
 msgstr ""
 
-#: admin/settings.php:148
-msgid "tracking Word"
-msgstr ""
-
-#: admin/settings.php:150
-msgid "Using an external DB?"
-msgstr ""
-
-#: admin/settings.php:151
-msgid "Host"
-msgstr ""
-
-#: admin/settings.php:152
-msgid "Database"
-msgstr ""
-
-#: admin/settings.php:153
-msgid "Username"
-msgstr ""
-
-#: admin/settings.php:154
-msgid "Password"
-msgstr ""
-
-#: admin/settings.php:155
-msgid "Prefix"
-msgstr ""
-
-#: admin/settings.php:172 admin/settings.php:195
-msgid "API Key"
-msgstr ""
-
-#: admin/settings.php:173
-msgid "Awin partner Code"
-msgstr ""
-
-#: admin/settings.php:174
-msgid "Awin partner logo"
-msgstr ""
-
-#: admin/settings.php:175
-msgid "Awin Trademark code"
-msgstr ""
-
-#: admin/settings.php:176
-msgid "Awin Customer Code"
-msgstr ""
-
-#: admin/settings.php:184
-msgid "Button Text"
-msgstr ""
-
-#: admin/settings.php:185
-msgid "Button Background Color"
-msgstr ""
-
-#: admin/settings.php:186
-msgid "Button Text Color"
-msgstr ""
-
-#: admin/settings.php:196
-msgid "My Programs"
-msgstr ""
-
-#: admin/settings.php:222
+#: admin/settings.php:128
 msgid "Delete all transients from database"
 msgstr ""
 
-#: admin/settings.php:223
+#: admin/settings.php:129
 msgid ""
 "Click on this link if you add a partner, checked a new programs or someting "
 "else which can change the datas."
 msgstr ""
 
-#: admin/settings.php:251
-msgid "Delete & reload feed in database"
-msgstr ""
-
-#: admin/settings.php:269 admin/settings.php:488
-#, php-format
-msgid "%s API Key. Get in your profile"
-msgstr ""
-
-#: admin/settings.php:291
-msgid "Check the platform to work with"
-msgstr ""
-
-#: admin/settings.php:325 shortcode/class-compare-basic-shortcode.php:72
-#: classes/class_cloak_link.php:34 classes/class_cloak_link.php:65
-#: classes/class-template.php:90 classes/class-template.php:123
-msgid "Buy to "
-msgstr ""
-
-#: admin/settings.php:347
-msgid "None"
-msgstr ""
-
-#: admin/settings.php:349
-msgid "Twice Daily"
-msgstr ""
-
-#: admin/settings.php:350
-msgid "Daily"
-msgstr ""
-
-#: admin/settings.php:352
-msgid ""
-"Cron Task will regenerate database programmatically. If you're using an "
-"external DB, no need to use Cron Jobs"
-msgstr ""
-
-#: admin/settings.php:376
-#, php-format
-msgid ""
-"For more informations, Please <a href=\"%1$s\">read the documentation</a>"
-msgstr ""
-
-#: admin/settings.php:379
-msgid ""
-"Optional - It could be a good idea if you'd like to connect several websites "
-"to a common database"
-msgstr ""
-
-#: admin/settings.php:476
-#, php-format
-msgid "%s Customer ID. Needed to let \"Convert a link\" feature working"
-msgstr ""
-
-#: admin/settings.php:499
-#, php-format
-msgid ""
-"Choose the programs you'd like to display on your site. You can get code by "
-"creating a feed in %s website"
-msgstr ""
-
-#: admin/settings.php:519
-msgid "Choose your partner"
-msgstr ""
-
-#: admin/settings.php:533
-msgid "Upload first image on media library then paste the link here."
-msgstr ""
-
-#: admin/settings.php:545
-#, php-format
-msgid ""
-"Choose the mark you'd like to display on your site. You can get code by "
-"creating a feed in %s website. Left empty to get all mark from partner feed."
-msgstr ""
-
-#: admin/settings.php:851
+#: admin/settings.php:425
 msgid "Choose your currency"
 msgstr ""
 
-#: admin/settings.php:861
+#: admin/settings.php:435
 msgid "Currency unit used to display prices"
 msgstr ""
 
-#: admin/settings.php:875
-msgid "Delete & reload feeds in database"
-msgstr ""
-
-#: admin/settings.php:1496
+#: admin/settings.php:1055
 msgid "Choose your language"
 msgstr ""
 
-#: admin/settings.php:1506
+#: admin/settings.php:1065
 msgid "languages used to get datafeed in right language"
 msgstr ""
 
-#: admin/settings.php:1512
-#, php-format
-msgid ""
-"If you encounter a bug, you can leave me a ticket on <a href=\"%1$s\" "
-"target=\"_blank\">Thivinfo.com</a>"
+#: classes/amazon.php:34
+msgid "Amazon API Key"
 msgstr ""
 
-#: admin/settings.php:1519
-msgid "Welcome on the support center"
+#: classes/amazon.php:38
+msgid "Amazon Secret Key"
 msgstr ""
 
-#: admin/settings.php:1522
-msgid "Documentation Center"
+#: classes/amazon.php:42
+msgid "Amazon Tracking ID"
 msgstr ""
 
-#: shortcode/class-compare-basic-shortcode.php:42
-msgid "Where finding this product?"
+#: classes/amazon.php:46
+msgid "Amazon Country"
 msgstr ""
 
-#: aawp/table.php:28
-msgid "Buy It"
-msgstr ""
-
-#: classes/class-effiliation.php:132
-msgid "Check the program to display"
-msgstr ""
-
-#: classes/class-compare-external-db.php:76
-msgid "Failed to connect to MySQL, please check your login credentials"
-msgstr ""
-
-#: classes/class-compare-external-db.php:78
-msgid "Succesfully connected to the database"
+#: classes/amazon.php:213 classes/class-compare-shortcode.php:112
+#: classes/class-compare-shortcode.php:153 pro/admin/settings.php:225
+#: pro/deprecated/shortcode/class-compare-price.php:88
+#: pro/deprecated/shortcode/class-compare-basic-shortcode.php:74
+#: pro/inc/classes/class_cloak_link.php:48
+#: pro/inc/classes/class_cloak_link.php:86
+#: pro/inc/classes/class_cloak_link.php:119
+#: pro/inc/classes/class-template.php:113
+msgid "Buy to "
 msgstr ""
 
 #: admin/upgrade-notices/upgrade-120-effiliation.php:26
@@ -298,12 +113,216 @@ msgstr ""
 msgid "Click to Update"
 msgstr ""
 
+#: pro/admin/settings.php:28
+msgid "Style"
+msgstr ""
+
+#: pro/admin/settings.php:38
+msgid "advanced"
+msgstr ""
+
+#. 'boulanger',
+#: pro/admin/settings.php:39
+msgid "help"
+msgstr ""
+
+#: pro/admin/settings.php:40
+msgid "premium"
+msgstr ""
+
+#: pro/admin/settings.php:72
+msgid "External DB Settings"
+msgstr ""
+
+#: pro/admin/settings.php:75
+msgid "Using an external DB?"
+msgstr ""
+
+#: pro/admin/settings.php:76
+msgid "Host"
+msgstr ""
+
+#: pro/admin/settings.php:77
+msgid "Database"
+msgstr ""
+
+#: pro/admin/settings.php:78
+msgid "Username"
+msgstr ""
+
+#: pro/admin/settings.php:79
+msgid "Password"
+msgstr ""
+
+#: pro/admin/settings.php:80
+msgid "Prefix"
+msgstr ""
+
+#: pro/admin/settings.php:89
+msgid "Cloak Link"
+msgstr ""
+
+#: pro/admin/settings.php:90
+msgid "Platforms"
+msgstr ""
+
+#: pro/admin/settings.php:91
+msgid "tracking Word"
+msgstr ""
+
+#: pro/admin/settings.php:92
+msgid "Delete All Data when deleting this plugin"
+msgstr ""
+
+#: pro/admin/settings.php:93
+msgid "Configure Cron Job"
+msgstr ""
+
+#: pro/admin/settings.php:110 pro/admin/settings.php:137
+msgid "API Key"
+msgstr ""
+
+#: pro/admin/settings.php:111
+msgid "Awin partner Code"
+msgstr ""
+
+#: pro/admin/settings.php:112
+msgid "Awin partner logo"
+msgstr ""
+
+#: pro/admin/settings.php:113
+msgid "Awin Trademark code"
+msgstr ""
+
+#: pro/admin/settings.php:114
+msgid "Awin Customer Code"
+msgstr ""
+
+#: pro/admin/settings.php:124
+msgid "Button Text"
+msgstr ""
+
+#: pro/admin/settings.php:125
+msgid "Button Background Color"
+msgstr ""
+
+#: pro/admin/settings.php:126
+msgid "Button Text Color"
+msgstr ""
+
+#: pro/admin/settings.php:138
+msgid "My Programs"
+msgstr ""
+
+#: pro/admin/settings.php:169 pro/admin/settings.php:375
+#, php-format
+msgid "%s API Key. Get in your profile"
+msgstr ""
+
+#: pro/admin/settings.php:191
+msgid "Check the platform to work with"
+msgstr ""
+
+#: pro/admin/settings.php:263
+#, php-format
+msgid ""
+"For more informations, Please <a href=\"%1$s\">read the documentation</a>"
+msgstr ""
+
+#: pro/admin/settings.php:266
+msgid ""
+"Optional - It could be a good idea if you'd like to connect several websites "
+"to a common database"
+msgstr ""
+
+#: pro/admin/settings.php:363
+#, php-format
+msgid "%s Customer ID. Needed to let \"Convert a link\" feature working"
+msgstr ""
+
+#: pro/admin/settings.php:386
+#, php-format
+msgid ""
+"Choose the programs you'd like to display on your site. You can get code by "
+"creating a feed in %s website"
+msgstr ""
+
+#: pro/admin/settings.php:406
+msgid "Choose your partner"
+msgstr ""
+
+#: pro/admin/settings.php:420
+msgid "Upload first image on media library then paste the link here."
+msgstr ""
+
+#: pro/admin/settings.php:432
+#, php-format
+msgid ""
+"Choose the mark you'd like to display on your site. You can get code by "
+"creating a feed in %s website. Left empty to get all mark from partner feed."
+msgstr ""
+
+#: pro/admin/settings.php:438
+#, php-format
+msgid ""
+"If you encounter a bug, you can leave me a ticket on <a href=\"%1$s\" "
+"target=\"_blank\">Thivinfo.com</a>"
+msgstr ""
+
+#: pro/admin/settings.php:445
+msgid "Welcome on the support center"
+msgstr ""
+
+#: pro/admin/settings.php:448
+msgid "Documentation Center"
+msgstr ""
+
+#: pro/admin/settings.php:523
+msgid "None"
+msgstr ""
+
+#: pro/admin/settings.php:525
+msgid "Twice Daily"
+msgstr ""
+
+#: pro/admin/settings.php:526
+msgid "Daily"
+msgstr ""
+
+#: pro/admin/settings.php:528
+msgid ""
+"Cron Task will regenerate database programmatically. If you're using an "
+"external DB, no need to use Cron Jobs"
+msgstr ""
+
+#: pro/aawp/table.php:28
+msgid "Buy It"
+msgstr ""
+
+#: pro/deprecated/shortcode/class-compare-basic-shortcode.php:44
+msgid "Where finding this product?"
+msgstr ""
+
+#: pro/inc/classes/class-effiliation.php:96
+msgid "Check the program to display"
+msgstr ""
+
+#: pro/inc/classes/class-compare-external-db.php:74
+msgid "Failed to connect to MySQL, please check your login credentials"
+msgstr ""
+
+#: pro/inc/classes/class-compare-external-db.php:76
+msgid "Succesfully connected to the database"
+msgstr ""
+
 #. Name of the plugin
 msgid "Compare Affiliated Products"
 msgstr ""
 
 #. Description of the plugin
-msgid "Display Easily products from your affiliate program (Awin)"
+msgid ""
+"Display Easily products from your affiliated programs (Amazon, Awin, "
+"Effiliation...)"
 msgstr ""
 
 #. URI of the plugin

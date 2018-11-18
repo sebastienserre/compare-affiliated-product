@@ -1,0 +1,22 @@
+.cap-setting-ads {
+    background: #e5e5e5;
+    border: 1px solid #ccc;
+    width: 250px;
+    margin-top: 50px;
+    margin-right: 1em;
+    padding: 10px;
+    height: 70px;
+    float: left;
+    line-height: 70px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.tab-help input#save_compare_settings {
+    display: none;
+}
+
+.cap-setting-ads a{
+    text-transform: capitalize;
+    font-size: 14px;
+}

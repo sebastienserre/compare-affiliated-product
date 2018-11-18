@@ -18,7 +18,7 @@ class Cloak_Link {
 	 * @param array  $product data of compared product.
 	 * @param string $logo    String to the partner logo
 	 */
-	public function compare_create_link( $product ) {
+	public function compare_create_link( $product, $logo, $data ) {
 		$logos = template::compare_get_partner_logo();
 		if ( isset( $logos[$product['partner_code']] ) ){
 			$logo = $logos[$product['partner_code']];
@@ -42,7 +42,7 @@ class Cloak_Link {
 		$currency = get_option( 'compare-general' );
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
-		$option   = get_option( 'compare-aawp' );
+		$option   = get_option( 'compare-style' );
 		$text     = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );
@@ -67,7 +67,7 @@ class Cloak_Link {
 			<?php
 				}?>
 				<div class="product-price">
-					<?php echo $product['price'] . ' ' . $currency ?>
+					<?php echo $product['price']; ?>
 				</div>
 				<div class="button-partner">
 					<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; " class="btn-compare"
@@ -80,7 +80,7 @@ class Cloak_Link {
 	}
 
 	public static function compare_amz_link( $data ) {
-		$option = get_option( 'compare-aawp' );
+		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );
@@ -113,7 +113,7 @@ class Cloak_Link {
 	}
 
 	public function compare_amz_cloak_table( $data ) {
-		$option = get_option( 'compare-aawp' );
+		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
 			$text = __( 'Buy to ', 'compare' );

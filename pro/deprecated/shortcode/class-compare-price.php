@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly.
 
 class Compare_price {
 	public function __construct() {
@@ -42,7 +45,8 @@ class Compare_price {
 
 		$ean = compare_get_ean( $atts['product'] );
 
-		$datas = template::compare_get_data( $ean, $atts );
+		$template = new template();
+		$datas    = $template->compare_get_data( $ean, $atts );
 
 
 		if ( empty( $datas ) ) {
@@ -54,8 +58,8 @@ class Compare_price {
 		<div class="compare_sc compare_price_main">
 			<?php
 			foreach ( $datas as $p ) {
-				$general = get_option( 'compare-general' );
-				if ( 'on' === $general['general-cloack'] ) {
+				$premium = get_option( 'compare-premium' );
+				if ( 'on' === $premium['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
 
@@ -71,15 +75,15 @@ class Compare_price {
 					if ( isset( $logos[ $p['partner_code'] ] ) ) {
 						$logo = $logos[ $p['partner_code'] ];
 					}
-					if ( "amz" === $p['partner_code'] ){
-						$logo = COMPARE_PLUGIN_URL. '/assets/img/amazon.png';
+					if ( "amz" === $p['partner_code'] ) {
+						$logo = COMPARE_PLUGIN_URL . '/assets/img/amazon.png';
 					}
 					$url = $p['url'];
 
 					$currency = get_option( 'compare-general' );
 					$currency = $currency['currency'];
 					$currency = apply_filters( 'compare_currency_unit', $currency );
-					$option   = get_option( 'compare-aawp' );
+					$option   = get_option( 'compare-style' );
 					$text     = $option['button_text'];
 					if ( empty( $text ) ) {
 						$text = __( 'Buy to ', 'compare' );

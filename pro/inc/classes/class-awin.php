@@ -1,4 +1,7 @@
 <?php
+if ( class_exists( 'WP_CLI' ) ){
+	WP_CLI::add_command('cap_import_awin', 'Awin' );
+}
 
 /**
  * Class Awin
@@ -8,6 +11,7 @@ class Awin {
 	protected $awin;
 	protected $_option;
 	protected $queue_register;
+	protected $_premium;
 
 	/**
 	 * Awin constructor.
@@ -16,6 +20,7 @@ class Awin {
 
 		$this->awin           = get_option( 'awin' );
 		$this->_option        = get_option( 'compare-general' );
+		$this->premium  = get_option( 'compare-premium' );
 
 		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
 			$this->compare_schedule_awin();
@@ -27,12 +32,16 @@ class Awin {
 		$this->_option = get_option( 'compare-general' );
 	}
 
+	public function compare_set_premium(){
+		$this->_premium = get_option( 'compare-premium' );
+	}
+
 	public function compare_set_cron() {
 
 		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
 			return;
 		}
-		$cron = $this->_option['cron'];
+		$cron = $this->_premium['cron'];
 		if ( ! isset( $this->_option['platform']['awin'] ) ) {
 			return;
 		}
@@ -93,8 +102,9 @@ class Awin {
 	 * Download and unzip xml from Awin
 	 */
 	public function compare_schedule_awin() {
-		if ( ! isset( $this->_option['platform']['awin'] ) ){
-			return false;
+		$option = get_option( 'compare-premium' );
+		if ( ! isset( $option['platform']['awin'] ) ) {
+			return;
 		}
 		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -119,8 +129,9 @@ class Awin {
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
 				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
-				$results = rename( $temp_file, $path . $name);
+				$results = rename( $temp_file, $path . $name );
 				unlink( $temp_file );
+
 			}
 		}
 		error_log( 'Stop Download Feed' );
@@ -183,29 +194,28 @@ class Awin {
 				set_time_limit( $secondes );
 				$element = new SimpleXMLElement( $xml->readOuterXML() );
 
-				/*$price_new = explode( '.', strval( $element->price->buynow ) );
-				$price_cts = substr( $price_new[1], 0, 2 );
-				$price     = $price_new[0] . ',' . $price_cts;*/
-				$prod = array(
-					'price'        => strval( $element->price->buynow ),
-					'title'        => $element->text->name ? strval( $element->text->name ) : '',
-					'description'  => strval( $element->text->desc ),
-					'img'          => strval( $element->uri->mImage ),
-					'url'          => strval( $element->uri->awTrack ),
-					'partner_name' => $partner_details,
-					'productid'    => strval( $xml->getAttribute( 'id' ) ),
-					'ean'          => strval( $element->ean ),
-					'platform'     => 'Awin',
-					'partner_code' => $value,
-				);
+				if ( ! empty( strval( $element->ean ) ) ) {
+					$prod = array(
+						'price'        => strval( $element->price->buynow ),
+						'title'        => $element->text->name ? strval( $element->text->name ) : '',
+						'description'  => strval( $element->text->desc ),
+						'img'          => strval( $element->uri->mImage ),
+						'url'          => strval( $element->uri->awTrack ),
+						'partner_name' => $partner_details,
+						'productid'    => strval( $xml->getAttribute( 'id' ) ),
+						'ean'          => strval( $element->ean ),
+						'platform'     => 'Awin',
+						'partner_code' => $value,
+					);
 
-				$wpdb->replace( $table, $prod );
+					$wpdb->replace( $table, $prod );
 
-				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
-				if (! empty( $transient ) ){
-					delete_transient( $transient );
+					$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+
+					if ( ! empty( $transient ) ) {
+						delete_transient( $transient );
+					}
 				}
-				//$transient = null;
 				$xml->next( 'prod' );
 
 

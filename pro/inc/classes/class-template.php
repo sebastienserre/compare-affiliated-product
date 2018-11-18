@@ -1,4 +1,4 @@
-f<?php
+<?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
@@ -19,15 +19,6 @@ class template {
 	 * @param array $data array of data about displayed product.
 	 */
 	public function compare_display_price( $data ) {
-
-		switch ( $data->atts['partners'] ) {
-			case 'nok' :
-				return;
-			case '':
-			case 'ok':
-			default:
-				continue;
-		}
 
 		if ( is_object( $data ) ) {
 			$asin = $data->get_product_id();
@@ -58,7 +49,7 @@ class template {
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
-		$this->compare_display_html( $eanlist, $data );
+		$this->compare_display_html( $eanlist, $data, $asin );
 	}
 
 	/**
@@ -67,8 +58,72 @@ class template {
 	 * @param $eanlist Array of EAN13
 	 * @param $data    array of Product datas.
 	 */
-	public function compare_display_html( $eanlist, $data ) {
-		$prods            = $this->compare_get_data( $eanlist );
+	public function compare_display_html( $eanlist, $data, $asin ) {
+
+		switch ( $data->atts['partners'] ) {
+			case 'nok' :
+				$amz   = new Amazon();
+				$datas = $amz->compare_get_amz_data( $asin );
+
+				$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
+				$price = explode( ' ', $price );
+				$price = intval( $price[1] );
+
+				$prods['amz'] =
+					array(
+						'ean'          => '',
+						'title'        => $datas['Items']['Item']['ItemAttributes']['Title'],
+						'description'  => $datas['Items']['Item']['ItemAttributes']['Feature'],
+						'img'          => $datas['Items']['Item']['LargeImage']['URL'],
+						'partner_name' => 'Amazon FR',
+						'partner_code' => 'amz',
+						'product_id'   => $datas['Items']['item']['ASIN'],
+						'url'          => $datas['Items']['Item']['DetailPageURL'],
+						'price'        => $price,
+						'platform'     => 'Amz'
+
+					);
+				break;
+			case '':
+			case 'ok':
+			default:
+				$prods = $this->compare_get_data( $eanlist );
+				$amz   = new Amazon();
+				$datas = $amz->compare_get_amz_data( $asin );
+
+			$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
+				$price = explode( ' ', $price );
+				$price = intval( $price[1] );
+
+				$prods['amz'] =
+					array(
+						'ean'          => '',
+						'title'        => $datas['Items']['Item']['ItemAttributes']['Title'],
+						'description'  => $datas['Items']['Item']['ItemAttributes']['Feature'],
+						'img'          => $datas['Items']['Item']['LargeImage']['URL'],
+						'partner_name' => 'Amazon FR',
+						'partner_code' => 'amz',
+						'product_id'   => $datas['Items']['item']['ASIN'],
+						'url'          => $datas['Items']['Item']['DetailPageURL'],
+						'price'        => $price,
+						'platform'     => 'Amz'
+
+					);
+				break;
+		}
+
+
+		foreach ( $prods as $key => $p ) {
+			$prods[ $key ]['price'] = floatval( $p['price'] );
+			$vc_array_name[ $key ]  = $p['price'];
+		}
+
+		array_multisort( $vc_array_name, SORT_ASC, $prods );
+
+		foreach ( $prods as $key => $p ) {
+			$prods[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
+
+		}
 		$partner_logo_url = get_option( 'awin' );
 		$partner_logo_url = $partner_logo_url['partner_logo'];
 		ob_start();
@@ -76,25 +131,17 @@ class template {
 		<?php
 		if ( ! is_null( $prods ) ) {
 			$i = 1;
+			?>
+			<div class="compare-price">
+			<?php
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
-				switch ( $p['partner_name'] ) {
-					case 'Cdiscount':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['15557'] . '" >';
-						break;
-					case 'Darty':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['25905'] . '" >';
-						break;
-					case 'Rue du Commerce':
-						$logo = '<img class="compare_partner_logo" src="' . $partner_logo_url['26507'] . '" >';
-						break;
-					default:
-						$logo = $partner;
-				}
+
 				$general  = get_option( 'compare-general' );
+				$premium  = get_option( 'compare-premium' );
 				$currency = $general['currency'];
 				$currency = apply_filters( 'compare_currency_unit', $currency );
-				$option   = get_option( 'compare-aawp' );
+				$option   = get_option( 'compare-style' );
 				$text     = $option['button_text'];
 
 				/**
@@ -120,9 +167,10 @@ class template {
 				if ( empty( $color ) ) {
 					$color = '#ffffff';
 				}
-				if ( isset( $general['general-cloack'] ) && 'on' === $general['general-cloack'] ) {
+				if ( isset( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] ) {
 					$link = new Cloak_Link();
 					?>
+
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 						<?php
 						$link->compare_create_link( $p, $logo, $data );
@@ -131,28 +179,26 @@ class template {
 
 					<?php
 				} else {
-					$logos = template::compare_get_partner_logo();
+					if ( "amz" === $p['partner_code'] ) {
+						$logo   = COMPARE_PLUGIN_URL . 'assets/img/amazon.png';
+						$amz    = get_option( 'compare-amazon' );
+						$tag    = $amz['trackingid'];
+						$tagpos = strpos( $p['url'], 'tag=' );
+						if ( $tagpos > 0 ) {
+							$url      = explode( 'tag=', $p['url'] );
+							$p['url'] = add_query_arg( 'tag', $tag, $url[0] );
+							$url      = $p['url'] . '&keywords=' . $url[1];
+						} else {
+							$url = add_query_arg( 'tag', $tag, $p['url'] );
+						}
+					} else {
+						$logos = template::compare_get_partner_logo();
 
-					if ( isset( $logos[ $p['partner_code'] ] ) ) {
-						$logo = $logos[ $p['partner_code'] ];
+						if ( isset( $logos[ $p['partner_code'] ] ) ) {
+							$logo = $logos[ $p['partner_code'] ];
+						}
 					}
 
-					/*$currency = get_option( 'compare-general' );
-					$currency = $currency['currency'];
-					$currency = apply_filters( 'compare_currency_unit', $currency );
-					$option   = get_option( 'compare-aawp' );
-					$text     = $option['button_text'];
-					if ( empty( $text ) ) {
-						$text = __( 'Buy to ', 'compare' );
-					}
-					$bg = $option['button-bg'];
-					if ( empty( $bg ) ) {
-						$bg = '#000000';
-					}
-					$color = $option['button-color'];
-					if ( empty( $color ) ) {
-						$color = '#ffffff';
-					}*/
 
 					?>
 					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
@@ -175,9 +221,13 @@ class template {
 
 					<?php
 				}
-				$i ++;
 			}
+			?>
+			</div>
+				<?php
+			$i ++;
 		}
+
 		$html = ob_get_clean();
 		echo $html;
 	}
@@ -195,8 +245,8 @@ class template {
 		}
 
 		$transient = get_transient( 'product_' . $eanlist[0] );
-		if ( ! empty( $transient ) && false === WP_DEBUG ) {
-					return $transient;
+		if ( ! empty( $transient ) ) {
+			return $transient;
 		}
 		$external = get_option( 'compare-advanced' );
 		if ( ! empty( $external ) ) {
@@ -217,54 +267,57 @@ class template {
 				array_push( $programs, $effiliation_program );
 			}
 		}
-		if ( 'on' === $external ) {
-			$db = compare_external_db::getInstance();
-			if ( is_wp_error( $db ) ) {
+
+		if ( cap_fs()->is__premium_only() ) {
+			if ( 'on' === $external ) {
+				$db = compare_external_db::getInstance();
+				if ( is_wp_error( $db ) ) {
+					global $wpdb;
+					$table    = $wpdb->prefix . 'compare';
+					$products = array();
+
+					if ( null !== $eanlist[0] ) {
+						foreach ( $eanlist as $list ) {
+							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+							if ( ! empty( $product ) ) {
+								array_push( $products, $product );
+							}
+						}
+					}
+				} else {
+					$prefix = get_option( 'compare-advanced' );
+					$prefix = $prefix['prefix'];
+
+					$db       = compare_external_db::getInstance();
+					$cnx      = $db->getConnection();
+					$table    = $prefix . 'compare';
+					$products = array();
+					if ( null !== $eanlist[0] ) {
+						foreach ( $eanlist as $list ) {
+							$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean LIKE %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+							if ( ! empty( $product ) ) {
+								array_push( $products, $product );
+							}
+						}
+					}
+
+				}
+			} else {
 				global $wpdb;
 				$table    = $wpdb->prefix . 'compare';
 				$products = array();
 
 				if ( null !== $eanlist[0] ) {
 					foreach ( $eanlist as $list ) {
-						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
-						}
-					}
-				}
-			} else {
-				$prefix = get_option( 'compare-advanced' );
-				$prefix = $prefix['prefix'];
-
-				$db       = compare_external_db::getInstance();
-				$cnx      = $db->getConnection();
-				$table    = $prefix . 'compare';
-				$products = array();
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean LIKE %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
-						}
-					}
-				}
-
-			}
-		} else {
-			global $wpdb;
-			$table    = $wpdb->prefix . 'compare';
-			$products = array();
-
-			if ( null !== $eanlist[0] ) {
-				foreach ( $eanlist as $list ) {
-					foreach ( $programs as $program ) {
-						$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+						foreach ( $programs as $program ) {
+							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
 
-						if ( ! empty( $product ) ) {
-							array_push( $products, $product );
+							if ( ! empty( $product ) ) {
+								array_push( $products, $product );
+							}
 						}
 					}
 				}
@@ -274,13 +327,16 @@ class template {
 		if ( ! empty( $products ) ) {
 
 			$subscribed = compare_get_programs();
-			$products   = array_reverse( $products[0] );
-			$products   = array_combine( array_column( $products, 'partner_name' ), $products );
+
+			$products = array_reverse( $products[0] );
+			$products = array_combine( array_column( $products, 'partner_name' ), $products );
+
 
 			if ( has_shortcode( get_the_content(), 'compare_price' ) ) {
 				$products = apply_filters( 'compare_products', $products, $atts );
 			}
-			$products   = array_reverse( $products );
+			$products = array_reverse( $products );
+
 			foreach ( $products as $key => $value ) {
 				if ( 'amz' !== $key ) {
 					$in_array = array_key_exists( $key, $subscribed );
@@ -288,6 +344,14 @@ class template {
 						unset( $products[ $key ] );
 					}
 				}
+				$products[ $key ]['price'] = floatval( $value['price'] );
+				$vc_array_name[ $key ]     = $value['price'];
+			}
+			array_multisort( $vc_array_name, SORT_ASC, $products );
+
+			foreach ( $products as $key => $p ) {
+				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
+
 			}
 
 			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );

@@ -1,4 +1,8 @@
 <?php
+
+if ( class_exists( 'WP_CLI' ) ){
+	WP_CLI::add_command('cap_import_effiliation', 'Effiliation' );
+}
 /**
  * Class effiliation
  *
@@ -14,7 +18,6 @@ class Effiliation {
 
 	public function __construct() {
 
-
 	}
 
 	public function compare_reset_effiliation_feed() {
@@ -22,7 +25,7 @@ class Effiliation {
 	}
 
 	public function compare_effiliation_set_cron() {
-		$option = get_option( 'compare-general' );
+		$option = get_option( 'compare-premium' );
 		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
 		}
@@ -137,8 +140,9 @@ class Effiliation {
 	 * Download and unzip xml from Effiliaiton
 	 **/
 	public function compare_schedule_effiliation() {
-		if ( ! isset( $this->_option['platform']['effiliation'] ) ){
-			return false;
+		$option = get_option( 'compare-premium' );
+		if ( ! isset( $option['platform']['effiliation'] ) ) {
+			return;
 		}
 		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -162,7 +166,9 @@ class Effiliation {
 
 				$name    = $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
+				$metaDatas = sys_get_temp_dir($temp_file);
 				unlink( $temp_file );
+
 			} else {
 				error_log( $temp_file->errors['http_request_failed'][0] );
 			}
@@ -192,29 +198,28 @@ class Effiliation {
 			libxml_clear_errors();
 
 			foreach ( $element->product as $prod ) {
-				/*$price_new = explode( '.', strval( $prod->price ) );
-				$price_cts = substr( $price_new[1], 0, 2 );
-				$price     = $price_new[0] . ',' . $price_cts;*/
 
-				$prod = array(
-					'price'        => strval( $prod->price ),
-					'title'        => strval( $prod->name ),
-					'description'  => strval( $prod->description ),
-					'img'          => strval( $prod->url_image ),
-					'url'          => strval( $prod->url_product ),
-					'partner_name' => $program['siteannonceur'],
-					'partner_code' => $program['id_programme'],
-					'productid'    => strval( $prod->sku ),
-					'ean'          => strval( $prod->ean ),
-					'platform'     => 'effiliation',
-				);
+				if ( ! empty( strval( $prod->ean ) ) ) {
+					$prod = array(
+						'price'        => strval( $prod->price ),
+						'title'        => strval( $prod->name ),
+						'description'  => strval( $prod->description ),
+						'img'          => strval( $prod->url_image ),
+						'url'          => strval( $prod->url_product ),
+						'partner_name' => $program['siteannonceur'],
+						'partner_code' => $program['id_programme'],
+						'productid'    => strval( $prod->sku ),
+						'ean'          => strval( $prod->ean ),
+						'platform'     => 'effiliation',
+					);
 
-				$wpdb->replace( $table, $prod );
-				$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
-				if ( ! empty( $transient ) ) {
-					delete_transient( $transient );
+					$wpdb->replace( $table, $prod );
+					$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+					if ( ! empty( $transient ) ) {
+						delete_transient( $transient );
+					}
+					$transient = null;
 				}
-				$transient = null;
 			}
 		}
 		cap_delete_pid();

@@ -59,12 +59,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php $this->the_product_check_prime_logo(); ?>
 		</div>
-		<div class="compare-price">
-			<?php Cloak_Link::compare_amz_link( $this ); ?>
+		<!-- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
 			<?php do_action( 'thfo_compare_after_price', $this ); ?>
-		</div>
-
-
+		<!-- Hook Added by Compare Affiliated Products -->
 		<?php if ( $this->get_inline_info() ) { ?>
 			<span class="aawp-product__info"><?php echo $this->get_inline_info_text(); ?></span>
 		<?php } ?>
