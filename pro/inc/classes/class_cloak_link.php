@@ -67,7 +67,7 @@ class Cloak_Link {
 			<?php
 				}?>
 				<div class="product-price">
-					<?php echo $product['price'] . ' ' . $currency ?>
+					<?php echo $product['price']; ?>
 				</div>
 				<div class="button-partner">
 					<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; " class="btn-compare"

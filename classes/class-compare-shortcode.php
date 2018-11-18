@@ -14,7 +14,7 @@ class compare_shortcode {
 			array(
 				'type'     => 'basic',
 				'product'  => '',
-				'platform' => 'amazon',
+				'partners' => '',
 			),
 			$atts,
 			'cap'
@@ -30,7 +30,7 @@ class compare_shortcode {
 		$price = explode( ' ', $price );
 		$price = intval( $price[1] );
 
-		if ( cap_fs()->is__premium_only() ) {
+		if ( cap_fs()->is__premium_only() && $atts['partners'] == 'ok' ) {
 			$ean      = compare_get_ean( $atts['product'] );
 			$template = new template();
 			$products = $template->compare_get_data( $ean, $atts );
@@ -111,25 +111,30 @@ class compare_shortcode {
 								if ( isset( $logos[ $p['partner_code'] ] ) ) {
 									$logo = $logos[ $p['partner_code'] ];
 								}
-
-								$option = get_option( 'compare-style' );
-								$text   = $option['button_text'];
-								if ( empty( $text ) ) {
-									$text = __( 'Buy to ', 'compare' );
-								}
-								$bg = $option['button-bg'];
-								if ( empty( $bg ) ) {
-									$bg = '#000000';
-								}
-								$color = $option['button-color'];
-								if ( empty( $color ) ) {
-									$color = '#ffffff';
-								}
 							}
-							?>
 
-							<?php
-							echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
+							$option = get_option( 'compare-style' );
+							$text   = $option['button_text'];
+							if ( empty( $text ) ) {
+								$text = __( 'Buy to ', 'compare' );
+							}
+							$bg = $option['button-bg'];
+							if ( empty( $bg ) ) {
+								$bg = '#000000';
+							}
+							$color = $option['button-color'];
+							if ( empty( $color ) ) {
+								$color = '#ffffff';
+							}
+
+							$premium = get_option( 'compare-premium' );
+							if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
+								$cloaked = new Cloak_Link();
+								$cloaked->compare_create_link( $p, $logo, $data );
+
+							} else {
+								echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
+							}
 						}
 						?>
 					</div>
@@ -175,8 +180,14 @@ class compare_shortcode {
 					$tag      = $amz['trackingid'];
 					$p['url'] = add_query_arg( 'tag', $tag, $p['url'] );
 				}
+				$premium = get_option( 'compare-premium' );
+				if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
+					$cloaked = new Cloak_Link();
+					$cloaked->compare_create_link( $p, $logo, $data );
 
-				echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
+				} else {
+					echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
+				}
 			}
 			?>
 		</div>
