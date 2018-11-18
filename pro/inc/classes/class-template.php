@@ -208,7 +208,7 @@ class template {
 						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
 						<div class="product-price">
 							<a href="<?php echo $url; ?>">
-								<?php echo $p['price'] . ' ' . $currency ?>
+								<?php echo $p['price']  ?>
 							</a>
 						</div>
 						<div class="button-partner">
