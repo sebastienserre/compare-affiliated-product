@@ -120,6 +120,10 @@ class template {
 
 		array_multisort( $vc_array_name, SORT_ASC, $prods );
 
+		$general  = get_option( 'compare-general' );
+		$currency = $general['currency'];
+		$currency = apply_filters( 'compare_currency_unit', $currency );
+
 		foreach ( $prods as $key => $p ) {
 			$prods[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
 
@@ -137,10 +141,9 @@ class template {
 			foreach ( $prods as $p ) {
 				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
 
-				$general  = get_option( 'compare-general' );
+
 				$premium  = get_option( 'compare-premium' );
-				$currency = $general['currency'];
-				$currency = apply_filters( 'compare_currency_unit', $currency );
+
 				$option   = get_option( 'compare-style' );
 				$text     = $option['button_text'];
 
