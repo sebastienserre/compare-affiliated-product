@@ -4,6 +4,7 @@ Tags: affiliate, affiliate program, awin, aawp, amazon, amazon affiliate, affili
 Tested up to: 4.9
 Stable tag: 2.0.3
 Requires PHP: 5.6
+Requires at least: 4.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
