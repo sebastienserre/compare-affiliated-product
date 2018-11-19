@@ -2,7 +2,7 @@
 Contributors: sebastienserre
 Tags: affiliate, affiliate program, awin, aawp, amazon, amazon affiliate, affiliate products, associate, associates, Amazon Associate, Amazon Associates
 Tested up to: 4.9
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 Requires PHP: 5.6
 Requires at least: 4.6
 License: GPLv3
