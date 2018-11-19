@@ -57,7 +57,7 @@ class Cloak_Link {
 		$option   = get_option( 'compare-style' );
 		$text     = $option['button_text'];
 		if ( empty( $text ) ) {
-			$text = __( 'Buy to ', 'compare' );
+			$text = __( 'Buy to ', 'compare-affiliated-products' );
 		}
 		$bg = $option['button-bg'];
 		if ( empty( $bg ) ) {
@@ -95,7 +95,7 @@ class Cloak_Link {
 		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
-			$text = __( 'Buy to ', 'compare' );
+			$text = __( 'Buy to ', 'compare-affiliated-products' );
 		}
 		$bg = $option['button-bg'];
 		if ( empty( $bg ) ) {
@@ -128,7 +128,7 @@ class Cloak_Link {
 		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
 		if ( empty( $text ) ) {
-			$text = __( 'Buy to ', 'compare' );
+			$text = __( 'Buy to ', 'compare-affiliated-products' );
 		}
 		$bg = $option['button-bg'];
 		if ( empty( $bg ) ) {

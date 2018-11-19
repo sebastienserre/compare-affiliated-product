@@ -31,19 +31,19 @@ class Amazon {
 	public function compare_amazon_settings() {
 		add_settings_section( 'compare-amazon', '', '', 'compare-amazon' );
 		register_setting( 'compare-amazon', 'compare-amazon' );
-		add_settings_field( 'compare-amazon-apikey', __( 'Amazon API Key', 'compare' ), array(
+		add_settings_field( 'compare-amazon-apikey', __( 'Amazon API Key', 'compare-affiliated-products' ), array(
 			$this,
 			'compare_amz_apikey'
 		), 'compare-amazon', 'compare-amazon' );
-		add_settings_field( 'compare-amazon-secretkey', __( 'Amazon Secret Key', 'compare' ), array(
+		add_settings_field( 'compare-amazon-secretkey', __( 'Amazon Secret Key', 'compare-affiliated-products' ), array(
 			$this,
 			'compare_amz_secretkey'
 		), 'compare-amazon', 'compare-amazon' );
-		add_settings_field( 'compare-amazon-trackingid', __( 'Amazon Tracking ID', 'compare' ), array(
+		add_settings_field( 'compare-amazon-trackingid', __( 'Amazon Tracking ID', 'compare-affiliated-products' ), array(
 			$this,
 			'compare_amz_trackingid'
 		), 'compare-amazon', 'compare-amazon' );
-		add_settings_field( 'compare-amazon-country', __( 'Amazon Country', 'compare' ), array(
+		add_settings_field( 'compare-amazon-country', __( 'Amazon Country', 'compare-affiliated-products' ), array(
 			$this,
 			'compare_amz_country'
 		), 'compare-amazon', 'compare-amazon' );
@@ -217,7 +217,7 @@ class Amazon {
 						$option   = get_option( 'compare-style' );
 						$text     = $option['button_text'];
 						if ( empty( $text ) ) {
-							$text = __( 'Buy to ', 'compare' );
+							$text = __( 'Buy to ', 'compare-affiliated-products' );
 						}
 						$bg = $option['button-bg'];
 						if ( empty( $bg ) ) {

@@ -8,7 +8,7 @@ add_action( 'admin_menu', 'compare_settings' );
  * create Settings page
  */
 function compare_settings() {
-	$option_page = add_options_page( __( 'Compare Settings', 'compare' ), __( 'Compare Settings', 'compare' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
+	$option_page = add_options_page( __( 'Compare Settings', 'compare-affiliated-products' ), __( 'Compare Settings', 'compare-affiliated-products' ), 'manage_options', 'compare-settings', 'compare_settings_page' );
 	add_action( 'admin_print_scripts-' . $option_page, 'load_admin_scripts' );
 }
 
@@ -34,9 +34,9 @@ function compare_settings_page() {
 	 */
 	$tabs = apply_filters( 'compare_setting_tabs',
 		array(
-			'general' => __( 'general', 'compare' ),
-			'style'   => __( 'Style', 'compare' ),
-			'help'    => __( 'help', 'compare' ),
+			'general' => __( 'general', 'compare-affiliated-products' ),
+			'style'   => __( 'Style', 'compare-affiliated-products' ),
+			'help'    => __( 'help', 'compare-affiliated-products' ),
 
 		)
 	);
@@ -51,7 +51,7 @@ function compare_settings_page() {
 	?>
 	<div class="wrap">
 
-		<h2><?php _e( 'Settings', 'compare' ); ?></h2>
+		<h2><?php _e( 'Settings', 'compare-affiliated-products' ); ?></h2>
 		<!--<div class="description">This is description of the page.</div>-->
 		<?php settings_errors(); ?>
 
@@ -106,7 +106,7 @@ function compare_settings_page() {
 					do_settings_sections( 'compare-general' );
 					break;
 			}
-			submit_button( __( 'Save Changes', 'compare' ), 'primary', 'save_compare_settings' );
+			submit_button( __( 'Save Changes', 'compare-affiliated-products' ), 'primary', 'save_compare_settings' );
 			?>
 		</form>
 
@@ -126,10 +126,10 @@ function compare_register_settings() {
 
 	register_setting( 'compare-general', 'compare-general' );
 
-	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare-affiliated-products' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-language', __( 'Language', 'compare-affiliated-products' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 
-	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare' ), 'compare_general_transients', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-transients', __( 'Delete Transients (cache)', 'compare-affiliated-products' ), 'compare_general_transients', 'compare-general', 'compare-general' );
 
 	/**
 	 * Style
@@ -138,9 +138,9 @@ function compare_register_settings() {
 
 	register_setting( 'compare-style', 'compare-style' );
 
-	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare' ), 'compare_button_text', 'compare-style', 'compare-style' );
-	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare' ), 'compare_button_bg', 'compare-style', 'compare-style' );
-	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare' ), 'compare_button_color', 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare-affiliated-products' ), 'compare_button_text', 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare-affiliated-products' ), 'compare_button_bg', 'compare-style', 'compare-style' );
+	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare-affiliated-products' ), 'compare_button_color', 'compare-style', 'compare-style' );
 
 	/**
 	 * Help
@@ -179,7 +179,7 @@ function compare_button_text() {
 	if ( ! empty( $text ) ) {
 		$value = 'value="' . $text . '"';
 	} else {
-		$value = 'value="' . __( 'Buy to ', 'compare' ) . '"';
+		$value = 'value="' . __( 'Buy to ', 'compare-affiliated-products' ) . '"';
 	}
 	?>
 	<input name="compare-style[button_text]" type="text" <?php echo $value; ?>
@@ -195,8 +195,8 @@ function compare_general_transients() {
 	<a class="btn btn-del-transient" href="<?php echo add_query_arg( array(
 		'page'             => 'compare-settings',
 		'transient-delete' => 'ok'
-	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare' ); ?></a>
-	<p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare' ); ?></p>
+	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare-affiliated-products' ); ?></a>
+	<p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare-affiliated-products' ); ?></p>
 
 	<?php
 }
@@ -492,7 +492,7 @@ function compare_currency_unit() {
 	$general  = get_option( 'compare-general' );
 	?>
 	<select name="compare-general[currency]">
-		<option><?php _e( 'Choose your currency', 'compare' ); ?></option>
+		<option><?php _e( 'Choose your currency', 'compare-affiliated-products' ); ?></option>
 		<?php
 		foreach ( $currency as $key => $curr ) {
 			?>
@@ -502,7 +502,7 @@ function compare_currency_unit() {
 
 		?>
 	</select>
-	<p><?php _e( 'Currency unit used to display prices', 'compare' ); ?></p>
+	<p><?php _e( 'Currency unit used to display prices', 'compare-affiliated-products' ); ?></p>
 	<?php
 }
 
@@ -1122,7 +1122,7 @@ function compare_general_languages() {
 	$general = get_option( 'compare-general' );
 	?>
 	<select name="compare-general[languages]">
-		<option><?php _e( 'Choose your language', 'compare' ); ?></option>
+		<option><?php _e( 'Choose your language', 'compare-affiliated-products' ); ?></option>
 		<?php
 		foreach ( $lang as $key => $lang ) {
 			?>
@@ -1132,7 +1132,7 @@ function compare_general_languages() {
 
 		?>
 	</select>
-	<p><?php _e( 'languages used to get datafeed in right language', 'compare' ) ?></p>
+	<p><?php _e( 'languages used to get datafeed in right language', 'compare-affiliated-products' ) ?></p>
 	<?php
 }
 

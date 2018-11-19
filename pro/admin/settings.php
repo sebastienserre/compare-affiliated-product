@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_filter( 'compare_setting_tabs', 'compare_pro_settings_page' );
 function compare_pro_settings_page( $tabs ) {
-	$tabs['advanced'] = __( 'advanced', 'compare' );
-	$tabs['premium']     = __( 'premium', 'compare' );
+	$tabs['advanced'] = __( 'advanced', 'compare-affiliated-products' );
+	$tabs['premium']     = __( 'premium', 'compare-affiliated-products' );
 	$options          = get_option( 'compare-premium' );
 	$platforms        = $options['platform'];
 	foreach ( $platforms as $platform ) {
@@ -35,8 +35,8 @@ function compare_pro_register_settings() {
 
 	add_settings_section( 'compare-general', '', '', 'compare-general' );
 
-	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
-	add_settings_field( 'compare-general-language', __( 'Language', 'compare' ), 'compare_general_languages', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-currency', __( 'Currency Unit', 'compare-affiliated-products' ), 'compare_currency_unit', 'compare-general', 'compare-general' );
+	add_settings_field( 'compare-general-language', __( 'Language', 'compare-affiliated-products' ), 'compare_general_languages', 'compare-general', 'compare-general' );
 
 
 	/**
@@ -44,15 +44,15 @@ function compare_pro_register_settings() {
 	 */
 	register_setting( 'compare-advanced', 'compare-advanced' );
 
-	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare' ), 'compare_external', 'compare-advanced' );
+	add_settings_section( 'compare-external', __( 'External DB Settings', 'compare-affiliated-products' ), 'compare_external', 'compare-advanced' );
 
 
-	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-host', __( 'Host', 'compare' ), 'cae_host', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-db', __( 'Database', 'compare' ), 'cae_db', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-user', __( 'Username', 'compare' ), 'cae_user', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare' ), 'cae_pwd', 'compare-advanced', 'compare-external' );
-	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare' ), 'cae_prefix', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-check', __( 'Using an external DB?', 'compare-affiliated-products' ), 'cae_ext_check', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-host', __( 'Host', 'compare-affiliated-products' ), 'cae_host', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-db', __( 'Database', 'compare-affiliated-products' ), 'cae_db', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-user', __( 'Username', 'compare-affiliated-products' ), 'cae_user', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-pwd', __( 'Password', 'compare-affiliated-products' ), 'cae_pwd', 'compare-advanced', 'compare-external' );
+	add_settings_field( 'compare-external-prefix', __( 'Prefix', 'compare-affiliated-products' ), 'cae_prefix', 'compare-advanced', 'compare-external' );
 
 	/**
 	 * Premium
@@ -61,11 +61,11 @@ function compare_pro_register_settings() {
 	register_setting('compare-premium', 'compare-premium');
 	add_settings_section( 'compare-premium', '', '', 'compare-premium' );
 
-	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare' ), 'compare_general_cloak_link', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare-affiliated-products' ), 'compare_general_cloak_link', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare-affiliated-products' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare-affiliated-products' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare-affiliated-products' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare-affiliated-products' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
 
 	/**
 	 * Awin
@@ -76,11 +76,11 @@ function compare_pro_register_settings() {
 
 	register_setting( 'awin', 'awin' );
 
-	add_settings_field( 'compare-awin-api', __( 'API Key', 'compare' ), 'compare_awin_key', 'compare-awin', 'compare-awin' );
-	add_settings_field( 'compare-awin-partner', __( 'Awin partner Code', 'compare' ), 'compare_awin_partner', 'compare-awin', 'compare-awin' );
-	add_settings_field( 'compare-awin-partner_logo', __( 'Awin partner logo', 'compare' ), 'compare_awin_partner_logo', 'compare-awin', 'compare-awin' );
-	add_settings_field( 'compare-awin-partner_url', __( 'Awin Trademark code', 'compare' ), 'compare_awin_partner_url', 'compare-awin', 'compare-awin' );
-	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-api', __( 'API Key', 'compare-affiliated-products' ), 'compare_awin_key', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-partner', __( 'Awin partner Code', 'compare-affiliated-products' ), 'compare_awin_partner', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-partner_logo', __( 'Awin partner logo', 'compare-affiliated-products' ), 'compare_awin_partner_logo', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-partner_url', __( 'Awin Trademark code', 'compare-affiliated-products' ), 'compare_awin_partner_url', 'compare-awin', 'compare-awin' );
+	add_settings_field( 'compare-awin-id', __( 'Awin Customer Code', 'compare-affiliated-products' ), 'compare_awin_id', 'compare-awin', 'compare-awin' );
 	add_settings_field( 'compare-awin-feed', '', 'compare_awin_feed', 'compare-awin', 'compare-awin' );
 
 
@@ -93,8 +93,8 @@ function compare_pro_register_settings() {
 
 	register_setting( 'compare-effiliation', 'compare-effiliation' );
 
-	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
-	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
+	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare-affiliated-products' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
+	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare-affiliated-products' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
 }
 
@@ -125,7 +125,7 @@ function compare_effiliation_api() {
 	}
 	?>
 	<input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
-	<p><?php printf( __( '%s API Key. Get in your profile', 'compare' ), 'Effiliation' ); ?></p>
+	<p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products' ), 'Effiliation' ); ?></p>
 	<?php
 }
 
@@ -147,7 +147,7 @@ function compare_general_platforms() {
 		<?php
 	}
 	?>
-	<p><?php _e( 'Check the platform to work with', 'compare' ); ?></p>
+	<p><?php _e( 'Check the platform to work with', 'compare-affiliated-products' ); ?></p>
 	<?php
 }
 
@@ -182,10 +182,10 @@ function cae_ext_check() {
 
 function compare_external() {
 	$url  = 'https://www.thivinfo.com/docs/compare-affiliated-products/hooks/connection-to-an-external-db/';
-	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%1$s">read the documentation</a>', 'compare' ),
+	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%1$s">read the documentation</a>', 'compare-affiliated-products' ),
 		array( 'a' => array( 'href' => array() ) ) ), esc_url( $url ) );
 	?>
-	<p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare' ); ?></p>
+	<p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare-affiliated-products' ); ?></p>
 	<p><?php echo $link; ?></p>
 	<?php
 }
@@ -282,7 +282,7 @@ function compare_awin_id() {
 	}
 	?>
 	<input type="text" name="awin[customer_id]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare' ), 'Awin' ) ?></p>
+	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare-affiliated-products' ), 'Awin' ) ?></p>
 	<?php
 }
 
@@ -294,7 +294,7 @@ function compare_awin_key() {
 	}
 	?>
 	<input type="text" name="awin[apikey]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( '%s API Key. Get in your profile', 'compare' ), 'Awin' ); ?></p>
+	<p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -305,7 +305,7 @@ function compare_awin_partner() {
 	}
 	?>
 	<input type="text" name="awin[partner]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( 'Choose the programs you\'d like to display on your site. You can get code by creating a feed in %s website', 'compare' ), 'Awin' ); ?></p>
+	<p><?php printf( __( 'Choose the programs you\'d like to display on your site. You can get code by creating a feed in %s website', 'compare-affiliated-products' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -325,7 +325,7 @@ function compare_awin_partner_logo() {
 			echo $key;
 			?>
 			<select name="awin[partner_logo][<?php echo $key; ?>]['name']">
-				<option><?php _e( 'Choose your partner', 'compare' ); ?></option>
+				<option><?php _e( 'Choose your partner', 'compare-affiliated-products' ); ?></option>
 				<?php foreach ( $partners as $k => $p ) {
 					?>
 					<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>
@@ -339,7 +339,7 @@ function compare_awin_partner_logo() {
 		<?php
 	}
 	?>
-	<p><?php _e( 'Upload first image on media library then paste the link here.', 'compare' ); ?></p>
+	<p><?php _e( 'Upload first image on media library then paste the link here.', 'compare-affiliated-products' ); ?></p>
 	<?php
 }
 
@@ -351,7 +351,7 @@ function compare_awin_partner_url() {
 	<div class="compare-partners-datafeed">
 		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
 	</div>
-	<p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare' ), 'Awin' ); ?></p>
+	<p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare-affiliated-products' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -425,12 +425,12 @@ function compare_general_cron() {
 	$cron   = $option['cron'];
 	?>
 	<select name="compare-premium[cron]">
-		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare' ); ?></option>
-		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare' ); ?></option>
-		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare' ); ?></option>
-		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare' ); ?></option>
+		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare-affiliated-products' ); ?></option>
+		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare-affiliated-products' ); ?></option>
+		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare-affiliated-products' ); ?></option>
+		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare-affiliated-products' ); ?></option>
 	</select>
-	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare' ); ?></p>
+	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare-affiliated-products' ); ?></p>
 	<?php
 }
 

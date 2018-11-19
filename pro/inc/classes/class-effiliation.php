@@ -96,7 +96,7 @@ class Effiliation {
 			}
 		}
 		?>
-		<p><?php _e( 'Check the program to display', 'compare' ); ?></p>
+		<p><?php _e( 'Check the program to display', 'compare-affiliated-products' ); ?></p>
 		<?php
 	}
 

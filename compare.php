@@ -7,10 +7,10 @@
 	Author URI: https://thivinfo.com
 	Tested up to: 4.9
 	Requires PHP: 5.6
-	Text Domain: compare
-	Domain Path: /languages/
+	Text Domain: compare-affiliated-products
+	Domain Path: /pro/languages/
 @fs_premium_only /pro/, /languages/, /cron.php
-	Version: 2.0.2
+	Version: 2.0.3
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.2' );
+define( 'COMPARE_VERSION', '2.0.3' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -69,7 +69,7 @@ add_action( 'plugins_loaded', 'compare_load_textdomain__premium_only' );
  * @since 1.0.0
  */
 function compare_load_textdomain__premium_only() {
-	load_plugin_textdomain( 'compare', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	$lang = load_plugin_textdomain( 'compare-affiliated-products', false, dirname( plugin_basename( __FILE__ ) ) . '/pro/languages' );
 }
 
 add_action( 'wp_enqueue_scripts', 'compare_load_style' );
@@ -177,7 +177,7 @@ function compare_sechule4_hours( $schedules ) {
 	// add a 'weekly' schedule to the existing set
 	$schedules['fourhour'] = array(
 		'interval' => 14400,
-		'display'  => __( 'Every 4 hours', 'compare' )
+		'display'  => __( 'Every 4 hours', 'compare-affiliated-products' )
 	);
 
 	return $schedules;
@@ -202,7 +202,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => true,
+			'is_premium'          => false,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(

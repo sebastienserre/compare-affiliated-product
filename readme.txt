@@ -1,8 +1,8 @@
 === Compare Affiliated Products ===
 Contributors: sebastienserre
-Tags: affiliate, affiliate program, awin, aawp, amazon, amazon affiliate
+Tags: affiliate, affiliate program, awin, aawp, amazon, amazon affiliate, affiliate products, associate, associates, Amazon Associate, Amazon Associates
 Tested up to: 4.9
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
