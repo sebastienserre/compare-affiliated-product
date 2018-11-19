@@ -35,6 +35,18 @@ class Cloak_Link {
 				$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
 				$url     = base64_encode( $product['url'] . '&clickref=' . $tracker );
 				break;
+			case 'Amz':
+				$amz    = get_option( 'compare-amazon' );
+				$tag    = $amz['trackingid'];
+				$tagpos = strpos( $p['url'], 'tag=' );
+				if ( $tagpos > 0 ) {
+					$url      = explode( 'tag=', $product['url'] );
+					$pproduct['url'] = add_query_arg( 'tag', $tag, $url[0] );
+					$url      = $product['url'] . '&keywords=' . $url[1];
+				} else {
+					$url = base64_encode( add_query_arg( 'tag', $tag, $product['url'] ) );
+				}
+				break;
 			default:
 				$url     = base64_encode( $product['url'] );
 		}

@@ -10,7 +10,7 @@
 	Text Domain: compare
 	Domain Path: /languages/
 @fs_premium_only /pro/, /languages/, /cron.php
-	Version: 2.0.1
+	Version: 2.0.2
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.1' );
+define( 'COMPARE_VERSION', '2.0.2' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
