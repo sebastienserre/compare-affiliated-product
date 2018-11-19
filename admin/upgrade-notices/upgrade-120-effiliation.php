@@ -23,9 +23,9 @@ function compare_120_notice() {
 		$url = add_query_arg( 'compare_upgrade_db', 'true', $url );
 		?>
 		<div class="notice notice-warning">
-			<p><?php printf( _x( 'Thanks for updating %s', 'Plugin\'s name', 'compare' ), COMPARE_PLUGIN_NAME ); ?></p>
-			<p><?php _e( 'Please follow the link to upgrade the database', 'compare' ); ?></p>
-			<p><a href="<?php echo esc_url( $url ) ?>"><?php _e( 'Click to Update', 'compare' ); ?></a></p>
+			<p><?php printf( _x( 'Thanks for updating %s', 'Plugin\'s name', 'compare-affiliated-products' ), COMPARE_PLUGIN_NAME ); ?></p>
+			<p><?php _e( 'Please follow the link to upgrade the database', 'compare-affiliated-products' ); ?></p>
+			<p><a href="<?php echo esc_url( $url ) ?>"><?php _e( 'Click to Update', 'compare-affiliated-products' ); ?></a></p>
 		</div>
 		<?php
 	}
