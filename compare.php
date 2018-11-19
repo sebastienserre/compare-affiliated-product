@@ -9,7 +9,7 @@
 	Requires PHP: 5.6
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
-@fs_premium_only /pro/, /languages/, /cron.php
+	@fs_premium_only /pro/, /languages/, /cron.php
 	Version: 2.0.4
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
