@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 19:47+0000\n"
+"POT-Creation-Date: 2018-11-22 17:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,144 +14,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: compare.php:229 pro/admin/settings.php:429
-msgid "Every 4 hours"
-msgstr ""
-
-#: admin/ads.php:11
-msgid "Need Help to Setup"
-msgstr ""
-
-#: admin/ads.php:18
-#, php-format
-msgid ""
-"<a href=\"%1$s\" target=\"_blank\">Leave me a ticket on Thivinfo.com</a>"
-msgstr ""
-
-#: admin/ads.php:34
-msgid "Documentation Center"
-msgstr ""
-
-#: admin/settings.php:11
-msgid "Compare Settings"
-msgstr ""
-
-#: admin/settings.php:37
-msgid "general"
-msgstr ""
-
-#: admin/settings.php:38
-msgid "Style"
-msgstr ""
-
-#. 'boulanger',
-#: admin/settings.php:39
-msgid "help"
-msgstr ""
-
-#: admin/settings.php:54
-msgid "Settings"
-msgstr ""
-
-#: admin/settings.php:109
-msgid "Save Changes"
-msgstr ""
-
-#: admin/settings.php:129 pro/admin/settings.php:38
-msgid "Currency Unit"
-msgstr ""
-
-#: admin/settings.php:130 pro/admin/settings.php:39
-msgid "Language"
-msgstr ""
-
-#: admin/settings.php:132
-msgid "Delete Transients (cache)"
-msgstr ""
-
-#: admin/settings.php:141
-msgid "Button Text"
-msgstr ""
-
-#: admin/settings.php:142
-msgid "Button Background Color"
-msgstr ""
-
-#: admin/settings.php:143
-msgid "Button Text Color"
-msgstr ""
-
-#: admin/settings.php:182 classes/amazon.php:220
-#: classes/class-compare-shortcode.php:119
-#: classes/class-compare-shortcode.php:153
-#: pro/inc/classes/class_cloak_link.php:60
-#: pro/inc/classes/class_cloak_link.php:98
-#: pro/inc/classes/class_cloak_link.php:131
-msgid "Buy to "
-msgstr ""
-
-#: admin/settings.php:198
-msgid "Delete all transients from database"
-msgstr ""
-
-#: admin/settings.php:199
-msgid ""
-"Click on this link if you add a partner, checked a new programs or someting "
-"else which can change the datas."
-msgstr ""
-
-#: admin/settings.php:495
-msgid "Choose your currency"
-msgstr ""
-
-#: admin/settings.php:505
-msgid "Currency unit used to display prices"
-msgstr ""
-
-#: admin/settings.php:1125
-msgid "Choose your language"
-msgstr ""
-
-#: admin/settings.php:1135
-msgid "languages used to get datafeed in right language"
-msgstr ""
-
-#: classes/amazon.php:34
-msgid "Amazon API Key"
-msgstr ""
-
-#: classes/amazon.php:38
-msgid "Amazon Secret Key"
-msgstr ""
-
-#: classes/amazon.php:42
-msgid "Amazon Tracking ID"
-msgstr ""
-
-#: classes/amazon.php:46
-msgid "Amazon Country"
-msgstr ""
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:26
-#, php-format
-msgctxt "Plugin's name"
-msgid "Thanks for updating %s"
-msgstr ""
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:27
-msgid "Please follow the link to upgrade the database"
-msgstr ""
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:28
-msgid "Click to Update"
-msgstr ""
-
 #: pro/admin/settings.php:14
 msgid "advanced"
 msgstr ""
 
 #: pro/admin/settings.php:15
 msgid "premium"
+msgstr ""
+
+#: pro/admin/settings.php:38
+msgid "Currency Unit"
+msgstr ""
+
+#: pro/admin/settings.php:39
+msgid "Language"
 msgstr ""
 
 #: pro/admin/settings.php:47
@@ -278,6 +154,10 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#: pro/admin/settings.php:429
+msgid "Every 4 hours"
+msgstr ""
+
 #: pro/admin/settings.php:430
 msgid "Twice Daily"
 msgstr ""
@@ -293,11 +173,17 @@ msgid ""
 msgstr ""
 
 #: pro/aawp/table.php:26
-msgid "Buy It"
+msgid "Buy it"
 msgstr ""
 
 #: pro/inc/classes/class-effiliation.php:99
 msgid "Check the program to display"
+msgstr ""
+
+#: pro/inc/classes/class_cloak_link.php:60
+#: pro/inc/classes/class_cloak_link.php:98
+#: pro/inc/classes/class_cloak_link.php:131
+msgid "Buy to "
 msgstr ""
 
 #: pro/inc/classes/class-compare-external-db.php:74

@@ -2,152 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 19:47+0000\n"
-"PO-Revision-Date: 2018-11-19 20:49+0100\n"
-"Last-Translator: Sébastien SERRE <sebastien@thivinfo.com>\n"
+"POT-Creation-Date: 2018-11-22 17:12+0000\n"
+"PO-Revision-Date: 2018-11-22 17:12+0000\n"
+"Last-Translator: sebastien Serre <sebastien@thivinfo.com>\n"
 "Language-Team: Français\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.2\n"
-
-#: compare.php:229 pro/admin/settings.php:429
-msgid "Every 4 hours"
-msgstr "Toutes les 4 h"
-
-#: admin/ads.php:11
-msgid "Need Help to Setup"
-msgstr "Besoin d'Aide pour le paramétrage"
-
-#: admin/ads.php:18
-#, php-format
-msgid ""
-"<a href=\"%1$s\" target=\"_blank\">Leave me a ticket on Thivinfo.com</a>"
-msgstr ""
-"<a href=\"%1$s\" target=\"_blank\">Ouvrez un ticket sur Thivinfo.com</a>"
-
-#: admin/ads.php:34
-msgid "Documentation Center"
-msgstr "Centre de documentation"
-
-#: admin/settings.php:11
-msgid "Compare Settings"
-msgstr "Compare Affiliated Product"
-
-#: admin/settings.php:37
-msgid "general"
-msgstr "Général"
-
-#: admin/settings.php:38
-msgid "Style"
-msgstr "Style"
-
-#. 'boulanger',
-#: admin/settings.php:39
-msgid "help"
-msgstr "Aide"
-
-#: admin/settings.php:54
-msgid "Settings"
-msgstr "Réglages"
-
-#: admin/settings.php:109
-msgid "Save Changes"
-msgstr "Enregistrer"
-
-#: admin/settings.php:129 pro/admin/settings.php:38
-msgid "Currency Unit"
-msgstr "Monnaie"
-
-#: admin/settings.php:130 pro/admin/settings.php:39
-msgid "Language"
-msgstr "Langues"
-
-#: admin/settings.php:132
-msgid "Delete Transients (cache)"
-msgstr "Effacer les transients (cache)"
-
-#: admin/settings.php:141
-msgid "Button Text"
-msgstr "Texte du bouton"
-
-#: admin/settings.php:142
-msgid "Button Background Color"
-msgstr "Couleur de fond"
-
-#: admin/settings.php:143
-msgid "Button Text Color"
-msgstr "Couleur du texte"
-
-#: admin/settings.php:182 classes/amazon.php:220
-#: classes/class-compare-shortcode.php:119
-#: classes/class-compare-shortcode.php:153
-#: pro/inc/classes/class_cloak_link.php:60
-#: pro/inc/classes/class_cloak_link.php:98
-#: pro/inc/classes/class_cloak_link.php:131
-msgid "Buy to "
-msgstr "Acheter chez"
-
-#: admin/settings.php:198
-msgid "Delete all transients from database"
-msgstr "Effacer tous les transients de la base de données"
-
-#: admin/settings.php:199
-msgid ""
-"Click on this link if you add a partner, checked a new programs or someting "
-"else which can change the datas."
-msgstr ""
-"Cliquez sur ce lien si vous avez ajouté un partenaire, coché un nouveau "
-"programme ou toute autre actions susceptible de changer les données a "
-"afficher."
-
-#: admin/settings.php:495
-msgid "Choose your currency"
-msgstr "Choisissez votre monnaie"
-
-#: admin/settings.php:505
-msgid "Currency unit used to display prices"
-msgstr "Code de la monnaie à utiliser pour afficher les prix"
-
-#: admin/settings.php:1125
-msgid "Choose your language"
-msgstr "Choisissez votre langue"
-
-#: admin/settings.php:1135
-msgid "languages used to get datafeed in right language"
-msgstr "Langue a utiliser pour générer le flux dans la bonne langue."
-
-#: classes/amazon.php:34
-msgid "Amazon API Key"
-msgstr "Clé API Amazon"
-
-#: classes/amazon.php:38
-msgid "Amazon Secret Key"
-msgstr "Clé Secrète Amazon"
-
-#: classes/amazon.php:42
-msgid "Amazon Tracking ID"
-msgstr "ID de suivi Amazon"
-
-#: classes/amazon.php:46
-msgid "Amazon Country"
-msgstr "Pays Amazon"
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:26
-#, php-format
-msgctxt "Plugin's name"
-msgid "Thanks for updating %s"
-msgstr "Merci d'avoir mis à jour %s"
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:27
-msgid "Please follow the link to upgrade the database"
-msgstr "Veuilliez cliquer pour mettre a jour la base de données"
-
-#: admin/upgrade-notices/upgrade-120-effiliation.php:28
-msgid "Click to Update"
-msgstr "Cliquez pour mettre à jour"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-4.9.8"
 
 #: pro/admin/settings.php:14
 msgid "advanced"
@@ -156,6 +21,14 @@ msgstr "Avancé"
 #: pro/admin/settings.php:15
 msgid "premium"
 msgstr "Premium"
+
+#: pro/admin/settings.php:38
+msgid "Currency Unit"
+msgstr "Monnaie"
+
+#: pro/admin/settings.php:39
+msgid "Language"
+msgstr "Langues"
 
 #: pro/admin/settings.php:47
 msgid "External DB Settings"
@@ -291,6 +164,10 @@ msgstr ""
 msgid "None"
 msgstr "Aucun"
 
+#: pro/admin/settings.php:429
+msgid "Every 4 hours"
+msgstr "Toutes les 4 h"
+
 #: pro/admin/settings.php:430
 msgid "Twice Daily"
 msgstr "2 fois par jour"
@@ -310,12 +187,18 @@ msgstr ""
 "récurrence"
 
 #: pro/aawp/table.php:26
-msgid "Buy It"
+msgid "Buy it"
 msgstr "Acheter"
 
 #: pro/inc/classes/class-effiliation.php:99
 msgid "Check the program to display"
 msgstr "Cochez les programmes à afficher"
+
+#: pro/inc/classes/class_cloak_link.php:60
+#: pro/inc/classes/class_cloak_link.php:98
+#: pro/inc/classes/class_cloak_link.php:131
+msgid "Buy to "
+msgstr "Acheter chez"
 
 #: pro/inc/classes/class-compare-external-db.php:74
 msgid "Failed to connect to MySQL, please check your login credentials"

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( $this->show_star_rating() ) { ?>
 				<th class="aawp-table__th-rating"><?php _e( 'Rating', 'aawp' ); ?></th>
 			<?php } ?>
-			<th class="aawp-table__th-links"><?php _e( 'Buy It', 'compare-affiliated-products' ); ?></th>
+			<th class="aawp-table__th-links"><?php _e( 'Buy it', 'compare-affiliated-products-pro' ); ?></th>
 		</tr>
 		</thead>
 		<tbody>
