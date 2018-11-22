@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 15:15+0000\n"
+"POT-Creation-Date: 2018-11-19 19:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: compare.php:180 pro/admin/settings.php:429
+#: compare.php:229 pro/admin/settings.php:429
 msgid "Every 4 hours"
 msgstr ""
 
@@ -130,6 +130,20 @@ msgstr ""
 
 #: classes/amazon.php:46
 msgid "Amazon Country"
+msgstr ""
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:26
+#, php-format
+msgctxt "Plugin's name"
+msgid "Thanks for updating %s"
+msgstr ""
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:27
+msgid "Please follow the link to upgrade the database"
+msgstr ""
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:28
+msgid "Click to Update"
 msgstr ""
 
 #: pro/admin/settings.php:14
@@ -276,6 +290,10 @@ msgstr ""
 msgid ""
 "Cron Task will regenerate database programmatically. If you're using an "
 "external DB, no need to use Cron Jobs"
+msgstr ""
+
+#: pro/aawp/table.php:26
+msgid "Buy It"
 msgstr ""
 
 #: pro/inc/classes/class-effiliation.php:99

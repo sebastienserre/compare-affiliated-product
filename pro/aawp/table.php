@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="aawp">
-
 	<table class="<?php echo $this->get_wrapper_classes( 'aawp-table' ); ?>">
 		<thead>
 		<tr>
@@ -24,8 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( $this->show_star_rating() ) { ?>
 				<th class="aawp-table__th-rating"><?php _e( 'Rating', 'aawp' ); ?></th>
 			<?php } ?>
-
-			<th class="aawp-table__th-links"><?php _e( 'Buy It', 'compare' ); ?></th>
+			<th class="aawp-table__th-links"><?php _e( 'Buy It', 'compare-affiliated-products' ); ?></th>
 		</tr>
 		</thead>
 		<tbody>

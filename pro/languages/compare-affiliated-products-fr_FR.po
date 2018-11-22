@@ -2,18 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 15:15+0000\n"
-"PO-Revision-Date: 2018-11-19 15:17+0000\n"
-"Last-Translator: sebastien Serre <sebastien@thivinfo.com>\n"
+"POT-Creation-Date: 2018-11-19 19:47+0000\n"
+"PO-Revision-Date: 2018-11-19 20:49+0100\n"
+"Last-Translator: Sébastien SERRE <sebastien@thivinfo.com>\n"
 "Language-Team: Français\n"
 "Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Poedit 2.2\n"
 
-#: compare.php:180 pro/admin/settings.php:429
+#: compare.php:229 pro/admin/settings.php:429
 msgid "Every 4 hours"
 msgstr "Toutes les 4 h"
 
@@ -25,7 +25,8 @@ msgstr "Besoin d'Aide pour le paramétrage"
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Leave me a ticket on Thivinfo.com</a>"
-msgstr "Ouvrez un ticket sur Thivinfo.com"
+msgstr ""
+"<a href=\"%1$s\" target=\"_blank\">Ouvrez un ticket sur Thivinfo.com</a>"
 
 #: admin/ads.php:34
 msgid "Documentation Center"
@@ -133,6 +134,20 @@ msgstr "ID de suivi Amazon"
 #: classes/amazon.php:46
 msgid "Amazon Country"
 msgstr "Pays Amazon"
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:26
+#, php-format
+msgctxt "Plugin's name"
+msgid "Thanks for updating %s"
+msgstr "Merci d'avoir mis à jour %s"
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:27
+msgid "Please follow the link to upgrade the database"
+msgstr "Veuilliez cliquer pour mettre a jour la base de données"
+
+#: admin/upgrade-notices/upgrade-120-effiliation.php:28
+msgid "Click to Update"
+msgstr "Cliquez pour mettre à jour"
 
 #: pro/admin/settings.php:14
 msgid "advanced"
@@ -293,6 +308,10 @@ msgstr ""
 "flux de données a jour. Si vous utilisez une base de données externe pour "
 "Compare Affiliated Products, vous n'avez pas besoin de paramétrer une "
 "récurrence"
+
+#: pro/aawp/table.php:26
+msgid "Buy It"
+msgstr "Acheter"
 
 #: pro/inc/classes/class-effiliation.php:99
 msgid "Check the program to display"
