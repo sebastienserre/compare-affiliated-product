@@ -116,6 +116,12 @@ button.atc.btn-compare {
     clear: both;
 }
 
+@media screen and (max-width: 425px) {
+    .compare-price .compare-price-partner{
+        padding: 0 5px;
+    }
+}
+
 .compare-price-partner {
     border-top: 1px solid #E5E5E5;
 }
