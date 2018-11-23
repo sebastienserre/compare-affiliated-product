@@ -58,7 +58,7 @@ class compare_shortcode {
 		 * @author Sébastien SERRE
 		 *
 		 */
-		if ( 'reviews' === $atts['options'] && 'true' === $datas["Items"]["Item"]["CustomerReviews"]["HasReviews"]) {
+		if ( 'reviews' === $atts['options'] ||'reviews' === $atts['type'] && 'true' === $datas["Items"]["Item"]["CustomerReviews"]["HasReviews"]) {
 			$products['amz']['reviews'] = $datas["Items"]["Item"]["CustomerReviews"]["IFrameURL"];
 		}
 
@@ -80,10 +80,34 @@ class compare_shortcode {
 				return $this->cap_shortcode_basic( $products );
 			case 'table':
 				return $this->cap_shortcode_table( $products );
+			case 'reviews':
+				return $this->cap_shortcode_reviews( $products );
 		}
 	}
 
+	/**
+	 * @param $products array Array with Amazon products details.
+	 *
+	 * @return false|string
+	 * @since 2.0.6
+	 * @author Sébastien Serre
+	 */
+	public function cap_shortcode_reviews( $products ){
+		ob_start();
+		?>
+		<div class="cap_amz_review">
+			<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
 
+	/**
+	 * @param $products array Array with Amazon products details.
+	 *
+	 * @return false|string
+	 * @throws Freemius_Exception
+	 */
 	public function cap_shortcode_basic( $products ) {
 		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
@@ -175,7 +199,12 @@ class compare_shortcode {
 		return ob_get_clean();
 	}
 
-
+	/**
+	 * @param $products array Array with Amazon products details.
+	 *
+	 * @return false|string
+	 * @throws Freemius_Exception
+	 */
 	public function cap_shortcode_table( $products ) {
 		$option = get_option( 'compare-style' );
 		$text   = $option['button_text'];
