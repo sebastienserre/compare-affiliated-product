@@ -1,6 +1,6 @@
 === Compare Affiliated Products ===
 Contributors: sebastienserre
-Tags: affiliate, affiliate program, awin, aawp, amazon, amazon affiliate, affiliate products, associate, associates, Amazon Associate, Amazon Associates
+Tags: affiliate, amazon, awin, effiliation, associates
 Tested up to: 4.9
 Stable tag: 2.0.5
 Requires PHP: 5.6

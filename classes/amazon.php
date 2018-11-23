@@ -137,7 +137,7 @@ class Amazon {
 			"AssociateTag"   => $asin,
 			"ItemId"         => $asin,
 			"IdType"         => "ASIN",
-			"ResponseGroup"  => "Images,ItemAttributes,Offers"
+			"ResponseGroup"  => "Images,ItemAttributes,Offers,Reviews"
 		);
 
 		// Set current timestamp if not set

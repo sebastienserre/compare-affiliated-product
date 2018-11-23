@@ -15,6 +15,7 @@ class compare_shortcode {
 				'type'     => 'basic',
 				'product'  => '',
 				'partners' => 'nok',
+				'options'   => '',
 			),
 			$atts,
 			'cap'
@@ -48,9 +49,18 @@ class compare_shortcode {
 				'product_id'   => $datas['Items']['item']['ASIN'],
 				'url'          => $datas['Items']['Item']['Offers']['MoreOffersUrl'],
 				'price'        => $price,
-				'platform'     => 'Amz'
-
+				'platform'     => 'Amz',
 			);
+
+		/**
+		 * @description Add reviews.
+		 * @since 2.0.6
+		 * @author Sébastien SERRE
+		 *
+		 */
+		if ( 'reviews' === $atts['options'] && 'true' === $datas["Items"]["Item"]["CustomerReviews"]["HasReviews"]) {
+			$products['amz']['reviews'] = $datas["Items"]["Item"]["CustomerReviews"]["IFrameURL"];
+		}
 
 
 		foreach ( $products as $key => $p ) {
@@ -75,6 +85,19 @@ class compare_shortcode {
 
 
 	public function cap_shortcode_basic( $products ) {
+		$option = get_option( 'compare-style' );
+		$text   = $option['button_text'];
+		if ( empty( $text ) ) {
+			$text = __( 'Buy to ', 'compare-affiliated-products' );
+		}
+		$bg = $option['button-bg'];
+		if ( empty( $bg ) ) {
+			$bg = '#000000';
+		}
+		$color = $option['button-color'];
+		if ( empty( $color ) ) {
+			$color = '#ffffff';
+		}
 
 		ob_start();
 		?>
@@ -98,6 +121,28 @@ class compare_shortcode {
 							?>
 						</ul>
 					</div>
+					<?php
+					/**
+					* @description Add reviews.
+					* @since 2.0.6
+					* @author Sébastien SERRE
+					*
+					*/
+					if ( ! empty( $products['amz']['reviews'] ) ) {
+						?>
+
+					<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">Voir les Avis</button>
+					<div id="popup">
+						<div id="popup-bg"></div>
+						<div id="popup-fg">
+
+							<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
+							<div class="actions">
+								<button id="close" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products'); ?></button>
+							</div>
+						</div>
+					</div>
+						<?php } ?>
 					<div class="price-box cap-sc">
 						<?php
 						foreach ( $products as $p ) {
@@ -112,21 +157,6 @@ class compare_shortcode {
 									$logo = $logos[ $p['partner_code'] ];
 								}
 							}
-
-							$option = get_option( 'compare-style' );
-							$text   = $option['button_text'];
-							if ( empty( $text ) ) {
-								$text = __( 'Buy to ', 'compare-affiliated-products' );
-							}
-							$bg = $option['button-bg'];
-							if ( empty( $bg ) ) {
-								$bg = '#000000';
-							}
-							$color = $option['button-color'];
-							if ( empty( $color ) ) {
-								$color = '#ffffff';
-							}
-
 							$premium = get_option( 'compare-premium' );
 							if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
 								$cloaked = new Cloak_Link();

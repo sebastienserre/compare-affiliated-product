@@ -1,11 +1,11 @@
 /**
 AAWP Styles
  */
-.compare-partners{
+.compare-partners {
     clear: both;
 }
 
-.compare_partner_logo{
+.compare_partner_logo {
     width: 50px;
     margin-right: 5px;
 }
@@ -30,10 +30,11 @@ Horizontal ShortCode
     width: auto;
 }
 
-.compare_basic_sc_left{
+.compare_basic_sc_left {
     width: 33%;
 }
-.compare_basic_right{
+
+.compare_basic_right {
     padding-left: 30px;
 }
 
@@ -56,7 +57,7 @@ h4.compare_sc_title {
     }
 
     .compare_basic_sc_left,
-    .compare_basic_right{
+    .compare_basic_right {
         width: auto;
     }
 }
@@ -64,7 +65,7 @@ h4.compare_sc_title {
 /**
 Freemius
  */
-#packages ul>li article.featured{
+#packages ul > li article.featured {
     width: 50% !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -117,7 +118,7 @@ button.atc.btn-compare {
 }
 
 @media screen and (max-width: 425px) {
-    .compare-price .compare-price-partner{
+    .compare-price .compare-price-partner {
         padding: 0 5px;
     }
 }
@@ -186,15 +187,33 @@ th.aawp-table__th-links {
     Original idea: Dudley Storey | codepen.io/dudleystorey/pen/Geprd */
 
 @media screen and (max-width: 600px) {
-    table {width:100%;}
-    thead {display: none;}
-    tr:nth-of-type(2n) {background-color: inherit;}
-    tr td:first-child {background: #f0f0f0; font-weight:bold;font-size:1.3em;}
-    tbody td {display: block;  text-align:center;}
+    table {
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+
+    tr td:first-child {
+        background: #f0f0f0;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    tbody td {
+        display: block;
+        text-align: center;
+    }
+
     tbody td:before {
         content: attr(data-th);
         display: block;
-        text-align:center;
+        text-align: center;
     }
 }
 
@@ -205,7 +224,7 @@ th.aawp-table__th-links {
 
 }
 
-.compare-price button{
+.compare-price button {
     min-width: auto;
 }
 
@@ -217,7 +236,7 @@ th.aawp-table__th-links {
 }
 
 .aawp-tb--mobile.aawp-tb--hide-labels .aawp-tb__data,
-.aawp-tb--mobile.aawp-tb--hide-mobile-labels .aawp-tb__data{
+.aawp-tb--mobile.aawp-tb--hide-mobile-labels .aawp-tb__data {
     display: table;
 }
 
@@ -233,6 +252,7 @@ th.aawp-table__th-links {
         width: auto;
         margin-left: 10%;
     }
+
     table .product-price {
         width: 44%;
     }
@@ -249,35 +269,38 @@ Compare Price Shortcode
 .compare_price-partner {
     min-height: 60px;
 }
-.compare_partner_logo img{
+
+.compare_partner_logo img {
     width: 50px;
 }
 
 .compare_price,
 .compare_partner_name,
-.compare_partner_logo{
+.compare_partner_logo {
     float: left;
 }
 
-button.compare_buy{
+button.compare_buy {
     float: right;
 }
 
-.compare_partner_logo{
+.compare_partner_logo {
     text-align: left;
 }
 
 .compare_partner_name,
-.compare_price{
+.compare_price {
     text-align: center;
 }
-.clear{
+
+.clear {
     clear: both;
 }
 
-.compare_sc .product-price{
+.compare_sc .product-price {
     width: 25%;
 }
+
 .compare_sc .compare_partner_name {
     width: 50%;
 }
@@ -285,7 +308,7 @@ button.compare_buy{
 /**
 Amz Shortcode
  */
-.compare_basic_amz .price-box{
+.compare_basic_amz .price-box {
     display: block;
 }
 
@@ -318,4 +341,50 @@ Cap Shortcode
     .cap-sc .compare_price {
         width: 40%;
     }
+}
+
+/**
+Popup Avis
+ */
+#popup {
+    display: none;
+}
+iframe.cap-amz-review {
+    height: 400px;
+}
+
+#popup-fg {
+    max-width: 50%;
+    background: #ddd;
+    margin: 0 auto;
+    padding: 2em;
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-radius: 1em;
+}
+
+#login {
+    float: right;
+    margin: -4em 4em;
+}
+
+#popup {
+
+input, label {
+    display: block;
+    width: 100%;
+}
+
+label {
+    margin-top: 1em;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 1em;
+}
+
 }
