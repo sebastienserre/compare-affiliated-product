@@ -222,6 +222,28 @@ class compare_shortcode {
 
 		ob_start();
 		?>
+		<?php
+		/**
+		 * @description Add reviews.
+		 * @since 2.0.6
+		 * @author Sébastien SERRE
+		 *
+		 */
+		if ( ! empty( $products['amz']['reviews'] ) ) {
+			?>
+
+			<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">Voir les Avis</button>
+			<div id="popup">
+				<div id="popup-bg"></div>
+				<div id="popup-fg">
+
+					<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
+					<div class="actions">
+						<button id="close" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products'); ?></button>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
 		<div class="cap-sc">
 			<?php
 			foreach ( $products as $p ) {
