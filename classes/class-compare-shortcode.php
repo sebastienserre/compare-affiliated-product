@@ -155,7 +155,7 @@ class compare_shortcode {
 					if ( ! empty( $products['amz']['reviews'] ) ) {
 						?>
 
-					<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">Voir les Avis</button>
+					<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
 					<div id="popup">
 						<div id="popup-bg"></div>
 						<div id="popup-fg">
@@ -232,7 +232,7 @@ class compare_shortcode {
 		if ( ! empty( $products['amz']['reviews'] ) ) {
 			?>
 
-			<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">Voir les Avis</button>
+			<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
 			<div id="popup">
 				<div id="popup-bg"></div>
 				<div id="popup-fg">

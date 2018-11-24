@@ -2,7 +2,7 @@
 Contributors: sebastienserre
 Tags: affiliate, amazon, awin, effiliation, associates
 Tested up to: 4.9
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 Requires PHP: 5.6
 Requires at least: 4.6
 License: GPLv3
@@ -15,6 +15,10 @@ Compare Affiliated Products Free allows you to display products from Amazon and 
 
 Use the shortcode [CAP] to make different layout.
 To know more on how to use this extension, please refer to the [online documentation](https://www.thivinfo.com/en/docs/compare-affiliated-products/)
+
+¡New on 2.0.6!
+* You can now display Amazon Reviews on Basic Shortcode.
+* New Shortcode type. reviews type will only show the Amazon products review
 
 ==Pro Version ==
 <ul>
@@ -38,6 +42,8 @@ To know more on how to use this extension, please refer to the [online documenta
 == Screenshots ==
 1. Table Shortcode - Display only the price (on Pro, it displays also others affiliated partners)
 2. Basic Shortcode - Display the name, Description, image and price of the Amazon Products
+3. List of the reviews from Amazon displayed with a Shortcode
+4. Add a "reviews" Button on the shortcode.
 
 == Changelog ==
 
