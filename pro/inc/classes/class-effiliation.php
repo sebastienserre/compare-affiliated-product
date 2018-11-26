@@ -198,8 +198,8 @@ class Effiliation {
 			libxml_clear_errors();
 
 			foreach ( $element->product as $prod ) {
-
-				if ( ! empty( strval( $prod->ean ) ) ) {
+				$ean = cap_format_ean( strval( $prod->ean ) );
+				if ( ! empty( $ean ) ) {
 					$prod = array(
 						'price'        => strval( $prod->price ),
 						'title'        => strval( $prod->name ),
@@ -209,12 +209,12 @@ class Effiliation {
 						'partner_name' => $program['siteannonceur'],
 						'partner_code' => $program['id_programme'],
 						'productid'    => strval( $prod->sku ),
-						'ean'          => strval( $prod->ean ),
+						'ean'          => $ean,
 						'platform'     => 'effiliation',
 					);
 
 					$wpdb->replace( $table, $prod );
-					$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+					$transient = get_transient( 'product_' . $ean );
 					if ( ! empty( $transient ) ) {
 						delete_transient( $transient );
 					}

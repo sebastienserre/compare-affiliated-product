@@ -101,3 +101,25 @@ function cap_delete_pid() {
 		unlink( COMPARE_PLUGIN_PATH . 'compare.txt' );
 	}
 }
+
+function create_index () {
+	global $wpdb;
+
+	$sql = "CREATE INDEX cap_ean ON {$wpdb->prefix}compare (ean)";
+
+	$wpdb->query ( $sql );
+}
+
+function cap_format_ean( $ean ){
+	/**
+	 * SELECT * FROM k13s_compare WHERE LENGTH(ean) > 13
+	 * ALTER TABLE `k13s_compare` ADD INDEX( `ean`);
+	 */
+	if ( strlen( $ean ) > 13 ) {
+		$ean = str_replace( ' ', '', $ean );
+	}
+	if ( strlen( $ean ) > 13 ) {
+		$ean = '';
+	}
+	return $ean;
+}

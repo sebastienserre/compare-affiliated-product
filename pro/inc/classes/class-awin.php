@@ -23,7 +23,7 @@ class Awin {
 		$this->premium  = get_option( 'compare-premium' );
 
 		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
-			$this->compare_schedule_awin();
+			$this->compare_register_prod();
 		}
 
 	}
@@ -194,7 +194,9 @@ class Awin {
 				set_time_limit( $secondes );
 				$element = new SimpleXMLElement( $xml->readOuterXML() );
 
-				if ( ! empty( strval( $element->ean ) ) ) {
+				$ean = cap_format_ean( strval( $element->ean ) );
+
+				if ( ! empty( $ean ) ) {
 					$prod = array(
 						'price'        => strval( $element->price->buynow ),
 						'title'        => $element->text->name ? strval( $element->text->name ) : '',
@@ -203,14 +205,14 @@ class Awin {
 						'url'          => strval( $element->uri->awTrack ),
 						'partner_name' => $partner_details,
 						'productid'    => strval( $xml->getAttribute( 'id' ) ),
-						'ean'          => strval( $element->ean ),
+						'ean'          => $ean,
 						'platform'     => 'Awin',
 						'partner_code' => $value,
 					);
 
 					$wpdb->replace( $table, $prod );
 
-					$transient = get_transient( 'product_' . strval( $prod['ean'] ) );
+					$transient = get_transient( 'product_' . $ean );
 
 					if ( ! empty( $transient ) ) {
 						delete_transient( $transient );
