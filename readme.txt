@@ -16,9 +16,11 @@ Compare Affiliated Products Free allows you to display products from Amazon and 
 Use the shortcode [CAP] to make different layout.
 To know more on how to use this extension, please refer to the [online documentation](https://www.thivinfo.com/en/docs/compare-affiliated-products/)
 
-¡New on 2.0.6!
-* You can now display Amazon Reviews on Basic Shortcode.
-* New Shortcode type. reviews type will only show the Amazon products review
+== ¡New on 2.0.6! ==
+<ul>
+<li>You can now display Amazon Reviews on Basic Shortcode.</li>
+<li>New Shortcode type. reviews type will only show the Amazon products review</li>
+</ul>
 
 ==Pro Version ==
 <ul>
