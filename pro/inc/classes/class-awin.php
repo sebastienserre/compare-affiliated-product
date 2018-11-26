@@ -106,7 +106,6 @@ class Awin {
 		if ( ! isset( $option['platform']['awin'] ) ) {
 			return;
 		}
-		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
 
@@ -234,7 +233,7 @@ class Awin {
 		}
 
 		$event = 'import complete';
-		cap_delete_pid();
+
 		error_log( $event );
 
 	}

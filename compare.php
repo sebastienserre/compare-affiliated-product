@@ -106,6 +106,7 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
 	}
 
 }

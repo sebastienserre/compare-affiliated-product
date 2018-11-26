@@ -144,7 +144,6 @@ class Effiliation {
 		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
 		}
-		cap_create_pid();
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		add_filter( 'upload_dir', array( $this, 'compare_upload_effiliation_dir' ) );
 		define( 'ALLOW_UNFILTERED_UPLOADS', true );
@@ -222,7 +221,6 @@ class Effiliation {
 				}
 			}
 		}
-		cap_delete_pid();
 		error_log( 'stop Effiliation Import' );
 	}
 
