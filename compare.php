@@ -45,7 +45,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => false,
+			'is_premium'          => true,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(
@@ -140,7 +140,7 @@ function compare_create_db() {
 	$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
 productid varchar(255) DEFAULT NULL,
 platform text DEFAULT NULL,
-ean varchar(255) DEFAULT NULL,
+ean varchar(13) DEFAULT NULL,
 title text DEFAULT NULL,
 description text DEFAULT NULL,
 img text DEFAULT NULL,
@@ -149,10 +149,11 @@ partner_code varchar(45) DEFAULT NULL,
 url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-PRIMARY KEY (productid)
+PRIMARY KEY (productid),
 ) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	$dd = dbDelta( $compare_sql );
+	$wpdb->query( "ALTER TABLE $compare_table_name ADD INDEX( `ean`);");
 }
 
 register_activation_hook( __FILE__, 'compare_activation' );
