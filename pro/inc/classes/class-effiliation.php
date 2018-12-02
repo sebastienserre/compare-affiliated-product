@@ -25,6 +25,13 @@ class Effiliation {
 	}
 
 	public function compare_effiliation_set_cron() {
+
+		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
+			return;
+		} else {
+			cap_create_pid();
+		}
+
 		$option = get_option( 'compare-premium' );
 		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
@@ -141,6 +148,7 @@ class Effiliation {
 	 **/
 	public function compare_schedule_effiliation() {
 		$option = get_option( 'compare-premium' );
+
 		if ( ! isset( $option['platform']['effiliation'] ) ) {
 			return;
 		}
@@ -165,8 +173,9 @@ class Effiliation {
 
 				$name    = $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
-				$metaDatas = sys_get_temp_dir($temp_file);
-				unlink( $temp_file );
+				if ( file_exists( $temp_file ) ){
+					unlink( $temp_file );
+				}
 
 			} else {
 				error_log( $temp_file->errors['http_request_failed'][0] );
@@ -221,6 +230,7 @@ class Effiliation {
 				}
 			}
 		}
+		cap_delete_pid();
 		error_log( 'stop Effiliation Import' );
 	}
 

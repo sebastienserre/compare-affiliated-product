@@ -40,6 +40,8 @@ class Awin {
 
 		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
 			return;
+		} else {
+			cap_create_pid();
 		}
 		$cron = $this->_premium['cron'];
 		if ( ! isset( $this->_option['platform']['awin'] ) ) {
@@ -129,8 +131,9 @@ class Awin {
 				// Array based on $_FILE as seen in PHP file uploads
 				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
-				unlink( $temp_file );
-
+				if ( file_exists( $temp_file ) ){
+					unlink( $temp_file );
+				}
 			}
 		}
 		error_log( 'Stop Download Feed' );
@@ -233,6 +236,7 @@ class Awin {
 		}
 
 		$event = 'import complete';
+		cap_delete_pid();
 
 		error_log( $event );
 
