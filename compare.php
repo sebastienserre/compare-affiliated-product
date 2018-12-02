@@ -5,7 +5,7 @@
 	Description: Display Easily products from your affiliated programs (Amazon, Awin, Effiliation...)
 	Author: Sébastien SERRE
 	Author URI: https://thivinfo.com
-	Tested up to: 4.9
+	Tested up to: 5.0
 	Requires PHP: 5.6
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
