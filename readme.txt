@@ -1,7 +1,7 @@
 === Compare Affiliated Products ===
 Contributors: sebastienserre
 Tags: affiliate, amazon, awin, effiliation, associates
-Tested up to: 4.9
+Tested up to: 5.0
 Stable tag: 2.0.8
 Requires PHP: 5.6
 Requires at least: 4.6
