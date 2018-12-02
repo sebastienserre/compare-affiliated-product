@@ -35,7 +35,7 @@ Get an instance of the Database
 
 	public function compare_create_connexion() {
 		$this->compare_set_credentials();
-		$this->_connection = new wpdb( $this->_username,
+		$this->connection = new wpdb( $this->_username,
 			$this->_password, $this->_database, $this->_host );
 	}
 

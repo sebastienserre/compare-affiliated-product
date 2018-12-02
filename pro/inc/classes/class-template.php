@@ -93,7 +93,7 @@ class template {
 
 			$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 				$price = explode( ' ', $price );
-				$price = intval( $price[1] );
+				$price = $price[1];
 
 				$prods['amz'] =
 					array(
@@ -114,7 +114,7 @@ class template {
 
 
 		foreach ( $prods as $key => $p ) {
-			$prods[ $key ]['price'] = floatval( $p['price'] );
+			$prods[ $key ]['price'] = $p['price'];
 			$vc_array_name[ $key ]  = $p['price'];
 		}
 
@@ -125,7 +125,7 @@ class template {
 		$currency = apply_filters( 'compare_currency_unit', $currency );
 
 		foreach ( $prods as $key => $p ) {
-			$prods[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
+			$prods[ $key ]['price'] = $p['price'] . $currency;
 
 		}
 		$partner_logo_url = get_option( 'awin' );
