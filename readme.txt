@@ -2,7 +2,7 @@
 Contributors: sebastienserre
 Tags: affiliate, amazon, awin, effiliation, associates
 Tested up to: 4.9
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 Requires PHP: 5.6
 Requires at least: 4.6
 License: GPLv3

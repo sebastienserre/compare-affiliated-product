@@ -10,7 +10,7 @@
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php
-	Version: 2.0.6
+	Version: 2.0.7
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.6' );
+define( 'COMPARE_VERSION', '2.0.7' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -108,7 +108,6 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
 	}
-
 }
 
 add_action( 'init', 'compare_load_textdomain__premium_only' );
@@ -151,10 +150,11 @@ url text DEFAULT NULL,
 price varchar(10) DEFAULT NULL,
 last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 PRIMARY KEY (productid),
+KEY ean (ean)
 ) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	$dd = dbDelta( $compare_sql );
-	$wpdb->query( "ALTER TABLE $compare_table_name ADD INDEX( `ean`);");
+	//$wpdb->query( "ALTER TABLE $compare_table_name ADD IF NOT EXISTS INDEX( `ean`);");
 }
 
 register_activation_hook( __FILE__, 'compare_activation' );
