@@ -20,7 +20,8 @@ function cap_create_css_file() {
 add_action( 'wp_enqueue_scripts', 'cap_enqueue_custom_css', 9999, 1 );
 function cap_enqueue_custom_css() {
 	if ( file_exists( COMPARE_XML_PATH . '/css/cap.css' ) ) {
-		wp_enqueue_style( 'cap_style', content_url( '/uploads/compare-xml/css/cap.css' ), '', COMPARE_VERSION );
+		$css = apply_filters( 'cap_enqueue_css', content_url( '/uploads/compare-xml/css/cap.css' ) );
+		wp_enqueue_style( 'cap_style', $css, '', COMPARE_VERSION );
 	}
 }
 
