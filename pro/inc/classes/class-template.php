@@ -250,7 +250,7 @@ class template {
 			return $transient;
 		}
 		$external = get_option( 'compare-advanced' );
-		if ( ! empty( $external ) ) {
+		if ( ! empty( $external['ext_check'] ) ) {
 			$external = $external['ext_check'];
 		}
 
