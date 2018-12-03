@@ -38,7 +38,7 @@ class Cloak_Link {
 			case 'Amz':
 				$amz    = get_option( 'compare-amazon' );
 				$tag    = $amz['trackingid'];
-				$tagpos = strpos( $p['url'], 'tag=' );
+				$tagpos = strpos( $product['url'], 'tag=' );
 				if ( $tagpos > 0 ) {
 					$url      = explode( 'tag=', $product['url'] );
 					$pproduct['url'] = add_query_arg( 'tag', $tag, $url[0] );
