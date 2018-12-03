@@ -46,7 +46,7 @@ class compare_shortcode {
 				'img'          => $datas['Items']['Item']['LargeImage']['URL'],
 				'partner_name' => 'Amazon FR',
 				'partner_code' => 'amz',
-				'product_id'   => $datas['Items']['item']['ASIN'],
+				'product_id'   => $datas['Items']['Item']['ASIN'],
 				'url'          => $datas['Items']['Item']['Offers']['MoreOffersUrl'],
 				'price'        => $price,
 				'platform'     => 'Amz',
