@@ -90,8 +90,7 @@ class template {
 				$prods = $this->compare_get_data( $eanlist );
 				$amz   = new Amazon();
 				$datas = $amz->compare_get_amz_data( $asin );
-
-			$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
+				$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 				$price = explode( ' ', $price );
 				$price = $price[1];
 
@@ -103,7 +102,7 @@ class template {
 						'img'          => $datas['Items']['Item']['LargeImage']['URL'],
 						'partner_name' => 'Amazon FR',
 						'partner_code' => 'amz',
-						'product_id'   => $datas['Items']['item']['ASIN'],
+						'product_id'   => $datas['Items']['Item']['ASIN'],
 						'url'          => $datas['Items']['Item']['DetailPageURL'],
 						'price'        => $price,
 						'platform'     => 'Amz'
@@ -129,7 +128,7 @@ class template {
 
 		}
 		$partner_logo_url = get_option( 'awin' );
-		$partner_logo_url = $partner_logo_url['partner_logo'];
+		$logo             = $partner_logo_url['partner_logo'];
 		ob_start();
 		?>
 		<?php
@@ -137,97 +136,96 @@ class template {
 			$i = 1;
 			?>
 			<div class="compare-price">
-			<?php
-			foreach ( $prods as $p ) {
-				$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
+				<?php
+				foreach ( $prods as $p ) {
+					$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
 
+					$premium = get_option( 'compare-premium' );
 
-				$premium  = get_option( 'compare-premium' );
+					$option = get_option( 'compare-style' );
+					$text   = $option['button_text'];
 
-				$option   = get_option( 'compare-style' );
-				$text     = $option['button_text'];
-
-				/**
-				 * Add an URL tracker
-				 */
-				switch ( $p['platform'] ) {
-					case 'Awin':
-						$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
-						$url     = $p['url'] . '&clickref=' . $tracker;
-						break;
-					default:
-						$url = $p['url'];
-				}
-
-				if ( empty( $text ) ) {
-					$text = __( 'Buy to ', 'compare' );
-				}
-				$bg = $option['button-bg'];
-				if ( empty( $bg ) ) {
-					$bg = '#000000';
-				}
-				$color = $option['button-color'];
-				if ( empty( $color ) ) {
-					$color = '#ffffff';
-				}
-				if ( isset( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] ) {
-					$link = new Cloak_Link();
-					?>
-
-					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
-						<?php
-						$link->compare_create_link( $p, $logo, $data );
-						?>
-					</div>
-
-					<?php
-				} else {
-					if ( "amz" === $p['partner_code'] ) {
-						$logo   = COMPARE_PLUGIN_URL . 'assets/img/amazon.png';
-						$amz    = get_option( 'compare-amazon' );
-						$tag    = $amz['trackingid'];
-						$tagpos = strpos( $p['url'], 'tag=' );
-						if ( $tagpos > 0 ) {
-							$url      = explode( 'tag=', $p['url'] );
-							$p['url'] = add_query_arg( 'tag', $tag, $url[0] );
-							$url      = $p['url'] . '&keywords=' . $url[1];
-						} else {
-							$url = add_query_arg( 'tag', $tag, $p['url'] );
-						}
-					} else {
-						$logos = template::compare_get_partner_logo();
-
-						if ( isset( $logos[ $p['partner_code'] ] ) ) {
-							$logo = $logos[ $p['partner_code'] ];
-						}
+					/**
+					 * Add an URL tracker
+					 */
+					switch ( $p['platform'] ) {
+						case 'Awin':
+							$tracker = apply_filters( 'compare_url_tracker', get_bloginfo( 'url' ) );
+							$url     = $p['url'] . '&clickref=' . $tracker;
+							break;
+						default:
+							$url = $p['url'];
 					}
 
+					if ( empty( $text ) ) {
+						$text = __( 'Buy to ', 'compare' );
+					}
+					$bg = $option['button-bg'];
+					if ( empty( $bg ) ) {
+						$bg = '#000000';
+					}
+					$color = $option['button-color'];
+					if ( empty( $color ) ) {
+						$color = '#ffffff';
+					}
+					if ( isset( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] ) {
+						$link = new Cloak_Link();
+						?>
 
-					?>
-					<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
-						<div class="img-partner"><img src="<?php echo $logo ?>"></div>
-						<div class="product-price">
-							<a href="<?php echo $url; ?>">
-								<?php echo $p['price']  ?>
-							</a>
+						<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+							<?php
+							$link->compare_create_link( $p, $logo, $data );
+							?>
 						</div>
-						<div class="button-partner">
-							<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
-										class="btn-compare">
-									<a style="color: <?php echo $color; ?>;"
-									   href="<?php echo $url; ?>"><?php echo $text; ?></a>
+
+						<?php
+					} else {
+						if ( "amz" === $p['partner_code'] ) {
+							$logo   = COMPARE_PLUGIN_URL . 'assets/img/amazon.png';
+							$amz    = get_option( 'compare-amazon' );
+							$tag    = $amz['trackingid'];
+							$tagpos = strpos( $p['url'], 'tag=' );
+							if ( $tagpos > 0 ) {
+								$url      = explode( 'tag=', $p['url'] );
+								$p['url'] = add_query_arg( 'tag', $tag, $url[0] );
+								$url      = $p['url'] . '&keywords=' . $url[1];
+							} else {
+								$url = add_query_arg( 'tag', $tag, $p['url'] );
+							}
+						} else {
+							$logos = template::compare_get_partner_logo();
+
+							if ( isset( $logos[ $p['partner_code'] ] ) ) {
+								$logo = $logos[ $p['partner_code'] ];
+							}
+						}
+
+
+						?>
+						<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+							<div class="img-partner"><img src="<?php echo $logo ?>"></div>
+							<div class="product-price">
+								<a href="<?php echo $url; ?>">
+									<?php echo $p['price'] ?>
 								</a>
-							</button>
+							</div>
+							<div class="button-partner">
+								<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
+											class="btn-compare">
+										<a style="color: <?php echo $color; ?>;"
+										   href="<?php echo $url; ?>"><?php echo $text; ?></a>
+									</a>
+								</button>
+							</div>
 						</div>
-					</div>
 
 
-					<?php
+						<?php
+					}
 				}
-			}
-			?>
+				?>
 			</div>
-				<?php
+			<?php
 			$i ++;
 		}
 
