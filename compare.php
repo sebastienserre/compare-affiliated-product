@@ -45,7 +45,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => true,
+			'is_premium'          => false,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(

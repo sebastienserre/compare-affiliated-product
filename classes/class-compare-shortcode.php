@@ -15,7 +15,7 @@ class compare_shortcode {
 				'type'     => 'basic',
 				'product'  => '',
 				'partners' => 'nok',
-				'options'   => '',
+				'options'  => '',
 			),
 			$atts,
 			'cap'
@@ -54,11 +54,11 @@ class compare_shortcode {
 
 		/**
 		 * @description Add reviews.
-		 * @since 2.0.6
-		 * @author Sébastien SERRE
+		 * @since       2.0.6
+		 * @author      Sébastien SERRE
 		 *
 		 */
-		if ( 'reviews' === $atts['options'] ||'reviews' === $atts['type'] && 'true' === $datas["Items"]["Item"]["CustomerReviews"]["HasReviews"]) {
+		if ( 'reviews' === $atts['options'] || 'reviews' === $atts['type'] && 'true' === $datas["Items"]["Item"]["CustomerReviews"]["HasReviews"] ) {
 			$products['amz']['reviews'] = $datas["Items"]["Item"]["CustomerReviews"]["IFrameURL"];
 		}
 
@@ -89,14 +89,15 @@ class compare_shortcode {
 	 * @param $products array Array with Amazon products details.
 	 *
 	 * @return false|string
-	 * @since 2.0.6
+	 * @since  2.0.6
 	 * @author Sébastien Serre
 	 */
-	public function cap_shortcode_reviews( $products ){
+	public function cap_shortcode_reviews( $products ) {
 		ob_start();
 		?>
 		<div class="cap_amz_review">
-			<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
+			<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>" width="100%"
+			        height="auto"></iframe>
 		</div>
 		<?php
 		return ob_get_clean();
@@ -147,26 +148,29 @@ class compare_shortcode {
 					</div>
 					<?php
 					/**
-					* @description Add reviews.
-					* @since 2.0.6
-					* @author Sébastien SERRE
-					*
-					*/
+					 * @description Add reviews.
+					 * @since       2.0.6
+					 * @author      Sébastien SERRE
+					 *
+					 */
 					if ( ! empty( $products['amz']['reviews'] ) ) {
 						?>
 
-					<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
-					<div id="popup">
-						<div id="popup-bg"></div>
-						<div id="popup-fg">
+						<button id="login"
+						        style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
+						<div id="popup">
+							<div id="popup-bg"></div>
+							<div id="popup-fg">
 
-							<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
-							<div class="actions">
-								<button id="close" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products'); ?></button>
+								<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"
+								        width="100%" height="auto"></iframe>
+								<div class="actions">
+									<button id="close"
+									        style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products' ); ?></button>
+								</div>
 							</div>
 						</div>
-					</div>
-						<?php } ?>
+					<?php } ?>
 					<div class="price-box cap-sc">
 						<?php
 						foreach ( $products as $p ) {
@@ -225,21 +229,24 @@ class compare_shortcode {
 		<?php
 		/**
 		 * @description Add reviews.
-		 * @since 2.0.6
-		 * @author Sébastien SERRE
+		 * @since       2.0.6
+		 * @author      Sébastien SERRE
 		 *
 		 */
 		if ( ! empty( $products['amz']['reviews'] ) ) {
 			?>
 
-			<button id="login" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
+			<button id="login"
+			        style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Read the reviews', 'compare-affiliated-products' ); ?></button>
 			<div id="popup">
 				<div id="popup-bg"></div>
 				<div id="popup-fg">
 
-					<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>"width="100%" height="auto"></iframe>
+					<iframe class="cap-amz-review" src="<?php echo $products['amz']['reviews']; ?>" width="100%"
+					        height="auto"></iframe>
 					<div class="actions">
-						<button id="close" style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products'); ?></button>
+						<button id="close"
+						        style="background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><?php _e( 'Close', 'compare-affiliated-products' ); ?></button>
 					</div>
 				</div>
 			</div>
@@ -276,10 +283,7 @@ class compare_shortcode {
 		return ob_get_clean();
 	}
 
-	public
-	function cap_template_price(
-		$p, $text, $color, $bg, $logo
-	) {
+	public function cap_template_price(	$p, $text, $color, $bg, $logo ) {
 		?>
 		<div class="compare_price-partner">
 			<div class="compare_partner_logo">
@@ -289,7 +293,7 @@ class compare_shortcode {
 				<p><?php echo $p['partner_name']; ?></p>
 			</div>
 			<div class="compare_price">
-				<?php echo $p['price'] . ' ' . $currency; ?>
+				<?php echo $p['price']; ?>
 			</div>
 			<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "
 			        class="compare_buy"><a
