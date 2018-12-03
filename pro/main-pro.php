@@ -40,7 +40,3 @@ function compare_load_scripts() {
 	wp_enqueue_script( 'convert-a-link', 'https://www.dwin2.com/pub.' . $customer_id['customer_id'] . '.min.js', array(), '1.0.0', true );
 	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }
-
-$upload = wp_upload_dir();
-
-define( 'COMPARE_XML_PATH', $upload['basedir'] . '/compare-xml/' );

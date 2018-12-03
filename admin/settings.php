@@ -141,12 +141,25 @@ function compare_register_settings() {
 	add_settings_field( 'compare-style-button-text', __( 'Button Text', 'compare-affiliated-products' ), 'compare_button_text', 'compare-style', 'compare-style' );
 	add_settings_field( 'compare-style-button-bg', __( 'Button Background Color', 'compare-affiliated-products' ), 'compare_button_bg', 'compare-style', 'compare-style' );
 	add_settings_field( 'compare-style-button-color', __( 'Button Text Color', 'compare-affiliated-products' ), 'compare_button_color', 'compare-style', 'compare-style' );
-
+	add_settings_field( 'compare-style-css', __( 'Custom CSS', 'compare-affiliated-products' ), 'cap_custom_css', 'compare-style', 'compare-style' );
 	/**
 	 * Help
 	 */
 	add_settings_section( 'compare-help', '', 'compare_help', 'compare-help' );
 	register_setting( 'compare-help', 'help' );
+}
+
+function cap_custom_css(){
+	$option = get_option( 'compare-style' );
+	$css = $option['css'];
+	?>
+	<textarea rows="20" cols="100" name="compare-style[css]"><?php if ( !empty( $css ) ) { echo $css; } ?></textarea>
+	<p>
+		<?php
+		esc_attr_e( 'All CSS rules added in this textarea will be enqueued as cap.css stylesheet', 'compare-affiliated-products' );
+		?>
+	</p>
+	<?php
 }
 
 function compare_button_bg() {

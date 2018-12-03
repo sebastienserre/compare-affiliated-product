@@ -10,7 +10,7 @@
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php
-	Version: 2.0.8
+	Version: 2.0.9
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,12 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.8' );
+define( 'COMPARE_VERSION', '2.0.9' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'COMPARE_PLUGIN_DIR', untrailingslashit( COMPARE_PLUGIN_PATH ) );
 define( 'COMPARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+$upload = wp_upload_dir();
+define( 'COMPARE_XML_PATH', $upload['basedir'] . '/compare-xml/' );
 
 // Create a helper function for easy SDK access.
 /**
@@ -89,6 +91,7 @@ function compare_load_files() {
 	include_once COMPARE_PLUGIN_PATH . '/3rd-party/aws_signed_request.php';
 	include_once COMPARE_PLUGIN_PATH . '/inc/update-functions.php';
 	include_once COMPARE_PLUGIN_PATH . '/admin/settings.php';
+	include_once COMPARE_PLUGIN_PATH . '/admin/css.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/amazon.php';
 	include_once COMPARE_PLUGIN_PATH . '/classes/class-compare-shortcode.php';
 	include_once COMPARE_PLUGIN_PATH . '/inc/functions.php';
