@@ -5,12 +5,12 @@
 	Description: Display Easily products from your affiliated programs (Amazon, Awin, Effiliation...)
 	Author: Sébastien SERRE
 	Author URI: https://thivinfo.com
-	Tested up to: 5.0
+	Tested up to: 5.1
 	Requires PHP: 5.6
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php, /compare.txt
-	Version: 2.0.9
+	Version: 2.0.10
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.9' );
+define( 'COMPARE_VERSION', '2.0.10' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
