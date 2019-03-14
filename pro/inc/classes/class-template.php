@@ -351,7 +351,7 @@ class template {
 			array_multisort( $vc_array_name, SORT_ASC, $products );
 
 			foreach ( $products as $key => $p ) {
-				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) . $currency;
+				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) ;
 
 			}
 
@@ -368,8 +368,10 @@ class template {
 	 */
 	public static function compare_get_partner_logo() {
 		$awin = get_option( 'awin' );
-		foreach ( $awin['partner_logo'] as $key => $img ) {
-			$logos[ $key ] = $img['img'];
+		if ( ! empty( $awin['partner_logo']) ){
+			foreach ( $awin['partner_logo'] as $key => $img ) {
+				$logos[ $key ] = $img['img'];
+			}
 		}
 
 		$effi     = get_option( 'compare-effiliation' );
