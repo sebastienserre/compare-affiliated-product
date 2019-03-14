@@ -28,8 +28,14 @@ function cap_enqueue_custom_css() {
 add_action( 'admin_init', 'cap_delete_custom_css_file' );
 function cap_delete_custom_css_file() {
 	$option = get_option( 'compare-style' );
-	if ( empty( $option['css'] ) ) {
-		unlink( COMPARE_XML_PATH . '/css/cap.css' );
-		unlink( COMPARE_XML_PATH . '/css' );
+	if ( file_exists( COMPARE_XML_PATH . '/css/cap.css' ) ) {
+		if ( empty( $option['css'] ) ) {
+			unlink( COMPARE_XML_PATH . '/css/cap.css' );
+		}
+	}
+	if ( file_exists( COMPARE_XML_PATH . '/css' ) ) {
+		if ( empty( $option['css'] ) ) {
+			unlink( COMPARE_XML_PATH . '/css' );
+		}
 	}
 }
