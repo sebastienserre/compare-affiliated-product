@@ -374,10 +374,11 @@ class template {
 			}
 		}
 
-		$effi     = get_option( 'compare-effiliation' );
 		$programs = Effiliation::compare_get_effiliation_program();
-		foreach ( $programs['programs'] as $program ) {
-			$logos[ $program['id_programme'] ] = $program['urllo'];
+		if ( null != $programs ){
+			foreach ( $programs['programs'] as $program ) {
+				$logos[ $program['id_programme'] ] = $program['urllo'];
+			}
 		}
 
 		return $logos;
