@@ -25,7 +25,7 @@ class Effiliation {
 	}
 
 	public function compare_effiliation_set_cron() {
-
+		_deprecated_function( __FUNCTION__, '2.0.11' );
 		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
 			return;
 		} else {

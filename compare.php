@@ -10,7 +10,7 @@
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php, /compare.txt
-	Version: 2.0.10
+	Version: 2.1.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.10' );
+define( 'COMPARE_VERSION', '2.1.0' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -47,7 +47,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => false,
+			'is_premium'          => true,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(
@@ -108,7 +108,6 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
-		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
 	}
 }
@@ -131,7 +130,6 @@ function compare_load_style() {
 /**
  * Triggered on admin_init if plugin updated by FTP
  */
-add_action( 'admin_init', 'compare_create_db' );
 function compare_create_db() {
 	/**
 	 * Create Table
@@ -140,24 +138,23 @@ function compare_create_db() {
 	$charset_collate    = $wpdb->get_charset_collate();
 	$compare_table_name = $wpdb->prefix . 'compare';
 
-	$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
-productid varchar(255) DEFAULT NULL,
-platform text DEFAULT NULL,
-ean varchar(13) DEFAULT NULL,
-title text DEFAULT NULL,
-description text DEFAULT NULL,
-img text DEFAULT NULL,
-partner_name varchar(255) DEFAULT NULL,
-partner_code varchar(45) DEFAULT NULL,
-url text DEFAULT NULL,
-price varchar(10) DEFAULT NULL,
-last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-PRIMARY KEY (productid),
-KEY ean (ean)
-) $charset_collate;";
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	$compare_sql = "CREATE TABLE {$compare_table_name}(
+		productid varchar(255) DEFAULT NULL,
+		platform text DEFAULT NULL,
+		ean varchar(13) DEFAULT NULL,
+		title text DEFAULT NULL,
+		description text DEFAULT NULL,
+		img text DEFAULT NULL,
+		partner_name varchar(255) DEFAULT NULL,
+		partner_code varchar(45) DEFAULT NULL,
+		url text DEFAULT NULL,
+		price varchar(10) DEFAULT NULL,
+		last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		PRIMARY KEY  (productid),
+		KEY ean (ean)
+		)";
 	$dd = dbDelta( $compare_sql );
-	//$wpdb->query( "ALTER TABLE $compare_table_name ADD IF NOT EXISTS INDEX( `ean`);");
 }
 
 register_activation_hook( __FILE__, 'compare_activation' );
@@ -244,7 +241,7 @@ function compare_admin_style() {
 	wp_enqueue_style( 'compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION );
 }
 
-add_action( 'plugins_loaded', 'compare_add_db_column' );
+//add_action( 'plugins_loaded', 'compare_add_db_column' );
 function compare_add_db_column() {
 	global $wpdb;
 
