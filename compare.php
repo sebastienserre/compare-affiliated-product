@@ -10,7 +10,7 @@
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php, /compare.txt
-	Version: 2.0.10
+	Version: 2.1.0
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.0.10' );
+define( 'COMPARE_VERSION', '2.1.0' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -130,7 +130,6 @@ function compare_load_style() {
 /**
  * Triggered on admin_init if plugin updated by FTP
  */
-//add_action( 'admin_init', 'compare_create_db' );
 function compare_create_db() {
 	/**
 	 * Create Table
