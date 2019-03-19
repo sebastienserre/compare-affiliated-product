@@ -66,6 +66,7 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare-affiliated-products-pro' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare-affiliated-products-pro' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare-affiliated-products-pro' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-launch_cron', '', 'compare_launch_cron', 'compare-premium', 'compare-premium' );
 
 	/**
 	 * Awin
@@ -96,6 +97,26 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare-affiliated-products-pro' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare-affiliated-products-pro' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
+}
+
+/**
+ * @since 2.1.0
+ *        Launch Cron
+ */
+
+function compare_launch_cron(){
+	$nonce = wp_create_nonce( 'cap-launch-cron' );
+	$url = $_SERVER['REQUEST_URI'];
+	$url = add_query_arg(
+			array(
+					'launch_cron' => 'ok',
+					'_wpnonce'  => $nonce
+
+				),
+			$url );
+	?>
+	<a href= "<?php echo $url ?>"><?php _e( 'Launch Cron Job', 'compare-affiliated-products-pro' ); ?></a>
+	<?php
 }
 
 /**

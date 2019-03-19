@@ -4,7 +4,7 @@ if ( class_exists( 'WP_CLI' ) ) {
 	WP_CLI::add_command( 'cap_import_db', 'cap_upgrade_db' );
 }
 
-function cap_select_cron(){
+function cap_select_cron() {
 
 	$premium = get_option( 'compare-premium' );
 	$cron    = $premium['cron'];
@@ -21,6 +21,14 @@ function cap_select_cron(){
 		case 'none':
 			__return_false();
 			break;
+	}
+}
+
+add_action( 'admin_init', 'cap_launch_cron_setting' );
+function cap_launch_cron_setting() {
+	$nonce = $_REQUEST['_wpnonce'];
+	if ( ! empty( $_GET['launch_cron'] ) && 'ok' === $_GET['launch_cron'] && wp_verify_nonce( $nonce, 'cap-launch-cron' ) ) {
+		cap_upgrade_db();
 	}
 }
 
