@@ -131,7 +131,7 @@ function compare_load_style() {
 /**
  * Triggered on admin_init if plugin updated by FTP
  */
-add_action( 'admin_init', 'compare_create_db' );
+//add_action( 'admin_init', 'compare_create_db' );
 function compare_create_db() {
 	/**
 	 * Create Table
@@ -140,24 +140,23 @@ function compare_create_db() {
 	$charset_collate    = $wpdb->get_charset_collate();
 	$compare_table_name = $wpdb->prefix . 'compare';
 
-	$compare_sql = "CREATE TABLE IF NOT EXISTS $compare_table_name(
-productid varchar(255) DEFAULT NULL,
-platform text DEFAULT NULL,
-ean varchar(13) DEFAULT NULL,
-title text DEFAULT NULL,
-description text DEFAULT NULL,
-img text DEFAULT NULL,
-partner_name varchar(255) DEFAULT NULL,
-partner_code varchar(45) DEFAULT NULL,
-url text DEFAULT NULL,
-price varchar(10) DEFAULT NULL,
-last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-PRIMARY KEY (productid),
-KEY ean (ean)
-) $charset_collate;";
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	$compare_sql = "CREATE TABLE {$compare_table_name}(
+		productid varchar(255) DEFAULT NULL,
+		platform text DEFAULT NULL,
+		ean varchar(13) DEFAULT NULL,
+		title text DEFAULT NULL,
+		description text DEFAULT NULL,
+		img text DEFAULT NULL,
+		partner_name varchar(255) DEFAULT NULL,
+		partner_code varchar(45) DEFAULT NULL,
+		url text DEFAULT NULL,
+		price varchar(10) DEFAULT NULL,
+		last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		PRIMARY KEY  (productid),
+		KEY ean (ean)
+		)";
 	$dd = dbDelta( $compare_sql );
-	//$wpdb->query( "ALTER TABLE $compare_table_name ADD IF NOT EXISTS INDEX( `ean`);");
 }
 
 register_activation_hook( __FILE__, 'compare_activation' );
@@ -244,7 +243,7 @@ function compare_admin_style() {
 	wp_enqueue_style( 'compare-admin-style', COMPARE_PLUGIN_URL . 'assets/css/compare-admin.css', '', COMPARE_VERSION );
 }
 
-add_action( 'plugins_loaded', 'compare_add_db_column' );
+//add_action( 'plugins_loaded', 'compare_add_db_column' );
 function compare_add_db_column() {
 	global $wpdb;
 
