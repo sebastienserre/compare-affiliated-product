@@ -47,7 +47,7 @@ function cap_fs() {
 			'slug'                => 'compare-affiliated-products',
 			'type'                => 'plugin',
 			'public_key'          => 'pk_ff3b951b9718b0f9e347ba2925627',
-			'is_premium'          => false,
+			'is_premium'          => true,
 			'has_addons'          => false,
 			'has_paid_plans'      => true,
 			'trial'               => array(
@@ -108,7 +108,6 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
-		include_once COMPARE_PLUGIN_PATH . '/pro/inc/scheduler.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
 	}
 }
