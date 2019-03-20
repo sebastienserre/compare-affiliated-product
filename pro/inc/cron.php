@@ -26,8 +26,7 @@ function cap_select_cron() {
 
 add_action( 'admin_init', 'cap_launch_cron_setting' );
 function cap_launch_cron_setting() {
-	$nonce = $_REQUEST['_wpnonce'];
-	if ( ! empty( $_GET['launch_cron'] ) && 'ok' === $_GET['launch_cron'] && wp_verify_nonce( $nonce, 'cap-launch-cron' ) ) {
+	if ( ! empty( $_GET['launch_cron'] ) && 'ok' === $_GET['launch_cron'] && wp_verify_nonce( $_REQUEST['_wpnonce'], 'cap-launch-cron' ) ) {
 		cap_upgrade_db();
 	}
 }

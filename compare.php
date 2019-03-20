@@ -261,10 +261,10 @@ WHERE table_name = '$compare_table_name' AND column_name = 'platform'" );
 
 add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
 function responsive_tables_enqueue_script() {
-	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
+	wp_enqueue_script( 'responsive-tables', COMPARE_PLUGIN_URL . 'assets/js/responsiveTable.js', $deps = array(), $ver = false, $in_footer = true );
 }
 
-add_action( 'wp_enqueue_scripts', 'cap_load_popup' );
+//add_action( 'wp_enqueue_scripts', 'cap_load_popup' );
 function cap_load_popup() {
 	wp_enqueue_script( 'popup', COMPARE_PLUGIN_URL . '/assets/js/popup.js', '', '1.0.0', true );
 }
