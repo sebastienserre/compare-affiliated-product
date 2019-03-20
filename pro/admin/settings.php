@@ -4,22 +4,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly.
 
 
-
-
 /**
  * Create the settings content
  */
 add_filter( 'compare_setting_tabs', 'compare_pro_settings_page' );
 function compare_pro_settings_page( $tabs ) {
 	$tabs['advanced'] = __( 'advanced', 'compare-affiliated-products-pro' );
-	$tabs['premium']     = __( 'premium', 'compare-affiliated-products-pro' );
-	$options          = get_option( 'compare-premium' );
-	$platforms        = $options['platform'];
+	$tabs['premium']  = __( 'premium', 'compare-affiliated-products-pro' );
+	$platforms        = array( 'awin', 'effiliation' );
 	foreach ( $platforms as $platform ) {
-		if ( ! empty( $platform ) ) {
-			$tabs[ $platform ] = $platform;
-		}
+		//if ( ! empty( $platform ) ) {
+		$tabs[ $platform ] = $platform;
+		//}
 	}
+
 	return $tabs;
 
 }
@@ -58,11 +56,11 @@ function compare_pro_register_settings() {
 	 * Premium
 	 */
 
-	register_setting('compare-premium', 'compare-premium');
+	register_setting( 'compare-premium', 'compare-premium' );
 	add_settings_section( 'compare-premium', '', '', 'compare-premium' );
 
 	add_settings_field( 'compare-general-cloak-link', __( 'Cloak Link', 'compare-affiliated-products-pro' ), 'compare_general_cloak_link', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare-affiliated-products-pro' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
+	//add_settings_field( 'compare-general-platforms', __( 'Platforms', 'compare-affiliated-products-pro' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare-affiliated-products-pro' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare-affiliated-products-pro' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare-affiliated-products-pro' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
@@ -104,18 +102,18 @@ function compare_pro_register_settings() {
  *        Launch Cron
  */
 
-function compare_launch_cron(){
+function compare_launch_cron() {
 	$nonce = wp_create_nonce( 'cap-launch-cron' );
-	$url = $_SERVER['REQUEST_URI'];
-	$url = add_query_arg(
-			array(
-					'launch_cron' => 'ok',
-					'_wpnonce'  => $nonce
+	$url   = $_SERVER['REQUEST_URI'];
+	$url   = add_query_arg(
+		array(
+			'launch_cron' => 'ok',
+			'_wpnonce'    => $nonce,
 
-				),
-			$url );
+		),
+		$url );
 	?>
-	<a href= "<?php echo $url ?>"><?php _e( 'Launch Cron Job', 'compare-affiliated-products-pro' ); ?></a>
+	<a href="<?php echo $url ?>"><?php _e( 'Launch Cron Job', 'compare-affiliated-products-pro' ); ?></a>
 	<?php
 }
 
@@ -156,7 +154,7 @@ function compare_general_platforms() {
 
 
 	foreach ( $platforms as $platform ) {
-		if ( isset( $options['platform'] ) && ! empty( $options['platform'] ) ) {
+		if ( ! empty( $options['platform'] ) ) {
 			$check = $options['platform'][ $platform ];
 		}
 		?>
@@ -192,7 +190,7 @@ function cae_ext_check() {
 
 	<?php
 	//$external_db = compare_external_db::getInstance();
-	$connection = new compare_external_db();
+	$connection  = new compare_external_db();
 	$external_db = $connection->compare_create_connexion();
 	$cnx         = $connection->compare_check_html();
 	echo $cnx;

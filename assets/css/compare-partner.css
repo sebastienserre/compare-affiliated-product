@@ -371,7 +371,6 @@ iframe.cap-amz-review {
     margin: -4em 4em;
 }
 
-#popup {
 
 input, label {
     display: block;
@@ -387,4 +386,11 @@ label {
     margin-top: 1em;
 }
 
+.btn-compare {
+    padding: 0 10px;
+    display: flex;
+    justify-content: inherit;
+    max-height: 70px;
+    line-height: 70px;
+    vertical-align: middle;
 }

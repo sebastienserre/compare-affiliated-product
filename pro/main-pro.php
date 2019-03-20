@@ -37,6 +37,8 @@ function compare_load_scripts() {
 	 * Convert-a-link is a system from Awin
 	 */
 	$customer_id = get_option( 'awin' );
-	wp_enqueue_script( 'convert-a-link', 'https://www.dwin2.com/pub.' . $customer_id['customer_id'] . '.min.js', array(), '1.0.0', true );
+	if (! empty( $customer_id['customer_id'] ) ) {
+		wp_enqueue_script( 'convert-a-link', 'https://www.dwin2.com/pub.' . $customer_id['customer_id'] . '.min.js', array(), '1.0.0', true );
+	}
 	wp_enqueue_script( 'create-link', COMPARE_PLUGIN_URL . '/assets/js/linkJS.js', array(), '1.0.0', true );
 }

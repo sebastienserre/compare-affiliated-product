@@ -107,12 +107,12 @@ class Compare_price {
 						<div class="compare_price">
 							<?php echo $p['price'] . ' ' . $currency; ?>
 						</div>
-						<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "
+						<!--<button style=" background:<?php /*echo $bg; */?>; color: <?php /*echo $color; */?>; "-->
 						        class="compare_buy"><a
 									class="btn-compare">
 								<a href="<?php echo $p['url']; ?>"><?php echo $text; ?></a>
 							</a>
-						</button>
+						<!--</button>-->
 					</div>
 					<?php
 				}

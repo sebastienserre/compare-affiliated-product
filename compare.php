@@ -10,7 +10,7 @@
 	Text Domain: compare-affiliated-products
 	Domain Path: /pro/languages/
 	@fs_premium_only /pro/, /languages/, /cron.php, /compare.txt
-	Version: 2.1.0
+	Version: 2.1.1
 	*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define Constant
  */
-define( 'COMPARE_VERSION', '2.1.0' );
+define( 'COMPARE_VERSION', '2.1.1' );
 define( 'COMPARE_PLUGIN_NAME', 'Compare Affliated Product' );
 define( 'COMPARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COMPARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -261,10 +261,10 @@ WHERE table_name = '$compare_table_name' AND column_name = 'platform'" );
 
 add_action( 'wp_enqueue_scripts', 'responsive_tables_enqueue_script' );
 function responsive_tables_enqueue_script() {
-	wp_enqueue_script( 'responsive-tables', get_stylesheet_directory_uri() . '/responsive-tables.js', $deps = array(), $ver = false, $in_footer = true );
+	wp_enqueue_script( 'responsive-tables', COMPARE_PLUGIN_URL . 'assets/js/responsiveTable.js', $deps = array(), $ver = false, $in_footer = true );
 }
 
-add_action( 'wp_enqueue_scripts', 'cap_load_popup' );
+//add_action( 'wp_enqueue_scripts', 'cap_load_popup' );
 function cap_load_popup() {
 	wp_enqueue_script( 'popup', COMPARE_PLUGIN_URL . '/assets/js/popup.js', '', '1.0.0', true );
 }
