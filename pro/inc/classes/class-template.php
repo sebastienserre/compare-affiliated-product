@@ -210,12 +210,9 @@ class template {
 								</a>
 							</div>
 							<div class="button-partner">
-								<button style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; "><a
-											class="btn-compare">
-										<a style="color: <?php echo $color; ?>;"
-										   href="<?php echo $url; ?>"><?php echo $text; ?></a>
-									</a>
-								</button>
+								<a class="btn-compare" href="<?php echo $p['url']; ?>" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
+									<?php echo esc_attr( $text ); ?>
+								</a>
 							</div>
 						</div>
 

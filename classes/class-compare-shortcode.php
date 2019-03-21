@@ -283,7 +283,7 @@ class compare_shortcode {
 		return ob_get_clean();
 	}
 
-	public function cap_template_price(	$p, $text, $color, $bg, $logo ) {
+	public function cap_template_price( $p, $text, $color, $bg, $logo ) {
 		?>
 		<div class="compare_price-partner">
 			<div class="compare_partner_logo">
@@ -295,14 +295,11 @@ class compare_shortcode {
 			<div class="compare_price">
 				<?php echo $p['price']; ?>
 			</div>
-			<!--<button style=" background:<?php /*echo $bg; */?>; color: <?php /*echo $color; */?>; "
-			        class="compare_buy">-->
 
-					<a class="btn-compare" href="<?php echo $p['url']; ?>" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
-						<?php echo $text; ?>
-					</a>
-
-			<!--</button>-->
+			<a class="btn-compare" href="<?php echo $p['url']; ?>"
+			   style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
+				<?php echo $text; ?>
+			</a>
 		</div>
 		<?php
 	}
