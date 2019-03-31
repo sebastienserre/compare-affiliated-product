@@ -11,11 +11,9 @@ add_filter( 'compare_setting_tabs', 'compare_pro_settings_page' );
 function compare_pro_settings_page( $tabs ) {
 	$tabs['advanced'] = __( 'advanced', 'compare-affiliated-products-pro' );
 	$tabs['premium']  = __( 'premium', 'compare-affiliated-products-pro' );
-	$platforms        = array( 'awin', 'effiliation' );
+	$platforms        = array( 'awin', 'effiliation', 'manomano' );
 	foreach ( $platforms as $platform ) {
-		//if ( ! empty( $platform ) ) {
 		$tabs[ $platform ] = $platform;
-		//}
 	}
 
 	return $tabs;
@@ -95,6 +93,26 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-effiliation-apikey', __( 'API Key', 'compare-affiliated-products-pro' ), 'compare_effiliation_api', 'compare-effiliation', 'compare-effiliation' );
 	add_settings_field( 'compare-effiliation-programs', __( 'My Programs', 'compare-affiliated-products-pro' ), 'compare_effiliation_program', 'compare-effiliation', 'compare-effiliation' );
 
+	/**
+	 * Manomano
+	 * @since 2.2.0
+	 *
+	 */
+	add_settings_section( 'compare-manomano', '', '', 'compare-manomano' );
+
+	register_setting( 'compare-manomano', 'compare-manomano' );
+	add_settings_field( 'compare-manomano-json', __( 'JSON URL', 'compare-affiliated-products-pro' ), 'compare_manomano_url', 'compare-manomano', 'compare-manomano' );
+
+}
+
+function compare_manomano_url() {
+	$value = get_option( 'compare-manomano' );
+	$value = 'value="'. $value['url'] .'"';
+
+	?>
+    <input type="text" name="compare-manomano[url]" <?php echo $value; ?>>
+    <p><?php printf( __( 'URL of the Json product feed given by %s. Ask it to them', 'compare-affiliated-products-pro' ), 'Manomano' ); ?></p>
+	<?php
 }
 
 /**
@@ -113,7 +131,7 @@ function compare_launch_cron() {
 		),
 		$url );
 	?>
-	<a href="<?php echo $url ?>"><?php _e( 'Launch Cron Job', 'compare-affiliated-products-pro' ); ?></a>
+    <a href="<?php echo $url ?>"><?php _e( 'Launch Cron Job', 'compare-affiliated-products-pro' ); ?></a>
 	<?php
 }
 
@@ -127,7 +145,7 @@ function compare_general_trackers() {
 		$value = 'value="' . $options['tracker'] . '"';
 	}
 	?>
-	<input type="text" name="compare-premium[tracker]" <?php echo $value; ?>>
+    <input type="text" name="compare-premium[tracker]" <?php echo $value; ?>>
 	<?php
 }
 
@@ -143,8 +161,8 @@ function compare_effiliation_api() {
 		$value = 'value="' . $options['apikey'] . '"';
 	}
 	?>
-	<input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
-	<p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products-pro' ), 'Effiliation' ); ?></p>
+    <input type="text" name="compare-effiliation[apikey]" <?php echo $value; ?>>
+    <p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products-pro' ), 'Effiliation' ); ?></p>
 	<?php
 }
 
@@ -158,15 +176,15 @@ function compare_general_platforms() {
 			$check = $options['platform'][ $platform ];
 		}
 		?>
-		<input type="checkbox"
-		       name="compare-premium[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
-		       value="<?php echo $platform; ?>">
+        <input type="checkbox"
+               name="compare-premium[platform][<?php echo $platform; ?>]" <?php checked( $check, $platform ) ?>
+               value="<?php echo $platform; ?>">
 		<?php echo $platform; ?>
 
 		<?php
 	}
 	?>
-	<p><?php _e( 'Check the platform to work with', 'compare-affiliated-products-pro' ); ?></p>
+    <p><?php _e( 'Check the platform to work with', 'compare-affiliated-products-pro' ); ?></p>
 	<?php
 }
 
@@ -176,7 +194,7 @@ function compare_general_cloak_link() {
 		$check = $check['general-cloack'];
 	}
 	?>
-	<input name="compare-premium[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+    <input name="compare-premium[general-cloack]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 	<?php
 }
 
@@ -186,7 +204,7 @@ function cae_ext_check() {
 		$check = $check['ext_check'];
 	}
 	?>
-	<input name="compare-advanced[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
+    <input name="compare-advanced[ext_check]" type="checkbox" <?php checked( $check, 'on' ) ?>>
 
 	<?php
 	//$external_db = compare_external_db::getInstance();
@@ -204,8 +222,8 @@ function compare_external() {
 	$link = sprintf( wp_kses( __( 'For more informations, Please <a href="%1$s">read the documentation</a>', 'compare-affiliated-products-pro' ),
 		array( 'a' => array( 'href' => array() ) ) ), esc_url( $url ) );
 	?>
-	<p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare-affiliated-products-pro' ); ?></p>
-	<p><?php echo $link; ?></p>
+    <p><?php _e( 'Optional - It could be a good idea if you\'d like to connect several websites to a common database', 'compare-affiliated-products-pro' ); ?></p>
+    <p><?php echo $link; ?></p>
 	<?php
 }
 
@@ -216,7 +234,7 @@ function cae_host() {
 	}
 	?>
 
-	<input name="compare-advanced[host]" type="text" <?php echo $value; ?>>
+    <input name="compare-advanced[host]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -227,7 +245,7 @@ function cae_prefix() {
 	}
 	?>
 
-	<input name="compare-advanced[prefix]" type="text" <?php echo $value; ?>>
+    <input name="compare-advanced[prefix]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -238,7 +256,7 @@ function cae_db() {
 	}
 	?>
 
-	<input name="compare-advanced[db]" type="text" <?php echo $value; ?>>
+    <input name="compare-advanced[db]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -249,7 +267,7 @@ function cae_user() {
 	}
 	?>
 
-	<input name="compare-advanced[username]" type="text" <?php echo $value; ?>>
+    <input name="compare-advanced[username]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -260,7 +278,7 @@ function cae_pwd() {
 	}
 	?>
 
-	<input name="compare-advanced[pwd]" type="text" <?php echo $value; ?>>
+    <input name="compare-advanced[pwd]" type="text" <?php echo $value; ?>>
 	<?php
 }
 
@@ -282,13 +300,13 @@ function compare_awin_feed() {
 			$url = 'https://productdata.awin.com/datafeed/download/apikey/' . $feed['apikey'] . '/language/' . $lang . '/fid/' . $partner . '/bid/' . $trademark . '/columns/aw_deep_link,product_name,aw_product_id,merchant_product_id,merchant_image_url,description,merchant_category,search_price,merchant_name,merchant_id,category_name,category_id,aw_image_url,currency,store_price,delivery_cost,merchant_deep_link,language,last_updated,upc,ean,product_GTIN/format/xml/dtd/1.5/compression/gzip/';
 		}
 		?>
-		<div hidden>
+        <div hidden>
 			<?php
 			echo $partner;
 			?>
-			<textarea name="awin[datafeed][<?php echo $partner ?>]" rows="4"
-			          cols="150"><?php echo esc_attr( $url ); ?></textarea>
-		</div>
+            <textarea name="awin[datafeed][<?php echo $partner ?>]" rows="4"
+                      cols="150"><?php echo esc_attr( $url ); ?></textarea>
+        </div>
 		<?php
 	}
 
@@ -300,8 +318,8 @@ function compare_awin_id() {
 		$value = esc_attr( $feed['customer_id'] );
 	}
 	?>
-	<input type="text" name="awin[customer_id]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare-affiliated-products-pro' ), 'Awin' ) ?></p>
+    <input type="text" name="awin[customer_id]" value="<?php echo esc_attr( $value ) ?>">
+    <p><?php printf( __( '%s Customer ID. Needed to let "Convert a link" feature working', 'compare-affiliated-products-pro' ), 'Awin' ) ?></p>
 	<?php
 }
 
@@ -312,8 +330,8 @@ function compare_awin_key() {
 		$value = esc_attr( $feed['apikey'] );
 	}
 	?>
-	<input type="text" name="awin[apikey]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
+    <input type="text" name="awin[apikey]" value="<?php echo esc_attr( $value ) ?>">
+    <p><?php printf( __( '%s API Key. Get in your profile', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -323,8 +341,8 @@ function compare_awin_partner() {
 		$value = esc_attr( $feed['partner'] );
 	}
 	?>
-	<input type="text" name="awin[partner]" value="<?php echo esc_attr( $value ) ?>">
-	<p><?php printf( __( 'Choose the programs you\'d like to display on your site. You can get code by creating a feed in %s website', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
+    <input type="text" name="awin[partner]" value="<?php echo esc_attr( $value ) ?>">
+    <p><?php printf( __( 'Choose the programs you\'d like to display on your site. You can get code by creating a feed in %s website', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -338,27 +356,27 @@ function compare_awin_partner_logo() {
 		}
 
 		?>
-		<div class="compare-partners-logo">
+        <div class="compare-partners-logo">
 			<?php
 
 			echo $key;
 			?>
-			<select name="awin[partner_logo][<?php echo $key; ?>]['name']">
-				<option><?php _e( 'Choose your partner', 'compare-affiliated-products-pro' ); ?></option>
+            <select name="awin[partner_logo][<?php echo $key; ?>]['name']">
+                <option><?php _e( 'Choose your partner', 'compare-affiliated-products-pro' ); ?></option>
 				<?php foreach ( $partners as $k => $p ) {
 					?>
-					<option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>
+                    <option value="<?php echo $k; ?>" <?php selected( $k, $key ); ?>><?php echo $p; ?></option>
 
 				<?php } ?>
-			</select>
-			<input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
-			<img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
-		</div>
+            </select>
+            <input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
+            <img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
+        </div>
 
 		<?php
 	}
 	?>
-	<p><?php _e( 'Upload first image on media library then paste the link here.', 'compare-affiliated-products-pro' ); ?></p>
+    <p><?php _e( 'Upload first image on media library then paste the link here.', 'compare-affiliated-products-pro' ); ?></p>
 	<?php
 }
 
@@ -367,10 +385,10 @@ function compare_awin_partner_url() {
 
 	$value = 'value="' . $awin['trademark_code'] . '"';
 	?>
-	<div class="compare-partners-datafeed">
-		<input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
-	</div>
-	<p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
+    <div class="compare-partners-datafeed">
+        <input type="text" name="awin[trademark_code]" <?php echo $value; ?>>
+    </div>
+    <p><?php printf( __( 'Choose the mark you\'d like to display on your site. You can get code by creating a feed in %s website. Left empty to get all mark from partner feed.', 'compare-affiliated-products-pro' ), 'Awin' ); ?></p>
 	<?php
 }
 
@@ -443,13 +461,13 @@ function compare_general_cron() {
 	$option = get_option( 'compare-premium' );
 	$cron   = $option['cron'];
 	?>
-	<select name="compare-premium[cron]">
-		<option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare-affiliated-products-pro' ); ?></option>
-		<option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare-affiliated-products-pro' ); ?></option>
-		<option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare-affiliated-products-pro' ); ?></option>
-		<option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare-affiliated-products-pro' ); ?></option>
-	</select>
-	<p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare-affiliated-products-pro' ); ?></p>
+    <select name="compare-premium[cron]">
+        <option value="none" <?php selected( $cron, 'none' ); ?>><?php _e( 'None', 'compare-affiliated-products-pro' ); ?></option>
+        <option value="four" <?php selected( $cron, 'four' ); ?>><?php _e( 'Every 4 hours', 'compare-affiliated-products-pro' ); ?></option>
+        <option value="twice" <?php selected( $cron, 'twice' ); ?>><?php _e( 'Twice Daily', 'compare-affiliated-products-pro' ); ?></option>
+        <option value="daily" <?php selected( $cron, 'daily' ); ?>><?php _e( 'Daily', 'compare-affiliated-products-pro' ); ?></option>
+    </select>
+    <p><?php _e( 'Cron Task will regenerate database programmatically. If you\'re using an external DB, no need to use Cron Jobs', 'compare-affiliated-products-pro' ); ?></p>
 	<?php
 }
 
@@ -459,6 +477,6 @@ function compare_general_delete() {
 		$general['delete'] = 'no';
 	}
 	?>
-	<input type="checkbox" value="yes" name="compare-premium[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
+    <input type="checkbox" value="yes" name="compare-premium[delete]" <?php checked( $general['delete'], 'yes' ); ?>>
 	<?php
 }

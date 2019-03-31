@@ -101,6 +101,10 @@ function compare_settings_page() {
 					settings_fields( 'compare-amazon' );
 					do_settings_sections( 'compare-amazon' );
 					break;
+                case 'manomano':
+	                settings_fields( 'compare-manomano' );
+	                do_settings_sections( 'compare-manomano' );
+	                break;
 				default:
 					settings_fields( 'compare-general' );
 					do_settings_sections( 'compare-general' );
