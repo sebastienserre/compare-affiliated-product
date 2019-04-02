@@ -1,9 +1,12 @@
 <?php
 
+use CAP\Manomano\Manomano;
+
 if ( class_exists( 'WP_CLI' ) ) {
 	WP_CLI::add_command( 'cap_import_db', 'cap_upgrade_db' );
 }
 
+add_action( 'init', 'cap_select_cron' );
 function cap_select_cron() {
 
 	$premium = get_option( 'compare-premium' );
@@ -37,22 +40,24 @@ function cap_upgrade_db() {
 	$option = get_option( 'compare-premium' );
 	if ( ! file_exists( 'compare.txt' ) ) {
 		cap_create_pid();
-
 		foreach ( $option['platform'] as $platform ) {
-			if ( 'awin' === $platform ) {
+			if ( 'awin' === $platform){
 				$awin = new Awin();
 				$awin->compare_schedule_awin();
 			}
-
-			if ( 'effiliation' === $platform ) {
+			if ( 'effiliation' === $platform){
 				$effiliation = new Effiliation();
 				$effiliation->compare_schedule_effiliation();
+			}
+			if ( 'manomano' === $platform){
+				$manomano = new CAP\Manomano\Manomano();
+				$manomano->register_in_db();
 			}
 		}
 		cap_delete_pid();
 
 	} else {
-		exit;
+		error_log( 'Cron already running or remove compare.txt-- stop' );
 	}
 	error_log( 'stop cron' );
 }
