@@ -110,6 +110,7 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-manomano.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-upgrade.php';
 	}
 }
 
@@ -151,6 +152,7 @@ function compare_create_db() {
 		partner_code varchar(45) DEFAULT NULL,
 		url text DEFAULT NULL,
 		price varchar(10) DEFAULT NULL,
+		mpn varchar (255) DEFAULT NULL,
 		last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 		PRIMARY KEY  (productid),
 		KEY ean (ean)
