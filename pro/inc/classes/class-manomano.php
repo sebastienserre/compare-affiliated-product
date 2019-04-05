@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Manomano {
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'register_in_db' ) );
+	//	add_action( 'admin_init', array( $this, 'register_in_db' ) );
 	}
 
 	/**
