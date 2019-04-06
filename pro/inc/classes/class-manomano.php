@@ -54,6 +54,7 @@ class Manomano {
 					'img'          => $data['image_URL'],
 					'url'          => $data['product_URL'],
 					'partner_name' => 'ManoMano',
+					'partner_code' => 'manomano',
 					'productid'    => $data['id'],
 					'ean'          => $data['EAN'],
 					'platform'     => 'manomano',

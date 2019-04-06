@@ -135,7 +135,7 @@ class template {
 		if ( ! is_null( $prods ) ) {
 			$i = 1;
 			?>
-			<div class="compare-price">
+            <div class="compare-price">
 				<?php
 				foreach ( $prods as $p ) {
 					$partner = apply_filters( 'compare_partner_name', $p['partner_name'] );
@@ -172,11 +172,11 @@ class template {
 						$link = new Cloak_Link();
 						?>
 
-						<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+                        <div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
 							<?php
 							$link->compare_create_link( $p, $logo, $data );
 							?>
-						</div>
+                        </div>
 
 						<?php
 					} else {
@@ -202,26 +202,27 @@ class template {
 
 
 						?>
-						<div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
-							<div class="img-partner"><img src="<?php echo $logo ?>"></div>
-							<div class="product-price">
-								<a href="<?php echo $url; ?>">
+                        <div class="compare-price-partner compare-price-partner-<?php echo $i; ?> compare-others">
+                            <div class="img-partner"><img src="<?php echo $logo ?>"></div>
+                            <div class="product-price">
+                                <a href="<?php echo $url; ?>">
 									<?php echo $p['price'] ?>
-								</a>
-							</div>
-							<div class="button-partner">
-								<a class="btn-compare" href="<?php echo $p['url']; ?>" style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
+                                </a>
+                            </div>
+                            <div class="button-partner">
+                                <a class="btn-compare" href="<?php echo $p['url']; ?>"
+                                   style=" background:<?php echo $bg; ?>; color: <?php echo $color; ?>; ">
 									<?php echo esc_attr( $text ); ?>
-								</a>
-							</div>
-						</div>
+                                </a>
+                            </div>
+                        </div>
 
 
 						<?php
 					}
 				}
 				?>
-			</div>
+            </div>
 			<?php
 			$i ++;
 		}
@@ -237,7 +238,8 @@ class template {
 	 *
 	 * @return array Array of products
 	 */
-	public function compare_get_data( $eanlist, $atts = '' ) {
+	public function compare_get_data( $eanlist, $atts = '', $mpn ) {
+		$products = array();
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
 		}
@@ -246,43 +248,48 @@ class template {
 		if ( ! empty( $transient ) ) {
 			return $transient;
 		}
-		$external = get_option( 'compare-advanced' );
-		if ( ! empty( $external['ext_check'] ) ) {
-			$external = $external['ext_check'];
-		}
-
-		/**
-		 * Get Subscribed programs
-		 */
-		$p = get_option( 'awin' );
-		if ( ! empty( $p['partner'] ) ) {
-			$programs = explode( ',', $p['partner'] );
-		}
-
-		$effiliation_programs = get_option( 'compare-effiliation' );
-		if ( ! empty( $effiliation_programs['programs'] ) ) {
-			foreach ( $effiliation_programs['programs'] as $key => $effiliation_program ) {
-				array_push( $programs, $effiliation_program );
-			}
-		}
 
 		if ( cap_fs()->is__premium_only() ) {
+			$external = get_option( 'compare-advanced' );
+			if ( ! empty( $external['ext_check'] ) ) {
+				$external = $external['ext_check'];
+			}
+
+			/**
+			 * Get Subscribed programs
+			 */
+			$premium   = get_option( 'compare-premium' );
+			$platforms = $premium['platform'];
+			foreach ( $platforms as $platform ) {
+				switch ( $platform ) {
+					case 'awin':
+						$p = get_option( 'awin' );
+						if ( ! empty( $p['partner'] ) ) {
+							$programs = explode( ',', $p['partner'] );
+						}
+						break;
+					case 'effiliation':
+						$effiliation_programs = get_option( 'compare-effiliation' );
+						if ( ! empty( $effiliation_programs['programs'] ) ) {
+							foreach ( $effiliation_programs['programs'] as $key => $effiliation_program ) {
+								array_push( $programs, $effiliation_program );
+							}
+						}
+						break;
+					case 'manomano':
+
+						break;
+				}
+			}
+
 			if ( 'on' === $external ) {
 				$db = compare_external_db::getInstance();
 				if ( is_wp_error( $db ) ) {
 					global $wpdb;
 					$table    = $wpdb->prefix . 'compare';
-					$products = array();
 
-					if ( null !== $eanlist[0] ) {
-						foreach ( $eanlist as $list ) {
-							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+					$this->compare_get_products( $wpdb, $table, $eanlist, $mpn );
 
-							if ( ! empty( $product ) ) {
-								array_push( $products, $product );
-							}
-						}
-					}
 				} else {
 					$prefix = get_option( 'compare-advanced' );
 					$prefix = $prefix['prefix'];
@@ -290,35 +297,15 @@ class template {
 					$db       = compare_external_db::getInstance();
 					$cnx      = $db->getConnection();
 					$table    = $prefix . 'compare';
-					$products = array();
-					if ( null !== $eanlist[0] ) {
-						foreach ( $eanlist as $list ) {
-							$product = $cnx->get_results( $cnx->prepare( 'SELECT * FROM ' . $table . ' WHERE ean LIKE %s ORDER BY `price` ASC', $list ), ARRAY_A );
 
-							if ( ! empty( $product ) ) {
-								array_push( $products, $product );
-							}
-						}
-					}
+					$this->compare_get_products( $cnx, $table, $eanlist, $mpn );
 
 				}
 			} else {
 				global $wpdb;
 				$table    = $wpdb->prefix . 'compare';
-				$products = array();
 
-				if ( null !== $eanlist[0] ) {
-					foreach ( $eanlist as $list ) {
-						foreach ( $programs as $program ) {
-							$product = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
-
-
-							if ( ! empty( $product ) ) {
-								array_push( $products, $product );
-							}
-						}
-					}
-				}
+				$products = $this->compare_get_products( $wpdb, $table, $eanlist, $mpn, $products );
 			}
 		}
 
@@ -348,7 +335,7 @@ class template {
 			array_multisort( $vc_array_name, SORT_ASC, $products );
 
 			foreach ( $products as $key => $p ) {
-				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 ) ;
+				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 );
 
 			}
 
@@ -365,20 +352,61 @@ class template {
 	 */
 	public static function compare_get_partner_logo() {
 		$awin = get_option( 'awin' );
-		if ( ! empty( $awin['partner_logo']) ){
+		if ( ! empty( $awin['partner_logo'] ) ) {
 			foreach ( $awin['partner_logo'] as $key => $img ) {
 				$logos[ $key ] = $img['img'];
 			}
 		}
 
 		$programs = Effiliation::compare_get_effiliation_program();
-		if ( null != $programs ){
+		if ( null != $programs ) {
 			foreach ( $programs['programs'] as $program ) {
 				$logos[ $program['id_programme'] ] = $program['urllo'];
 			}
 		}
 
+		$options = get_option( 'compare-premium');
+		$platform = $options['platform']['manomano'];
+		if ( 'manomano' === $platform ){
+		    $logos['manomano'] = COMPARE_PLUGIN_URL . 'pro/assets/img/manomano.jpg';
+        }
+
 		return $logos;
+	}
+
+	/**
+	 * @param   $cnx object $wpdb object
+	 * @param   $table string table where datas are stored
+	 * @param   $eanlist array ean list to retrieve
+	 * @param   $mpn  string  product mpn
+	 *
+	 * @return array Array with product datas
+	 * @author  sebastienserre
+	 */
+	public static function compare_get_products( $cnx, $table, $eanlist, $mpn ) {
+	    global $wpdb;
+
+	    if ( ! $products ){
+	        $products = array();
+        }
+	    if ( null !== $eanlist[0] ) {
+			foreach ( $eanlist as $list ) {
+				$product = $cnx->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
+
+				if ( ! empty( $product ) ) {
+					array_push( $products, $product );
+				}
+			}
+		}
+		if ( ! empty( $mpn ) ) {
+			$product = $cnx->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE mpn = %s ORDER BY `price` ASC', $mpn ), ARRAY_A );
+
+			if ( ! empty( $product ) ) {
+				array_push( $products, $product );
+			}
+		}
+
+		return $products;
 	}
 
 
