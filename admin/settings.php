@@ -1154,9 +1154,8 @@ function compare_general_languages() {
 }
 
 function compare_help() {
-	echo cap_support();
-	echo cap_doc();
 	echo cap_advertisment();
+	wp_enqueue_script( 'helpscout', COMPARE_PLUGIN_URL . '/pro/assets/js/helpscout.js' );
 	?>
 	<div class="clear"></div>
 
