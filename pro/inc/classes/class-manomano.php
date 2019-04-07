@@ -2,20 +2,8 @@
 
 namespace CAP\Manomano;
 
-use function array_map;
-use const COMPARE_XML_PATH;
 use function delete_transient;
-use function download_url;
-use function error_log;
-use function file_exists;
-use function fopen;
 use function get_transient;
-use function glob;
-use function is_dir;
-use function is_wp_error;
-use function rename;
-use function unlink;
-use function wp_mkdir_p;
 use function wp_remote_get;
 use function wp_remote_retrieve_body;
 use function wp_remote_retrieve_response_code;
@@ -37,7 +25,7 @@ class Manomano {
 	/**
 	 * @return array data from Json
 	 */
-	public function load_json( $json ) {
+	public function load_json( ) {
 		global $wpdb;
 		$table    = $wpdb->prefix . 'compare';
 		$value    = get_option( 'compare-manomano' );
@@ -63,7 +51,7 @@ class Manomano {
 
 
 				$replace   = $wpdb->replace( $table, $prod );
-				$transient = get_transient( 'product_' . $datas->EAN );
+				$transient = get_transient( 'product_' . $data['EAN'] );
 				if ( ! empty( $transient ) ) {
 					delete_transient( $transient );
 				}
@@ -82,10 +70,6 @@ class Manomano {
 		}
 		error_log( 'stop Manomano Registration' );
 
-	}
-
-	public function register_in_db() {
-		$data = $this->load_json( $json );
 	}
 
 }

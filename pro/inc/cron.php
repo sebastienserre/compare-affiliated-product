@@ -51,7 +51,7 @@ function cap_upgrade_db() {
 			}
 			if ( 'manomano' === $platform){
 				$manomano = new CAP\Manomano\Manomano();
-				$manomano->register_in_db();
+				$manomano->load_json();
 			}
 		}
 		cap_delete_pid();
