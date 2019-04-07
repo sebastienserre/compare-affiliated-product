@@ -185,7 +185,7 @@ class compare_shortcode {
 								}
 							}
 							$premium = get_option( 'compare-premium' );
-							if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
+							if ( !empty( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
 								$cloaked = new Cloak_Link();
 								//$cloaked->compare_create_link( $p, $logo, $data );
 								$cloaked->compare_create_link( $p, $logo );
