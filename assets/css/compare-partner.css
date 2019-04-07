@@ -132,6 +132,9 @@ button.atc.btn-compare {
     border: none;
 }
 
+.compare_partner_name p{
+    margin: 0;
+}
 .atc {
     height: 60px;
     line-height: 59px;
@@ -389,8 +392,6 @@ label {
 
 .btn-compare {
     padding: 0 10px;
-    display: flex;
-    justify-content: inherit;
     line-height: 60px;
-    vertical-align: middle;
+    margin-top: -10px;
 }
