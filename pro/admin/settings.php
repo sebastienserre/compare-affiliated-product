@@ -172,7 +172,7 @@ function compare_general_platforms() {
 
 
 	foreach ( $platforms as $platform ) {
-		if ( ! empty( $options['platform'] ) ) {
+		if ( ! empty( $options['platform'][ $platform ] ) ) {
 			$check = $options['platform'][ $platform ];
 		}
 		?>
