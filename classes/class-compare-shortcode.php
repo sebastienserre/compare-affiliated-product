@@ -122,6 +122,7 @@ class compare_shortcode {
 		if ( empty( $color ) ) {
 			$color = '#ffffff';
 		}
+		$premium = get_option( 'compare-premium' );
 
 		ob_start();
 		?>
@@ -184,7 +185,6 @@ class compare_shortcode {
 									$logo = $logos[ $p['partner_code'] ];
 								}
 							}
-							$premium = get_option( 'compare-premium' );
 							if ( !empty( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
 								$cloaked = new Cloak_Link();
 								//$cloaked->compare_create_link( $p, $logo, $data );
@@ -284,6 +284,11 @@ class compare_shortcode {
 	}
 
 	public function cap_template_price( $p, $text, $color, $bg, $logo ) {
+		$premium = get_option( 'compare-premium' );
+		$premium['platform']['Amz'] = 'Amz';
+		if ( $p['platform'] !== $premium['platform'][$p['platform']] ){
+		    return;
+        }
 		?>
 		<div class="compare_price-partner">
 			<div class="compare_partner_logo">
