@@ -1,8 +1,8 @@
 === Compare Affiliated Products ===
 Contributors: sebastienserre
-Tags: affiliate, amazon, awin, effiliation, associates
+Tags: affiliate, amazon, awin, effiliation, manomano
 Tested up to: 5.1
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 Requires PHP: 5.6
 Requires at least: 4.6
 License: GPLv3
@@ -24,7 +24,7 @@ To know more on how to use this extension, please refer to the [online documenta
 
 ==Pro Version ==
 <ul>
-<li>Add Platforms such as Awin and Effiliation</li>
+<li>Add Platforms such as Awin, Effiliation, ManoMano</li>
 <li>Add support of GetAAWP Plugins</li>
 </ul>
 
