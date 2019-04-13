@@ -27,14 +27,14 @@ class compare_shortcode {
 		$currency = $currency['currency'];
 		$currency = apply_filters( 'compare_currency_unit', $currency );
 
+		$mpn = $datas["Items"]["Item"]["ItemAttributes"]["MPN"];
 		$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 		$price = explode( ' ', $price );
 		$price = intval( $price[1] );
-
-		if ( cap_fs()->is__premium_only() && $atts['partners'] == 'ok' ) {
+		if ( cap_fs()->is__premium_only() && 'ok' === $atts['partners'] ) {
 			$ean      = compare_get_ean( $atts['product'] );
 			$template = new template();
-			$products = $template->compare_get_data( $ean, $atts );
+			$products = $template->compare_get_data( $ean, $atts, $mpn );
 		}
 
 
@@ -107,7 +107,6 @@ class compare_shortcode {
 	 * @param $products array Array with Amazon products details.
 	 *
 	 * @return false|string
-	 * @throws Freemius_Exception
 	 */
 	public function cap_shortcode_basic( $products ) {
 		$option = get_option( 'compare-style' );
@@ -123,6 +122,7 @@ class compare_shortcode {
 		if ( empty( $color ) ) {
 			$color = '#ffffff';
 		}
+		$premium = get_option( 'compare-premium' );
 
 		ob_start();
 		?>
@@ -185,10 +185,10 @@ class compare_shortcode {
 									$logo = $logos[ $p['partner_code'] ];
 								}
 							}
-							$premium = get_option( 'compare-premium' );
-							if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
+							if ( !empty( $premium['general-cloack'] ) && 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
 								$cloaked = new Cloak_Link();
-								$cloaked->compare_create_link( $p, $logo, $data );
+								//$cloaked->compare_create_link( $p, $logo, $data );
+								$cloaked->compare_create_link( $p, $logo );
 
 							} else {
 								echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
@@ -207,7 +207,6 @@ class compare_shortcode {
 	 * @param $products array Array with Amazon products details.
 	 *
 	 * @return false|string
-	 * @throws Freemius_Exception
 	 */
 	public function cap_shortcode_table( $products ) {
 		$option = get_option( 'compare-style' );
@@ -271,7 +270,8 @@ class compare_shortcode {
 				$premium = get_option( 'compare-premium' );
 				if ( 'on' === $premium['general-cloack'] && cap_fs()->is__premium_only() ) {
 					$cloaked = new Cloak_Link();
-					$cloaked->compare_create_link( $p, $logo, $data );
+					//$cloaked->compare_create_link( $p, $logo, $data );
+					$cloaked->compare_create_link( $p, $logo );
 
 				} else {
 					echo $this->cap_template_price( $p, $text, $color, $bg, $logo );
@@ -284,6 +284,11 @@ class compare_shortcode {
 	}
 
 	public function cap_template_price( $p, $text, $color, $bg, $logo ) {
+		$premium = get_option( 'compare-premium' );
+		$premium['platform']['Amz'] = 'Amz';
+		if ( $p['platform'] !== $premium['platform'][$p['platform']] ){
+		    return;
+        }
 		?>
 		<div class="compare_price-partner">
 			<div class="compare_partner_logo">

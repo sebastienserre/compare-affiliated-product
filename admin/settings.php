@@ -49,23 +49,23 @@ function compare_settings_page() {
 		$active_tab = 'general';
 	}
 	?>
-	<div class="wrap">
+    <div class="wrap">
 
-		<h2><?php _e( 'Settings', 'compare-affiliated-products' ); ?></h2>
-		<!--<div class="description">This is description of the page.</div>-->
+        <h2><?php _e( 'Settings', 'compare-affiliated-products' ); ?></h2>
+        <!--<div class="description">This is description of the page.</div>-->
 		<?php settings_errors(); ?>
 
-		<h2 class="nav-tab-wrapper">
+        <h2 class="nav-tab-wrapper">
 			<?php
 			foreach ( $tabs as $tab => $value ) {
 				?>
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=compare-settings&tab=' . $tab ) ); ?>"
-				   class="nav-tab <?php echo 'nav-tab-' . $tab;
+                <a href="<?php echo esc_url( admin_url( 'options-general.php?page=compare-settings&tab=' . $tab ) ); ?>"
+                   class="nav-tab <?php echo 'nav-tab-' . $tab;
 				   echo $active_tab === $tab ? ' nav-tab-active' : ''; ?>"><?php echo $value ?></a>
 			<?php } ?>
-		</h2>
+        </h2>
 
-		<form method="post" action="options.php">
+        <form method="post" action="options.php">
 			<?php
 			$active_tab = apply_filters( 'compare_setting_active_tab', $active_tab );
 			switch ( $active_tab ) {
@@ -101,6 +101,10 @@ function compare_settings_page() {
 					settings_fields( 'compare-amazon' );
 					do_settings_sections( 'compare-amazon' );
 					break;
+				case 'manomano':
+					settings_fields( 'compare-manomano' );
+					do_settings_sections( 'compare-manomano' );
+					break;
 				default:
 					settings_fields( 'compare-general' );
 					do_settings_sections( 'compare-general' );
@@ -108,10 +112,10 @@ function compare_settings_page() {
 			}
 			submit_button( __( 'Save Changes', 'compare-affiliated-products' ), 'primary', 'save_compare_settings' );
 			?>
-		</form>
+        </form>
 
 
-	</div>
+    </div>
 	<?php
 }
 
@@ -149,16 +153,18 @@ function compare_register_settings() {
 	register_setting( 'compare-help', 'help' );
 }
 
-function cap_custom_css(){
+function cap_custom_css() {
 	$option = get_option( 'compare-style' );
-	$css = $option['css'];
+	$css    = $option['css'];
 	?>
-	<textarea rows="20" cols="100" name="compare-style[css]"><?php if ( !empty( $css ) ) { echo $css; } ?></textarea>
-	<p>
+    <textarea rows="20" cols="100" name="compare-style[css]"><?php if ( ! empty( $css ) ) {
+			echo $css;
+		} ?></textarea>
+    <p>
 		<?php
 		esc_attr_e( 'All CSS rules added in this textarea will be enqueued as cap.css stylesheet', 'compare-affiliated-products' );
 		?>
-	</p>
+    </p>
 	<?php
 }
 
@@ -170,7 +176,7 @@ function compare_button_bg() {
 	}
 
 	?>
-	<input name="compare-style[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
+    <input name="compare-style[button-bg]" type='text' class='color-field' <?php echo $value; ?>>
 	<?php
 }
 
@@ -182,7 +188,7 @@ function compare_button_color() {
 	}
 
 	?>
-	<input name="compare-style[button-color]" type='text' class='color-field' <?php echo $value; ?>>
+    <input name="compare-style[button-color]" type='text' class='color-field' <?php echo $value; ?>>
 	<?php
 }
 
@@ -195,7 +201,7 @@ function compare_button_text() {
 		$value = 'value="' . __( 'Buy to ', 'compare-affiliated-products' ) . '"';
 	}
 	?>
-	<input name="compare-style[button_text]" type="text" <?php echo $value; ?>
+    <input name="compare-style[button_text]" type="text" <?php echo $value; ?>
 	<?php
 }
 
@@ -205,11 +211,11 @@ function compare_button_text() {
  */
 function compare_general_transients() {
 	?>
-	<a class="btn btn-del-transient" href="<?php echo add_query_arg( array(
+    <a class="btn btn-del-transient" href="<?php echo add_query_arg( array(
 		'page'             => 'compare-settings',
 		'transient-delete' => 'ok'
 	), admin_url( '/options-general.php' ) ); ?>"><?php _e( 'Delete all transients from database', 'compare-affiliated-products' ); ?></a>
-	<p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare-affiliated-products' ); ?></p>
+    <p><?php _e( 'Click on this link if you add a partner, checked a new programs or someting else which can change the datas.', 'compare-affiliated-products' ); ?></p>
 
 	<?php
 }
@@ -504,18 +510,18 @@ function compare_currency_unit() {
 	);
 	$general  = get_option( 'compare-general' );
 	?>
-	<select name="compare-general[currency]">
-		<option><?php _e( 'Choose your currency', 'compare-affiliated-products' ); ?></option>
+    <select name="compare-general[currency]">
+        <option><?php _e( 'Choose your currency', 'compare-affiliated-products' ); ?></option>
 		<?php
 		foreach ( $currency as $key => $curr ) {
 			?>
-			<option value="<?php echo $key; ?>" <?php selected( $general['currency'], $key ); ?> ><?php echo $curr; ?></option>
+            <option value="<?php echo $key; ?>" <?php selected( $general['currency'], $key ); ?> ><?php echo $curr; ?></option>
 			<?php
 		}
 
 		?>
-	</select>
-	<p><?php _e( 'Currency unit used to display prices', 'compare-affiliated-products' ); ?></p>
+    </select>
+    <p><?php _e( 'Currency unit used to display prices', 'compare-affiliated-products' ); ?></p>
 	<?php
 }
 
@@ -1134,27 +1140,26 @@ function compare_general_languages() {
 
 	$general = get_option( 'compare-general' );
 	?>
-	<select name="compare-general[languages]">
-		<option><?php _e( 'Choose your language', 'compare-affiliated-products' ); ?></option>
+    <select name="compare-general[languages]">
+        <option><?php _e( 'Choose your language', 'compare-affiliated-products' ); ?></option>
 		<?php
 		foreach ( $lang as $key => $lang ) {
 			?>
-			<option value="<?php echo $key; ?>" <?php selected( $general['languages'], $key ); ?> ><?php echo $lang; ?></option>
+            <option value="<?php echo $key; ?>" <?php selected( $general['languages'], $key ); ?> ><?php echo $lang; ?></option>
 			<?php
 		}
 
 		?>
-	</select>
-	<p><?php _e( 'languages used to get datafeed in right language', 'compare-affiliated-products' ) ?></p>
+    </select>
+    <p><?php _e( 'languages used to get datafeed in right language', 'compare-affiliated-products' ) ?></p>
 	<?php
 }
 
 function compare_help() {
-	echo cap_support();
-	echo cap_doc();
 	echo cap_advertisment();
+	wp_enqueue_script( 'helpscout', COMPARE_PLUGIN_URL . '/pro/assets/js/helpscout.js' );
 	?>
-	<div class="clear"></div>
+    <div class="clear"></div>
 
 	<?php
 }

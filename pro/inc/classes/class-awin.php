@@ -23,7 +23,7 @@ class Awin {
 		$this->premium  = get_option( 'compare-premium' );
 
 		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
-			$this->compare_register_prod();
+			$this->compare_schedule_awin();
 		}
 
 	}
@@ -211,6 +211,7 @@ class Awin {
 						'ean'          => $ean,
 						'platform'     => 'Awin',
 						'partner_code' => $value,
+						'mpn'   =>  strval( $element->mpn )
 					);
 
 					$wpdb->replace( $table, $prod );

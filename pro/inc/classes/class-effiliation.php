@@ -20,6 +20,9 @@ class Effiliation {
 
 	}
 
+	/**
+	 * Load results in db
+	 */
 	public function compare_reset_effiliation_feed() {
 		$this->compare_schedule_effiliation();
 	}

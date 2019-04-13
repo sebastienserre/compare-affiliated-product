@@ -108,7 +108,9 @@ function compare_load_files() {
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class_cloak_link.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-compare-external-db.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-effiliation.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-manomano.php';
 		include_once COMPARE_PLUGIN_PATH . '/pro/inc/cron.php';
+		include_once COMPARE_PLUGIN_PATH . '/pro/inc/classes/class-upgrade.php';
 	}
 }
 
@@ -150,6 +152,7 @@ function compare_create_db() {
 		partner_code varchar(45) DEFAULT NULL,
 		url text DEFAULT NULL,
 		price varchar(10) DEFAULT NULL,
+		mpn varchar (255) DEFAULT NULL,
 		last_updated datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
 		PRIMARY KEY  (productid),
 		KEY ean (ean)
@@ -210,11 +213,22 @@ function compare_create_cron() {
 	if ( ! wp_next_scheduled( 'compare_twice_event' ) ) {
 		wp_schedule_event( time(), 'twicedaily', 'compare_twice_event' );
 	}
-	if ( ! wp_next_scheduled( 'compare_four_hour_event' ) ) {
+	if ( ! wp_next_scheduled( 'compare_twice_event' ) ) {
 		wp_schedule_event( time(), 'fourhour', 'compare_fourhour_event' );
 	}
 }
 
+function cap_delete_cron() {
+	wp_clear_scheduled_hook('compare_daily_event');
+	wp_clear_scheduled_hook('compare_twice_event');
+	wp_clear_scheduled_hook('compare_twice_event');
+}
+
+register_deactivation_hook(__FILE__, 'cap_deactivation');
+
+function cap_deactivation() {
+	cap_delete_cron();
+}
 
 add_filter( 'cron_schedules', 'compare_sechule4_hours' );
 /**

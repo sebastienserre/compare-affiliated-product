@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-19 15:47+0000\n"
+"POT-Creation-Date: 2019-04-07 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,163 +14,172 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: pro/admin/settings.php:14
+#: pro/admin/settings.php:12
 msgid "advanced"
 msgstr ""
 
-#: pro/admin/settings.php:15
+#: pro/admin/settings.php:13
 msgid "premium"
 msgstr ""
 
-#: pro/admin/settings.php:38
+#: pro/admin/settings.php:34
 msgid "Currency Unit"
 msgstr ""
 
-#: pro/admin/settings.php:39
+#: pro/admin/settings.php:35
 msgid "Language"
 msgstr ""
 
-#: pro/admin/settings.php:47
+#: pro/admin/settings.php:43
 msgid "External DB Settings"
 msgstr ""
 
-#: pro/admin/settings.php:50
+#: pro/admin/settings.php:46
 msgid "Using an external DB?"
 msgstr ""
 
-#: pro/admin/settings.php:51
+#: pro/admin/settings.php:47
 msgid "Host"
 msgstr ""
 
-#: pro/admin/settings.php:52
+#: pro/admin/settings.php:48
 msgid "Database"
 msgstr ""
 
-#: pro/admin/settings.php:53
+#: pro/admin/settings.php:49
 msgid "Username"
 msgstr ""
 
-#: pro/admin/settings.php:54
+#: pro/admin/settings.php:50
 msgid "Password"
 msgstr ""
 
-#: pro/admin/settings.php:55
+#: pro/admin/settings.php:51
 msgid "Prefix"
 msgstr ""
 
-#: pro/admin/settings.php:64
+#: pro/admin/settings.php:60
 msgid "Cloak Link"
 msgstr ""
 
-#: pro/admin/settings.php:65
-msgid "Platforms"
-msgstr ""
-
-#: pro/admin/settings.php:66
+#: pro/admin/settings.php:61
 msgid "tracking Word"
 msgstr ""
 
-#: pro/admin/settings.php:67
+#: pro/admin/settings.php:62
 msgid "Delete All Data when deleting this plugin"
 msgstr ""
 
-#: pro/admin/settings.php:68
+#: pro/admin/settings.php:63
 msgid "Configure Cron Job"
 msgstr ""
 
-#: pro/admin/settings.php:80 pro/admin/settings.php:97
+#: pro/admin/settings.php:64
+msgid "Platforms to schedule"
+msgstr ""
+
+#: pro/admin/settings.php:76 pro/admin/settings.php:93
 msgid "API Key"
 msgstr ""
 
-#: pro/admin/settings.php:81
+#: pro/admin/settings.php:77
 msgid "Awin partner Code"
 msgstr ""
 
-#: pro/admin/settings.php:82
+#: pro/admin/settings.php:78
 msgid "Awin partner logo"
 msgstr ""
 
-#: pro/admin/settings.php:83
+#: pro/admin/settings.php:79
 msgid "Awin Trademark code"
 msgstr ""
 
-#: pro/admin/settings.php:84
+#: pro/admin/settings.php:80
 msgid "Awin Customer Code"
 msgstr ""
 
-#: pro/admin/settings.php:98
+#: pro/admin/settings.php:94
 msgid "My Programs"
 msgstr ""
 
-#: pro/admin/settings.php:118
+#: pro/admin/settings.php:104
+msgid "JSON URL"
+msgstr ""
+
+#: pro/admin/settings.php:114
+#, php-format
+msgid "URL of the Json product feed given by %s. Ask it to them"
+msgstr ""
+
+#: pro/admin/settings.php:134
 msgid "Launch Cron Job"
 msgstr ""
 
-#: pro/admin/settings.php:149 pro/admin/settings.php:318
+#: pro/admin/settings.php:165 pro/admin/settings.php:334
 #, php-format
 msgid "%s API Key. Get in your profile"
 msgstr ""
 
-#: pro/admin/settings.php:171
-msgid "Check the platform to work with"
+#: pro/admin/settings.php:187
+msgid "Check the platform to schedule"
 msgstr ""
 
-#: pro/admin/settings.php:206
+#: pro/admin/settings.php:222
 #, php-format
 msgid ""
 "For more informations, Please <a href=\"%1$s\">read the documentation</a>"
 msgstr ""
 
-#: pro/admin/settings.php:209
+#: pro/admin/settings.php:225
 msgid ""
 "Optional - It could be a good idea if you'd like to connect several websites "
 "to a common database"
 msgstr ""
 
-#: pro/admin/settings.php:306
+#: pro/admin/settings.php:322
 #, php-format
 msgid "%s Customer ID. Needed to let \"Convert a link\" feature working"
 msgstr ""
 
-#: pro/admin/settings.php:329
+#: pro/admin/settings.php:345
 #, php-format
 msgid ""
 "Choose the programs you'd like to display on your site. You can get code by "
 "creating a feed in %s website"
 msgstr ""
 
-#: pro/admin/settings.php:349
+#: pro/admin/settings.php:365
 msgid "Choose your partner"
 msgstr ""
 
-#: pro/admin/settings.php:363
+#: pro/admin/settings.php:379
 msgid "Upload first image on media library then paste the link here."
 msgstr ""
 
-#: pro/admin/settings.php:375
+#: pro/admin/settings.php:391
 #, php-format
 msgid ""
 "Choose the mark you'd like to display on your site. You can get code by "
 "creating a feed in %s website. Left empty to get all mark from partner feed."
 msgstr ""
 
-#: pro/admin/settings.php:449
+#: pro/admin/settings.php:465
 msgid "None"
 msgstr ""
 
-#: pro/admin/settings.php:450
+#: pro/admin/settings.php:466
 msgid "Every 4 hours"
 msgstr ""
 
-#: pro/admin/settings.php:451
+#: pro/admin/settings.php:467
 msgid "Twice Daily"
 msgstr ""
 
-#: pro/admin/settings.php:452
+#: pro/admin/settings.php:468
 msgid "Daily"
 msgstr ""
 
-#: pro/admin/settings.php:454
+#: pro/admin/settings.php:470
 msgid ""
 "Cron Task will regenerate database programmatically. If you're using an "
 "external DB, no need to use Cron Jobs"
@@ -180,7 +189,7 @@ msgstr ""
 msgid "Buy it"
 msgstr ""
 
-#: pro/inc/classes/class-effiliation.php:106
+#: pro/inc/classes/class-effiliation.php:109
 msgid "Check the program to display"
 msgstr ""
 

@@ -3,17 +3,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
 
-add_action( 'admin_init', 'cap_delete_transients' );
-function cap_delete_transients() {
+add_action( 'admin_init', 'cap_force_delete_transients' );
+function cap_force_delete_transients() {
 	if ( ! empty( $_GET['transient-delete'] ) && 'ok' === $_GET['transient-delete'] ) {
-		global $wpdb;
-		$table = $wpdb->prefix . 'options';
-		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_amz-%'" );
-		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_timeout_amz-%'" );
-
-		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_product_%'" );
-		$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_timeout_product_%'" );
+		cap_delete_transients();
 	}
+
+	if ( ! empty( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) {
+		cap_delete_transients();
+	}
+}
+
+
+function cap_delete_transients() {
+
+	global $wpdb;
+	$table = $wpdb->prefix . 'options';
+	$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_amz-%'" );
+	$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_timeout_amz-%'" );
+
+	$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_product_%'" );
+	$wpdb->query( "DELETE FROM $table WHERE `option_name` LIKE '_transient_timeout_product_%'" );
 }
 
 add_action( 'after_setup_theme', 'cap_add_logo_size' );
