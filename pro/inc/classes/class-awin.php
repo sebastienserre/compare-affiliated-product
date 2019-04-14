@@ -69,9 +69,11 @@ class Awin {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$url       = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
 		$temp_file = download_url( $url, 300 );
-		$csv       = file_get_contents( $url );
-		$array     = array_map( "str_getcsv", explode( "\n", $csv ) );
-
+		//$csv       = file_get_contents( $url );
+		$csv       = wp_remote_get( $url );
+		if ( $csv ) {
+			$array = array_map( "str_getcsv", explode( '\n', $csv ) );
+		}
 		if ( empty( $partner_code ) ) {
 			$partners = explode( ',', $this->awin['partner'] );
 			$results  = array();

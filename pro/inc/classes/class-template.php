@@ -238,7 +238,7 @@ class template {
 	 *
 	 * @return array Array of products
 	 */
-	public function compare_get_data( $eanlist, $atts = '', $mpn ) {
+	public function compare_get_data( $eanlist, $atts = '', $mpn='' ) {
 		$products = array();
 		if ( ! is_array( $eanlist ) ) {
 			$eanlist = array( $eanlist );
