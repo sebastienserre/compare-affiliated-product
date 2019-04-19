@@ -213,7 +213,7 @@ function compare_create_cron() {
 	if ( ! wp_next_scheduled( 'compare_twice_event' ) ) {
 		wp_schedule_event( time(), 'twicedaily', 'compare_twice_event' );
 	}
-	if ( ! wp_next_scheduled( 'compare_twice_event' ) ) {
+	if ( ! wp_next_scheduled( 'compare_fourhour_event' ) ) {
 		wp_schedule_event( time(), 'fourhour', 'compare_fourhour_event' );
 	}
 }
@@ -221,7 +221,7 @@ function compare_create_cron() {
 function cap_delete_cron() {
 	wp_clear_scheduled_hook('compare_daily_event');
 	wp_clear_scheduled_hook('compare_twice_event');
-	wp_clear_scheduled_hook('compare_twice_event');
+	wp_clear_scheduled_hook('compare_fourhour_event');
 }
 
 register_deactivation_hook(__FILE__, 'cap_deactivation');
