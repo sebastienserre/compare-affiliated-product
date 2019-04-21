@@ -353,7 +353,11 @@ function compare_awin_partner_logo() {
 	foreach ( $partners as $key => $partner ) {
 		if ( ! empty( $awin['partner_logo'][ $key ]['img'] ) ) {
 			$value = 'value="' . $awin['partner_logo'][ $key ]['img'] . '"';
-		}
+			$img = '<img width="40px" src="' . $awin['partner_logo'][ $key ]['img'] . '>">';
+		} else {
+		    $value = '';
+		    $img    =   '';
+        }
 
 		?>
         <div class="compare-partners-logo">
@@ -370,7 +374,7 @@ function compare_awin_partner_logo() {
 				<?php } ?>
             </select>
             <input type="text" name="awin[partner_logo][<?php echo $key; ?>][img]" <?php echo $value; ?>>
-            <img width="40px" src="<?php echo $awin['partner_logo'][ $key ]['img']; ?>">
+            <?php echo $img; ?>
         </div>
 
 		<?php
