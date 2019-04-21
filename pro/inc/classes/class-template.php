@@ -60,6 +60,12 @@ class template {
 	 */
 	public function compare_display_html( $eanlist, $data, $asin ) {
 
+		if ( empty( $data->atts['partners'] ) ){
+			$options = get_option( 'compare-premium' );
+			$data->atts['partners'] = $options['platform'];
+		}
+
+
 		switch ( $data->atts['partners'] ) {
 			case 'nok' :
 				$amz   = new Amazon();
