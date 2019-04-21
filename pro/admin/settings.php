@@ -61,7 +61,7 @@ function compare_pro_register_settings() {
 	add_settings_field( 'compare-general-tracker', __( 'tracking Word', 'compare-affiliated-products-pro' ), 'compare_general_trackers', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-delete', __( 'Delete All Data when deleting this plugin', 'compare-affiliated-products-pro' ), 'compare_general_delete', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-general-cron', __( 'Configure Cron Job', 'compare-affiliated-products-pro' ), 'compare_general_cron', 'compare-premium', 'compare-premium' );
-	add_settings_field( 'compare-general-platforms', __( 'Platforms to schedule', 'compare-affiliated-products-pro' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
+	add_settings_field( 'compare-general-platforms', __( 'Platforms to display', 'compare-affiliated-products-pro' ), 'compare_general_platforms', 'compare-premium', 'compare-premium' );
 	add_settings_field( 'compare-launch_cron', '', 'compare_launch_cron', 'compare-premium', 'compare-premium' );
 
 	/**
@@ -184,7 +184,7 @@ function compare_general_platforms() {
 		<?php
 	}
 	?>
-    <p><?php _e( 'Check the platform to schedule', 'compare-affiliated-products-pro' ); ?></p>
+    <p><?php _e( 'Check the platform to display', 'compare-affiliated-products-pro' ); ?></p>
 	<?php
 }
 
