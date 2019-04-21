@@ -145,7 +145,7 @@ class Amazon {
 			$params["Timestamp"] = gmdate( 'Y-m-d\TH:i:s\Z' );
 		}
 
-// Sort the parameters by key
+		// Sort the parameters by key
 		ksort( $params );
 
 		$pairs = array();
@@ -171,7 +171,7 @@ class Amazon {
 		$json    = json_encode( $obj );
 		$data    = json_decode( $json, true );
 
-		set_transient('amz-' . $asin, $data, HOUR_IN_SECONDS * 4 );
+		set_transient('amz-' . $asin, $data, HOUR_IN_SECONDS * 24 );
 		return $data;
 	}
 

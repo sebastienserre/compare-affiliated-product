@@ -72,7 +72,8 @@ class Awin {
 		//$csv       = file_get_contents( $url );
 		$csv       = wp_remote_get( $url );
 		if ( $csv ) {
-			$array = array_map( "str_getcsv", explode( '\n', $csv ) );
+			//$array = array_map( "str_getcsv", explode( '\n', $csv ) );
+			$array = array_map( "str_getcsv", $csv );
 		}
 		if ( empty( $partner_code ) ) {
 			$partners = explode( ',', $this->awin['partner'] );

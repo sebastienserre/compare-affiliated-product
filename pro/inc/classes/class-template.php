@@ -134,7 +134,9 @@ class template {
 
 		}
 		$partner_logo_url = get_option( 'awin' );
-		$logo             = $partner_logo_url['partner_logo'];
+		if ( ! empty( $partner_logo_url['partner_logo'] ) ) {
+			$logo = $partner_logo_url['partner_logo'];
+		}
 		ob_start();
 		?>
 		<?php
@@ -250,6 +252,7 @@ class template {
 			$eanlist = array( $eanlist );
 		}
 
+		//delete_transient('product_' . $eanlist[0]);
 		$transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
@@ -266,12 +269,16 @@ class template {
 			 */
 			$premium   = get_option( 'compare-premium' );
 			$platforms = $premium['platform'];
+			$programs = array();
 			foreach ( $platforms as $platform ) {
 				switch ( $platform ) {
 					case 'awin':
 						$p = get_option( 'awin' );
 						if ( ! empty( $p['partner'] ) ) {
-							$programs = explode( ',', $p['partner'] );
+							$awins = explode( ',', $p['partner'] );
+							foreach ($awins as $a ) {
+								array_push( $programs, $a );
+							}
 						}
 						break;
 					case 'effiliation':
@@ -283,7 +290,7 @@ class template {
 						}
 						break;
 					case 'manomano':
-
+					    array_push( $programs, 'Manomano' );
 						break;
 				}
 			}
@@ -329,12 +336,12 @@ class template {
 			$products = array_reverse( $products );
 
 			foreach ( $products as $key => $value ) {
-				if ( 'amz' !== $key ) {
+				/*if ( 'amz' !== $key ) {
 					$in_array = array_key_exists( $key, $subscribed );
 					if ( false === $in_array ) {
 						unset( $products[ $key ] );
 					}
-				}
+				}*/
 				$products[ $key ]['price'] = floatval( $value['price'] );
 				$vc_array_name[ $key ]     = $value['price'];
 			}
@@ -345,7 +352,7 @@ class template {
 
 			}
 
-			$transient = set_transient( 'product_' . $eanlist[0], $products, 4 * HOUR_IN_SECONDS );
+			$transient = set_transient( 'product_' . $eanlist[0], $products, 24 * HOUR_IN_SECONDS );
 
 			return $products;
 		}
@@ -392,9 +399,8 @@ class template {
 	public static function compare_get_products( $cnx, $table, $eanlist, $mpn ) {
 	    global $wpdb;
 
-	    if ( ! $products ){
-	        $products = array();
-        }
+	    $products = array();
+
 	    if ( null !== $eanlist[0] ) {
 			foreach ( $eanlist as $list ) {
 				$product = $cnx->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE ean = %s ORDER BY `price` ASC', $list ), ARRAY_A );
