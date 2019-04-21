@@ -121,7 +121,7 @@ add_action( 'init', 'compare_load_textdomain__premium_only' );
  * @since 1.0.0
  */
 function compare_load_textdomain__premium_only() {
-	$lang = load_plugin_textdomain( 'compare-affiliated-products-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/pro/languages' );
+	$lang = load_plugin_textdomain( 'compare-affiliated-products', false, dirname( plugin_basename( __FILE__ ) ) . '/pro/languages' );
 }
 
 add_action( 'wp_enqueue_scripts', 'compare_load_style' );

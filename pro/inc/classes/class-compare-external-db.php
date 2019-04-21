@@ -71,9 +71,9 @@ Get an instance of the Database
 	public function compare_check_html() {
 		$this->compare_check_sql();
 		if ( 'nok' === $this->connect ) {
-			$connexion = '<div class="compare-sql-nok">' . __( 'Failed to connect to MySQL, please check your login credentials', 'compare-affiliated-products-pro' ) . '</div>';
+			$connexion = '<div class="compare-sql-nok">' . __( 'Failed to connect to MySQL, please check your login credentials', 'compare-affiliated-products' ) . '</div>';
 		} else {
-			$connexion = '<div class="compare-sql-ok">' . __( 'Succesfully connected to the database', 'compare-affiliated-products-pro' ) . '</div>';
+			$connexion = '<div class="compare-sql-ok">' . __( 'Succesfully connected to the database', 'compare-affiliated-products' ) . '</div>';
 		}
 
 		return $connexion;
