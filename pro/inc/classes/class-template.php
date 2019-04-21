@@ -93,23 +93,21 @@ class template {
 			case '':
 			case 'ok':
 			default:
-				$prods = $this->compare_get_data( $eanlist );
-				$amz   = new Amazon();
-				$datas = $amz->compare_get_amz_data( $asin );
-				$price = $datas['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
+				$prods = $this->compare_get_data( $eanlist, $asin );
+				$price = $prods['amz']['Items']['Item']['OfferSummary']['LowestNewPrice']['FormattedPrice'];
 				$price = explode( ' ', $price );
 				$price = $price[1];
 
 				$prods['amz'] =
 					array(
 						'ean'          => '',
-						'title'        => $datas['Items']['Item']['ItemAttributes']['Title'],
-						'description'  => $datas['Items']['Item']['ItemAttributes']['Feature'],
-						'img'          => $datas['Items']['Item']['LargeImage']['URL'],
+						'title'        => $prods['amz']['Items']['Item']['ItemAttributes']['Title'],
+						'description'  => $prods['amz']['Items']['Item']['ItemAttributes']['Feature'],
+						'img'          => $prods['amz']['Items']['Item']['LargeImage']['URL'],
 						'partner_name' => 'Amazon FR',
 						'partner_code' => 'amz',
-						'product_id'   => $datas['Items']['Item']['ASIN'],
-						'url'          => $datas['Items']['Item']['DetailPageURL'],
+						'product_id'   => $prods['amz']['Items']['Item']['ASIN'],
+						'url'          => $prods['amz']['Items']['Item']['DetailPageURL'],
 						'price'        => $price,
 						'platform'     => 'Amz'
 
@@ -246,16 +244,17 @@ class template {
 	 *
 	 * @return array Array of products
 	 */
-	public function compare_get_data( $eanlist, $atts = '', $mpn='' ) {
-		$products = array();
-		if ( ! is_array( $eanlist ) ) {
-			$eanlist = array( $eanlist );
-		}
+	public function compare_get_data( $eanlist, $asin, $atts = '', $mpn='' ) {
 
-		//delete_transient('product_' . $eanlist[0]);
-		$transient = get_transient( 'product_' . $eanlist[0] );
+		//delete_transient( 'product_' . $eanlist[0] );
+	    $transient = get_transient( 'product_' . $eanlist[0] );
 		if ( ! empty( $transient ) ) {
 			return $transient;
+		}
+
+	    $products = array();
+		if ( ! is_array( $eanlist ) ) {
+			$eanlist = array( $eanlist );
 		}
 
 		if ( cap_fs()->is__premium_only() ) {
@@ -351,6 +350,9 @@ class template {
 				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 );
 
 			}
+
+			$amz   = new Amazon();
+			$products['amz'] = $amz->compare_get_amz_data( $asin );
 
 			$transient = set_transient( 'product_' . $eanlist[0], $products, 24 * HOUR_IN_SECONDS );
 

@@ -1,6 +1,6 @@
 <?php
-if ( class_exists( 'WP_CLI' ) ){
-	WP_CLI::add_command('cap_import_awin', 'Awin' );
+if ( class_exists( 'WP_CLI' ) ) {
+	WP_CLI::add_command( 'cap_import_awin', 'Awin' );
 }
 
 /**
@@ -18,11 +18,11 @@ class Awin {
 	 */
 	public function __construct() {
 
-		$this->awin           = get_option( 'awin' );
-		$this->_option        = get_option( 'compare-general' );
-		$this->premium  = get_option( 'compare-premium' );
+		$this->awin    = get_option( 'awin' );
+		$this->_option = get_option( 'compare-general' );
+		$this->premium = get_option( 'compare-premium' );
 
-		if ( isset( $_GET['compare-test'] ) && $_GET[ 'compare-test'] === 'ok' ){
+		if ( isset( $_GET['compare-test'] ) && $_GET['compare-test'] === 'ok' ) {
 			$this->compare_schedule_awin();
 		}
 
@@ -32,14 +32,14 @@ class Awin {
 		$this->_option = get_option( 'compare-general' );
 	}
 
-	public function compare_set_premium(){
+	public function compare_set_premium() {
 		$this->_premium = get_option( 'compare-premium' );
 	}
 
 	public function compare_set_cron() {
-		_deprecated_function( __FUNCTION__, '2.0.11');
+		_deprecated_function( __FUNCTION__, '2.0.11' );
 
-		if (file_exists( COMPARE_PLUGIN_PATH . '/compare.txt')){
+		if ( file_exists( COMPARE_PLUGIN_PATH . '/compare.txt' ) ) {
 			return;
 		} else {
 			cap_create_pid();
@@ -70,7 +70,7 @@ class Awin {
 		$url       = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
 		$temp_file = download_url( $url, 300 );
 		//$csv       = file_get_contents( $url );
-		$csv       = wp_remote_get( $url );
+		$csv = wp_remote_get( $url );
 		if ( $csv ) {
 			//$array = array_map( "str_getcsv", explode( '\n', $csv ) );
 			$array = array_map( "str_getcsv", $csv );
@@ -117,7 +117,7 @@ class Awin {
 
 		$urls = $this->awin['datafeed'];
 
-		$path = COMPARE_XML_PATH . 'awin/' ;
+		$path = COMPARE_XML_PATH . 'awin/';
 		if ( file_exists( $path ) && is_dir( $path ) ) {
 			array_map( 'unlink', glob( $path . '/*' ) );
 		} else {
@@ -133,9 +133,9 @@ class Awin {
 			$temp_file = download_url( $url, 300 );
 			if ( ! is_wp_error( $temp_file ) ) {
 				// Array based on $_FILE as seen in PHP file uploads
-				$name = $this->awin['customer_id'] . '-' . $key . '.gz';
+				$name    = $this->awin['customer_id'] . '-' . $key . '.gz';
 				$results = rename( $temp_file, $path . $name );
-				if ( file_exists( $temp_file ) ){
+				if ( file_exists( $temp_file ) ) {
 					unlink( $temp_file );
 				}
 			}
@@ -177,15 +177,17 @@ class Awin {
 
 
 			global $wpdb;
-			$table       = $wpdb->prefix . 'compare';
-			$xml         = new XMLReader();
+			$table = $wpdb->prefix . 'compare';
+			$xml   = new XMLReader();
 
 			$partner_details = $this->compare_get_awin_partners( $value );
-			foreach ( $partner_details as $partner_detail ) {
-				$partner_details = $partner_detail;
+			if ( is_array( $partner_details ) ) {
+				foreach ( $partner_details as $partner_detail ) {
+					$partner_details = $partner_detail;
+				}
 			}
 
-			$path = COMPARE_XML_PATH . 'awin/' ;
+			$path   = COMPARE_XML_PATH . 'awin/';
 			$upload = $path . $customer_id . '-' . $value . '.gz';
 
 
@@ -214,7 +216,7 @@ class Awin {
 						'ean'          => $ean,
 						'platform'     => 'Awin',
 						'partner_code' => $value,
-						'mpn'   =>  strval( $element->mpn )
+						'mpn'          => strval( $element->mpn )
 					);
 
 					$wpdb->replace( $table, $prod );
