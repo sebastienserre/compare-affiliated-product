@@ -114,7 +114,7 @@ function compare_load_files() {
 	}
 }
 
-add_action( 'init', 'compare_load_textdomain__premium_only' );
+add_action( 'plugins_loaded', 'compare_load_textdomain__premium_only', PHP_INT_MAX );
 /**
  * Load plugin textdomain.
  *

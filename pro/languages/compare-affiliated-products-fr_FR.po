@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Compare Affiliate Product\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-21 16:54+0000\n"
-"PO-Revision-Date: 2019-04-21 17:00+0000\n"
+"PO-Revision-Date: 2019-04-21 17:09+0000\n"
 "Last-Translator: thivinfo <support@thivinfo.eu>\n"
 "Language-Team: Français\n"
 "Language: fr_FR\n"
@@ -27,34 +27,35 @@ msgstr "Besoin Aide pour le paramétrage"
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Leave me a ticket on Thivinfo.com</a>"
 msgstr ""
+"<a href=\"%1$s\" target=\"_blank\">Laissez moi un ticket sur Thivinfo.com</a>"
 
 #: admin/ads.php:34
 msgid "Documentation Center"
-msgstr ""
+msgstr "Centre de Documentation"
 
 #: admin/settings.php:11
 msgid "Compare Settings"
-msgstr ""
+msgstr "Réglages"
 
 #: admin/settings.php:37
 msgid "general"
-msgstr ""
+msgstr "Général"
 
 #: admin/settings.php:38
 msgid "Style"
-msgstr ""
+msgstr "Style"
 
 #: admin/settings.php:39
 msgid "help"
-msgstr ""
+msgstr "Aide"
 
 #: admin/settings.php:54
 msgid "Settings"
-msgstr ""
+msgstr "Réglages"
 
 #: admin/settings.php:113
 msgid "Save Changes"
-msgstr ""
+msgstr "Enregistrer les modifications"
 
 #: admin/settings.php:133 pro/admin/settings.php:34
 msgid "Currency Unit"
@@ -66,28 +67,30 @@ msgstr "Langues"
 
 #: admin/settings.php:136
 msgid "Delete Transients (cache)"
-msgstr ""
+msgstr "Effacer les Transients"
 
 #: admin/settings.php:145
 msgid "Button Text"
-msgstr ""
+msgstr "Texte du Bouton"
 
 #: admin/settings.php:146
 msgid "Button Background Color"
-msgstr ""
+msgstr "Couleur de fond du bouton"
 
 #: admin/settings.php:147
 msgid "Button Text Color"
-msgstr ""
+msgstr "Couleur du texte du bouton"
 
 #: admin/settings.php:148
 msgid "Custom CSS"
-msgstr ""
+msgstr "CSS Personnalisé"
 
 #: admin/settings.php:165
 msgid ""
 "All CSS rules added in this textarea will be enqueued as cap.css stylesheet"
 msgstr ""
+"Toutes les règles CSS ajoutées à cette zone de texte sera ajoutée en tant "
+"que feuille de style cap.css"
 
 #: admin/settings.php:201 classes/amazon.php:220
 #: classes/class-compare-shortcode.php:115
@@ -100,69 +103,72 @@ msgstr "Acheter chez"
 
 #: admin/settings.php:217
 msgid "Delete all transients from database"
-msgstr ""
+msgstr "Effacer les transients de la base de données"
 
 #: admin/settings.php:218
 msgid ""
 "Click on this link if you add a partner, checked a new programs or someting "
 "else which can change the datas."
 msgstr ""
+"Cliquez sur ce lien si vous ajoutez un partenaire. Cocher un nouveau "
+"programme ou quoi que ce soit ici peut modifier les données"
 
 #: admin/settings.php:514
 msgid "Choose your currency"
-msgstr ""
+msgstr "Choisissez votre monnaie"
 
 #: admin/settings.php:524
 msgid "Currency unit used to display prices"
-msgstr ""
+msgstr "Choisissez la monnaie à afficher"
 
 #: admin/settings.php:1144
 msgid "Choose your language"
-msgstr ""
+msgstr "Choisissez votre langue"
 
 #: admin/settings.php:1154
 msgid "languages used to get datafeed in right language"
 msgstr ""
+"Langues utilisées afin de récupérer le flux de données dans la bonne langue."
 
 #: classes/amazon.php:34
 msgid "Amazon API Key"
-msgstr ""
+msgstr "Clé API Amazon"
 
 #: classes/amazon.php:38
 msgid "Amazon Secret Key"
-msgstr ""
+msgstr "Clé Secrète Amazon"
 
 #: classes/amazon.php:42
 msgid "Amazon Tracking ID"
-msgstr ""
+msgstr "ID de suivi Amazon"
 
 #: classes/amazon.php:46
 msgid "Amazon Country"
-msgstr ""
+msgstr "Pays Amazon"
 
 #: classes/class-compare-shortcode.php:160
 #: classes/class-compare-shortcode.php:239
 msgid "Read the reviews"
-msgstr ""
+msgstr "Voir les avis"
 
 #: classes/class-compare-shortcode.php:169
 #: classes/class-compare-shortcode.php:248
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: admin/upgrade-notices/upgrade-120-effiliation.php:26
 #, php-format
 msgctxt "Plugin's name"
 msgid "Thanks for updating %s"
-msgstr ""
+msgstr "Merci d'avoir mis à jour"
 
 #: admin/upgrade-notices/upgrade-120-effiliation.php:27
 msgid "Please follow the link to upgrade the database"
-msgstr ""
+msgstr "Veuillez suivre le lien pour mettre à jour la base de données"
 
 #: admin/upgrade-notices/upgrade-120-effiliation.php:28
 msgid "Click to Update"
-msgstr ""
+msgstr "Cliquez pour mettre a jour"
 
 #: pro/admin/settings.php:12
 msgid "advanced"
@@ -218,7 +224,7 @@ msgstr "Configurer la tache CRON"
 
 #: pro/admin/settings.php:64
 msgid "Platforms to display"
-msgstr ""
+msgstr "Plateforme a afficher"
 
 #: pro/admin/settings.php:76 pro/admin/settings.php:93
 msgid "API Key"
@@ -246,12 +252,12 @@ msgstr "Mes Programmes"
 
 #: pro/admin/settings.php:104
 msgid "JSON URL"
-msgstr ""
+msgstr "URL du JSON"
 
 #: pro/admin/settings.php:114
 #, php-format
 msgid "URL of the Json product feed given by %s. Ask it to them"
-msgstr ""
+msgstr "URL vers le json fourni par %s. Demandez le leur."
 
 #: pro/admin/settings.php:134
 msgid "Launch Cron Job"
@@ -264,7 +270,7 @@ msgstr "Clé API %s. Récupérez la dans votre profile"
 
 #: pro/admin/settings.php:187
 msgid "Check the platform to display"
-msgstr ""
+msgstr "Cochez la plateforme a afficher"
 
 #: pro/admin/settings.php:222
 #, php-format
