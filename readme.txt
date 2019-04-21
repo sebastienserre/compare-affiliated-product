@@ -2,7 +2,7 @@
 Contributors: sebastienserre
 Tags: affiliate, amazon, awin, effiliation, manomano
 Tested up to: 5.1
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Requires PHP: 5.6
 Requires at least: 4.6
 License: GPLv3
