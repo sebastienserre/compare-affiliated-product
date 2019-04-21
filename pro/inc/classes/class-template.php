@@ -350,14 +350,13 @@ class template {
 				$products[ $key ]['price'] = number_format( floatval( $p['price'] ), 2 );
 
 			}
-
-			$amz   = new Amazon();
-			$products['amz'] = $amz->compare_get_amz_data( $asin );
-
-			$transient = set_transient( 'product_' . $eanlist[0], $products, 24 * HOUR_IN_SECONDS );
-
-			return $products;
 		}
+		$amz   = new Amazon();
+		$products['amz'] = $amz->compare_get_amz_data( $asin );
+
+		$transient = set_transient( 'product_' . $eanlist[0], $products, 24 * HOUR_IN_SECONDS );
+
+		return $products;
 	}
 
 	/**
