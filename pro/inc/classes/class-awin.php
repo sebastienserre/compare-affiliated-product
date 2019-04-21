@@ -68,12 +68,12 @@ class Awin {
 	public function compare_get_awin_partners( $partner_code = '' ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		$url       = 'https://productdata.awin.com/datafeed/list/apikey/' . $this->awin['apikey'];
-		$temp_file = download_url( $url, 300 );
-		//$csv       = file_get_contents( $url );
 		$csv = wp_remote_get( $url );
+		$csv = wp_remote_retrieve_body( $csv );
+		$csv = explode( "\n", $csv );
 		if ( $csv ) {
-			//$array = array_map( "str_getcsv", explode( '\n', $csv ) );
 			$array = array_map( "str_getcsv", $csv );
+			//$array = array_map( "str_getcsv", $csv );
 		}
 		if ( empty( $partner_code ) ) {
 			$partners = explode( ',', $this->awin['partner'] );
