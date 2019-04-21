@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( $this->show_advertised_price() ) { ?>
 				<span class="aawp-product__price aawp-product__price--current"><?php echo $this->get_product_pricing(); ?></span>
 			<?php } ?>
-			<!-- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
+			<!-- vertical template -- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
 			<?php do_action( 'thfo_compare_after_price', $this ); ?>
 			<!-- Hook Added by Compare Affiliated Products -->
 		</div>

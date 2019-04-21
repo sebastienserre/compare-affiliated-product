@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php $this->the_product_check_prime_logo(); ?>
 		</div>
-		<!-- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
+		<!-- Horizontal template -- Hook Added by Compare Affiliated Products https://www.thivinfo.com/en/shop/easily-compare-affiliates-on-your-wordpress-site-with-compare-affiliated-products/ -->
 			<?php do_action( 'thfo_compare_after_price', $this ); ?>
 		<!-- Hook Added by Compare Affiliated Products -->
 		<?php if ( $this->get_inline_info() ) { ?>
